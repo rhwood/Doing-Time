@@ -7,16 +7,24 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <EventKit/EventKit.h>
+#import <StoreKit/StoreKit.h>
+#import "Constants.h"
 
 @class MainViewController;
+@class AppStoreDelegate;
 
 @interface Doing_TimeAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
     MainViewController *mainViewController;
+	AppStoreDelegate *_appStoreDelegate;
+	EKEventStore *_eventStore;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet MainViewController *mainViewController;
+@property (nonatomic, retain) IBOutlet EKEventStore *eventStore;
+@property (nonatomic, retain) IBOutlet AppStoreDelegate *appStoreDelegate;
 
 @end
 

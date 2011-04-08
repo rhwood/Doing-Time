@@ -8,13 +8,15 @@
 
 #import "Doing_TimeAppDelegate.h"
 #import "MainViewController.h"
+#import "AppStoreDelegate.h"
 
 @implementation Doing_TimeAppDelegate
 
 
 @synthesize window;
 @synthesize mainViewController;
-
+@synthesize eventStore = _eventStore;
+@synthesize appStoreDelegate = _appStoreDelegate;
 
 #pragma mark -
 #pragma mark Application lifecycle
@@ -22,8 +24,67 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     
     // Override point for customization after application launch.  
+	//self.eventStore = [[EKEventStore alloc] init];
+	
+	// Migrate from version 1 settings to version 2 settings
+	if ([[NSUserDefaults standardUserDefaults] stringForKey:@"Title"]) {
+		NSMutableDictionary *activity = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+								  [[NSUserDefaults standardUserDefaults] stringForKey:@"Title"],
+								  titleKey,
+								  [[NSUserDefaults standardUserDefaults] objectForKey:@"Start Date"],
+								  startKey,
+								  [[NSUserDefaults standardUserDefaults] objectForKey:@"End Date"],
+								  endKey,
+								  nil];
+		if ([[NSUserDefaults standardUserDefaults] objectForKey:@"Link"]) {
+			[activity setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"Link"] forKey:linkKey];
+		}
+		NSArray *activities = [NSArray arrayWithObject:activity];
+		[[NSUserDefaults standardUserDefaults] setObject:activities forKey:eventsKey];
+		[[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Title"];
+		[[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Start Date"];
+		[[NSUserDefaults standardUserDefaults] removeObjectForKey:@"End Date"];
+		[[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Link"];
+	}
+	[[NSUserDefaults standardUserDefaults] synchronize];
+
+	// Set reasonable defaults for the first event here
+
+	if (![[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey]) {
+		NSDate *today = [NSDate midnightForDate:[NSDate date]];
+		[[NSUserDefaults standardUserDefaults] setObject:[NSArray arrayWithObject:[NSDictionary dictionaryWithObjectsAndKeys:
+																				   @"Doing Time",
+																				   titleKey,
+																				   today,
+																				   startKey,
+																				   today,
+																				   endKey,
+																				   nil]]
+												  forKey:eventsKey];
+		
+	}
+	if (![[NSUserDefaults standardUserDefaults] objectForKey:dayOverKey]) {
+		// 1 JAN 2001 17:00
+		[[NSUserDefaults standardUserDefaults] setObject:[NSDate dateWithTimeIntervalSinceReferenceDate:61200] forKey:dayOverKey];
+	}
+	[[NSUserDefaults standardUserDefaults] synchronize];	
+	
+	// Observe the store
+	self.appStoreDelegate = [[AppStoreDelegate alloc] initWithDictionary:[[NSUserDefaults standardUserDefaults] dictionaryForKey:transactionsKey]];
+	if (![self.appStoreDelegate hasTransactionForProduct:multipleEventsProductIdentifier]) {
+		[[NSNotificationCenter defaultCenter] addObserverForName:AXAppStoreTransactionShouldBeRecorded
+														  object:self.appStoreDelegate
+														   queue:nil
+													  usingBlock:^(NSNotification *notif) {
+														  [[NSUserDefaults standardUserDefaults] setObject:self.appStoreDelegate.transactionStore 
+																									forKey:transactionsKey];
+														  [[NSUserDefaults standardUserDefaults] synchronize];
+													  }];
+		[self.appStoreDelegate requestProductData:multipleEventsProductIdentifier];
+	}
 
     // Add the main view controller's view to the window and display.
+
     [window addSubview:mainViewController.view];
     [window makeKeyAndVisible];
 
@@ -68,7 +129,6 @@
      */
 }
 
-
 #pragma mark -
 #pragma mark Memory management
 
@@ -78,8 +138,9 @@
      */
 }
 
-
 - (void)dealloc {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	[self.appStoreDelegate release];
     [mainViewController release];
     [window release];
     [super dealloc];
