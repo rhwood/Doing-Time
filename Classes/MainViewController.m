@@ -40,6 +40,7 @@
 	// Display Defaults
 	if ([self.appDelegate.appStoreDelegate hasTransactionForProduct:multipleEventsProductIdentifier]) {
 		self.displayBanner = NO;
+		[self.adBanner removeFromSuperview];
 	}
 	self.pager.currentPage = [[NSUserDefaults standardUserDefaults] integerForKey:currentEventKey];
 

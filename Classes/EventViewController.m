@@ -31,6 +31,9 @@
 }
 
 - (void)setPieChartValues {
+	if (self.eventID >= [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count]) {
+		return; // do not attempt to setup the piechart if the event ID is not in the array
+	}
 	NSInteger inFuture = 0;
 	NSInteger inPast = 0;
 	// BOOL isRealStart = NO;

@@ -153,7 +153,9 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *DefaultCellIdentifier = @"DefaultCell";
+	static NSString *SubtitleCellIdentifier = @"SubtitleCell";
+	static NSString *Value1CellIdentifier = @"Value1Cell";
 	NSUInteger section = indexPath.section;
 	if (indexPath.section == 2 &&
 		[self.appDelegate.appStoreDelegate hasTransactionForProduct:multipleEventsProductIdentifier]) {
@@ -161,17 +163,24 @@
 	}
 	NSUInteger eventsCount = [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count];
 
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-		if (section == 3 || (indexPath.section != section) || (indexPath.section == 0 && indexPath.row == eventsCount + 1)) {
-			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-		} else if (section == 0 || section == 2) {
-			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
-		} else {
-			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
+	UITableViewCell *cell;
+	if (section == 3 || (indexPath.section != section) || (indexPath.section == 0 && indexPath.row == eventsCount + 1)) {
+		cell = [tableView dequeueReusableCellWithIdentifier:DefaultCellIdentifier];
+		if (cell == nil) {
+			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:DefaultCellIdentifier] autorelease];
 		}
-    }
-    
+	} else if (section == 0 || section == 2) {
+		cell = [tableView dequeueReusableCellWithIdentifier:SubtitleCellIdentifier];
+		if (cell == nil) {
+			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:SubtitleCellIdentifier] autorelease];
+		}
+	} else {
+		cell = [tableView dequeueReusableCellWithIdentifier:Value1CellIdentifier];
+		if (cell == nil) {
+			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:Value1CellIdentifier] autorelease];
+		}
+	}
+
 	cell.accessoryType = UITableViewCellAccessoryNone;
 	
     switch (section) {
@@ -341,6 +350,10 @@
 
 #pragma mark -
 #pragma mark Table view delegate
+
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+	[self tableView:tableView didSelectRowAtIndexPath:indexPath];
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	NSUInteger section = indexPath.section;
