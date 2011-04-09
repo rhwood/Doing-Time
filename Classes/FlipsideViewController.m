@@ -230,7 +230,7 @@
 				[self.appDelegate.appStoreDelegate.products count]) {
 				cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 				SKProduct *product = [self.appDelegate.appStoreDelegate.products objectAtIndex:indexPath.row];
-				NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+				NSNumberFormatter *numberFormatter = [[[NSNumberFormatter alloc] init] autorelease];
 				[numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
 				[numberFormatter setLocale:product.priceLocale];
 				cell.textLabel.text = product.localizedTitle;

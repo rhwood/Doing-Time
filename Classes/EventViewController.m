@@ -43,7 +43,7 @@
 	NSDictionary *event = [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] objectAtIndex:self.eventID];
 	NSDate *startDate = [[event objectForKey:startKey]
 						 dateByAddingTimeInterval:-86400.0];
-	NSDate *realStartDate = [NSDate midnightForDate:[event objectForKey:startKey]];
+	// NSDate *realStartDate = [NSDate midnightForDate:[event objectForKey:startKey]];
 	NSDate *endDate = [event objectForKey:endKey];
 	NSDate *today = [NSDate midnightForDate:[NSDate date]];
 //	NSLog(@"Since midnight for %@ is %f", today, [today timeIntervalSinceNow]);

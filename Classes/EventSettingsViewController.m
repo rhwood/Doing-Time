@@ -145,7 +145,9 @@
     static NSString *CellIdentifier = @"Cell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-	cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
+	if (cell == nil) {
+		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
+	}
     
 	cell.accessoryType = UITableViewCellAccessoryNone;
 	cell.detailTextLabel.textColor = self.detailTextLabelColor;
@@ -360,11 +362,11 @@
 
 - (void)showDateErrorAlert {
 	if (self.showErrorAlert) {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cannot Save Event"
+		UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Cannot Save Event"
 														message:@"The start date must be before the end date."
 													   delegate:nil
 											  cancelButtonTitle:@"OK"
-											  otherButtonTitles:nil];
+											  otherButtonTitles:nil] autorelease];
 		[alert show];
 		self.showErrorAlert = NO;
 	}	
@@ -443,11 +445,11 @@
 		if ([self.titleView.text length]) {
 			[self.event setValue:self.titleView.text forKey:titleKey];
 		} else {
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cannot Save Title"
+			UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Cannot Save Title"
 															message:@"The title cannot be blank."
 														   delegate:nil
 												  cancelButtonTitle:@"OK"
-												  otherButtonTitles:nil];
+												  otherButtonTitles:nil] autorelease];
 			[alert show];
 			return NO;
 		}

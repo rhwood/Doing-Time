@@ -46,7 +46,7 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 }
 
 - (void)requestProductData:(NSString *)productIdentifier {
-	SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:productIdentifier]];
+	SKProductsRequest *request = [[[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:productIdentifier]] autorelease];
 	request.delegate = self;
 	[request start];
 }
@@ -79,11 +79,11 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 
 - (void)failedTransaction:(SKPaymentTransaction *)transaction {
 	if (transaction.error.code != SKErrorPaymentCancelled) {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"App Store Error"
+		UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"App Store Error"
 														message:transaction.error.localizedDescription
 													   delegate:nil
 											  cancelButtonTitle:@"OK"
-											  otherButtonTitles:nil];
+											  otherButtonTitles:nil] autorelease];
 		[alert show];
 	}
 	[[SKPaymentQueue defaultQueue] finishTransaction:transaction];
