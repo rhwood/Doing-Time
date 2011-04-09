@@ -79,10 +79,10 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 
 - (void)failedTransaction:(SKPaymentTransaction *)transaction {
 	if (transaction.error.code != SKErrorPaymentCancelled) {
-		UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"App Store Error"
+		UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"App Store Error", @"Title for alert indicating that there was an error accessing the app store")
 														message:transaction.error.localizedDescription
 													   delegate:nil
-											  cancelButtonTitle:@"OK"
+											  cancelButtonTitle:NSLocalizedString(@"OK", @"")
 											  otherButtonTitles:nil] autorelease];
 		[alert show];
 	}

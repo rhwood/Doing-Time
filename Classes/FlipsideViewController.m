@@ -33,9 +33,9 @@
 
 	self.appDelegate = [UIApplication sharedApplication].delegate;
 
-	self.navigationItem.title = @"Settings";
+	self.navigationItem.title = NSLocalizedString(@"Settings", @"Title for the settings panel of the applications");
 	// insert the Done button
-	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Doing Time"
+	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Doing Time", @"")
 																			 style:UIBarButtonItemStyleBordered
 																			target:self
 																			action:@selector(done:)];
@@ -188,12 +188,12 @@
 			cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 			if (indexPath.row == eventsCount) {
 				if ([self.appDelegate.appStoreDelegate hasTransactionForProduct:multipleEventsProductIdentifier]) {
-					cell.textLabel.text = @"Add Event";
+					cell.textLabel.text = NSLocalizedString(@"Add Event", @"Button to add another event to monitor. Button is in a table cell.");
 				}
 			} else if (indexPath.row < eventsCount) {
 				NSDictionary* event = [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] objectAtIndex:indexPath.row];
 				cell.textLabel.text = [event objectForKey:titleKey];
-				cell.detailTextLabel.text = [NSString localizedStringWithFormat:@"%@ to %@",
+				cell.detailTextLabel.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%@ to %@", @"The range from start to end"),
 											 [NSDateFormatter localizedStringFromDate:[event objectForKey:startKey]
 																			dateStyle:NSDateFormatterMediumStyle
 																			timeStyle:NSDateFormatterNoStyle],
@@ -205,7 +205,7 @@
 		case 1: // Display
 			switch (indexPath.row) {
 				case 0:
-					cell.textLabel.text = @"Show Percentages";
+					cell.textLabel.text = NSLocalizedString(@"Show Percentages", @"Label for cell that includes checkmark to indicate that events are displayed with percentages");
 					cell.detailTextLabel.text = @"";
 					if ([[NSUserDefaults standardUserDefaults] boolForKey:showPercentageKey]) {
 						cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -214,7 +214,7 @@
 					}
 					break;
 				case 1:
-					cell.textLabel.text = @"Day ends at";
+					cell.textLabel.text = NSLocalizedString(@"Day ends at", @"Label for cell that includes the hour of the day at which the day is considered past.");
 					if ([[NSUserDefaults standardUserDefaults] objectForKey:dayOverKey]) {
 						cell.detailTextLabel.text = [NSDateFormatter localizedStringFromDate:[[NSUserDefaults standardUserDefaults] objectForKey:dayOverKey]
 																					dateStyle:NSDateFormatterNoStyle
@@ -234,7 +234,7 @@
 				[numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
 				[numberFormatter setLocale:product.priceLocale];
 				cell.textLabel.text = product.localizedTitle;
-				cell.detailTextLabel.text = [NSString localizedStringWithFormat:@"%@ for %@", 
+				cell.detailTextLabel.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%@ for %@", @"String containg the description of an in-app purchase followed by the cost."), 
 											 product.localizedDescription,
 											 [numberFormatter stringFromNumber:product.price]];
 			}
@@ -243,14 +243,16 @@
 			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 			switch (indexPath.row) {
 				case 0:
-					cell.textLabel.text = @"Tutorial";
+					cell.textLabel.text = NSLocalizedString(@"Tutorial", @"Label for link to help content.");
 					break;
 				case 1:
-					cell.textLabel.text = @"Support";
+					cell.textLabel.text = NSLocalizedString(@"Support", @"Label for link to support resources");
 					break;
 				case 2:
-					cell.textLabel.text = @"About Doing Time";
+					cell.textLabel.text = NSLocalizedString(@"About Doing Time", @"Label for link for information about the application");
 					break;
+				case 3:
+					cell.textLabel.text = NSLocalizedString(@"Send Feedback", @"Label for link to provide application feedback");
 				default:
 					break;
 			}
@@ -268,16 +270,16 @@
 	}
 	switch (section) {
 		case 0:
-			return @"Events";
+			return NSLocalizedString(@"Events", @"Heading for list of events");
 			break;
 		case 1:
-			return @"Display";
+			return NSLocalizedString(@"Display", @"Heading for settings affecting the display of events");
 			break;
 		case 2:
-			return @"Available Upgrades";
+			return NSLocalizedString(@"Available Upgrades", @"Heading for list of available in-app purchases");
 			break;
 		case 3:
-			return @"Help";
+			return NSLocalizedString(@"About Doing Time", @"Heading for list of elements about the app (help, credits, feedback, etc)");
 			break;
 		default:
 			break;
@@ -334,12 +336,12 @@
 		case 1:
 			break;
 		case 2:
-			// need to display the type of device
 			if (!self.appDelegate.appStoreDelegate.canMakePayments) {
-				return [NSString localizedStringWithFormat:@"In-App Purchases have been disabled on this %@.", @"device"];
+				return [NSString localizedStringWithFormat:NSLocalizedString(@"In-App Purchases have been disabled on this %@.", @"Notice that the user cannot purchase an available upgrade due to policy."), 
+						[UIDevice currentDevice].localizedModel];
 			} else if (![self.appDelegate.appStoreDelegate hasTransactionForProduct:multipleEventsProductIdentifier] &&
 					![self.appDelegate.appStoreDelegate.products count]) {
-					return @"Getting available upgrades...";
+					return NSLocalizedString(@"Getting available upgrades...", @"Notice that the application is getting the list of available in-app purchases.");
 			}
 			break;
 		case 3:
@@ -406,7 +408,7 @@
 		case 2: // Store
 			if (self.appDelegate.appStoreDelegate.canMakePayments) {
 				SKProduct *product = [self.appDelegate.appStoreDelegate.products objectAtIndex:indexPath.row];
-				self.waitingText.text = [NSString localizedStringWithFormat:@"Getting %@...", product.localizedTitle];
+				self.waitingText.text = [NSString localizedStringWithFormat:NSLocalizedString(@"Getting %@...", @"Label indicating that app is getting an in-app purchase (with %@ as the title)"), product.localizedTitle];
 				[self hidePurchaseActivity:NO];
 				[[SKPaymentQueue defaultQueue] addPayment:
 				 [SKPayment paymentWithProduct:

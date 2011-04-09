@@ -53,7 +53,7 @@
 	if (![[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey]) {
 		NSDate *today = [NSDate midnightForDate:[NSDate date]];
 		[[NSUserDefaults standardUserDefaults] setObject:[NSArray arrayWithObject:[NSDictionary dictionaryWithObjectsAndKeys:
-																				   @"Doing Time",
+																				   NSLocalizedString(@"Doing Time", @"Application Name"),
 																				   titleKey,
 																				   today,
 																				   startKey,

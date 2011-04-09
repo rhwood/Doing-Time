@@ -108,47 +108,47 @@
 	[_pieChart addItemValue:(interval * left) withColor:PieChartItemColorMake(1.0, 0.5, 0.5, 0.8)]; // days left
 	
 	
-	NSString *days = @"days";
+	NSString *days = NSLocalizedString(@"days", @"Plural for \"day\"");
 	if (!inFuture) {
 		if (completed == 1) {
-			days = @"day";
+			days = NSLocalizedString(@"day", @"Singular form of \"day\"");
 		}
 		if (completed == 0) {
 			_daysComplete.text = nil;
 		} else if (![[NSUserDefaults standardUserDefaults] boolForKey:showPercentageKey]) {
-			_daysComplete.text = [NSString localizedStringWithFormat:@"%d %@ complete", completed, days];
+			_daysComplete.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%d %@ complete", @"The number (%d) of days (%@) complete"), completed, days];
 		} else {
-			_daysComplete.text = [NSString localizedStringWithFormat:@"%d %@ (%2.4g%%) complete", completed, days, interval * completed * 100];
+			_daysComplete.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%d %@ (%2.4g%%) complete", @"The number (%d) of days (%@) complete with the percent of days past in parenthesis"), completed, days, interval * completed * 100];
 		}		
 	} else {
 		if (inFuture == 1) {
-			_daysComplete.text = [NSString localizedStringWithFormat:@"%@ begins tomorrow",
+			_daysComplete.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%@ begins tomorrow", @"The message displayed when the event (%@ is the event title) will start tomorrow"),
 								  [event objectForKey:titleKey]];
 		} else {
-			_daysComplete.text = [NSString localizedStringWithFormat:@"%@ begins in %d days",
+			_daysComplete.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%@ begins in %d days", @"The message displayed when the event will start %d days in the future"),
 								  [event objectForKey:titleKey],
 								  inFuture];
 		}
 	}
 	if (!inPast) {
 		if (left == 1) {
-			days = @"day";
+			days = NSLocalizedString(@"day", @"");
 		} else {
-			days = @"days";
+			days = NSLocalizedString(@"days", @"");
 		}
 		if (left == 0) {
 			_daysLeft.text = nil;
 		} else if (![[NSUserDefaults standardUserDefaults] boolForKey:showPercentageKey]) { 
-			_daysLeft.text = [NSString localizedStringWithFormat:@"%d %@ left", left, days];
+			_daysLeft.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%d %@ left", @"The number (%d) of days (%@) remaining"), left, days];
 		} else {
-			_daysLeft.text = [NSString localizedStringWithFormat:@"%d %@ (%2.4g%%) left", left, days, interval * left * 100];
+			_daysLeft.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%d %@ (%2.4g%%) left", @"The number (%d) of days (%@) remaining with the percentage remaining in parenthesis"), left, days, interval * left * 100];
 		}
 	} else {
 		if (inPast == 1) {
-			_daysLeft.text = [NSString localizedStringWithFormat:@"%@ ended yesterday",
+			_daysLeft.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%@ ended yesterday", @"Message displayed to indicate the event ended the day prior."),
 							  [event objectForKey:titleKey]];
 		} else {
-			_daysLeft.text = [NSString localizedStringWithFormat:@"%@ ended %d days ago",
+			_daysLeft.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%@ ended %d days ago", @"Message indicating the event ended some days in the past"),
 							  [event objectForKey:titleKey],
 							  inPast];
 		}

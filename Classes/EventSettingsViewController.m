@@ -59,14 +59,12 @@
 	// navigation items
 	self.navigationItem.title = @"Event";
 	// cancel button
-	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel"
-																			 style:UIBarButtonItemStyleBordered
-																			target:self
+	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+																						  target:self
 																			action:@selector(cancel)];
 	// done button
-	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done"
-																			  style:UIBarButtonItemStyleDone
-																			 target:self
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+																						   target:self
 																			 action:@selector(done)];
     self.view.backgroundColor = [UIColor viewFlipsideBackgroundColor];
 	self.titleView.text = [self.event valueForKey:titleKey];
@@ -77,19 +75,19 @@
 	self.endDateViewCellIndexPath = [NSIndexPath indexPathForRow:2 inSection:0];
 	// set the detailTextLabel.textColor since its not a built in color
 	self.detailTextLabelColor = [UIColor colorWithRed:0.22 green:0.33 blue:0.53 alpha:1.0];
-	self.linkUnlinkedEventActionSheet = [[UIActionSheet alloc] initWithTitle:@"Link to Event in Calendar"
+	self.linkUnlinkedEventActionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Link to Event in Calendar", @"Action sheet title to link event to system calendar")
 																	delegate:self
-														   cancelButtonTitle:@"Cancel"
+														   cancelButtonTitle:NSLocalizedString(@"Cancel", @"Button to not link event to calendar")
 													  destructiveButtonTitle:nil
-														   otherButtonTitles:@"Existing Event",
-										 @"Create New Event",
+														   otherButtonTitles:NSLocalizedString(@"Existing Event", @"Button to link to event already in calendar"),
+										 NSLocalizedString(@"Create New Event", @"Button to create event in calendar"),
 										 nil];
-	self.changeLinkedEventActionSheet = [[UIActionSheet alloc] initWithTitle:@"Link to Event in Calendar"
+	self.changeLinkedEventActionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Link to Event in Calendar", @"")
 																	delegate:self
-														   cancelButtonTitle:@"Cancel"
-													  destructiveButtonTitle:@"Remove Link"
-														   otherButtonTitles:@"Change Linked Event",
-										 @"Create New Event",
+														   cancelButtonTitle:NSLocalizedString(@"Cancel", @"")
+													  destructiveButtonTitle:NSLocalizedString(@"Remove Link", @"Button to unlink an event from the system calendar")
+														   otherButtonTitles:NSLocalizedString(@"Change Linked Event", @""),
+										 NSLocalizedString(@"Create New Event", @""),
 										 nil];
 	Doing_TimeAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
 	self.eventStore = appDelegate.eventStore;
@@ -154,12 +152,12 @@
 	
 	switch (indexPath.row) {
 		case 0:
-			cell.textLabel.text = @"Title";
+			cell.textLabel.text = NSLocalizedString(@"Title", @"Label for the event title");
 			cell.detailTextLabel.text = [self.event valueForKey:titleKey];
 			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 			break;
 		case 1:
-			cell.textLabel.text = @"Start Date";
+			cell.textLabel.text = NSLocalizedString(@"Start Date", @"Label for the day the event starts");
 			if (![[self.event valueForKey:startKey] isEqualToDate:[NSDate distantPast]]) {
 				cell.detailTextLabel.text = [NSDateFormatter localizedStringFromDate:[self.event valueForKey:startKey]
 																		   dateStyle:NSDateFormatterLongStyle
@@ -175,7 +173,7 @@
 			}
 			break;
 		case 2:
-			cell.textLabel.text = @"End Date";
+			cell.textLabel.text = NSLocalizedString(@"End Date", @"Label for the day the event ends");
 			if (![[self.event valueForKey:endKey] isEqualToDate:[NSDate distantFuture]]) {
 				cell.detailTextLabel.text = [NSDateFormatter localizedStringFromDate:[self.event valueForKey:endKey]
 																		   dateStyle:NSDateFormatterLongStyle
@@ -191,14 +189,13 @@
 			}
 			break;
 		case 3:
-			cell.textLabel.text = @"Link to Event";
+			cell.textLabel.text = NSLocalizedString(@"Link to Event", @"Label or button link event to the system calendar");
 			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 			if ([self.event valueForKey:linkKey]) {
 				EKEvent *event = [self.eventStore eventWithIdentifier:[self.event valueForKey:linkKey]];
-				
 				cell.detailTextLabel.text = event.title; //event title
 			} else {
-				cell.detailTextLabel.text = @"None";
+				cell.detailTextLabel.text = NSLocalizedString(@"None", @"Label to indicate that event is not linked to the system calendar");
 			}
 			break;
 		default:
@@ -212,7 +209,7 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
-	return @"Set the start and end dates.";
+	return NSLocalizedString(@"Give the event a title and set the start and end dates.", @"Label with basic instructions for the user");
 }
 
 // Override to support conditional editing of the table view.
@@ -362,10 +359,10 @@
 
 - (void)showDateErrorAlert {
 	if (self.showErrorAlert) {
-		UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Cannot Save Event"
-														message:@"The start date must be before the end date."
+		UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Cannot Save Event", @"Title for error saving event")
+														message:NSLocalizedString(@"The start date must be before the end date.", @"Label indicating that the start day is not before the end day")
 													   delegate:nil
-											  cancelButtonTitle:@"OK"
+											   cancelButtonTitle:NSLocalizedString(@"OK", @"Label indicating the user acknowledges the issue")
 											  otherButtonTitles:nil] autorelease];
 		[alert show];
 		self.showErrorAlert = NO;
@@ -424,10 +421,10 @@
 - (void)eventEditViewController:(EKEventEditViewController *)controller didCompleteWithAction:(EKEventEditViewAction)action {
 	if (action == EKEventEditViewActionSaved) {
 		EKEvent* event = controller.event;
-		[[NSUserDefaults standardUserDefaults] setObject:event.title forKey:@"Title"];
-		[[NSUserDefaults standardUserDefaults] setObject:event.startDate forKey:@"Start Date"];
-		[[NSUserDefaults standardUserDefaults] setObject:event.endDate forKey:@"End Date"];
-		[[NSUserDefaults standardUserDefaults] setObject:event.eventIdentifier forKey:@"Link"];
+		[[NSUserDefaults standardUserDefaults] setObject:event.title forKey:titleKey];
+		[[NSUserDefaults standardUserDefaults] setObject:event.startDate forKey:startKey];
+		[[NSUserDefaults standardUserDefaults] setObject:event.endDate forKey:endKey];
+		[[NSUserDefaults standardUserDefaults] setObject:event.eventIdentifier forKey:linkKey];
 		[self.tableView reloadData];
 	}
     [self dismissModalViewControllerAnimated:YES];
@@ -445,10 +442,10 @@
 		if ([self.titleView.text length]) {
 			[self.event setValue:self.titleView.text forKey:titleKey];
 		} else {
-			UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Cannot Save Title"
-															message:@"The title cannot be blank."
+			UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Cannot Save Title", @"Title for message indicating an error with the title of the event")
+															message:NSLocalizedString(@"The title cannot be blank.", @"Message with the cause of the error saving the title")
 														   delegate:nil
-												  cancelButtonTitle:@"OK"
+												  cancelButtonTitle:NSLocalizedString(@"OK", @"")
 												  otherButtonTitles:nil] autorelease];
 			[alert show];
 			return NO;
