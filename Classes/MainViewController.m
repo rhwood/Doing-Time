@@ -189,10 +189,24 @@
 }
 
 - (void)eventDidMove:(NSUInteger)sourceIndex to:(NSUInteger)destinationIndex {
-	EventViewController *event = [[self.events objectAtIndex:sourceIndex] retain];
 	[self.events removeObjectAtIndex:sourceIndex];
-	[self.events insertObject:event atIndex:destinationIndex];
-	[event release];
+	[self.events insertObject:[NSNull null] atIndex:destinationIndex];
+	[self.events replaceObjectAtIndex:self.pager.currentPage withObject:[NSNull null]];
+	[self loadScrollerWithEvent:self.pager.currentPage];
+	if (self.pager.currentPage + 1 < [self.events count]) {
+		[self.events replaceObjectAtIndex:self.pager.currentPage + 1 withObject:[NSNull null]];
+		[self loadScrollerWithEvent:self.pager.currentPage + 1];
+	}
+	if (self.pager.currentPage - 1 >= 0) {
+		[self.events replaceObjectAtIndex:self.pager.currentPage - 1 withObject:[NSNull null]];
+		[self loadScrollerWithEvent:self.pager.currentPage - 1];
+	}
+	if (self.pager.currentPage + 2 < [self.events count]) {
+		[self.events replaceObjectAtIndex:self.pager.currentPage + 2 withObject:[NSNull null]];
+	}
+	if (self.pager.currentPage - 2 >= 0) {
+		[self.events replaceObjectAtIndex:self.pager.currentPage - 2 withObject:[NSNull null]];
+	}
 }
 
 - (void)eventDisplayMethodUpdated {
@@ -242,6 +256,12 @@
 	frame.origin.x = frame.size.width * page;
 	frame.origin.y = 0;
 	[self.scroller scrollRectToVisible:frame animated:YES];
+	if (page - 2 >= 0) {
+		[self.events replaceObjectAtIndex:page - 2 withObject:[NSNull null]];
+	}
+	if (page + 2 < [self.events count]) {
+		[self.events replaceObjectAtIndex:page + 2 withObject:[NSNull null]];
+	}
 	
 	self.pagerDidScroll = YES;
 }
