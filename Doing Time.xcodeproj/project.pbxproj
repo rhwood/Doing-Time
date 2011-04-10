@@ -30,7 +30,6 @@
 		48CE213813159502003C179A /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48CE213713159502003C179A /* EventKit.framework */; };
 		48CE82B41350CAC600D94BA6 /* EventView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48CE82B31350CAC600D94BA6 /* EventView.xib */; };
 		48CE82B61350CAC600D94BA6 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48CE82B51350CAC600D94BA6 /* MainWindow.xib */; };
-		48CE82B81350CAC700D94BA6 /* AboutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48CE82B71350CAC700D94BA6 /* AboutView.xib */; };
 		48CE82BC1350CAC700D94BA6 /* EventSettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48CE82BB1350CAC700D94BA6 /* EventSettingsView.xib */; };
 		48CE82BE1350CAC700D94BA6 /* FlipsideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48CE82BD1350CAC700D94BA6 /* FlipsideView.xib */; };
 		48CE82C01350CAC700D94BA6 /* MainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48CE82BF1350CAC700D94BA6 /* MainView.xib */; };
@@ -59,20 +58,15 @@
 		4859316B12D9C6D9003BD7D6 /* Icon-iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPad.png"; sourceTree = "<group>"; };
 		4859316C12D9C6D9003BD7D6 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		4859316D12D9C6D9003BD7D6 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
-		485BAA9F1347B628005EE6BE /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = en.lproj/SupportView.xib; sourceTree = "<group>"; };
 		485BAB4E13498E31005EE6BE /* AppStoreDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AppStoreDelegate.h; sourceTree = "<group>"; };
 		485BAB4F13498E31005EE6BE /* AppStoreDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppStoreDelegate.m; sourceTree = "<group>"; };
 		485F3FE313156B32003A3525 /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
 		487026B512D7CAE800E90108 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		4870279A12D80B3000E90108 /* NSDate+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = "NSDate+Additions.h"; path = "Classes/NSDate+Additions.h"; sourceTree = "<group>"; };
 		4870279B12D80B3000E90108 /* NSDate+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+Additions.m"; path = "Classes/NSDate+Additions.m"; sourceTree = "<group>"; };
-		48792555131D4D47003AF3E2 /* English */ = {isa = PBXFileReference; explicitFileType = file.xib; name = English; path = en.lproj/TutorialView.xib; sourceTree = "<group>"; };
-		48924A13131D67B9002AC7F5 /* AboutView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = AboutView.xib; path = en.lproj/AboutView.xib; sourceTree = "<group>"; };
 		48924A17131D67DA002AC7F5 /* EventSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = EventSettingsViewController.h; path = Classes/EventSettingsViewController.h; sourceTree = "<group>"; };
 		48924A18131D67DA002AC7F5 /* EventSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventSettingsViewController.m; path = Classes/EventSettingsViewController.m; sourceTree = "<group>"; };
 		48924A19131D67DA002AC7F5 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = en.lproj/EventSettingsView.xib; sourceTree = "<group>"; };
-		48924A22131D67F7002AC7F5 /* SupportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = SupportViewController.h; path = Classes/SupportViewController.h; sourceTree = "<group>"; };
-		48924A23131D67F7002AC7F5 /* SupportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SupportViewController.m; path = Classes/SupportViewController.m; sourceTree = "<group>"; };
 		489E2890130782DB00E40ACA /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		48ABF44212F1C7E6009142AF /* Icon.xcf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Icon.xcf; sourceTree = "<group>"; };
 		48ADE0C31343B51E005E96EB /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
@@ -129,8 +123,6 @@
 				48924A18131D67DA002AC7F5 /* EventSettingsViewController.m */,
 				289233AC0DB2D0DB0083E9F9 /* FlipsideViewController.h */,
 				289233AD0DB2D0DB0083E9F9 /* FlipsideViewController.m */,
-				48924A22131D67F7002AC7F5 /* SupportViewController.h */,
-				48924A23131D67F7002AC7F5 /* SupportViewController.m */,
 			);
 			name = "Settings Views";
 			sourceTree = "<group>";
@@ -180,14 +172,11 @@
 			isa = PBXGroup;
 			children = (
 				48B38235134BA44A009B874B /* Default.png */,
-				48CE82B71350CAC700D94BA6 /* AboutView.xib */,
 				48CE82BB1350CAC700D94BA6 /* EventSettingsView.xib */,
 				48CE82B31350CAC600D94BA6 /* EventView.xib */,
 				48CE82BD1350CAC700D94BA6 /* FlipsideView.xib */,
 				48CE82BF1350CAC700D94BA6 /* MainView.xib */,
 				48CE82B51350CAC600D94BA6 /* MainWindow.xib */,
-				48CE82BA1350CAC700D94BA6 /* TutorialView.xib */,
-				48CE82B91350CAC700D94BA6 /* SupportView.xib */,
 				8D1107310486CEB800E47090 /* Doing_Time-Info.plist */,
 				48ABF44212F1C7E6009142AF /* Icon.xcf */,
 				4859316B12D9C6D9003BD7D6 /* Icon-iPad.png */,
@@ -278,7 +267,6 @@
 				4859316F12D9C6D9003BD7D6 /* Icon.png in Resources */,
 				4859317012D9C6D9003BD7D6 /* Icon@2x.png in Resources */,
 				48ABF44312F1C7E6009142AF /* Icon.xcf in Resources */,
-				48CE82B81350CAC700D94BA6 /* AboutView.xib in Resources */,
 				48CE82BC1350CAC700D94BA6 /* EventSettingsView.xib in Resources */,
 				48CE82B41350CAC600D94BA6 /* EventView.xib in Resources */,
 				48B38236134BA44A009B874B /* Default.png in Resources */,
@@ -323,30 +311,6 @@
 				280E754C0DD40C5E005A515E /* English */,
 			);
 			name = MainWindow.xib;
-			sourceTree = "<group>";
-		};
-		48CE82B71350CAC700D94BA6 /* AboutView.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				48924A13131D67B9002AC7F5 /* AboutView.xib */,
-			);
-			name = AboutView.xib;
-			sourceTree = "<group>";
-		};
-		48CE82B91350CAC700D94BA6 /* SupportView.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				485BAA9F1347B628005EE6BE /* English */,
-			);
-			name = SupportView.xib;
-			sourceTree = "<group>";
-		};
-		48CE82BA1350CAC700D94BA6 /* TutorialView.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				48792555131D4D47003AF3E2 /* English */,
-			);
-			name = TutorialView.xib;
 			sourceTree = "<group>";
 		};
 		48CE82BB1350CAC700D94BA6 /* EventSettingsView.xib */ = {

@@ -416,15 +416,13 @@
 			sepNavWindowFrame = "{{28, 5}, {982, 773}}";
 		};
 	};
-	48924A22131D67F7002AC7F5 /* SupportViewController.h */ = {
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {923, 645}}";
-			sepNavSelRange = "{0, 0}";
-			sepNavVisRange = "{0, 249}";
-			sepNavWindowFrame = "{{15, 4}, {982, 773}}";
-		};
-	};
 	48924A23131D67F7002AC7F5 /* SupportViewController.m */ = {
+		isa = PBXFileReference;
+		fileEncoding = 4;
+		lastKnownFileType = sourcecode.c.objc;
+		name = SupportViewController.m;
+		path = "/Users/rhwood/Developer/Doing Time/Classes/SupportViewController.m";
+		sourceTree = "<absolute>";
 		uiCtxt = {
 			sepNavFolds = "{\n    c =     (\n                {\n            l = DetailViewController;\n            r = \"{3586, 24}\";\n            s = 1;\n        },\n                {\n            l = DetailViewController;\n            r = \"{3637, 24}\";\n            s = 1;\n        },\n                {\n            l = \"Nib name\";\n            r = \"{3687, 12}\";\n            s = 1;\n        }\n    );\n    r = \"{0, 4388}\";\n    s = 0;\n}";
 			sepNavIntBoundsRect = "{{0, 0}, {1219, 2145}}";
