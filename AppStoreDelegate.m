@@ -28,7 +28,7 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 - (id)initWithDictionary:(NSDictionary *)transactionStore {
 	if (self = [super init]) {
 		self.transactionStore = [NSMutableDictionary dictionaryWithDictionary:transactionStore];
-		self.products = [NSMutableArray arrayWithCapacity:0];
+		self.products = [NSMutableDictionary dictionaryWithCapacity:0];
 		[[SKPaymentQueue defaultQueue] addTransactionObserver:self];
 	}
 	return self;
@@ -41,13 +41,23 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 	return [SKPaymentQueue canMakePayments];
 }
 
+- (BOOL)hasProductData:(NSString *)productIdentifier {
+	return ([self.products objectForKey:productIdentifier]) ? YES : NO;
+}
+
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response {
-	[self.products addObjectsFromArray:response.products];
+	for (SKProduct *product in response.products) {
+		[self.products setObject:product forKey:product.productIdentifier];
+	}
 	[[NSNotificationCenter defaultCenter] postNotificationName:AXAppStoreDidReceiveProductsList
 														object:self
 													  userInfo:[NSDictionary dictionaryWithObject:self.products
 																						   forKey:AXAppStoreProducts]];
 	[request release];
+}
+
+- (SKProduct *)productData:(NSString *)productIdentifier {
+	return [self.products objectForKey:productIdentifier];
 }
 
 - (void)requestProductData:(NSString *)productIdentifier {
@@ -117,6 +127,16 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 														object:self
 													  userInfo:[NSDictionary dictionaryWithObject:productIdentifier
 																						   forKey:AXAppStoreProductIdentifier]];
+}
+
+- (void)queuePaymentForProduct:(NSString *)productIdentifier {
+	[self queuePaymentForProduct:productIdentifier withQuantity:1];
+}
+
+- (void)queuePaymentForProduct:(NSString *)productIdentifier withQuantity:(NSUInteger *)quantity {
+	SKPayment *payment = [SKPayment paymentWithProductIdentifier:productIdentifier];
+	payment.quantity = quantity;
+	[[SKPaymentQueue defaultQueue] addPayment:payments];	
 }
 
 - (void)recordTransaction:(SKPaymentTransaction *)transaction {

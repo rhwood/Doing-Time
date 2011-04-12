@@ -25,7 +25,7 @@ extern NSString *const AXAppStoreTransactionStore;
 @interface AppStoreDelegate : NSObject <SKPaymentTransactionObserver, SKProductsRequestDelegate> {
 
 	NSMutableDictionary *_transactionStore;
-	NSMutableArray *_products;
+	NSMutableDictionary *_products;
 
 }
 
@@ -33,7 +33,9 @@ extern NSString *const AXAppStoreTransactionStore;
 #pragma mark Store handling
 
 @property (readonly) BOOL canMakePayments;
+- (BOOL)hasProductData:(NSString *)productIdentifier;
 - (void)requestProductData:(NSString *)productIdentifier;
+- (SKProduct *)productData:(NSString *)productIdentifier;
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response;
 - (void)request:(SKRequest *)request didFailWithError:(NSError *)error;
 
@@ -45,10 +47,12 @@ extern NSString *const AXAppStoreTransactionStore;
 - (BOOL)hasTransactionForProduct:(NSString *)productIdentifier;
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions;
 - (void)provideContent:(NSString *)productIdentifier;
+- (void)queuePaymentForProduct:(NSString *)productIdentifier;
+- (void)queuePaymentForProduct:(NSString *)productIdentifier withQuantity(NSUInteger *)quantity;
 - (void)recordTransaction:(SKPaymentTransaction *)transaction;
 - (void)restoreTransaction:(SKPaymentTransaction *)transaction;
 
 @property (nonatomic, retain) NSMutableDictionary *transactionStore;
-@property (nonatomic, retain) NSMutableArray *products;
+@property (nonatomic, retain) NSMutableDictionary *products;
 
 @end
