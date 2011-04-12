@@ -129,14 +129,24 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 																						   forKey:AXAppStoreProductIdentifier]];
 }
 
-- (void)queuePaymentForProduct:(NSString *)productIdentifier {
-	[self queuePaymentForProduct:productIdentifier withQuantity:1];
+- (void)queuePaymentForProduct:(SKProduct *)product {
+	[self queuePaymentForProduct:product withQuantity:1];
 }
 
-- (void)queuePaymentForProduct:(NSString *)productIdentifier withQuantity:(NSUInteger *)quantity {
-	SKPayment *payment = [SKPayment paymentWithProductIdentifier:productIdentifier];
+- (void)queuePaymentForProduct:(SKProduct *)product withQuantity:(NSUInteger)quantity {
+	SKMutablePayment *payment = [SKPayment paymentWithProduct:product];
 	payment.quantity = quantity;
-	[[SKPaymentQueue defaultQueue] addPayment:payments];	
+	[[SKPaymentQueue defaultQueue] addPayment:payment];	
+}
+
+- (void)queuePaymentForProductIdentifier:(NSString *)productIdentifier {
+	[self queuePaymentForProductIdentifier:productIdentifier withQuantity:1];
+}
+
+- (void)queuePaymentForProductIdentifier:(NSString *)productIdentifier withQuantity:(NSUInteger)quantity {
+	SKMutablePayment *payment = [SKPayment paymentWithProductIdentifier:productIdentifier];
+	payment.quantity = quantity;
+	[[SKPaymentQueue defaultQueue] addPayment:payment];	
 }
 
 - (void)recordTransaction:(SKPaymentTransaction *)transaction {

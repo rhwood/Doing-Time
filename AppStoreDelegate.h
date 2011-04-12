@@ -47,8 +47,10 @@ extern NSString *const AXAppStoreTransactionStore;
 - (BOOL)hasTransactionForProduct:(NSString *)productIdentifier;
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions;
 - (void)provideContent:(NSString *)productIdentifier;
-- (void)queuePaymentForProduct:(NSString *)productIdentifier;
-- (void)queuePaymentForProduct:(NSString *)productIdentifier withQuantity(NSUInteger *)quantity;
+- (void)queuePaymentForProduct:(SKProduct *)product;
+- (void)queuePaymentForProduct:(SKProduct *)product withQuantity:(NSUInteger)quantity;
+- (void)queuePaymentForProductIdentifier:(NSString *)productIdentifier;
+- (void)queuePaymentForProductIdentifier:(NSString *)productIdentifier withQuantity:(NSUInteger)quantity;
 - (void)recordTransaction:(SKPaymentTransaction *)transaction;
 - (void)restoreTransaction:(SKPaymentTransaction *)transaction;
 
