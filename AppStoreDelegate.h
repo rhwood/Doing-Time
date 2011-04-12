@@ -33,6 +33,7 @@ extern NSString *const AXAppStoreTransactionStore;
 #pragma mark Store handling
 
 @property (readonly) BOOL canMakePayments;
+- (BOOL)hasDataForAllProducts;
 - (BOOL)hasProductData:(NSString *)productIdentifier;
 - (SKProduct *)productData:(NSString *)productIdentifier;
 - (void)requestProductData:(NSString *)productIdentifier;

@@ -41,6 +41,15 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 	return [SKPaymentQueue canMakePayments];
 }
 
+- (BOOL)hasDataForAllProducts {
+	for (NSString *productIdentifier in self.products) {
+		if (![self.products objectForKey:productIdentifier]) {
+			return NO;
+		}
+	}
+	return YES;
+}
+
 - (BOOL)hasProductData:(NSString *)productIdentifier {
 	return ([self productData:productIdentifier]) ? YES : NO;
 }
