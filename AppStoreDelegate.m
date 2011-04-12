@@ -61,6 +61,7 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 														object:self
 													  userInfo:[NSDictionary dictionaryWithObject:error
 																						   forKey:AXAppStoreRequestError]];
+	[request release];
 }
 
 #pragma mark -
