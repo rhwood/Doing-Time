@@ -42,7 +42,7 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 }
 
 - (BOOL)hasProductData:(NSString *)productIdentifier {
-	return ([self.products objectForKey:productIdentifier]) ? YES : NO;
+	return ([self productData:productIdentifier]) ? YES : NO;
 }
 
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response {
@@ -57,6 +57,10 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 }
 
 - (SKProduct *)productData:(NSString *)productIdentifier {
+	if (![self.products objectForKey:productIdentifier]) {
+		// ensure product is in self.products so that self.products count can be compared to self.transactionStore count
+		[self.products setObject:[NSNull null] forKey:productIdentifier];
+	}
 	return [self.products objectForKey:productIdentifier];
 }
 
@@ -64,6 +68,14 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 	SKProductsRequest *request = [[[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:productIdentifier]] autorelease];
 	request.delegate = self;
 	[request start];
+	// ensure product is in self.products so that self.products count can be compared to self.transactionStore count
+	[self.products setObject:[NSNull null] forKey:productIdentifier];
+}
+
+- (void)requestProductData:(NSString *)productIdentifier ifHasTransaction:(BOOL)hasTransaction {
+	if (hasTransaction || ![self hasTransactionForProduct:productIdentifier]) {
+		[self requestProductData:productIdentifier];
+	}
 }
 
 - (void)request:(SKRequest *)request didFailWithError:(NSError *)error {
@@ -117,7 +129,13 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 	[[SKPaymentQueue defaultQueue] finishTransaction:transaction];
 }
 
+- (BOOL)hasTransactionsForAllProducts {
+	return ([self.transactionStore count] == [self.products count]);
+}
+
 - (BOOL)hasTransactionForProduct:(NSString *)productIdentifier {
+	// ensure product is in self.products so that self.products count can be compared to self.transactionStore count
+	[self productData:productIdentifier];
 	return ([self.transactionStore valueForKey:productIdentifier]) ? YES : NO;
 }
 

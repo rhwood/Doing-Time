@@ -34,8 +34,9 @@ extern NSString *const AXAppStoreTransactionStore;
 
 @property (readonly) BOOL canMakePayments;
 - (BOOL)hasProductData:(NSString *)productIdentifier;
-- (void)requestProductData:(NSString *)productIdentifier;
 - (SKProduct *)productData:(NSString *)productIdentifier;
+- (void)requestProductData:(NSString *)productIdentifier;
+- (void)requestProductData:(NSString *)productIdentifier ifHasTransaction:(BOOL)hasTransaction;
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response;
 - (void)request:(SKRequest *)request didFailWithError:(NSError *)error;
 
@@ -44,6 +45,7 @@ extern NSString *const AXAppStoreTransactionStore;
 
 - (void)completeTransaction:(SKPaymentTransaction *)transaction;
 - (void)failedTransaction:(SKPaymentTransaction *)transaction;
+- (BOOL)hasTransactionsForAllProducts;
 - (BOOL)hasTransactionForProduct:(NSString *)productIdentifier;
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions;
 - (void)provideContent:(NSString *)productIdentifier;
