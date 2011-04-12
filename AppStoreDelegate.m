@@ -43,7 +43,7 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 
 - (BOOL)hasDataForAllProducts {
 	for (NSString *productIdentifier in self.products) {
-		if (![self.products objectForKey:productIdentifier]) {
+		if ((NSNull *)[self.products objectForKey:productIdentifier] == [NSNull null]) {
 			return NO;
 		}
 	}
