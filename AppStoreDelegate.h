@@ -14,6 +14,11 @@ extern NSString *const AXAppStoreDidReceiveProductsList;
 extern NSString *const AXAppStoreNewContentShouldBeProvided;
 extern NSString *const AXAppStoreProductIdentifier;
 extern NSString *const AXAppStoreProducts;
+extern NSString *const AXAppStoreRequestError;
+extern NSString *const AXAppStoreRequestFailed;
+extern NSString *const AXAppStoreTransactionCancelled;
+extern NSString *const AXAppStoreTransactionError;
+extern NSString *const AXAppStoreTransactionFailed;
 extern NSString *const AXAppStoreTransactionShouldBeRecorded;
 extern NSString *const AXAppStoreTransactionStore;
 
@@ -30,6 +35,7 @@ extern NSString *const AXAppStoreTransactionStore;
 @property (readonly) BOOL canMakePayments;
 - (void)requestProductData:(NSString *)productIdentifier;
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response;
+- (void)request:(SKRequest *)request didFailWithError:(NSError *)error;
 
 #pragma mark -
 #pragma mark Payment transaction handling

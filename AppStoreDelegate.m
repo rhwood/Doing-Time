@@ -12,6 +12,11 @@ NSString *const AXAppStoreDidReceiveProductsList = @"AXAppStoreDidReceiveProduct
 NSString *const AXAppStoreNewContentShouldBeProvided = @"AXAppStoreNewContentShouldBeProvided";
 NSString *const AXAppStoreProducts = @"AXAppStoreProducts";
 NSString *const AXAppStoreProductIdentifier = @"AXAppStoreProductIdentifier";
+NSString *const AXAppStoreRequestError = @"AXAppStoreRequestError";
+NSString *const AXAppStoreRequestFailed = @"AXAppStoreRequestFailed";
+NSString *const AXAppStoreTransactionCancelled = @"AXAppStoreTransactionCancelled";
+NSString *const AXAppStoreTransactionError = @"AXAppStoreTransactionError";
+NSString *const AXAppStoreTransactionFailed = @"AXAppStoreTransactionFailed";
 NSString *const AXAppStoreTransactionShouldBeRecorded = @"AXAppStoreTransactionShouldBeRecorded";
 NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 
@@ -51,6 +56,13 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 	[request start];
 }
 
+- (void)request:(SKRequest *)request didFailWithError:(NSError *)error {
+	[[NSNotificationCenter defaultCenter] postNotificationName:AXAppStoreRequestFailed
+														object:self
+													  userInfo:[NSDictionary dictionaryWithObject:error
+																						   forKey:AXAppStoreRequestError]];
+}
+
 #pragma mark -
 #pragma mark Payment transaction handling
 
@@ -79,12 +91,18 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 
 - (void)failedTransaction:(SKPaymentTransaction *)transaction {
 	if (transaction.error.code != SKErrorPaymentCancelled) {
-		UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"App Store Error", @"Title for alert indicating that there was an error accessing the app store")
-														message:transaction.error.localizedDescription
-													   delegate:nil
-											  cancelButtonTitle:NSLocalizedString(@"OK", @"")
-											  otherButtonTitles:nil] autorelease];
-		[alert show];
+		[[NSNotificationCenter defaultCenter] postNotificationName:AXAppStoreTransactionFailed
+															object:self
+														  userInfo:[NSDictionary dictionaryWithObjectsAndKeys:transaction.payment.productIdentifier,
+																	AXAppStoreProductIdentifier,
+																	transaction.error,
+																	AXAppStoreTransactionError,
+																	nil]];
+	} else {
+		[[NSNotificationCenter defaultCenter] postNotificationName:AXAppStoreTransactionCancelled
+															object:self
+														  userInfo:[NSDictionary dictionaryWithObject:transaction.payment.productIdentifier
+																							   forKey:AXAppStoreProductIdentifier]];
 	}
 	[[SKPaymentQueue defaultQueue] finishTransaction:transaction];
 }
