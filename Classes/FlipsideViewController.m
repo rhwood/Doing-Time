@@ -51,13 +51,13 @@
 	self.detailTextLabelColor = [UIColor colorWithRed:0.22 green:0.33 blue:0.53 alpha:1.0];
 	// App Store
 	[[NSNotificationCenter defaultCenter] addObserverForName:AXAppStoreDidReceiveProductsList
-													  object:self.appDelegate.appStoreDelegate
+													  object:self.appDelegate.appStore
 													   queue:nil
 												  usingBlock:^(NSNotification *notification) {
 													  [self.tableView reloadData];
 												  }];
 	[[NSNotificationCenter defaultCenter] addObserverForName:AXAppStoreNewContentShouldBeProvided
-													  object:self.appDelegate.appStoreDelegate
+													  object:self.appDelegate.appStore
 													   queue:nil
 												  usingBlock:^(NSNotification *notification) {
 													  [self hidePurchaseActivity:YES];
@@ -65,7 +65,7 @@
 													  [self setEditButton];
 												  }];
 	[[NSNotificationCenter defaultCenter] addObserverForName:AXAppStoreTransactionFailed
-													  object:self.appDelegate.appStoreDelegate
+													  object:self.appDelegate.appStore
 													   queue:nil
 												  usingBlock:^(NSNotification *notification) {
 													  NSError *error = [[notification userInfo] objectForKey:AXAppStoreTransactionError];
@@ -79,20 +79,20 @@
 													  [self.tableView reloadData];
 												  }];
 	[[NSNotificationCenter defaultCenter] addObserverForName:AXAppStoreTransactionCancelled
-													  object:self.appDelegate.appStoreDelegate
+													  object:self.appDelegate.appStore
 													   queue:nil
 												  usingBlock:^(NSNotification *notification) {
 													  [self hidePurchaseActivity:YES];
 													  [self.tableView reloadData];
 												  }];
 	[[NSNotificationCenter defaultCenter] addObserverForName:AXAppStoreRequestFailed
-													  object:self.appDelegate.appStoreDelegate
+													  object:self.appDelegate.appStore
 													   queue:nil
 												  usingBlock:^(NSNotification *notification) {
 													  self.appStoreRequestFailed = YES;
 													  [self.tableView reloadData];
 												  }];
-	[self.appDelegate.appStoreDelegate requestProductData:multipleEventsProductIdentifier ifHasTransaction:NO];
+	[self.appDelegate.appStore requestProductData:multipleEventsProductIdentifier ifHasTransaction:NO];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -114,7 +114,7 @@
 }
 
 - (void)setEditButton {
-	if ([self.appDelegate.appStoreDelegate hasTransactionForProduct:multipleEventsProductIdentifier]) {
+	if ([self.appDelegate.appStore hasTransactionForProduct:multipleEventsProductIdentifier]) {
 		self.navigationItem.rightBarButtonItem = [self editButtonItem];
 	} else {
 		self.navigationItem.rightBarButtonItem = nil;
@@ -148,7 +148,7 @@
 #pragma mark Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	if (![self.appDelegate.appStoreDelegate hasTransactionsForAllProducts]) {
+	if (![self.appDelegate.appStore hasTransactionsForAllProducts]) {
 		return 3; // Disable the support elements for 1.2
 	}
 	return 2; // Disable the support elements for 1.2
@@ -157,12 +157,12 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
 	if (section == 2 &&
-		[self.appDelegate.appStoreDelegate hasTransactionsForAllProducts]) {
+		[self.appDelegate.appStore hasTransactionsForAllProducts]) {
 		section++;
 	}
 	switch (section) {
 		case 0: // Activity
-			if (![self.appDelegate.appStoreDelegate hasTransactionForProduct:multipleEventsProductIdentifier]) {
+			if (![self.appDelegate.appStore hasTransactionForProduct:multipleEventsProductIdentifier]) {
 				return [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count];
 			}
 			return [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count] + 1;
@@ -171,7 +171,7 @@
 			return 2; // For 1.1 percentages and hour the day is complete
 			break;
 		case 2: // Store
-			return [self.appDelegate.appStoreDelegate.validProducts count];
+			return [self.appDelegate.appStore.validProducts count];
 			break;
 		case 3: // Support
 			return 3;
@@ -188,7 +188,7 @@
 	static NSString *Value1CellIdentifier = @"Value1Cell";
 	NSUInteger section = indexPath.section;
 	if (indexPath.section == 2 &&
-		[self.appDelegate.appStoreDelegate hasTransactionsForAllProducts]) {
+		[self.appDelegate.appStore hasTransactionsForAllProducts]) {
 		section = indexPath.section + 1;
 	}
 	NSUInteger eventsCount = [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count];
@@ -217,7 +217,7 @@
 		case 0: // Events
 			cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 			if (indexPath.row == eventsCount) {
-				if ([self.appDelegate.appStoreDelegate hasTransactionForProduct:multipleEventsProductIdentifier]) {
+				if ([self.appDelegate.appStore hasTransactionForProduct:multipleEventsProductIdentifier]) {
 					cell.textLabel.text = NSLocalizedString(@"Add Event", @"Button to add another event to monitor. Button is in a table cell.");
 				}
 			} else if (indexPath.row < eventsCount) {
@@ -256,10 +256,10 @@
 			}
 			break;
 		case 2: // Store
-			if (self.appDelegate.appStoreDelegate.canMakePayments &&
-				[self.appDelegate.appStoreDelegate.validProducts count]) {
+			if (self.appDelegate.appStore.canMakePayments &&
+				[self.appDelegate.appStore.validProducts count]) {
 				cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-				SKProduct *product = [self.appDelegate.appStoreDelegate.products objectForKey:[self.appDelegate.appStoreDelegate.validProducts objectAtIndex:indexPath.row]];
+				SKProduct *product = [self.appDelegate.appStore.products objectForKey:[self.appDelegate.appStore.validProducts objectAtIndex:indexPath.row]];
 				NSNumberFormatter *numberFormatter = [[[NSNumberFormatter alloc] init] autorelease];
 				[numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
 				[numberFormatter setLocale:product.priceLocale];
@@ -295,7 +295,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	if (section == 2 &&
-		[self.appDelegate.appStoreDelegate hasTransactionsForAllProducts]) {
+		[self.appDelegate.appStore hasTransactionsForAllProducts]) {
 		section++;
 	}
 	switch (section) {
@@ -357,7 +357,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
 	if (section == 2 &&
-		[self.appDelegate.appStoreDelegate hasTransactionsForAllProducts]) {
+		[self.appDelegate.appStore hasTransactionsForAllProducts]) {
 		section++;
 	}
 	switch (section) {
@@ -366,12 +366,12 @@
 		case 1:
 			break;
 		case 2:
-			if (!self.appDelegate.appStoreDelegate.canMakePayments) {
+			if (!self.appDelegate.appStore.canMakePayments) {
 				return [NSString localizedStringWithFormat:NSLocalizedString(@"In-App Purchases are disabled on this %@.", @"Notice that the user cannot purchase an available upgrade due to policy."), 
 						[UIDevice currentDevice].localizedModel];
-			} else if (![self.appDelegate.appStoreDelegate hasTransactionsForAllProducts] &&
-					   ![self.appDelegate.appStoreDelegate hasDataForAnyProducts]) {
-				if ([self.appDelegate.appStoreDelegate.openRequests count]) {
+			} else if (![self.appDelegate.appStore hasTransactionsForAllProducts] &&
+					   ![self.appDelegate.appStore hasDataForAnyProducts]) {
+				if ([self.appDelegate.appStore.openRequests count]) {
 					return NSLocalizedString(@"Getting available upgrades...", @"Notice that the application is getting the list of available in-app purchases.");
 				} else {
 					return NSLocalizedString(@"Unable to get available upgrades.", @"Notice that the application cannot get the list of available in-app purchases.");
@@ -394,7 +394,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	NSUInteger section = indexPath.section;
 	if (indexPath.section == 2 && 
-		[self.appDelegate.appStoreDelegate hasTransactionsForAllProducts]) {
+		[self.appDelegate.appStore hasTransactionsForAllProducts]) {
 		indexPath.section + 1;
 	}
 	if (NSOrderedSame != [indexPath compare:self.endingTimeViewCellIndexPath]) {
@@ -409,7 +409,7 @@
 				EventSettingsViewController *controller = [[EventSettingsViewController alloc] initWithEventIndex:indexPath.row];
 				[self.navigationController pushViewController:controller animated:YES];
 				[controller release];
-			} else if ([self.appDelegate.appStoreDelegate hasTransactionForProduct:multipleEventsProductIdentifier]) {
+			} else if ([self.appDelegate.appStore hasTransactionForProduct:multipleEventsProductIdentifier]) {
 				// add empty event to array
 				[self addEvent];
 			}
@@ -440,11 +440,11 @@
 			}
 			break;
 		case 2: // Store
-			if (self.appDelegate.appStoreDelegate.canMakePayments) {
-				SKProduct *product = [self.appDelegate.appStoreDelegate.products objectForKey:[[self.appDelegate.appStoreDelegate.products allKeys] objectAtIndex:indexPath.row]];
+			if (self.appDelegate.appStore.canMakePayments) {
+				SKProduct *product = [self.appDelegate.appStore.products objectForKey:[[self.appDelegate.appStore.products allKeys] objectAtIndex:indexPath.row]];
 				self.activityLabel.text = [NSString localizedStringWithFormat:NSLocalizedString(@"Getting %@...", @"Label indicating that app is getting an in-app purchase (with %@ as the title)"), product.localizedTitle];
 				[self hidePurchaseActivity:NO];
-				[self.appDelegate.appStoreDelegate queuePaymentForProduct:product];
+				[self.appDelegate.appStore queuePaymentForProduct:product];
 			}
 			break;
 		case 3: // Help

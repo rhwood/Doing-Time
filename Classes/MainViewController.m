@@ -38,7 +38,7 @@
 	self.eventStore = self.appDelegate.eventStore;
 
 	// Display Defaults
-	if ([self.appDelegate.appStoreDelegate hasTransactionForProduct:multipleEventsProductIdentifier]) {
+	if ([self.appDelegate.appStore hasTransactionForProduct:multipleEventsProductIdentifier]) {
 		self.displayBanner = NO;
 		[self.adBanner removeFromSuperview];
 	}
@@ -59,7 +59,7 @@
 	
 	// Register for Notifications
 	[[NSNotificationCenter defaultCenter] addObserverForName:AXAppStoreNewContentShouldBeProvided
-													  object:self.appDelegate.appStoreDelegate
+													  object:self.appDelegate.appStore
 													   queue:nil
 												  usingBlock:^(NSNotification *notification) {
 													  if ([[[notification userInfo] objectForKey:AXAppStoreProductIdentifier] isEqualToString:multipleEventsProductIdentifier]) {
@@ -78,7 +78,7 @@
 - (void)initEvents {
 	// Initialize Events
 	self.events = [NSMutableArray arrayWithCapacity:[[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count]];
-	if ([self.appDelegate.appStoreDelegate hasTransactionForProduct:multipleEventsProductIdentifier]) {
+	if ([self.appDelegate.appStore hasTransactionForProduct:multipleEventsProductIdentifier]) {
 		NSUInteger i;
 		[self showPager];
 		
@@ -150,7 +150,7 @@
 }
 
 - (void)showPager {
-	if ([self.appDelegate.appStoreDelegate hasTransactionForProduct:multipleEventsProductIdentifier]) {
+	if ([self.appDelegate.appStore hasTransactionForProduct:multipleEventsProductIdentifier]) {
 		[UIView beginAnimations:@"animateDisplayPager" context:NULL];
 		if (!self.pagerIsVisible) {
 			self.controls.frame = CGRectOffset(self.controls.frame, 0, -self.controls.frame.size.height);

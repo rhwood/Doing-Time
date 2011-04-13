@@ -16,7 +16,7 @@
 @synthesize window;
 @synthesize mainViewController;
 @synthesize eventStore = _eventStore;
-@synthesize appStoreDelegate = _appStoreDelegate;
+@synthesize appStore = _appStore;
 
 #pragma mark -
 #pragma mark Application lifecycle
@@ -70,16 +70,16 @@
 	[[NSUserDefaults standardUserDefaults] synchronize];	
 	
 	// Observe the store
-	self.appStoreDelegate = [[AppStoreDelegate alloc] initWithDictionary:[[NSUserDefaults standardUserDefaults] dictionaryForKey:transactionsKey]];
+	self.appStore = [[AppStoreDelegate alloc] initWithDictionary:[[NSUserDefaults standardUserDefaults] dictionaryForKey:transactionsKey]];
 	[[NSNotificationCenter defaultCenter] addObserverForName:AXAppStoreTransactionShouldBeRecorded
-													  object:self.appStoreDelegate
+													  object:self.appStore
 													   queue:nil
 												  usingBlock:^(NSNotification *notif) {
-													  [[NSUserDefaults standardUserDefaults] setObject:self.appStoreDelegate.transactionStore 
+													  [[NSUserDefaults standardUserDefaults] setObject:self.appStore.transactionStore 
 																								forKey:transactionsKey];
 													  [[NSUserDefaults standardUserDefaults] synchronize];
 												  }];
-	[self.appStoreDelegate requestProductData:multipleEventsProductIdentifier ifHasTransaction:NO];
+	[self.appStore requestProductData:multipleEventsProductIdentifier ifHasTransaction:NO];
 
     // Add the main view controller's view to the window and display.
 
@@ -138,7 +138,7 @@
 
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	[self.appStoreDelegate release];
+	[self.appStore release];
     [mainViewController release];
     [window release];
     [super dealloc];

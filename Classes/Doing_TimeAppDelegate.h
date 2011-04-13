@@ -16,14 +16,14 @@
 @interface Doing_TimeAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
     MainViewController *mainViewController;
-	AppStoreDelegate *_appStoreDelegate;
+	AppStoreDelegate *_appStore;
 	EKEventStore *_eventStore;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet MainViewController *mainViewController;
 @property (nonatomic, retain) IBOutlet EKEventStore *eventStore;
-@property (nonatomic, retain) IBOutlet AppStoreDelegate *appStoreDelegate;
+@property (nonatomic, retain) IBOutlet AppStoreDelegate *appStore;
 
 @end
 
