@@ -23,11 +23,13 @@
 	UIColor* _detailTextLabelColor;
 	Doing_TimeAppDelegate* _appDelegate;
 	
-	// Pause UI while waiting
+	// Purchases
+	BOOL appStoreRequestFailed;
 	
-	UIView* _waitingView;
-	UIActivityIndicatorView* _waitingIndicator;
-	UILabel* _waitingText;
+	// Activity
+	UIActivityIndicatorView* _activityIndicator;
+	UILabel* _activityLabel;
+	UIView* _activityView;
 	
 }
 
@@ -51,6 +53,7 @@
 #pragma mark -
 #pragma mark Purchases
 
+@property BOOL appStoreRequestFailed;
 - (void)hidePurchaseActivity:(BOOL)hidden;
 
 #pragma mark -
@@ -64,9 +67,9 @@
 @property (nonatomic, retain) UIColor* detailTextLabelColor;
 @property (nonatomic, retain) Doing_TimeAppDelegate* appDelegate;
 
-@property (nonatomic, retain) IBOutlet UIView* waitingView;
-@property (nonatomic, retain) IBOutlet UIActivityIndicatorView* waitingIndicator;
-@property (nonatomic, retain) IBOutlet UILabel* waitingText;
+@property (nonatomic, retain) IBOutlet UIActivityIndicatorView* activityIndicator;
+@property (nonatomic, retain) IBOutlet UILabel* activityLabel;
+@property (nonatomic, retain) IBOutlet UIView* activityView;
 
 @end
 
