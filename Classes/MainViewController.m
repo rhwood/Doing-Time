@@ -232,6 +232,7 @@
 
 - (void)flipsideViewControllerDidFinish:(FlipsideViewController *)controller {
 	[self dismissModalViewControllerAnimated:YES];
+	[controller release];
 }
 
 - (IBAction)showInfo:(id)sender {
