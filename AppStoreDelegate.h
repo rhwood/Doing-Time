@@ -24,6 +24,8 @@ extern NSString *const AXAppStoreTransactionStore;
 
 @interface AppStoreDelegate : NSObject <SKPaymentTransactionObserver, SKProductsRequestDelegate> {
 
+	NSMutableSet *_openRequests;
+	NSMutableArray *_validProducts;
 	NSMutableDictionary *_transactionStore;
 	NSMutableDictionary *_products;
 
@@ -33,7 +35,10 @@ extern NSString *const AXAppStoreTransactionStore;
 #pragma mark Store handling
 
 @property (readonly) BOOL canMakePayments;
+@property (nonatomic, retain) NSMutableSet *openRequests;
+@property (nonatomic, retain) NSMutableArray *validProducts;
 - (BOOL)hasDataForAllProducts;
+- (BOOL)hasDataForAnyProducts;
 - (BOOL)hasProductData:(NSString *)productIdentifier;
 - (SKProduct *)productData:(NSString *)productIdentifier;
 - (void)requestProductData:(NSString *)productIdentifier;

@@ -22,6 +22,8 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 
 @implementation AppStoreDelegate
 
+@synthesize openRequests = _openRequests;
+@synthesize validProducts = _validProducts;
 @synthesize transactionStore = _transactionStore;
 @synthesize products = _products;
 
@@ -29,6 +31,8 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 	if (self = [super init]) {
 		self.transactionStore = [NSMutableDictionary dictionaryWithDictionary:transactionStore];
 		self.products = [NSMutableDictionary dictionaryWithCapacity:0];
+		self.openRequests = [NSMutableSet setWithCapacity:0];
+		self.validProducts = [NSMutableArray arrayWithCapacity:0];
 		[[SKPaymentQueue defaultQueue] addTransactionObserver:self];
 	}
 	return self;
@@ -42,12 +46,11 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 }
 
 - (BOOL)hasDataForAllProducts {
-	for (NSString *productIdentifier in self.products) {
-		if ((NSNull *)[self.products objectForKey:productIdentifier] == [NSNull null]) {
-			return NO;
-		}
-	}
-	return YES;
+	return ([self.products count] == [self.validProducts count]);
+}
+
+- (BOOL)hasDataForAnyProducts {
+	return ([self.validProducts count]);
 }
 
 - (BOOL)hasProductData:(NSString *)productIdentifier {
@@ -57,12 +60,19 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response {
 	for (SKProduct *product in response.products) {
 		[self.products setObject:product forKey:product.productIdentifier];
+		if (![self.validProducts containsObject:product.productIdentifier]) {
+			[self.validProducts addObject:product.productIdentifier];
+		}
+		[self.openRequests removeObject:product.productIdentifier];
+	}
+	for (NSString *productIdentifier in response.invalidProductIdentifiers) {
+		[self.openRequests removeObject:productIdentifier];
+		[self.validProducts removeObject:productIdentifier];
 	}
 	[[NSNotificationCenter defaultCenter] postNotificationName:AXAppStoreDidReceiveProductsList
 														object:self
-													  userInfo:[NSDictionary dictionaryWithObject:self.products
+													  userInfo:[NSDictionary dictionaryWithObject:self.validProducts
 																						   forKey:AXAppStoreProducts]];
-	[request release];
 }
 
 - (SKProduct *)productData:(NSString *)productIdentifier {
@@ -74,15 +84,21 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 }
 
 - (void)requestProductData:(NSString *)productIdentifier {
-	SKProductsRequest *request = [[[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:productIdentifier]] autorelease];
-	request.delegate = self;
-	[request start];
-	// ensure product is in self.products so that self.products count can be compared to self.transactionStore count
-	[self.products setObject:[NSNull null] forKey:productIdentifier];
+	if (![self.openRequests containsObject:productIdentifier]) {
+		SKProductsRequest *request = [[[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:productIdentifier]] autorelease];
+		request.delegate = self;
+		// ensure product is in self.products so that self.products count can be compared to self.transactionStore count
+		if (![self.products objectForKey:productIdentifier]) {
+			[self.products setObject:[NSNull null] forKey:productIdentifier];
+		}
+		[request start];
+		[self.openRequests addObject:productIdentifier];
+	} else {
+	}
 }
 
 - (void)requestProductData:(NSString *)productIdentifier ifHasTransaction:(BOOL)hasTransaction {
-	if (hasTransaction || ![self hasTransactionForProduct:productIdentifier]) {
+	if (![self hasTransactionForProduct:productIdentifier]) {
 		[self requestProductData:productIdentifier];
 	}
 }
@@ -160,7 +176,7 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 }
 
 - (void)queuePaymentForProduct:(SKProduct *)product withQuantity:(NSUInteger)quantity {
-	SKMutablePayment *payment = [SKPayment paymentWithProduct:product];
+	SKMutablePayment *payment = [SKMutablePayment paymentWithProduct:product];
 	payment.quantity = quantity;
 	[[SKPaymentQueue defaultQueue] addPayment:payment];	
 }
