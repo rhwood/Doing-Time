@@ -39,7 +39,6 @@
 - (void)loadScrollerWithEvent:(NSUInteger)event;
 - (void)redrawEvent:(NSInteger)event;
 - (void)resizeEventsInScroller:(float)heightDifference;
-- (void)statusBarWillChange:(NSNotification *)notification;
 
 #pragma mark -
 #pragma mark Settings Handling

@@ -58,16 +58,14 @@
 	[self initEvents];
 	
 	// Register for Notifications
-	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(statusBarWillChange:)
-												 name:UIApplicationWillChangeStatusBarFrameNotification
-											   object:[UIApplication sharedApplication]];
 	[[NSNotificationCenter defaultCenter] addObserverForName:AXAppStoreNewContentShouldBeProvided
 													  object:self.appDelegate.appStoreDelegate
 													   queue:nil
 												  usingBlock:^(NSNotification *notification) {
-													  self.displayBanner = NO;
-													  self.adBanner.hidden = YES;
+													  if ([[[notification userInfo] objectForKey:AXAppStoreProductIdentifier] isEqualToString:multipleEventsProductIdentifier]) {
+														  self.displayBanner = NO;
+														  self.adBanner.hidden = YES;
+													  }
 												  }];
 }
 
@@ -134,13 +132,6 @@
 			[controller.pieChart setNeedsDisplay];
 		}
 	}
-}
-
-- (void)statusBarWillChange:(NSNotification *)notification {
-	CGRect frame;
-	[[notification.userInfo valueForKey:UIApplicationStatusBarFrameUserInfoKey] getValue:&frame];
-	NSInteger diff = frame.size.height - [UIApplication sharedApplication].statusBarFrame.size.height;
-	NSLog(@"Difference in status bar height: %i", diff);
 }
 
 - (void)handleSwipeFrom:(UISwipeGestureRecognizer *)gestureRecognizer {
