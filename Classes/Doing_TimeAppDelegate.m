@@ -71,17 +71,15 @@
 	
 	// Observe the store
 	self.appStoreDelegate = [[AppStoreDelegate alloc] initWithDictionary:[[NSUserDefaults standardUserDefaults] dictionaryForKey:transactionsKey]];
-	if (![self.appStoreDelegate hasTransactionForProduct:multipleEventsProductIdentifier]) {
-		[[NSNotificationCenter defaultCenter] addObserverForName:AXAppStoreTransactionShouldBeRecorded
-														  object:self.appStoreDelegate
-														   queue:nil
-													  usingBlock:^(NSNotification *notif) {
-														  [[NSUserDefaults standardUserDefaults] setObject:self.appStoreDelegate.transactionStore 
-																									forKey:transactionsKey];
-														  [[NSUserDefaults standardUserDefaults] synchronize];
-													  }];
-		[self.appStoreDelegate requestProductData:multipleEventsProductIdentifier];
-	}
+	[[NSNotificationCenter defaultCenter] addObserverForName:AXAppStoreTransactionShouldBeRecorded
+													  object:self.appStoreDelegate
+													   queue:nil
+												  usingBlock:^(NSNotification *notif) {
+													  [[NSUserDefaults standardUserDefaults] setObject:self.appStoreDelegate.transactionStore 
+																								forKey:transactionsKey];
+													  [[NSUserDefaults standardUserDefaults] synchronize];
+												  }];
+	[self.appStoreDelegate requestProductData:multipleEventsProductIdentifier ifHasTransaction:NO];
 
     // Add the main view controller's view to the window and display.
 

@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import <EventKit/EventKit.h>
-#import <StoreKit/StoreKit.h>
 #import "Constants.h"
 
 @class MainViewController;
