@@ -22,6 +22,7 @@
 	NSIndexPath* _endingTimeViewCellIndexPath;
 	UIColor* _detailTextLabelColor;
 	Doing_TimeAppDelegate* _appDelegate;
+	NSUInteger eventBeingUpdated;
 	
 	// Purchases
 	BOOL appStoreRequestFailed;
@@ -66,7 +67,7 @@
 @property (nonatomic, retain) NSIndexPath* endingTimeViewCellIndexPath;
 @property (nonatomic, retain) UIColor* detailTextLabelColor;
 @property (nonatomic, retain) Doing_TimeAppDelegate* appDelegate;
-
+@property NSUInteger eventBeingUpdated;
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView* activityIndicator;
 @property (nonatomic, retain) IBOutlet UILabel* activityLabel;
 @property (nonatomic, retain) IBOutlet UIView* activityView;

@@ -24,6 +24,7 @@
 @synthesize activityIndicator = _activityIndicator;
 @synthesize activityLabel = _activityLabel;
 @synthesize activityView = _activityView;
+@synthesize eventBeingUpdated;
 
 #pragma mark -
 #pragma mark View lifecycle
@@ -31,6 +32,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+	self.eventBeingUpdated = 0;
+	
 	self.appDelegate = [UIApplication sharedApplication].delegate;
 	self.appStoreRequestFailed = NO;
 
@@ -102,11 +105,10 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-	NSUInteger eventsCount = [self.tableView numberOfRowsInSection:0];
-	if (eventsCount == [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count]) {
-		[delegate eventDidUpdate:eventsCount];
+	if (eventBeingUpdated < [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count]) {
+		[delegate eventDidUpdate:eventBeingUpdated];
+		[self.tableView reloadData];
 	}
-	[self.tableView reloadData];
 }
 
 - (IBAction)done:(id)sender {
@@ -141,6 +143,7 @@
 - (void)addEvent {
 	EventSettingsViewController *controller = [[EventSettingsViewController alloc] initWithEventIndex:[[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count]];
 	[self.navigationController pushViewController:controller animated:YES];
+	self.eventBeingUpdated = controller.index;
 	[controller release];
 }
 
@@ -408,6 +411,7 @@
 				// open eventSettingsViewController
 				EventSettingsViewController *controller = [[EventSettingsViewController alloc] initWithEventIndex:indexPath.row];
 				[self.navigationController pushViewController:controller animated:YES];
+				eventBeingUpdated = controller.index;
 				[controller release];
 			} else if ([self.appDelegate.appStore hasTransactionForProduct:multipleEventsProductIdentifier]) {
 				// add empty event to array
