@@ -12,6 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
+			<integer value="57"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -37,7 +38,7 @@
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 			<object class="IBUIView" id="883825266">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -53,6 +54,34 @@
 						<bool key="IBUIPagingEnabled">YES</bool>
 						<bool key="IBUIShowsHorizontalScrollIndicator">NO</bool>
 						<bool key="IBUIShowsVerticalScrollIndicator">NO</bool>
+					</object>
+					<object class="IBUIView" id="582322357">
+						<reference key="NSNextResponder" ref="883825266"/>
+						<int key="NSvFlags">257</int>
+						<object class="NSMutableArray" key="NSSubviews">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBUIPageControl" id="743155802">
+								<reference key="NSNextResponder" ref="582322357"/>
+								<int key="NSvFlags">-2147482332</int>
+								<object class="NSPSMatrix" key="NSFrameMatrix"/>
+								<string key="NSFrame">{{20, 0}, {280, 36}}</string>
+								<reference key="NSSuperview" ref="582322357"/>
+								<bool key="IBUIOpaque">NO</bool>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<int key="IBUIContentHorizontalAlignment">0</int>
+								<int key="IBUIContentVerticalAlignment">0</int>
+								<bool key="IBUIHidesForSinglePage">YES</bool>
+								<bool key="IBUIDefersCurrentPageDisplay">YES</bool>
+								<int key="IBUINumberOfPages">1</int>
+							</object>
+						</object>
+						<string key="NSFrame">{{0, 460}, {320, 36}}</string>
+						<reference key="NSSuperview" ref="883825266"/>
+						<object class="NSColor" key="IBUIBackgroundColor">
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MCAwAA</bytes>
+						</object>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
 					<object class="IBADBannerView" id="39599109">
 						<reference key="NSNextResponder" ref="883825266"/>
@@ -81,34 +110,9 @@
 							</object>
 						</object>
 					</object>
-					<object class="IBUIView" id="582322357">
-						<reference key="NSNextResponder" ref="883825266"/>
-						<int key="NSvFlags">257</int>
-						<object class="NSMutableArray" key="NSSubviews">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBUIPageControl" id="743155802">
-								<reference key="NSNextResponder" ref="582322357"/>
-								<int key="NSvFlags">1316</int>
-								<object class="NSPSMatrix" key="NSFrameMatrix"/>
-								<string key="NSFrame">{{20, 0}, {280, 36}}</string>
-								<reference key="NSSuperview" ref="582322357"/>
-								<bool key="IBUIOpaque">NO</bool>
-								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<int key="IBUIContentHorizontalAlignment">0</int>
-								<int key="IBUIContentVerticalAlignment">0</int>
-								<int key="IBUINumberOfPages">3</int>
-							</object>
-						</object>
-						<string key="NSFrame">{{0, 460}, {320, 36}}</string>
-						<reference key="NSSuperview" ref="883825266"/>
-						<object class="NSColor" key="IBUIBackgroundColor">
-							<int key="NSColorSpace">3</int>
-							<bytes key="NSWhite">MCAwAA</bytes>
-						</object>
-						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-					</object>
 				</object>
 				<string key="NSFrameSize">{320, 460}</string>
+				<reference key="NSSuperview"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
 					<bytes key="NSWhite">MC4zMzMzMzMzMzMzAA</bytes>
@@ -212,9 +216,9 @@
 						<reference key="object" ref="883825266"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="582322357"/>
 							<reference ref="659321242"/>
 							<reference ref="39599109"/>
+							<reference ref="582322357"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -266,7 +270,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>MainViewController</string>
 					<string>UIResponder</string>
-					<string>{{619, 43}, {320, 480}}</string>
+					<string>{{635, 67}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSMutableArray">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -279,7 +283,7 @@
 						<bytes key="NSTransformStruct">AQAAAABD5gAAA</bytes>
 					</object>
 					<object class="NSAffineTransform">
-						<bytes key="NSTransformStruct">P4AAAL+AAAAAAAAAw8KAAA</bytes>
+						<bytes key="NSTransformStruct">AQAAAABD1AAAA</bytes>
 					</object>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
@@ -694,7 +698,7 @@
 			<integer value="3100" key="NS.object.0"/>
 		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
-		<string key="IBDocument.LastKnownRelativeProjectPath">Doing Time.xcodeproj</string>
+		<string key="IBDocument.LastKnownRelativeProjectPath">../Doing Time.xcodeproj</string>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<string key="IBCocoaTouchPluginVersion">132</string>
 	</data>
