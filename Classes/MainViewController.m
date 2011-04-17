@@ -16,8 +16,6 @@
 
 @synthesize controls = _controls;
 @synthesize bannerIsVisible = _bannerIsVisible;
-@synthesize displayBanner = _displayBanner;
-@synthesize pagerIsVisible = _pagerIsVisible;
 @synthesize eventStore = _eventStore;
 @synthesize pager = _pager;
 @synthesize scroller = _scroller;
@@ -31,18 +29,20 @@
 	[super viewDidLoad];
 
 	// Set Defaults
-	self.pagerIsVisible = NO;
-	self.displayBanner = YES;
 	self.bannerIsVisible = NO;
 	self.appDelegate = [UIApplication sharedApplication].delegate;
 	self.eventStore = self.appDelegate.eventStore;
 
 	// Display Defaults
 	if ([self.appDelegate.appStore hasTransactionForProduct:multipleEventsProductIdentifier]) {
-		self.displayBanner = NO;
+		self.pager.numberOfPages = [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count];
+		self.pager.currentPage = [[NSUserDefaults standardUserDefaults] integerForKey:currentEventKey];
 		[self.adBanner removeFromSuperview];
+		[self.adBanner release];
+	} else {
+		self.pager.numberOfPages = 1;
+		self.pager.currentPage = 0;
 	}
-	self.pager.currentPage = [[NSUserDefaults standardUserDefaults] integerForKey:currentEventKey];
 
 	// Recognize left/right swipes
 	UISwipeGestureRecognizer *recognizer;
@@ -55,7 +55,16 @@
 	[self.view addGestureRecognizer:recognizer];
 	[recognizer release];
 	
-	[self initEvents];
+	// Initialize Events
+	self.events = [NSMutableArray arrayWithCapacity:self.pager.numberOfPages];
+	[self showPager];
+	
+	// fill array of eventviewcontrollers with placeholders
+	for (NSUInteger i = 0; i < self.pager.numberOfPages; i++) {
+		[self loadScrollerWithEvent:i];
+	}
+	
+	[self changePage:nil];
 	
 	// Register for Notifications
 	[[NSNotificationCenter defaultCenter] addObserverForName:AXAppStoreNewContentShouldBeProvided
@@ -63,8 +72,9 @@
 													   queue:nil
 												  usingBlock:^(NSNotification *notification) {
 													  if ([[[notification userInfo] objectForKey:AXAppStoreProductIdentifier] isEqualToString:multipleEventsProductIdentifier]) {
-														  self.displayBanner = NO;
-														  self.adBanner.hidden = YES;
+														  [self hideAdBanner:YES animated:NO];
+														  [self.adBanner removeFromSuperview];
+														  [self showPager];
 													  }
 												  }];
 }
@@ -75,45 +85,17 @@
 	}
 }
 
-- (void)initEvents {
-	// Initialize Events
-	self.events = [NSMutableArray arrayWithCapacity:[[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count]];
-	if ([self.appDelegate.appStore hasTransactionForProduct:multipleEventsProductIdentifier]) {
-		NSUInteger i;
-		[self showPager];
-		
-		// fill array of eventviewcontrollers with placeholders
-		for (i = 0; i < [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count]; i++) {
-			[self.events addObject:[NSNull null]];
-		}
-		
-		// setup scroller here
-		self.scroller.contentSize = CGSizeMake(self.scroller.frame.size.width * [self.events count], self.scroller.frame.size.height);
-
-		self.pager.numberOfPages = [self.events count];
-		
-		[self loadScrollerWithEvent:self.pager.currentPage - 1];
-		[self loadScrollerWithEvent:self.pager.currentPage];
-		[self loadScrollerWithEvent:self.pager.currentPage + 1];
-		
-		[self changePage:nil];
-	} else {
-		[self.events addObject:[NSNull null]];
-		[self loadScrollerWithEvent:0];
-		self.pager.hidden = YES;
-	}	
-}
-
 - (void)loadScrollerWithEvent:(NSUInteger)event {
-	if (event < 0 || event >= [self.events count]) {
+	EventViewController *controller;
+	if (event < 0 || event > [self.events count]) {
 		return;
-	}
-	EventViewController *controller = [self.events objectAtIndex:event];
-	if ((NSNull *)controller == [NSNull null]) {
-		controller = [[EventViewController alloc] initWithEvent:event];
+	} else if (event == [self.events count]) {
+		controller = [[[EventViewController alloc] initWithEvent:event] autorelease];
 		controller.mainView = self;
-		[self.events replaceObjectAtIndex:event withObject:controller];
-		[controller release];
+		[self.events addObject:controller];
+		self.scroller.contentSize = CGSizeMake(self.scroller.frame.size.width * [self.events count], self.scroller.frame.size.height);
+	} else {
+		controller = [self.events objectAtIndex:event];
 	}
 	if (controller.view.superview == nil) {
 		CGRect frame = self.scroller.frame;
@@ -127,10 +109,14 @@
 - (void)redrawEvent:(NSInteger)event {
 	if (event >= 0 && event < [self.events count]) {
 		EventViewController *controller = [self.events objectAtIndex:event];
-		if ((NSNull *)controller != [NSNull null]) {
-			[controller setPieChartValues];
-			[controller.pieChart setNeedsDisplay];
-		}
+		[controller setPieChartValues];
+		[controller.pieChart setNeedsDisplay];
+	}
+}
+
+- (void)redrawEvents {
+	for (EventViewController *controller in self.events) {
+		controller.eventID = [self.events indexOfObject:controller];
 	}
 }
 
@@ -151,18 +137,13 @@
 
 - (void)showPager {
 	if ([self.appDelegate.appStore hasTransactionForProduct:multipleEventsProductIdentifier]) {
+		NSLog(@"showing Pager");
 		[UIView beginAnimations:@"animateDisplayPager" context:NULL];
-		if (!self.pagerIsVisible) {
-			self.controls.frame = CGRectOffset(self.controls.frame, 0, -self.controls.frame.size.height);
-			self.scroller.frame = CGRectMake(0, 0, self.scroller.frame.size.width, self.scroller.frame.size.height - (self.controls.frame.size.height / 2));
-			[self resizeEventsInScroller:self.controls.frame.size.height / -2];
-		} else {
-			self.controls.frame = CGRectOffset(self.controls.frame, 0, self.controls.frame.size.height);
-			self.scroller.frame = CGRectMake(0, 0, self.scroller.frame.size.width, self.scroller.frame.size.height + (self.controls.frame.size.height / 2));
-			[self resizeEventsInScroller:self.controls.frame.size.height / 2];
-		}
+		self.controls.frame = CGRectOffset(self.controls.frame, 0, -self.controls.frame.size.height);
+		self.scroller.frame = CGRectMake(0, 0, self.scroller.frame.size.width, self.scroller.frame.size.height - (self.controls.frame.size.height / 2));
+		[self resizeEventsInScroller:self.controls.frame.size.height / -2];
+		self.pager.superview.hidden = NO;
 		[UIView commitAnimations];
-		self.pagerIsVisible = !self.pagerIsVisible;
 	}
 }
 
@@ -170,40 +151,21 @@
 #pragma mark Flipside delegate
 
 - (void)eventDidUpdate:(NSUInteger)eventIdentifier {
-	if (eventIdentifier >= [self.events count]) {
-		[self.events addObject:[NSNull null]];
-		self.scroller.contentSize = CGSizeMake(self.scroller.frame.size.width * [self.events count], self.scroller.frame.size.height);
+	NSLog(@"eventDidUpdate:%u (%u items in events)", eventIdentifier, [self.events count]);
+	if (eventIdentifier == [self.events count]) {
+		[self loadScrollerWithEvent:eventIdentifier];
 		self.pager.numberOfPages = [self.events count];
 	} else {
-		[self loadScrollerWithEvent:eventIdentifier];
+		[self redrawEvent:eventIdentifier];
 	}
 }
 
 - (void)eventDidMove:(NSUInteger)sourceIndex to:(NSUInteger)destinationIndex {
-	[self.events removeObjectAtIndex:sourceIndex];
-	[self.events insertObject:[NSNull null] atIndex:destinationIndex];
-	[self.events replaceObjectAtIndex:self.pager.currentPage withObject:[NSNull null]];
-	[self loadScrollerWithEvent:self.pager.currentPage];
-	if (self.pager.currentPage + 1 < [self.events count]) {
-		[self.events replaceObjectAtIndex:self.pager.currentPage + 1 withObject:[NSNull null]];
-		[self loadScrollerWithEvent:self.pager.currentPage + 1];
-	}
-	if (self.pager.currentPage - 1 >= 0) {
-		[self.events replaceObjectAtIndex:self.pager.currentPage - 1 withObject:[NSNull null]];
-		[self loadScrollerWithEvent:self.pager.currentPage - 1];
-	}
-	if (self.pager.currentPage + 2 < [self.events count]) {
-		[self.events replaceObjectAtIndex:self.pager.currentPage + 2 withObject:[NSNull null]];
-	}
-	if (self.pager.currentPage - 2 >= 0) {
-		[self.events replaceObjectAtIndex:self.pager.currentPage - 2 withObject:[NSNull null]];
-	}
+	[self redrawEvents];
 }
 
 - (void)eventDisplayMethodUpdated {
-	[self redrawEvent:self.pager.currentPage];
-	[self redrawEvent:self.pager.currentPage + 1];
-	[self redrawEvent:self.pager.currentPage - 1];
+	[self redrawEvents];
 }
 
 - (void)eventWasRemoved:(NSUInteger)eventIdentifier {
@@ -211,13 +173,11 @@
 		[self.events removeObjectAtIndex:eventIdentifier];
 		self.scroller.contentSize = CGSizeMake(self.scroller.frame.size.width * [self.events count], self.scroller.frame.size.height);
 		self.pager.numberOfPages = [self.events count];
+		[self redrawEvents];
 		if (self.pager.currentPage >= self.pager.numberOfPages) {
 			self.pager.currentPage = 0;
-			[self redrawEvent:self.pager.currentPage];
-			[self redrawEvent:self.pager.currentPage + 1];
-			[self redrawEvent:self.pager.currentPage - 1];
 			[self changePage:nil];
-		}	
+		}
 	}
 }
 
@@ -240,20 +200,10 @@
 - (IBAction)changePage:(id)sender {
 	NSInteger page = self.pager.currentPage;
 	
-	[self loadScrollerWithEvent:page - 1];
-	[self loadScrollerWithEvent:page];
-	[self loadScrollerWithEvent:page + 1];
-	
 	CGRect frame = self.scroller.frame;
 	frame.origin.x = frame.size.width * page;
 	frame.origin.y = 0;
 	[self.scroller scrollRectToVisible:frame animated:YES];
-	if (page - 2 >= 0) {
-		[self.events replaceObjectAtIndex:page - 2 withObject:[NSNull null]];
-	}
-	if (page + 2 < [self.events count]) {
-		[self.events replaceObjectAtIndex:page + 2 withObject:[NSNull null]];
-	}
 	
 	self.pagerDidScroll = YES;
 }
@@ -265,6 +215,10 @@
 											  event.piePlate.frame.origin.y,
 											  event.piePlate.frame.size.width + heightDifference,
 											  event.piePlate.frame.size.height);
+//			event.controls.frame = CGRectMake(event.controls.frame.origin.x,
+//											  event.controls.frame.origin.y,
+//											  event.controls.frame.size.width,
+//											  event.controls.frame.size.height + (heightDifference /2));
 		}
 	}
 }
@@ -274,14 +228,11 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
 	if (!self.pagerDidScroll) {
-	CGFloat pageWidth = scrollView.frame.size.width;
-	int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
-	self.pager.currentPage = page;
-	
-	[self loadScrollerWithEvent:page - 1];
-	[self loadScrollerWithEvent:page];
-	[self loadScrollerWithEvent:page + 1];
+		CGFloat pageWidth = scrollView.frame.size.width;
+		int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+		self.pager.currentPage = page;
 	}
+	[self.pager updateCurrentPageDisplay];
 	[[NSUserDefaults standardUserDefaults] setInteger:self.pager.currentPage forKey:currentEventKey];
 }
 
@@ -296,38 +247,51 @@
 #pragma mark -
 #pragma mark iAd delegate
 
+- (void)hideAdBanner:(BOOL)hide animated:(BOOL)animated {
+	if (hide != self.bannerIsVisible) {
+		return;
+	}
+	if (animated) {
+		[UIView beginAnimations:@"animateAdBanner" context:NULL];
+	}
+	if (hide) {
+		// Assumes the banner view is placed at the bottom of the screen.
+        self.adBanner.frame = CGRectOffset(self.adBanner.frame, 0, self.adBanner.frame.size.height);
+		self.scroller.frame = CGRectMake(self.scroller.frame.origin.x,
+										 self.scroller.frame.origin.y,
+										 self.scroller.frame.size.width,
+										 self.scroller.frame.size.height + self.adBanner.frame.size.height);
+		[self resizeEventsInScroller:self.adBanner.frame.size.height];
+        self.bannerIsVisible = NO;		
+	} else {
+		// Assumes the banner view is just off the bottom of the screen.
+        self.adBanner.frame = CGRectOffset(self.adBanner.frame, 0, - self.adBanner.frame.size.height);
+		self.scroller.frame = CGRectMake(self.scroller.frame.origin.x,
+										 self.scroller.frame.origin.y,
+										 self.scroller.frame.size.width,
+										 self.scroller.frame.size.height - self.adBanner.frame.size.height);
+		[self resizeEventsInScroller:self.adBanner.frame.size.height * -1];
+        self.bannerIsVisible = YES;		
+	}
+	if (animated) {
+		[UIView commitAnimations];
+	}
+}
+
 - (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave {
 	// there is nothing to stop for this
 	return YES;
 }
 
 - (void)bannerViewDidLoadAd:(ADBannerView *)banner {
-	if (self.displayBanner && !self.bannerIsVisible) {
-        [UIView beginAnimations:@"animateAdBannerOn" context:NULL];
-		// Assumes the banner view is just off the bottom of the screen.
-        banner.frame = CGRectOffset(banner.frame, 0, -banner.frame.size.height);
-		self.scroller.frame = CGRectMake(self.scroller.frame.origin.x,
-										 self.scroller.frame.origin.y,
-										 self.scroller.frame.size.width,
-										 self.scroller.frame.size.height - banner.frame.size.height);
-		[self resizeEventsInScroller:banner.frame.size.height * -1];
-        [UIView commitAnimations];
-        self.bannerIsVisible = YES;
+	if (self.adBanner && !self.bannerIsVisible) {
+		[self hideAdBanner:NO animated:YES];
     }	
 }
 
 - (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error	{
 	if (self.bannerIsVisible) {
-        [UIView beginAnimations:@"animateAdBannerOff" context:NULL];
-		// Assumes the banner view is placed at the bottom of the screen.
-        banner.frame = CGRectOffset(banner.frame, 0, banner.frame.size.height);
-		self.scroller.frame = CGRectMake(self.scroller.frame.origin.x,
-										 self.scroller.frame.origin.y,
-										 self.scroller.frame.size.width,
-										 self.scroller.frame.size.height + banner.frame.size.height);
-		[self resizeEventsInScroller:banner.frame.size.height];
-        [UIView commitAnimations];
-        self.bannerIsVisible = NO;
+		[self hideAdBanner:YES animated:YES];
     }	
 }
 

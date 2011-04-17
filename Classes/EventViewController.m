@@ -21,13 +21,24 @@
 @synthesize controls = _controls;
 @synthesize piePlate = _piePlate;
 @synthesize mainView = _mainView;
-@synthesize eventID = _eventID;
 
 - (id)initWithEvent:(NSUInteger)event {
 	if (self = [super initWithNibName:@"EventView" bundle:nil]) {
 		self.eventID = event;
 	}
 	return self;
+}
+
+- (NSUInteger)eventID {
+	return _eventID;
+}
+
+- (void)setEventID:(NSUInteger)eventID {
+	_eventID = eventID;
+	if ([self isViewLoaded]) {
+		[self setPieChartValues];
+		[self.pieChart setNeedsDisplay];
+	}
 }
 
 - (void)setPieChartValues {
@@ -69,20 +80,20 @@
 																					   sinceDate:today]
 															options:0]
 						   day];
-//	NSLog(@"%d days complete", completed);
+	NSLog(@"%d days complete", completed);
 	NSInteger left = [[[NSCalendar currentCalendar] components:NSDayCalendarUnit
 													  fromDate:today 
 														toDate:[NSDate dateWithTimeInterval:[endDate timeIntervalSinceDate:today]
 																				  sinceDate:today]
 													   options:0]
 					  day];
-//	NSLog(@"%d days left", left);
+	NSLog(@"%d days left", left);
 	NSInteger duration = [[[NSCalendar currentCalendar] components:NSDayCalendarUnit
 														  fromDate:startDate 
 															toDate:endDate
 														   options:0]
 						  day];
-//	NSLog(@"%d total days", duration);
+	NSLog(@"%d total days", duration);
 	if (completed < 0) {
 		inFuture = completed * -1;
 		completed = 0;
@@ -94,6 +105,11 @@
 	} else if (fabs(dayEnds) > fabs([today timeIntervalSinceNow])) {
 		completed--;
 		left++;
+		if (completed < 0) {
+			inFuture = completed * -1;
+			completed = 0;
+			left = duration;
+		}
 	}
 	float interval = 1.0 / duration;
 	
@@ -153,24 +169,7 @@
 							  inPast];
 		}
 	}
-}
 
-// The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-/*
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization.
-    }
-    return self;
-}
-*/
-
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
-    [super viewDidLoad];
-	[self setPieChartValues];
-	
 	_pieChart.alpha = 0.0;
 	[_pieChart setHidden:NO];
 	[_pieChart setNeedsDisplay];
@@ -195,6 +194,23 @@
 	_daysLeft.alpha = 1.0;
 	_eventTitle.alpha = 1.0;
 	[UIView commitAnimations];
+}
+
+// The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
+/*
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization.
+    }
+    return self;
+}
+*/
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+    [super viewDidLoad];
+	[self setPieChartValues];
 }
 
 - (IBAction)showInfo:(id)sender {
