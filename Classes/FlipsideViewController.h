@@ -6,6 +6,7 @@
 //  Copyright 2010 Alexandria Software. All rights reserved.
 //
 
+#import <MessageUI/MessageUI.h>
 #import "NSDate+Additions.h"
 #import "Constants.h"
 
@@ -14,7 +15,7 @@
 @class Doing_TimeAppDelegate;
 @class EventSettingsViewController;
 
-@interface FlipsideViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UIActionSheetDelegate> {
+@interface FlipsideViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate> {
 	id <FlipsideViewControllerDelegate> delegate;
 	UITableView* _tableView;
 	UIDatePicker* _datePicker;

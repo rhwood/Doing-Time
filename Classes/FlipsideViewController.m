@@ -8,6 +8,7 @@
 
 #import "FlipsideViewController.h"
 #import "EventSettingsViewController.h"
+#import "AboutViewController.h"
 #import "Doing_TimeAppDelegate.h"
 #import "AppStoreDelegate.h"
 
@@ -152,9 +153,9 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 	if (![self.appDelegate.appStore hasTransactionsForAllProducts]) {
-		return 3; // Disable the support elements for 1.2
+		return 4; // Disable the support elements for 1.2
 	}
-	return 2; // Disable the support elements for 1.2
+	return 3; // Disable the support elements for 1.2
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -177,7 +178,7 @@
 			return [self.appDelegate.appStore.validProducts count];
 			break;
 		case 3: // Support
-			return 3;
+			return 2;
 			break;
 		default:
 			break;
@@ -276,16 +277,17 @@
 			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 			switch (indexPath.row) {
 				case 0:
-					cell.textLabel.text = NSLocalizedString(@"Tutorial", @"Label for link to help content.");
+					cell.textLabel.text = NSLocalizedString(@"Send Feedback", @"Label for link to provide application feedback");
 					break;
 				case 1:
-					cell.textLabel.text = NSLocalizedString(@"Support", @"Label for link to support resources");
-					break;
-				case 2:
 					cell.textLabel.text = NSLocalizedString(@"About Doing Time", @"Label for link for information about the application");
 					break;
+				case 2:
+					cell.textLabel.text = NSLocalizedString(@"Tutorial", @"Label for link to help content.");
+					break;
 				case 3:
-					cell.textLabel.text = NSLocalizedString(@"Send Feedback", @"Label for link to provide application feedback");
+					cell.textLabel.text = NSLocalizedString(@"Support", @"Label for link to support resources");
+					break;
 				default:
 					break;
 			}
@@ -395,10 +397,11 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	NSLog(@"%@", indexPath);
 	NSUInteger section = indexPath.section;
-	if (indexPath.section == 2 && 
+	if (indexPath.section >= 2 && 
 		[self.appDelegate.appStore hasTransactionsForAllProducts]) {
-		indexPath.section + 1;
+		section = indexPath.section + 1;
 	}
 	if (NSOrderedSame != [indexPath compare:self.endingTimeViewCellIndexPath]) {
 		[self hideDatePicker:YES];
@@ -452,6 +455,29 @@
 			}
 			break;
 		case 3: // Help
+			switch (indexPath.row) {
+				case 0:
+					NSLog(@"Why can't I allocate a device after following a path in a switch?");
+					MFMailComposeViewController* controller = [[MFMailComposeViewController alloc] init];
+					controller.mailComposeDelegate = self;
+					[controller setSubject:[NSString localizedStringWithFormat:NSLocalizedString(@"Doing Time %@ Feedback", @"Email subject for application feedback"),
+											[[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]]];
+					[controller setToRecipients:[NSArray arrayWithObject:@"Support@AlexandriaSoftware.com"]];
+					[controller setMessageBody:@"" isHTML:NO];
+					if (controller) {
+						[self presentModalViewController:controller animated:YES];
+					}
+					[controller release];
+					break;
+				case 1:
+					NSLog(@"Why can't I allocate a device after following a path in a switch?");
+					AboutViewController *aboutController = [[AboutViewController alloc] initWithNibName:@"AboutView" bundle:nil];
+					[self.navigationController pushViewController:aboutController animated:YES];
+					[aboutController release];
+					break;
+				default:
+					break;
+			}
 			break;
 		default:
 			break;
@@ -546,6 +572,18 @@
 		[self.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionNone animated:YES];
 		self.activityView.hidden = hidden;
 	}
+}
+
+#pragma mark -
+#pragma mark Mail composition delegate
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller  
+          didFinishWithResult:(MFMailComposeResult)result 
+                        error:(NSError*)error {
+//	if (result == MFMailComposeResultSent) {
+//		NSLog(@"It's away!");
+//	}
+	[self dismissModalViewControllerAnimated:YES];
 }
 
 #pragma mark -
