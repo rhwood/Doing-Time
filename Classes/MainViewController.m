@@ -77,6 +77,12 @@
 														  [self showPager];
 													  }
 												  }];
+	[[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
+													  object:[UIApplication sharedApplication]
+													   queue:nil
+												  usingBlock:^(NSNotification *notification) {
+													  [self redrawEvents];
+												  }];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
