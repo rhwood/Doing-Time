@@ -85,6 +85,7 @@
 - (void)eventDidMove:(NSUInteger)sourceIndex to:(NSUInteger)destinationIndex;
 - (void)eventWasRemoved:(NSUInteger)eventIdentifier;
 - (void)eventDisplayMethodUpdated;
+- (void)dayOverTimeUpdated;
 
 @end
 

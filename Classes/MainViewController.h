@@ -21,6 +21,8 @@
 	BOOL _pagerDidScroll;
 	Doing_TimeAppDelegate *_appDelegate;
 	ADBannerView *_adBanner;
+	NSTimer *_dayOverTimer;
+	
 }
 
 #pragma mark -
@@ -36,7 +38,9 @@
 - (void)loadScrollerWithEvent:(NSUInteger)event;
 - (void)redrawEvent:(NSInteger)event;
 - (void)redrawEvents;
+- (void)redrawEventsOnTimer:(NSTimer *)timer;
 - (void)resizeEventsInScroller:(float)heightDifference;
+- (void)scheduleRedrawOnDayOver;
 
 #pragma mark -
 #pragma mark Settings Handling
@@ -57,5 +61,6 @@
 @property BOOL pagerDidScroll;
 @property (nonatomic, retain) Doing_TimeAppDelegate *appDelegate;
 @property (nonatomic, retain) IBOutlet ADBannerView *adBanner;
+@property (nonatomic, retain) NSTimer *dayOverTimer;
 
 @end

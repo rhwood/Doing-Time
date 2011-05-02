@@ -23,6 +23,7 @@
 @synthesize pagerDidScroll = _pagerDidScroll;
 @synthesize appDelegate = _appDelegate;
 @synthesize adBanner = _adBanner;
+@synthesize dayOverTimer = _dayOverTimer;
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
@@ -82,7 +83,18 @@
 													   queue:nil
 												  usingBlock:^(NSNotification *notification) {
 													  [self redrawEvents];
+													  [self scheduleRedrawOnDayOver];
 												  }];
+	[[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillResignActiveNotification
+													  object:[UIApplication sharedApplication]
+													   queue:nil
+												  usingBlock:^(NSNotification *notification) {
+													  if (self.dayOverTimer) {
+														  [self.dayOverTimer invalidate];
+														  self.dayOverTimer = nil;
+													  }
+												  }];
+	[self scheduleRedrawOnDayOver];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -126,6 +138,38 @@
 	}
 }
 
+- (void)redrawEventsOnTimer:(NSTimer *)timer {
+	[self redrawEvents];
+	[self scheduleRedrawOnDayOver];
+}
+
+- (void)scheduleRedrawOnDayOver {
+	// get dayOver from NSUserDefaults
+	// if this fires too soon, add 5 seconds
+	NSTimeInterval ti = [(NSDate *)[[NSUserDefaults standardUserDefaults] objectForKey:dayOverKey]
+						 timeIntervalSinceReferenceDate];
+	NSDate* dayOver = [[NSDate UTCMidnightForDate:[NSDate date]] dateByAddingTimeInterval:ti];
+	NSLog(@"Scheduling redraw for %@ (current time: %@)", dayOver, [NSDate date]);
+	if (self.dayOverTimer) {
+		if ([[self.dayOverTimer fireDate] isEqualToDate:dayOver]) {
+			return;
+		} else if ([self.dayOverTimer isValid]) {
+			[self.dayOverTimer setFireDate:dayOver];
+			return;
+		} else {
+			[self.dayOverTimer invalidate];
+			self.dayOverTimer = nil;
+		}
+	}
+	self.dayOverTimer = [[NSTimer alloc] initWithFireDate:dayOver
+												 interval:0
+												   target:self
+												 selector:@selector(redrawEventsOnTimer:)
+												 userInfo:nil
+												  repeats:NO];
+	[[NSRunLoop currentRunLoop] addTimer:self.dayOverTimer forMode:NSRunLoopCommonModes];
+}
+
 - (void)handleSwipeFrom:(UISwipeGestureRecognizer *)gestureRecognizer {
 	if (gestureRecognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
 		if (self.pager.currentPage < [self.events count] - 1) {
@@ -155,6 +199,10 @@
 
 #pragma mark -
 #pragma mark Flipside delegate
+
+- (void)dayOverTimeUpdated {
+	[self redrawEventsOnTimer:nil];
+}
 
 - (void)eventDidUpdate:(NSUInteger)eventIdentifier {
 	NSLog(@"eventDidUpdate:%u (%u items in events)", eventIdentifier, [self.events count]);

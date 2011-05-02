@@ -514,7 +514,7 @@
 	[self.tableView cellForRowAtIndexPath:self.endingTimeViewCellIndexPath].detailTextLabel.text = [NSDateFormatter localizedStringFromDate:self.datePicker.date
 																																  dateStyle:NSDateFormatterNoStyle
 																																  timeStyle:NSDateFormatterShortStyle];
-	[self.delegate eventDisplayMethodUpdated];
+	[self.delegate dayOverTimeUpdated];
 }
 
 - (void)hideDatePicker:(BOOL)hidden {
