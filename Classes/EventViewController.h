@@ -22,11 +22,16 @@
 	MainViewController *_mainView;
 
 	NSUInteger _eventID;
+	NSInteger _oldComplete;
+	NSInteger _oldLeft;
+	NSInteger _oldTotal;
+	NSString *_oldTitle;
 }
 
 - (id)initWithEvent:(NSUInteger)event;
+- (void)redrawEvent:(BOOL)forceRedraw;
 - (IBAction)showInfo:(id)sender;
-- (void)setPieChartValues;
+- (BOOL)setPieChartValues:(BOOL)forceRedraw;
 
 @property (nonatomic, retain) IBOutlet PieChartView *pieChart;
 @property (nonatomic, retain) IBOutlet UILabel *daysComplete;
@@ -36,5 +41,9 @@
 @property (nonatomic, retain) IBOutlet UIView *piePlate;
 @property (nonatomic, retain) IBOutlet MainViewController *mainView;
 @property NSUInteger eventID;
+@property NSInteger oldComplete;
+@property NSInteger oldLeft;
+@property NSInteger oldTotal;
+@property (nonatomic, retain) NSString *oldTitle;
 
 @end

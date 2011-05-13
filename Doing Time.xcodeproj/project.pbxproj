@@ -17,7 +17,6 @@
 		48110EC212C9804C00948558 /* PieChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 48110EC112C9804C00948558 /* PieChartView.m */; };
 		482811A0135C9EA8003704EC /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4828119F135C9EA8003704EC /* MessageUI.framework */; };
 		4828129F135CA5C3003704EC /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4828129C135CA5C3003704EC /* AboutViewController.m */; };
-		482812A0135CA5C3003704EC /* AboutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4828129D135CA5C3003704EC /* AboutView.xib */; };
 		482812A5135CA6AC003704EC /* ASlogo1-64x192.png in Resources */ = {isa = PBXBuildFile; fileRef = 482812A4135CA6AC003704EC /* ASlogo1-64x192.png */; };
 		4859316E12D9C6D9003BD7D6 /* Icon-iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 4859316B12D9C6D9003BD7D6 /* Icon-iPad.png */; };
 		4859316F12D9C6D9003BD7D6 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4859316C12D9C6D9003BD7D6 /* Icon.png */; };
@@ -26,6 +25,7 @@
 		485F3FE413156B32003A3525 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 485F3FE313156B32003A3525 /* EventKitUI.framework */; };
 		487026B612D7CAE800E90108 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 487026B512D7CAE800E90108 /* iAd.framework */; };
 		4870279D12D80B3000E90108 /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4870279B12D80B3000E90108 /* NSDate+Additions.m */; };
+		487E29FF137D906B0004761D /* AboutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 487E29FE137D906B0004761D /* AboutView.xib */; };
 		48924A1B131D67DA002AC7F5 /* EventSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48924A18131D67DA002AC7F5 /* EventSettingsViewController.m */; };
 		489E2891130782DB00E40ACA /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 489E2890130782DB00E40ACA /* StoreKit.framework */; };
 		48ABF44312F1C7E6009142AF /* Icon.xcf in Resources */ = {isa = PBXBuildFile; fileRef = 48ABF44212F1C7E6009142AF /* Icon.xcf */; };
@@ -61,7 +61,7 @@
 		4828119F135C9EA8003704EC /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		4828129B135CA5C3003704EC /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = AboutViewController.h; path = Classes/AboutViewController.h; sourceTree = "<group>"; };
 		4828129C135CA5C3003704EC /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AboutViewController.m; path = Classes/AboutViewController.m; sourceTree = "<group>"; };
-		4828129D135CA5C3003704EC /* AboutView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutView.xib; sourceTree = "<group>"; };
+		4828129D135CA5C3003704EC /* AboutView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = AboutView.xib; path = en.lproj/AboutView.xib; sourceTree = "<group>"; };
 		482812A4135CA6AC003704EC /* ASlogo1-64x192.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ASlogo1-64x192.png"; sourceTree = "<group>"; };
 		4838E59812D0984B007AC0D8 /* PieChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = PieChartView.h; path = Classes/PieChartView.h; sourceTree = "<group>"; };
 		4859316B12D9C6D9003BD7D6 /* Icon-iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPad.png"; sourceTree = "<group>"; };
@@ -184,7 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				482812A4135CA6AC003704EC /* ASlogo1-64x192.png */,
-				4828129D135CA5C3003704EC /* AboutView.xib */,
+				487E29FE137D906B0004761D /* AboutView.xib */,
 				48B38235134BA44A009B874B /* Default.png */,
 				48CE82BB1350CAC700D94BA6 /* EventSettingsView.xib */,
 				48CE82B31350CAC600D94BA6 /* EventView.xib */,
@@ -286,7 +286,7 @@
 				48CE82B41350CAC600D94BA6 /* EventView.xib in Resources */,
 				48B38236134BA44A009B874B /* Default.png in Resources */,
 				48CE82E81350D37B00D94BA6 /* Localizable.strings in Resources */,
-				482812A0135CA5C3003704EC /* AboutView.xib in Resources */,
+				487E29FF137D906B0004761D /* AboutView.xib in Resources */,
 				482812A5135CA6AC003704EC /* ASlogo1-64x192.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -315,6 +315,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		487E29FE137D906B0004761D /* AboutView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4828129D135CA5C3003704EC /* AboutView.xib */,
+			);
+			name = AboutView.xib;
+			sourceTree = "<group>";
+		};
 		48CE82B31350CAC600D94BA6 /* EventView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (

@@ -18,32 +18,36 @@
 @synthesize daysComplete = _daysComplete;
 @synthesize daysLeft = _daysLeft;
 @synthesize eventTitle = _eventTitle;
+@synthesize eventID = _eventID;
 @synthesize controls = _controls;
 @synthesize piePlate = _piePlate;
 @synthesize mainView = _mainView;
+@synthesize oldComplete = _oldComplete;
+@synthesize oldLeft = _oldLeft;
+@synthesize oldTotal = _oldTotal;
+@synthesize oldTitle = _oldTitle;
 
 - (id)initWithEvent:(NSUInteger)event {
 	if (self = [super initWithNibName:@"EventView" bundle:nil]) {
 		self.eventID = event;
+		self.oldTitle = @"";
+		self.oldComplete = -1;
+		self.oldLeft = -1;
+		self.oldTotal = -1;
 	}
 	return self;
 }
 
-- (NSUInteger)eventID {
-	return _eventID;
-}
-
-- (void)setEventID:(NSUInteger)eventID {
-	_eventID = eventID;
-	if ([self isViewLoaded]) {
-		[self setPieChartValues];
+- (void)redrawEvent:(BOOL)forceRedraw {
+	forceRedraw = [self setPieChartValues:forceRedraw];
+	if (forceRedraw) {
 		[self.pieChart setNeedsDisplay];
 	}
 }
 
-- (void)setPieChartValues {
+- (BOOL)setPieChartValues:(BOOL)forceRedraw {
 	if (self.eventID >= [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count]) {
-		return; // do not attempt to setup the piechart if the event ID is not in the array
+		return NO; // do not attempt to setup the piechart if the event ID is not in the array
 	}
 	NSInteger inFuture = 0;
 	NSInteger inPast = 0;
@@ -169,31 +173,43 @@
 							  inPast];
 		}
 	}
+	
+	forceRedraw = (completed == self.oldComplete) ? forceRedraw : YES;
+	forceRedraw = (left == self.oldLeft) ? forceRedraw : YES;
+	forceRedraw = (duration == self.oldTotal) ? forceRedraw : YES;
+	forceRedraw = ([self.oldTitle isEqualToString:_eventTitle.text]) ? forceRedraw : YES;
+	self.oldComplete = completed;
+	self.oldLeft = left;
+	self.oldTotal = duration;
+	self.oldTitle = _eventTitle.text;
 
-	_pieChart.alpha = 0.0;
-	[_pieChart setHidden:NO];
-	[_pieChart setNeedsDisplay];
-	
-	_daysComplete.alpha = 0.0;
-	[_daysComplete setHidden:NO];
-	[_daysComplete setNeedsDisplay];
-	
-	_daysLeft.alpha = 0.0;
-	[_daysLeft setHidden:NO];
-	[_daysLeft setNeedsDisplay];
-	
-	_eventTitle.alpha = 0.0;
-	[_eventTitle setHidden:NO];
-	[_eventTitle setNeedsDisplay];
-	
-	// Animate the fade-in
-	[UIView beginAnimations:nil context:NULL];
-	[UIView setAnimationDuration:0.5];
-	_pieChart.alpha = 1.0;
-	_daysComplete.alpha = 1.0;
-	_daysLeft.alpha = 1.0;
-	_eventTitle.alpha = 1.0;
-	[UIView commitAnimations];
+	if ([self isViewLoaded] && forceRedraw) {
+		_pieChart.alpha = 0.0;
+		[_pieChart setHidden:NO];
+		[_pieChart setNeedsDisplay];
+		
+		_daysComplete.alpha = 0.0;
+		[_daysComplete setHidden:NO];
+		[_daysComplete setNeedsDisplay];
+		
+		_daysLeft.alpha = 0.0;
+		[_daysLeft setHidden:NO];
+		[_daysLeft setNeedsDisplay];
+		
+		_eventTitle.alpha = 0.0;
+		[_eventTitle setHidden:NO];
+		[_eventTitle setNeedsDisplay];
+		
+		// Animate the fade-in
+		[UIView beginAnimations:nil context:NULL];
+		[UIView setAnimationDuration:0.5];
+		_pieChart.alpha = 1.0;
+		_daysComplete.alpha = 1.0;
+		_daysLeft.alpha = 1.0;
+		_eventTitle.alpha = 1.0;
+		[UIView commitAnimations];
+	}
+	return forceRedraw;
 }
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -210,7 +226,7 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
-	[self setPieChartValues];
+	[self setPieChartValues:YES];
 }
 
 - (IBAction)showInfo:(id)sender {

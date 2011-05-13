@@ -82,7 +82,7 @@
 													  object:[UIApplication sharedApplication]
 													   queue:nil
 												  usingBlock:^(NSNotification *notification) {
-													  [self redrawEvents];
+													  [self redrawEvents:NO];
 													  [self scheduleRedrawOnDayOver];
 												  }];
 	[[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillResignActiveNotification
@@ -124,22 +124,22 @@
 	}
 }
 
-- (void)redrawEvent:(NSInteger)event {
+- (void)redrawEvent:(NSInteger)event forceRedraw:(BOOL)forceRedraw {
 	if (event >= 0 && event < [self.events count]) {
 		EventViewController *controller = [self.events objectAtIndex:event];
-		[controller setPieChartValues];
-		[controller.pieChart setNeedsDisplay];
+		[controller redrawEvent:forceRedraw];
 	}
 }
 
-- (void)redrawEvents {
+- (void)redrawEvents:(BOOL)forceRedraw {
 	for (EventViewController *controller in self.events) {
 		controller.eventID = [self.events indexOfObject:controller];
+		[controller redrawEvent:forceRedraw];
 	}
 }
 
 - (void)redrawEventsOnTimer:(NSTimer *)timer {
-	[self redrawEvents];
+	[self redrawEvents:NO];
 	[self scheduleRedrawOnDayOver];
 }
 
@@ -210,16 +210,16 @@
 		[self loadScrollerWithEvent:eventIdentifier];
 		self.pager.numberOfPages = [self.events count];
 	} else {
-		[self redrawEvent:eventIdentifier];
+		[self redrawEvent:eventIdentifier forceRedraw:NO];
 	}
 }
 
 - (void)eventDidMove:(NSUInteger)sourceIndex to:(NSUInteger)destinationIndex {
-	[self redrawEvents];
+	[self redrawEvents:NO];
 }
 
 - (void)eventDisplayMethodUpdated {
-	[self redrawEvents];
+	[self redrawEvents:YES];
 }
 
 - (void)eventWasRemoved:(NSUInteger)eventIdentifier {
@@ -227,7 +227,7 @@
 		[self.events removeObjectAtIndex:eventIdentifier];
 		self.scroller.contentSize = CGSizeMake(self.scroller.frame.size.width * [self.events count], self.scroller.frame.size.height);
 		self.pager.numberOfPages = [self.events count];
-		[self redrawEvents];
+		[self redrawEvents:NO];
 		if (self.pager.currentPage >= self.pager.numberOfPages) {
 			self.pager.currentPage = 0;
 			[self changePage:nil];
