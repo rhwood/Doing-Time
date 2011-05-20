@@ -72,7 +72,7 @@
 			return 4;
 			break;
 		case 2:
-			return 1; // no thanks to Chrysta or Military Families
+			return 2; // no thanks to Chrysta or Military Families
 			break;
 		default:
 			return 0;
@@ -125,8 +125,8 @@
 					cell.detailTextLabel.text = @"Chartreuse";
 					break;
 				case 1:
-					cell.textLabel.text = @"Chrysta Wood";
-					cell.detailTextLabel.text = NSLocalizedString(@"Inspiration", @"");
+					cell.textLabel.text = @"Andreas Linde";
+					cell.detailTextLabel.text = @"QuincyKit";
 					break;
 				case 2:
 					cell.textLabel.text = NSLocalizedString(@"Military Families", @"The families of Soldiers, Sailors, and Marines");
@@ -218,6 +218,9 @@
 			switch (indexPath.row) {
 				case 0: // Chartreuse site
 					[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://axsw.co/fuCJn9"]];
+					break;
+				case 1: // QuincyKit
+					[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://axsw.co/kEhPlB"]];
 					break;
 				default:
 					break;

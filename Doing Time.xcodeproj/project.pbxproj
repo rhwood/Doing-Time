@@ -15,6 +15,7 @@
 		289233AE0DB2D0DB0083E9F9 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233A90DB2D0DB0083E9F9 /* MainViewController.m */; };
 		289233B00DB2D0DB0083E9F9 /* FlipsideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233AD0DB2D0DB0083E9F9 /* FlipsideViewController.m */; };
 		48110EC212C9804C00948558 /* PieChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 48110EC112C9804C00948558 /* PieChartView.m */; };
+		4813F4E51386E07800718FFC /* CrashReporter.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4813F4E31386E07800718FFC /* CrashReporter.strings */; };
 		482811A0135C9EA8003704EC /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4828119F135C9EA8003704EC /* MessageUI.framework */; };
 		4828129F135CA5C3003704EC /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4828129C135CA5C3003704EC /* AboutViewController.m */; };
 		482812A5135CA6AC003704EC /* ASlogo1-64x192.png in Resources */ = {isa = PBXBuildFile; fileRef = 482812A4135CA6AC003704EC /* ASlogo1-64x192.png */; };
@@ -39,6 +40,9 @@
 		48CE82C01350CAC700D94BA6 /* MainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48CE82BF1350CAC700D94BA6 /* MainView.xib */; };
 		48CE82E81350D37B00D94BA6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 48CE82E71350D37B00D94BA6 /* Localizable.strings */; };
 		48E61CDF131E9E210077DA8E /* EventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E61CDC131E9E210077DA8E /* EventViewController.m */; };
+		48EF13721382ED2400FF37C2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48EF13711382ED2400FF37C2 /* SystemConfiguration.framework */; };
+		48EF13741382ED5300FF37C2 /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48EF13731382ED5300FF37C2 /* CrashReporter.framework */; };
+		48EF13781382ED7300FF37C2 /* CrashReportSender.m in Sources */ = {isa = PBXBuildFile; fileRef = 48EF13761382ED7300FF37C2 /* CrashReportSender.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +62,7 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* Doing_Time_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Doing_Time_Prefix.pch; sourceTree = "<group>"; };
 		48110EC112C9804C00948558 /* PieChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PieChartView.m; path = Classes/PieChartView.m; sourceTree = "<group>"; };
+		4813F4E41386E07800718FFC /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = ../../External/QuincyKit/iPhone/English.lproj/CrashReporter.strings; sourceTree = SOURCE_ROOT; };
 		4828119F135C9EA8003704EC /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		4828129B135CA5C3003704EC /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = AboutViewController.h; path = Classes/AboutViewController.h; sourceTree = "<group>"; };
 		4828129C135CA5C3003704EC /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AboutViewController.m; path = Classes/AboutViewController.m; sourceTree = "<group>"; };
@@ -86,6 +91,10 @@
 		48E61CDB131E9E210077DA8E /* EventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = EventViewController.h; path = Classes/EventViewController.h; sourceTree = "<group>"; };
 		48E61CDC131E9E210077DA8E /* EventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventViewController.m; path = Classes/EventViewController.m; sourceTree = "<group>"; };
 		48E61CDD131E9E210077DA8E /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = en.lproj/EventView.xib; sourceTree = "<group>"; };
+		48EF13711382ED2400FF37C2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		48EF13731382ED5300FF37C2 /* CrashReporter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CrashReporter.framework; path = ../../External/QuincyKit/iPhone/CrashReporter.framework; sourceTree = SOURCE_ROOT; };
+		48EF13751382ED7300FF37C2 /* CrashReportSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = CrashReportSender.h; path = ../../External/QuincyKit/iPhone/Classes/CrashReportSender.h; sourceTree = SOURCE_ROOT; };
+		48EF13761382ED7300FF37C2 /* CrashReportSender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CrashReportSender.m; path = ../../External/QuincyKit/iPhone/Classes/CrashReportSender.m; sourceTree = SOURCE_ROOT; };
 		8D1107310486CEB800E47090 /* Doing_Time-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Doing_Time-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -102,6 +111,8 @@
 				485F3FE413156B32003A3525 /* EventKitUI.framework in Frameworks */,
 				48CE213813159502003C179A /* EventKit.framework in Frameworks */,
 				482811A0135C9EA8003704EC /* MessageUI.framework in Frameworks */,
+				48EF13721382ED2400FF37C2 /* SystemConfiguration.framework in Frameworks */,
+				48EF13741382ED5300FF37C2 /* CrashReporter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -183,6 +194,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4813F4E31386E07800718FFC /* CrashReporter.strings */,
 				482812A4135CA6AC003704EC /* ASlogo1-64x192.png */,
 				487E29FE137D906B0004761D /* AboutView.xib */,
 				48B38235134BA44A009B874B /* Default.png */,
@@ -204,6 +216,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				48EF13731382ED5300FF37C2 /* CrashReporter.framework */,
 				288765580DF743DE002DB57D /* CoreGraphics.framework */,
 				485F3FE313156B32003A3525 /* EventKitUI.framework */,
 				48CE213713159502003C179A /* EventKit.framework */,
@@ -212,6 +225,7 @@
 				4828119F135C9EA8003704EC /* MessageUI.framework */,
 				489E2890130782DB00E40ACA /* StoreKit.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
+				48EF13711382ED2400FF37C2 /* SystemConfiguration.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -219,6 +233,8 @@
 		485BAB4B13498E02005EE6BE /* Supporting Classes */ = {
 			isa = PBXGroup;
 			children = (
+				48EF13751382ED7300FF37C2 /* CrashReportSender.h */,
+				48EF13761382ED7300FF37C2 /* CrashReportSender.m */,
 				485BAB4E13498E31005EE6BE /* AppStoreDelegate.h */,
 				485BAB4F13498E31005EE6BE /* AppStoreDelegate.m */,
 			);
@@ -288,6 +304,7 @@
 				48CE82E81350D37B00D94BA6 /* Localizable.strings in Resources */,
 				487E29FF137D906B0004761D /* AboutView.xib in Resources */,
 				482812A5135CA6AC003704EC /* ASlogo1-64x192.png in Resources */,
+				4813F4E51386E07800718FFC /* CrashReporter.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,12 +326,21 @@
 				48ADE0C41343B51E005E96EB /* Constants.m in Sources */,
 				485BAB5113498E31005EE6BE /* AppStoreDelegate.m in Sources */,
 				4828129F135CA5C3003704EC /* AboutViewController.m in Sources */,
+				48EF13781382ED7300FF37C2 /* CrashReportSender.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		4813F4E31386E07800718FFC /* CrashReporter.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4813F4E41386E07800718FFC /* English */,
+			);
+			name = CrashReporter.strings;
+			sourceTree = "<group>";
+		};
 		487E29FE137D906B0004761D /* AboutView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -380,6 +406,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../External/QuincyKit/iPhone\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -396,6 +426,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../External/QuincyKit/iPhone\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Doing_Time_Prefix.pch;
 				INFOPLIST_FILE = "Doing_Time-Info.plist";
@@ -427,6 +461,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../External/QuincyKit/iPhone\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Doing_Time_Prefix.pch;
 				INFOPLIST_FILE = "Doing_Time-Info.plist";

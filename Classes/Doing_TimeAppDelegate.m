@@ -9,6 +9,9 @@
 #import "Doing_TimeAppDelegate.h"
 #import "MainViewController.h"
 #import "AppStoreDelegate.h"
+#import "CrashReportSender.h"
+
+#define CRASH_REPORTER_URL [NSURL URLWithString:@"http://www.axsw.co/quincy"]
 
 @implementation Doing_TimeAppDelegate
 
@@ -86,6 +89,8 @@
     [window addSubview:mainViewController.view];
     [window makeKeyAndVisible];
 
+	[[CrashReportSender sharedCrashReportSender] sendCrashReportToURL:CRASH_REPORTER_URL delegate:self activateFeedback:NO];
+	
     return YES;
 }
 
