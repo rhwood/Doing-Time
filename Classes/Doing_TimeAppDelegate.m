@@ -154,10 +154,6 @@
 
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	[self.appStore release];
-    [mainViewController release];
-    [window release];
-    [super dealloc];
 }
 
 @end

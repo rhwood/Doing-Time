@@ -12,7 +12,7 @@
 @implementation NSDate (AXAdditions)
 
 + (NSDate *)midnightForDate:(NSDate *)date {
-	NSCalendar *calendar = [[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
+	NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
 	NSUInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit;
 	NSDateComponents *components = [calendar components:unitFlags fromDate:date];
 	components.hour = 0;

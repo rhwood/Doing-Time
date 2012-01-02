@@ -38,7 +38,7 @@
     
 	self.eventBeingUpdated = 0;
 	
-	self.appDelegate = [UIApplication sharedApplication].delegate;
+	self.appDelegate = (Doing_TimeAppDelegate *)[UIApplication sharedApplication].delegate;
 	self.appStoreRequestFailed = NO;
 
 	self.navigationItem.title = NSLocalizedString(@"Settings", @"Title for the settings panel of the applications");
@@ -76,11 +76,11 @@
 													   queue:nil
 												  usingBlock:^(NSNotification *notification) {
 													  NSError *error = [[notification userInfo] objectForKey:AXAppStoreTransactionError];
-													  UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"App Store Error", @"Title for alert indicating that there was an error accessing the app store")
+													  UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"App Store Error", @"Title for alert indicating that there was an error accessing the app store")
 																									   message:error.localizedDescription
 																									  delegate:nil
 																							 cancelButtonTitle:NSLocalizedString(@"OK", @"")
-																							 otherButtonTitles:nil] autorelease];
+																							 otherButtonTitles:nil];
 													  [alert show];
 													  [self hidePurchaseActivity:YES];
 													  [self.tableView reloadData];
@@ -148,7 +148,6 @@
 	EventSettingsViewController *controller = [[EventSettingsViewController alloc] initWithEventIndex:[[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count]];
 	[self.navigationController pushViewController:controller animated:YES];
 	self.eventBeingUpdated = controller.index;
-	[controller release];
 }
 
 #pragma mark -
@@ -208,17 +207,17 @@
 	if (section == 3 || (indexPath.section != section) || (indexPath.section == 0 && indexPath.row == eventsCount + 1)) {
 		cell = [tableView dequeueReusableCellWithIdentifier:DefaultCellIdentifier];
 		if (cell == nil) {
-			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:DefaultCellIdentifier] autorelease];
+			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:DefaultCellIdentifier];
 		}
 	} else if (section == 0 || section == 2) {
 		cell = [tableView dequeueReusableCellWithIdentifier:SubtitleCellIdentifier];
 		if (cell == nil) {
-			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:SubtitleCellIdentifier] autorelease];
+			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:SubtitleCellIdentifier];
 		}
 	} else {
 		cell = [tableView dequeueReusableCellWithIdentifier:Value1CellIdentifier];
 		if (cell == nil) {
-			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:Value1CellIdentifier] autorelease];
+			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:Value1CellIdentifier];
 		}
 	}
 
@@ -271,7 +270,7 @@
 				[self.appDelegate.appStore.validProducts count]) {
 				cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 				SKProduct *product = [self.appDelegate.appStore.products objectForKey:[self.appDelegate.appStore.validProducts objectAtIndex:indexPath.row]];
-				NSNumberFormatter *numberFormatter = [[[NSNumberFormatter alloc] init] autorelease];
+				NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
 				[numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
 				[numberFormatter setLocale:product.priceLocale];
 				cell.textLabel.text = product.localizedTitle;
@@ -358,12 +357,11 @@
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
 	NSMutableArray *events = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey]];
-	NSDictionary *event = [[events objectAtIndex:sourceIndexPath.row] retain];
+	NSDictionary *event = [events objectAtIndex:sourceIndexPath.row];
 	[events removeObjectAtIndex:sourceIndexPath.row];
 	[events insertObject:event atIndex:destinationIndexPath.row];
 	[[NSUserDefaults standardUserDefaults] setObject:events forKey:eventsKey];
 	[[NSUserDefaults standardUserDefaults] synchronize];
-	[event release];
 	[self.delegate eventDidMove:sourceIndexPath.row to:destinationIndexPath.row];
 }
 
@@ -408,6 +406,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    MFMailComposeViewController* mailController;
+    AboutViewController *aboutController;
 	NSLog(@"%@", indexPath);
 	NSUInteger section = indexPath.section;
 	if (indexPath.section >= 2 && 
@@ -426,7 +426,6 @@
 				EventSettingsViewController *controller = [[EventSettingsViewController alloc] initWithEventIndex:indexPath.row];
 				[self.navigationController pushViewController:controller animated:YES];
 				eventBeingUpdated = controller.index;
-				[controller release];
 			} else if ([self.appDelegate.appStore hasTransactionForProduct:multipleEventsProductIdentifier]) {
 				// add empty event to array
 				[self addEvent];
@@ -469,22 +468,20 @@
 			switch (indexPath.row) {
 				case 0:
 					NSLog(@"Why can't I allocate a device after following a path in a switch?");
-					MFMailComposeViewController* controller = [[MFMailComposeViewController alloc] init];
-					controller.mailComposeDelegate = self;
-					[controller setSubject:[NSString localizedStringWithFormat:NSLocalizedString(@"Doing Time %@ Feedback", @"Email subject for application feedback"),
+					mailController = [[MFMailComposeViewController alloc] init];
+					mailController.mailComposeDelegate = self;
+					[mailController setSubject:[NSString localizedStringWithFormat:NSLocalizedString(@"Doing Time %@ Feedback", @"Email subject for application feedback"),
 											[[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]]];
-					[controller setToRecipients:[NSArray arrayWithObject:@"Support@AlexandriaSoftware.com"]];
-					[controller setMessageBody:@"" isHTML:NO];
-					if (controller) {
-						[self presentModalViewController:controller animated:YES];
+					[mailController setToRecipients:[NSArray arrayWithObject:@"Support@AlexandriaSoftware.com"]];
+					[mailController setMessageBody:@"" isHTML:NO];
+					if (mailController) {
+						[self presentModalViewController:mailController animated:YES];
 					}
-					[controller release];
 					break;
 				case 1:
 					NSLog(@"Why can't I allocate a device after following a path in a switch?");
-					AboutViewController *aboutController = [[AboutViewController alloc] initWithNibName:@"AboutView" bundle:nil];
+					aboutController = [[AboutViewController alloc] initWithNibName:@"AboutView" bundle:nil];
 					[self.navigationController pushViewController:aboutController animated:YES];
-					[aboutController release];
 					break;
 				default:
 					break;
@@ -623,11 +620,6 @@
 	self.datePicker = nil;
 	self.activityLabel = nil;
 	self.activityView = nil;
-}
-
-- (void)dealloc {
-	[self.endingTimeViewCellIndexPath dealloc];
-    [super dealloc];
 }
 
 @end

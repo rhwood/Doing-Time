@@ -31,7 +31,7 @@
 
 	// Set Defaults
 	self.bannerIsVisible = NO;
-	self.appDelegate = [UIApplication sharedApplication].delegate;
+	self.appDelegate = (Doing_TimeAppDelegate *)[UIApplication sharedApplication].delegate;
 	self.eventStore = self.appDelegate.eventStore;
 
 	// Display Defaults
@@ -39,7 +39,6 @@
 		self.pager.numberOfPages = [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count];
 		self.pager.currentPage = [[NSUserDefaults standardUserDefaults] integerForKey:currentEventKey];
 		[self.adBanner removeFromSuperview];
-		[self.adBanner release];
 	} else {
 		self.pager.numberOfPages = 1;
 		self.pager.currentPage = 0;
@@ -50,11 +49,9 @@
 	recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeFrom:)];
 	recognizer.direction = UISwipeGestureRecognizerDirectionLeft;
 	[self.view addGestureRecognizer:recognizer];
-	[recognizer release];
 	recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeFrom:)];
 	recognizer.direction = UISwipeGestureRecognizerDirectionRight;
 	[self.view addGestureRecognizer:recognizer];
-	[recognizer release];
 	
 	// Initialize Events
 	self.events = [NSMutableArray arrayWithCapacity:self.pager.numberOfPages];
@@ -108,7 +105,7 @@
 	if (event > [self.events count]) {
 		return;
 	} else if (event == [self.events count]) {
-		controller = [[[EventViewController alloc] initWithEvent:event] autorelease];
+		controller = [[EventViewController alloc] initWithEvent:event];
 		controller.mainView = self;
 		[self.events addObject:controller];
 		self.scroller.contentSize = CGSizeMake(self.scroller.frame.size.width * [self.events count], self.scroller.frame.size.height);
@@ -237,7 +234,6 @@
 
 - (void)flipsideViewControllerDidFinish:(FlipsideViewController *)controller {
 	[self dismissModalViewControllerAnimated:YES];
-	[controller release];
 }
 
 - (IBAction)showInfo:(id)sender {
@@ -247,8 +243,6 @@
 	//controller.navigationController = navigationController;
 	controller.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
 	[self presentModalViewController:navigationController animated:YES];
-	[navigationController release];
-	[controller release];
 }
 
 - (IBAction)changePage:(id)sender {
@@ -359,12 +353,10 @@
 	// Release any cached data, images, etc. that aren't in use.
 }
 
-
 - (void)viewDidUnload {
 	// Release any retained subviews of the main view.
 	// e.g. self.myOutlet = nil;
 }
-
 
 /*
 // Override to allow orientations other than the default portrait orientation.
@@ -373,11 +365,5 @@
 	return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 */
-
-
-- (void)dealloc {
-    [super dealloc];
-}
-
 
 @end

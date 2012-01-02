@@ -31,6 +31,8 @@ extern NSString *const AXAppStoreTransactionStore;
 
 }
 
+- (id)initWithDictionary:(NSDictionary *)transactionStore;
+
 #pragma mark -
 #pragma mark Store handling
 

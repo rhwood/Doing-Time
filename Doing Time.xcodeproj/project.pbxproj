@@ -42,7 +42,7 @@
 		48CE82E81350D37B00D94BA6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 48CE82E71350D37B00D94BA6 /* Localizable.strings */; };
 		48E61CDF131E9E210077DA8E /* EventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E61CDC131E9E210077DA8E /* EventViewController.m */; };
 		48EF13721382ED2400FF37C2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48EF13711382ED2400FF37C2 /* SystemConfiguration.framework */; };
-		48EF13781382ED7300FF37C2 /* CrashReportSender.m in Sources */ = {isa = PBXBuildFile; fileRef = 48EF13761382ED7300FF37C2 /* CrashReportSender.m */; };
+		48EF13781382ED7300FF37C2 /* CrashReportSender.m in Sources */ = {isa = PBXBuildFile; fileRef = 48EF13761382ED7300FF37C2 /* CrashReportSender.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */

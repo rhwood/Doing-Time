@@ -92,8 +92,6 @@
 	
 	[_pieItems addObject:item];
 	
-	[item release];
-	
 	_sum += value;
 }
 
@@ -229,7 +227,7 @@
 	CGContextAddArc(ctx2, point.x, point.y, radius, 0.0, (360.0)*M_PI/180.0, 0);
 	CGContextClosePath(ctx2);
 	CGContextFillPath(ctx2);
-	UIImage *maskImage = [[UIGraphicsGetImageFromCurrentImageContext() retain] autorelease];
+	UIImage *maskImage = UIGraphicsGetImageFromCurrentImageContext();
 	UIGraphicsPopContext();
 	
 	return maskImage;
@@ -255,7 +253,7 @@
 	
     CGGradientRelease(gradient);
     CGColorSpaceRelease(rgbColorspace); 
-	UIImage *gradientImage = [[UIGraphicsGetImageFromCurrentImageContext() retain] autorelease];
+	UIImage *gradientImage = UIGraphicsGetImageFromCurrentImageContext();
 	UIGraphicsPopContext();
 	
 	return gradientImage;
@@ -282,10 +280,5 @@
 	
 }
 
-
-- (void)dealloc {
-	[_pieItems release];
-    [super dealloc];
-}
 
 @end

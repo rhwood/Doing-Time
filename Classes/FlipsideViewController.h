@@ -16,7 +16,7 @@
 @class EventSettingsViewController;
 
 @interface FlipsideViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate> {
-	id <FlipsideViewControllerDelegate> delegate;
+	__unsafe_unretained id <FlipsideViewControllerDelegate> delegate;
 	UITableView* _tableView;
 	UIDatePicker* _datePicker;
 	BOOL showErrorAlert;

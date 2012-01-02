@@ -85,7 +85,7 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 
 - (void)requestProductData:(NSString *)productIdentifier {
 	if (![self.openRequests containsObject:productIdentifier]) {
-		SKProductsRequest *request = [[[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:productIdentifier]] autorelease];
+		SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:productIdentifier]];
 		request.delegate = self;
 		// ensure product is in self.products so that self.products count can be compared to self.transactionStore count
 		if (![self.products objectForKey:productIdentifier]) {

@@ -254,9 +254,4 @@
     // e.g. self.myOutlet = nil;
 }
 
-
-- (void)dealloc {
-    [super dealloc];
-}
-
 @end

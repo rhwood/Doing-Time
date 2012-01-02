@@ -25,7 +25,7 @@
 	UIColor* _detailTextLabelColor;
 	UIActionSheet* _linkUnlinkedEventActionSheet;
 	UIActionSheet* _changeLinkedEventActionSheet;
-	UITextField *_titleView;
+	__unsafe_unretained UITextField *_titleView;
 	UITableViewCell *_titleViewCell;
 	BOOL cancelling;
 }

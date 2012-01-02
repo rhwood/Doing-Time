@@ -89,7 +89,7 @@
 														   otherButtonTitles:NSLocalizedString(@"Change Linked Event", @""),
 										 NSLocalizedString(@"Create New Event", @""),
 										 nil];
-	Doing_TimeAppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+	Doing_TimeAppDelegate *appDelegate = (Doing_TimeAppDelegate *)[UIApplication sharedApplication].delegate;
 	self.eventStore = appDelegate.eventStore;
 }
 
@@ -144,7 +144,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if (cell == nil) {
-		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
 	}
     
 	cell.accessoryType = UITableViewCellAccessoryNone;
@@ -359,11 +359,11 @@
 
 - (void)showDateErrorAlert {
 	if (self.showErrorAlert) {
-		UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Cannot Save Event", @"Title for error saving event")
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Cannot Save Event", @"Title for error saving event")
 														message:NSLocalizedString(@"The start date must be before the end date.", @"Label indicating that the start day is not before the end day")
 													   delegate:nil
 											   cancelButtonTitle:NSLocalizedString(@"OK", @"Label indicating the user acknowledges the issue")
-											  otherButtonTitles:nil] autorelease];
+											  otherButtonTitles:nil];
 		[alert show];
 		self.showErrorAlert = NO;
 	}	
@@ -411,7 +411,6 @@
     controller.eventStore = self.eventStore;
     controller.editViewDelegate = self;
     [self presentModalViewController: controller animated:YES];
-    [controller release];
 }
 
 - (void)editCalendarEvent:(NSString *)identifier {
@@ -442,11 +441,11 @@
 		if ([self.titleView.text length]) {
 			[self.event setValue:self.titleView.text forKey:titleKey];
 		} else {
-			UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Cannot Save Title", @"Title for message indicating an error with the title of the event")
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Cannot Save Title", @"Title for message indicating an error with the title of the event")
 															message:NSLocalizedString(@"The title cannot be blank.", @"Message with the cause of the error saving the title")
 														   delegate:nil
 												  cancelButtonTitle:NSLocalizedString(@"OK", @"")
-												  otherButtonTitles:nil] autorelease];
+												  otherButtonTitles:nil];
 			[alert show];
 			return NO;
 		}
@@ -507,17 +506,7 @@
 - (void)viewDidUnload {
 	// Release any retained subviews of the main view.
 	// e.g. self.myOutlet = nil;
-	[self.datePicker release];
-	[self.tableView release];
 	[super viewDidUnload];
 }
-
-- (void)dealloc {
-	[self.startDateViewCellIndexPath release];
-	[self.endDateViewCellIndexPath release];
-	[self.event release];
-    [super dealloc];
-}
-
 
 @end
