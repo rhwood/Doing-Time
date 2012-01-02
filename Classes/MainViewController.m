@@ -105,7 +105,7 @@
 
 - (void)loadScrollerWithEvent:(NSUInteger)event {
 	EventViewController *controller;
-	if (event < 0 || event > [self.events count]) {
+	if (event > [self.events count]) {
 		return;
 	} else if (event == [self.events count]) {
 		controller = [[[EventViewController alloc] initWithEvent:event] autorelease];

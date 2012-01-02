@@ -26,6 +26,7 @@
 @synthesize activityLabel = _activityLabel;
 @synthesize activityView = _activityView;
 @synthesize eventBeingUpdated;
+@synthesize allowInAppPurchases;
 
 #pragma mark -
 #pragma mark View lifecycle
@@ -33,6 +34,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.allowInAppPurchases = YES; // set to NO until Lodsys patent litigation threat is lifted
+    
 	self.eventBeingUpdated = 0;
 	
 	self.appDelegate = [UIApplication sharedApplication].delegate;
@@ -175,7 +178,11 @@
 			return 2; // For 1.1 percentages and hour the day is complete
 			break;
 		case 2: // Store
-			return [self.appDelegate.appStore.validProducts count];
+            if (self.allowInAppPurchases) {
+                return [self.appDelegate.appStore.validProducts count];
+            } else {
+                return 0;
+            }
 			break;
 		case 3: // Support
 			return 2;
@@ -268,7 +275,7 @@
 				[numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
 				[numberFormatter setLocale:product.priceLocale];
 				cell.textLabel.text = product.localizedTitle;
-				cell.detailTextLabel.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%@ for %@", @"String containg the description of an in-app purchase followed by the cost."), 
+				cell.detailTextLabel.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%@ for %@", @"String containing the description of an in-app purchase followed by the cost."), 
 											 product.localizedDescription,
 											 [numberFormatter stringFromNumber:product.price]];
 			}
@@ -371,17 +378,21 @@
 		case 1:
 			break;
 		case 2:
-			if (!self.appDelegate.appStore.canMakePayments) {
-				return [NSString localizedStringWithFormat:NSLocalizedString(@"In-App Purchases are disabled on this %@.", @"Notice that the user cannot purchase an available upgrade due to policy."), 
-						[UIDevice currentDevice].localizedModel];
-			} else if (![self.appDelegate.appStore hasTransactionsForAllProducts] &&
-					   ![self.appDelegate.appStore hasDataForAnyProducts]) {
-				if ([self.appDelegate.appStore.openRequests count]) {
-					return NSLocalizedString(@"Getting available upgrades...", @"Notice that the application is getting the list of available in-app purchases.");
-				} else {
-					return NSLocalizedString(@"Unable to get available upgrades.", @"Notice that the application cannot get the list of available in-app purchases.");
-				}
-			}
+            if (self.allowInAppPurchases) {
+                if (!self.appDelegate.appStore.canMakePayments) {
+                    return [NSString localizedStringWithFormat:NSLocalizedString(@"In-App Purchases are disabled on this %@.", @"Notice that the user cannot purchase an available upgrade due to policy."), 
+                            [UIDevice currentDevice].localizedModel];
+                } else if (![self.appDelegate.appStore hasTransactionsForAllProducts] &&
+                           ![self.appDelegate.appStore hasDataForAnyProducts]) {
+                    if ([self.appDelegate.appStore.openRequests count]) {
+                        return NSLocalizedString(@"Getting available upgrades...", @"Notice that the application is getting the list of available in-app purchases.");
+                    } else {
+                        return NSLocalizedString(@"Unable to get available upgrades.", @"Notice that the application cannot get the list of available in-app purchases.");
+                    }
+                }
+            } else {
+                return NSLocalizedString(@"In-App Purchases have been disabled due to threats of patent litigation.", @"Notice that In-App Purchases are disabled.");
+            }
 			break;
 		case 3:
 			break;

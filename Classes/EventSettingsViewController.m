@@ -35,7 +35,7 @@
 #pragma mark View lifecycle
 
 - (id)initWithEventIndex:(NSUInteger)index {
-	if (self = [super initWithNibName:@"EventSettingsView" bundle:nil]) {
+	if ((self = [super initWithNibName:@"EventSettingsView" bundle:nil])) {
 		self.index = index;
 		if (self.index == [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count]) {
 			self.newEvent = YES;

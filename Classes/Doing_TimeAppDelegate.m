@@ -11,7 +11,7 @@
 #import "AppStoreDelegate.h"
 #import "CrashReportSender.h"
 
-#define CRASH_REPORTER_URL [NSURL URLWithString:@"http://www.axsw.co/quincy"]
+#define CRASH_REPORTER_URL [NSURL URLWithString:@"http://www.axsw.co/quincy/crash_v200.php"]
 
 @implementation Doing_TimeAppDelegate
 
@@ -130,6 +130,17 @@
      Called when the application is about to terminate.
      See also applicationDidEnterBackground:.
      */
+}
+
+#pragma mark -
+#pragma mark Crash reporter delegate
+
+- (void)connectionOpened {
+	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+}
+
+- (void)connectionClosed {
+	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
 #pragma mark -

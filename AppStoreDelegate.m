@@ -28,7 +28,7 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 @synthesize products = _products;
 
 - (id)initWithDictionary:(NSDictionary *)transactionStore {
-	if (self = [super init]) {
+	if ((self = [super init])) {
 		self.transactionStore = [NSMutableDictionary dictionaryWithDictionary:transactionStore];
 		self.products = [NSMutableDictionary dictionaryWithCapacity:0];
 		self.openRequests = [NSMutableSet setWithCapacity:0];

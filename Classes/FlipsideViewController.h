@@ -27,6 +27,7 @@
 	
 	// Purchases
 	BOOL appStoreRequestFailed;
+    BOOL allowInAppPurchases; // result of Lodsys patent threats
 	
 	// Activity
 	UIActivityIndicatorView* _activityIndicator;
@@ -56,6 +57,7 @@
 #pragma mark Purchases
 
 @property BOOL appStoreRequestFailed;
+@property BOOL allowInAppPurchases;
 - (void)hidePurchaseActivity:(BOOL)hidden;
 
 #pragma mark -

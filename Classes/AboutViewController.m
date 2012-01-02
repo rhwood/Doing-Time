@@ -72,7 +72,7 @@
 			return 4;
 			break;
 		case 2:
-			return 2; // no thanks to Chrysta or Military Families
+			return 2;
 			break;
 		default:
 			return 0;
@@ -108,7 +108,7 @@
 					break;
 				case 2:
 					cell.textLabel.text = NSLocalizedString(@"Facebook", @"Short term for Facebook");
-					cell.detailTextLabel.text = NSLocalizedString(@"Like  us!", @"Facebook \"Like us!\" tagline");
+					cell.detailTextLabel.text = NSLocalizedString(@"Like us!", @"Facebook \"Like us!\" tagline");
 					break;
 				case 3:
 					cell.textLabel.text = NSLocalizedString(@"Support", @"Short title for support resources");
@@ -127,10 +127,6 @@
 				case 1:
 					cell.textLabel.text = @"Andreas Linde";
 					cell.detailTextLabel.text = @"QuincyKit";
-					break;
-				case 2:
-					cell.textLabel.text = NSLocalizedString(@"Military Families", @"The families of Soldiers, Sailors, and Marines");
-					cell.detailTextLabel.text = NSLocalizedString(@"Sacrifice", @"");
 					break;
 				default:
 					break;
