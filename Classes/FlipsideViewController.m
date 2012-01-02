@@ -174,7 +174,7 @@
 			return [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count] + 1;
 			break;
 		case 1: // Display
-			return 2; // For 1.1 percentages and hour the day is complete
+			return 3;
 			break;
 		case 2: // Store
             if (self.allowInAppPurchases) {
@@ -254,7 +254,16 @@
 						cell.accessoryType = UITableViewCellAccessoryNone;
 					}
 					break;
-				case 1:
+                case 1:
+                    cell.textLabel.text = NSLocalizedString(@"Only Show Remaining Days", @"Label for cell that includes checkmark to indicate that events are displayed with the completed days count");
+                    cell.detailTextLabel.text = @"";
+                    if ([[NSUserDefaults standardUserDefaults] boolForKey:showCompletedDaysKey]) {
+                        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                    } else {
+                        cell.accessoryType = UITableViewCellAccessoryNone;
+                    }
+                    break;
+				case 2:
 					cell.textLabel.text = NSLocalizedString(@"Day ends at", @"Label for cell that includes the hour of the day at which the day is considered past.");
 					if ([[NSUserDefaults standardUserDefaults] objectForKey:dayOverKey]) {
 						cell.detailTextLabel.text = [NSDateFormatter localizedStringFromDate:[[NSUserDefaults standardUserDefaults] objectForKey:dayOverKey]
@@ -441,7 +450,14 @@
 					[self.tableView reloadData];
 					[self.delegate eventDisplayMethodUpdated];
 					break;
-				case 1:
+                case 1:
+                    [[NSUserDefaults standardUserDefaults] setBool:(![[NSUserDefaults standardUserDefaults]
+                                                                      boolForKey:showCompletedDaysKey])
+                                                            forKey:showCompletedDaysKey];
+                    [self.tableView reloadData];
+                    [self.delegate eventDisplayMethodUpdated];
+                    break;
+				case 2:
 					if (self.datePicker.hidden) {
 						self.datePicker.datePickerMode = UIDatePickerModeTime;
 						[self hideDatePicker:NO];

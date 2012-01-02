@@ -20,6 +20,7 @@ extern NSString *const dayOverKey;
 extern NSString *const multiEventTransactionKey;
 extern NSString *const currentEventKey;
 extern NSString *const showPercentageKey;
+extern NSString *const showCompletedDaysKey;
 extern NSString *const transactionsKey;
 
 #pragma mark -

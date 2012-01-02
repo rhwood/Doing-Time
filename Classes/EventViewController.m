@@ -133,16 +133,20 @@
 	
 	NSString *days = NSLocalizedString(@"days", @"Plural for \"day\"");
 	if (!inFuture) {
-		if (completed == 1) {
-			days = NSLocalizedString(@"day", @"Singular form of \"day\"");
-		}
-		if (completed == 0) {
-			_daysComplete.text = nil;
-		} else if (![[NSUserDefaults standardUserDefaults] boolForKey:showPercentageKey]) {
-			_daysComplete.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%d %@ complete", @"The number (%d) of days (%@) complete"), completed, days];
-		} else {
-			_daysComplete.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%d %@ (%2.4g%%) complete", @"The number (%d) of days (%@) complete with the percent of days past in parenthesis"), completed, days, interval * completed * 100];
-		}		
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:showCompletedDaysKey]) {
+            if (completed == 1) {
+                days = NSLocalizedString(@"day", @"Singular form of \"day\"");
+            }
+            if (completed == 0) {
+                _daysComplete.text = nil;
+            } else if (![[NSUserDefaults standardUserDefaults] boolForKey:showPercentageKey]) {
+                _daysComplete.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%d %@ complete", @"The number (%d) of days (%@) complete"), completed, days];
+            } else {
+                _daysComplete.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%d %@ (%2.4g%%) complete", @"The number (%d) of days (%@) complete with the percent of days past in parenthesis"), completed, days, interval * completed * 100];
+            }
+        } else {
+            _daysComplete.text = @"";
+        }
 	} else {
 		if (inFuture == 1) {
 			_daysComplete.text = NSLocalizedString(@"Begins tomorrow", @"The message displayed when the event will start tomorrow");

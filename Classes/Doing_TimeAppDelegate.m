@@ -66,6 +66,10 @@
 												  forKey:eventsKey];
 		
 	}
+    // set showCompletedDaysKey to v1.2 behavior if the key does not exist
+    if (![[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:showCompletedDaysKey]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:showCompletedDaysKey];
+    }
 	if (![[NSUserDefaults standardUserDefaults] objectForKey:dayOverKey]) {
 		// 1 JAN 2001 17:00
 		[[NSUserDefaults standardUserDefaults] setObject:[NSDate dateWithTimeIntervalSinceReferenceDate:61200] forKey:dayOverKey];
