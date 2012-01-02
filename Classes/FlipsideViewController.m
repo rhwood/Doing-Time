@@ -229,6 +229,7 @@
 			if (indexPath.row == eventsCount) {
 				if ([self.appDelegate.appStore hasTransactionForProduct:multipleEventsProductIdentifier]) {
 					cell.textLabel.text = NSLocalizedString(@"Add Event", @"Button to add another event to monitor. Button is in a table cell.");
+                    cell.detailTextLabel.text = nil;
 				}
 			} else if (indexPath.row < eventsCount) {
 				NSDictionary* event = [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] objectAtIndex:indexPath.row];
