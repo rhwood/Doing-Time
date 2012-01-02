@@ -17,6 +17,7 @@
 @synthesize pieChart = _pieChart;
 @synthesize daysComplete = _daysComplete;
 @synthesize daysLeft = _daysLeft;
+@synthesize dateRange;
 @synthesize eventTitle = _eventTitle;
 @synthesize eventID = _eventID;
 @synthesize controls = _controls;
@@ -115,6 +116,8 @@
 			left = duration;
 		}
 	}
+    NSLog(@"%d days in future", inFuture);
+    NSLog(@"%d days in past", inPast);
 	float interval = 1.0 / duration;
 	
 	_eventTitle.text = [event objectForKey:titleKey];
@@ -142,11 +145,9 @@
 		}		
 	} else {
 		if (inFuture == 1) {
-			_daysComplete.text = [NSString localizedStringWithFormat:NSLocalizedString(@"Begins tomorrow", @"The message displayed when the event will start tomorrow"),
-								  [event objectForKey:titleKey]];
+			_daysComplete.text = NSLocalizedString(@"Begins tomorrow", @"The message displayed when the event will start tomorrow");
 		} else {
 			_daysComplete.text = [NSString localizedStringWithFormat:NSLocalizedString(@"Begins in %d days", @"The message displayed when the event will start %d days in the future"),
-								  [event objectForKey:titleKey],
 								  inFuture];
 		}
 	}
@@ -165,14 +166,25 @@
 		}
 	} else {
 		if (inPast == 1) {
-			_daysLeft.text = [NSString localizedStringWithFormat:NSLocalizedString(@"Ended yesterday", @"Message displayed to indicate the event ended the day prior."),
-							  [event objectForKey:titleKey]];
+			_daysLeft.text = NSLocalizedString(@"Ended yesterday", @"Message displayed to indicate the event ended the day prior.");
 		} else {
 			_daysLeft.text = [NSString localizedStringWithFormat:NSLocalizedString(@"Ended %d days ago", @"Message indicating the event ended some days in the past"),
-							  [event objectForKey:titleKey],
 							  inPast];
 		}
 	}
+    if (duration != 1) {
+        dateRange.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%@ to %@", @"The range from start to end"),
+                          [NSDateFormatter localizedStringFromDate:[event objectForKey:startKey]
+                                                         dateStyle:NSDateFormatterMediumStyle
+                                                         timeStyle:NSDateFormatterNoStyle],
+                          [NSDateFormatter localizedStringFromDate:[event objectForKey:endKey]
+                                                         dateStyle:NSDateFormatterMediumStyle
+                                                         timeStyle:NSDateFormatterNoStyle]];
+    } else {
+        dateRange.text = [NSDateFormatter localizedStringFromDate:[event objectForKey:endKey]
+                                                        dateStyle:NSDateFormatterMediumStyle
+                                                        timeStyle:NSDateFormatterNoStyle];
+    }
 	
 	forceRedraw = (completed == self.oldComplete) ? forceRedraw : YES;
 	forceRedraw = (left == self.oldLeft) ? forceRedraw : YES;
@@ -184,6 +196,7 @@
 	self.oldTitle = _eventTitle.text;
 
 	if ([self isViewLoaded] && forceRedraw) {
+        NSLog(@"redrawing now");
 		_pieChart.alpha = 0.0;
 		[_pieChart setHidden:NO];
 		[_pieChart setNeedsDisplay];
@@ -196,6 +209,10 @@
 		[_daysLeft setHidden:NO];
 		[_daysLeft setNeedsDisplay];
 		
+		dateRange.alpha = 0.0;
+		[dateRange setHidden:NO];
+		[dateRange setNeedsDisplay];
+		
 		_eventTitle.alpha = 0.0;
 		[_eventTitle setHidden:NO];
 		[_eventTitle setNeedsDisplay];
@@ -206,6 +223,7 @@
 		_pieChart.alpha = 1.0;
 		_daysComplete.alpha = 1.0;
 		_daysLeft.alpha = 1.0;
+        dateRange.alpha = 1.0;
 		_eventTitle.alpha = 1.0;
 		[UIView commitAnimations];
 	}

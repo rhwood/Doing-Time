@@ -36,6 +36,7 @@
 @property (nonatomic, retain) IBOutlet PieChartView *pieChart;
 @property (nonatomic, retain) IBOutlet UILabel *daysComplete;
 @property (nonatomic, retain) IBOutlet UILabel *daysLeft;
+@property (nonatomic, retain) IBOutlet UILabel *dateRange;
 @property (nonatomic, retain) IBOutlet UILabel *eventTitle;
 @property (nonatomic, retain) IBOutlet UIView *controls;
 @property (nonatomic, retain) IBOutlet UIView *piePlate;
