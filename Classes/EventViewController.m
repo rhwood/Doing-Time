@@ -57,31 +57,31 @@
 	NSTimeInterval dayEnds = [[[NSUserDefaults standardUserDefaults] objectForKey:dayOverKey] 
 							  timeIntervalSinceReferenceDate] + [[NSTimeZone localTimeZone] secondsFromGMT];
 	NSDictionary *event = [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] objectAtIndex:self.eventID];
-	NSDate *startDate = [[event objectForKey:startKey]
+	NSDate *calcStartDate = [[event objectForKey:startKey]
 						 dateByAddingTimeInterval:-86400.0];
-	// NSDate *realStartDate = [NSDate midnightForDate:[event objectForKey:startKey]];
+	NSDate *startDate = [NSDate midnightForDate:[event objectForKey:startKey]];
 	NSDate *endDate = [event objectForKey:endKey];
 	NSDate *today = [NSDate midnightForDate:[NSDate date]];
-//	NSLog(@"Since midnight for %@ is %f", today, [today timeIntervalSinceNow]);
+	NSLog(@"Since midnight for %@ is %f", today, [today timeIntervalSinceNow]);
 	if (fabs(dayEnds) > fabs([today timeIntervalSinceNow])) {
 		NSLog(@"Day is incomplete");
 	}
-//	NSLog(@"Seconds from GMT: %i", [[NSTimeZone localTimeZone] secondsFromGMT]);
+	NSLog(@"Seconds from GMT: %i", [[NSTimeZone localTimeZone] secondsFromGMT]);
 	if ([[NSTimeZone localTimeZone] secondsFromGMTForDate:today] != [[NSTimeZone localTimeZone] secondsFromGMTForDate:startDate]) {
-		// get difference between timezones and adjust today
+		// get difference between timezones and adjust today & dayOver time
 		NSLog(@"Humph.");
 	}
-//	NSLog(@"Start date:  %@", startDate);
-//	NSLog(@"Real Start:  %@", realStartDate);
-//	NSLog(@"End date:    %@", endDate);
-//	NSLog(@"Today:       %@", today);
-//	NSLog(@"Reference    %@", [[NSUserDefaults standardUserDefaults] objectForKey:dayOverKey]);
-//	NSLog(@"Now:         %@", [NSDate date]);
-//	NSLog(@"Day ends at: %f", dayEnds);
+	NSLog(@"Start date:  %@", startDate);
+	NSLog(@"End date:    %@", endDate);
+	NSLog(@"Today:       %@", today);
+	NSLog(@"Calc start:  %@", calcStartDate);
+	NSLog(@"Reference:   %@", [[NSUserDefaults standardUserDefaults] objectForKey:dayOverKey]);
+	NSLog(@"Now:         %@", [NSDate date]);
+	NSLog(@"Day ends at: %f", dayEnds);
 	
 	NSInteger completed = [[[NSCalendar currentCalendar] components:NSDayCalendarUnit
 														   fromDate:today 
-															 toDate:[NSDate dateWithTimeInterval:[today timeIntervalSinceDate:startDate]
+															 toDate:[NSDate dateWithTimeInterval:[today timeIntervalSinceDate:calcStartDate]
 																					   sinceDate:today]
 															options:0]
 						   day];
@@ -94,13 +94,13 @@
 					  day];
 	NSLog(@"%d days left", left);
 	NSInteger duration = [[[NSCalendar currentCalendar] components:NSDayCalendarUnit
-														  fromDate:startDate 
+														  fromDate:calcStartDate 
 															toDate:endDate
 														   options:0]
 						  day];
 	NSLog(@"%d total days", duration);
-	if (completed < 0) {
-		inFuture = completed * -1;
+	if (completed <= 0) {
+		inFuture = (completed * -1) + 1;
 		completed = 0;
 		left = duration;
 	} else if (completed > duration) {
@@ -111,11 +111,11 @@
 		completed--;
 		left++;
 		if (completed < 0) {
-			inFuture = completed * -1;
+			inFuture = (completed * -1) + 1;
 			completed = 0;
 			left = duration;
 		}
-	}
+    }
     NSLog(@"%d days in future", inFuture);
     NSLog(@"%d days in past", inPast);
 	float interval = 1.0 / duration;
@@ -162,7 +162,7 @@
 			days = NSLocalizedString(@"days", @"");
 		}
 		if (left == 0) {
-			_daysLeft.text = nil;
+			_daysLeft.text = NSLocalizedString(@"Done today", @"The message displayed on the last day of an event");
 		} else if (![[NSUserDefaults standardUserDefaults] boolForKey:showPercentageKey]) { 
 			_daysLeft.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%d %@ left", @"The number (%d) of days (%@) remaining"), left, days];
 		} else {
@@ -178,14 +178,14 @@
 	}
     if (duration != 1) {
         dateRange.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%@ to %@", @"The range from start to end"),
-                          [NSDateFormatter localizedStringFromDate:[event objectForKey:startKey]
+                          [NSDateFormatter localizedStringFromDate:startDate
                                                          dateStyle:NSDateFormatterMediumStyle
                                                          timeStyle:NSDateFormatterNoStyle],
-                          [NSDateFormatter localizedStringFromDate:[event objectForKey:endKey]
+                          [NSDateFormatter localizedStringFromDate:endDate
                                                          dateStyle:NSDateFormatterMediumStyle
                                                          timeStyle:NSDateFormatterNoStyle]];
     } else {
-        dateRange.text = [NSDateFormatter localizedStringFromDate:[event objectForKey:endKey]
+        dateRange.text = [NSDateFormatter localizedStringFromDate:endDate
                                                         dateStyle:NSDateFormatterMediumStyle
                                                         timeStyle:NSDateFormatterNoStyle];
     }
