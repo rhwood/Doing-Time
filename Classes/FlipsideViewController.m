@@ -255,9 +255,10 @@
 					}
 					break;
                 case 1:
-                    cell.textLabel.text = NSLocalizedString(@"Only Show Remaining Days", @"Label for cell that includes checkmark to indicate that events are displayed with the completed days count");
+                    cell.textLabel.text = NSLocalizedString(@"Show Remaining Days Only", @"Label for cell that includes checkmark to indicate that events are displayed with the completed days count");
                     cell.detailTextLabel.text = @"";
-                    if ([[NSUserDefaults standardUserDefaults] boolForKey:showCompletedDaysKey]) {
+                    // the text displayed to the user is the reverse of the setting
+                    if (![[NSUserDefaults standardUserDefaults] boolForKey:showCompletedDaysKey]) {
                         cell.accessoryType = UITableViewCellAccessoryCheckmark;
                     } else {
                         cell.accessoryType = UITableViewCellAccessoryNone;
