@@ -332,7 +332,7 @@
 }
 
 - (void)bannerViewDidLoadAd:(ADBannerView *)banner {
-	if (self.adBanner && !self.bannerIsVisible) {
+	if ([self.adBanner superview] && !self.bannerIsVisible) {
 		[self hideAdBanner:NO animated:YES];
     }	
 }
