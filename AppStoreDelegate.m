@@ -181,16 +181,6 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 	[[SKPaymentQueue defaultQueue] addPayment:payment];	
 }
 
-- (void)queuePaymentForProductIdentifier:(NSString *)productIdentifier {
-	[self queuePaymentForProductIdentifier:productIdentifier withQuantity:1];
-}
-
-- (void)queuePaymentForProductIdentifier:(NSString *)productIdentifier withQuantity:(NSUInteger)quantity {
-	SKMutablePayment *payment = [SKPayment paymentWithProductIdentifier:productIdentifier];
-	payment.quantity = quantity;
-	[[SKPaymentQueue defaultQueue] addPayment:payment];	
-}
-
 - (void)recordTransaction:(SKPaymentTransaction *)transaction {
 	if (transaction.transactionState == SKPaymentTransactionStateRestored) {
 		[self.transactionStore setValue:transaction.transactionReceipt forKey:transaction.originalTransaction.payment.productIdentifier];
