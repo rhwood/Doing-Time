@@ -142,10 +142,10 @@
 		}		
 	} else {
 		if (inFuture == 1) {
-			_daysComplete.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%@ begins tomorrow", @"The message displayed when the event (%@ is the event title) will start tomorrow"),
+			_daysComplete.text = [NSString localizedStringWithFormat:NSLocalizedString(@"Begins tomorrow", @"The message displayed when the event will start tomorrow"),
 								  [event objectForKey:titleKey]];
 		} else {
-			_daysComplete.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%@ begins in %d days", @"The message displayed when the event will start %d days in the future"),
+			_daysComplete.text = [NSString localizedStringWithFormat:NSLocalizedString(@"Begins in %d days", @"The message displayed when the event will start %d days in the future"),
 								  [event objectForKey:titleKey],
 								  inFuture];
 		}
@@ -165,10 +165,10 @@
 		}
 	} else {
 		if (inPast == 1) {
-			_daysLeft.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%@ ended yesterday", @"Message displayed to indicate the event ended the day prior."),
+			_daysLeft.text = [NSString localizedStringWithFormat:NSLocalizedString(@"Ended yesterday", @"Message displayed to indicate the event ended the day prior."),
 							  [event objectForKey:titleKey]];
 		} else {
-			_daysLeft.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%@ ended %d days ago", @"Message indicating the event ended some days in the past"),
+			_daysLeft.text = [NSString localizedStringWithFormat:NSLocalizedString(@"Ended %d days ago", @"Message indicating the event ended some days in the past"),
 							  [event objectForKey:titleKey],
 							  inPast];
 		}
