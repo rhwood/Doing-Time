@@ -27,6 +27,7 @@
 		485F3FE413156B32003A3525 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 485F3FE313156B32003A3525 /* EventKitUI.framework */; };
 		487026B612D7CAE800E90108 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 487026B512D7CAE800E90108 /* iAd.framework */; };
 		4870279D12D80B3000E90108 /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4870279B12D80B3000E90108 /* NSDate+Additions.m */; };
+		48785A6D14B22C56008186A7 /* Test Flight.plist in Resources */ = {isa = PBXBuildFile; fileRef = 48785A6C14B22C56008186A7 /* Test Flight.plist */; };
 		487E29FF137D906B0004761D /* AboutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 487E29FE137D906B0004761D /* AboutView.xib */; };
 		48924A1B131D67DA002AC7F5 /* EventSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48924A18131D67DA002AC7F5 /* EventSettingsViewController.m */; };
 		489E2891130782DB00E40ACA /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 489E2890130782DB00E40ACA /* StoreKit.framework */; };
@@ -79,6 +80,7 @@
 		487026B512D7CAE800E90108 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		4870279A12D80B3000E90108 /* NSDate+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = "NSDate+Additions.h"; path = "Classes/NSDate+Additions.h"; sourceTree = "<group>"; };
 		4870279B12D80B3000E90108 /* NSDate+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+Additions.m"; path = "Classes/NSDate+Additions.m"; sourceTree = "<group>"; };
+		48785A6C14B22C56008186A7 /* Test Flight.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Test Flight.plist"; sourceTree = "<group>"; };
 		48924A17131D67DA002AC7F5 /* EventSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = EventSettingsViewController.h; path = Classes/EventSettingsViewController.h; sourceTree = "<group>"; };
 		48924A18131D67DA002AC7F5 /* EventSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventSettingsViewController.m; path = Classes/EventSettingsViewController.m; sourceTree = "<group>"; };
 		48924A19131D67DA002AC7F5 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = en.lproj/EventSettingsView.xib; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				48785A6C14B22C56008186A7 /* Test Flight.plist */,
 				4801A93913FA304900379150 /* CrashReporter.strings */,
 				482812A4135CA6AC003704EC /* ASlogo1-64x192.png */,
 				487E29FE137D906B0004761D /* AboutView.xib */,
@@ -251,6 +254,7 @@
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
+				48785A6914B229AC008186A7 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -308,10 +312,27 @@
 				487E29FF137D906B0004761D /* AboutView.xib in Resources */,
 				482812A5135CA6AC003704EC /* ASlogo1-64x192.png in Resources */,
 				4801A93B13FA304900379150 /* CrashReporter.strings in Resources */,
+				48785A6D14B22C56008186A7 /* Test Flight.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		48785A6914B229AC008186A7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /usr/bin/ruby;
+			shellScript = "#!/usr/bin/ruby\n\ndef get_file_as_string(filename)\ndata = ''\nf = File.open(filename, \"r\") \nf.each_line do |line|\ndata += line\nend\nreturn data\nend\n\n\ndef handle_alpha_beta(old_value, letter, infoplist, start_of_value, end_of_value)\nparts = old_value.split(letter)\nversion_num = parts[0]\nalpha_num = parts[1].to_i\n\nalpha_num = alpha_num + 1\nnew_version = version_num.to_s + letter + alpha_num.to_s\nprint \"Assigning new version: \" + new_version + \"\\n\"\nnew_key = \"<string>#{new_version}</string>\"\n\npart_1 = infoplist[0, start_of_value - '<string>'.length];\npart_2 = new_key \npart_3 = infoplist[end_of_value + \"</string>\".length, infoplist.length - (end_of_value - start_of_value + (new_key.length - 1))]    \n\nnew_info_plist = part_1 + part_2 + part_3\nnew_info_plist\nend\n\ndef find_and_increment_version_number_with_key(key, infoplist)\n\nstart_of_key = infoplist.index(key)\nstart_of_value = infoplist.index(\"<string>\", start_of_key) + \"<string>\".length\nend_of_value = infoplist.index(\"</string>\", start_of_value)\nold_value = infoplist[start_of_value, end_of_value - start_of_value]\n\nprint \"Old version for \" + key + \": \" + old_value + \"\\n\"\nprint old_value.class.to_s + \"\\n\"\nold_value_int = old_value.to_i\nprint old_value_int.class.to_s + \"\\n\"\nif (old_value.index(\"a\") != nil) # alpha\ninfoplist = handle_alpha_beta(old_value, \"a\", infoplist, start_of_value, end_of_value)\nelsif (old_value.index(\"b\") != nil) # beta\ninfoplist = handle_alpha_beta(old_value, \"b\", infoplist, start_of_value, end_of_value)\nelsif (old_value.index(\".\") != nil) # release dot version\nparts = old_value.split(\".\")\nlast_part = parts.last.to_i\nlast_part = last_part + 1\nparts.delete(parts.last)\n\nnew_version = \"\"\nfirst = true\nparts.each do |one_part|\nif (first)\nfirst = false\nelse\nnew_version = new_version + \".\"\nend\nnew_version = new_version + one_part\nend\nnew_version = new_version.to_s + \".\" + last_part.to_s\nprint \"New version: \" + new_version.to_s + \"\\n\"\nnew_key = \"<string>#{new_version}</string>\"\ninfoplist = \"#{infoplist[0, start_of_value - '<string>'.length]}#{new_key}#{infoplist[end_of_value + '</string>'.length, infoplist.length - (end_of_value+1)]}\"\nelsif (old_value.to_i != nil) # straight integer build number\nnew_version = old_value.to_i + 1\nprint \"New version: \" + new_version.to_s + \"\\n\"\nnew_key = \"<string>#{new_version}</string>\"\n\npart_1 = infoplist[0, start_of_value - '<string>'.length]\npart_2 = new_key\npart_3 = infoplist[end_of_value + \"</string>\".length, infoplist.length - (end_of_value+1)]\ninfoplist = part_1 + part_2 + part_3\nend \ninfoplist\nend\n\n\n\nconfig = ENV['CONFIGURATION'].upcase\nconfig_build_dir = ENV['CONFIGURATION_BUILD_DIR']\n\narchive_action = false\nif (config_build_dir.include?(\"ArchiveIntermediates\"))\narchive_action = true\nend\n\nprint \"Archive: \" + archive_action.to_s + \"\\n\"\n\n\nprint config\n\nif (config == \"RELEASE\" || config == \"TEST FLIGHT\")\nprint \" incrementing build numbers\\n\"\nproject_dir = ENV['PROJECT_DIR']\ninfoplist_file = ENV['INFOPLIST_FILE']\nplist_filename = \"#{project_dir}/#{infoplist_file}\"\n\ninfoplist = get_file_as_string(plist_filename)\ninfoplist = find_and_increment_version_number_with_key(\"CFBundleVersion\", infoplist)\nif (archive_action && config == \"RELEASE\")\nprint \" incrementing version\\n\"\ninfoplist = find_and_increment_version_number_with_key(\"CFBundleShortVersionString\", infoplist)\nend\nFile.open(plist_filename, 'w') {|f| f.write(infoplist) }\nelse\nprint \" not incrementing build numbers\"\nend\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1D60588E0D05DD3D006BFB54 /* Sources */ = {
@@ -406,10 +427,12 @@
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALTERNATE_MODE = "";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_OBJCPP_ARC_ABI = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_RESOURCE_RULES_PATH = "";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -420,18 +443,23 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Doing_Time_Prefix.pch;
 				INFOPLIST_FILE = "Doing_Time-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "Doing Time";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		1D6058950D05DD3E006BFB54 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALTERNATE_MODE = "";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_OBJCPP_ARC_ABI = YES;
+				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_RESOURCE_RULES_PATH = "";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -440,11 +468,53 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Doing_Time_Prefix.pch;
 				INFOPLIST_FILE = "Doing_Time-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "Doing Time";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
+		};
+		48785A6A14B22B19008186A7 /* Test Flight */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				RUN_CLANG_STATIC_ANALYZER = YES;
+				SDKROOT = iphoneos;
+			};
+			name = "Test Flight";
+		};
+		48785A6B14B22B19008186A7 /* Test Flight */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALTERNATE_MODE = "";
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_OBJCPP_ARC_ABI = YES;
+				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = "Test Flight.plist";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_RESOURCE_RULES_PATH = "";
+				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../External/QuincyKit/1.2/iPhone\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Doing_Time_Prefix.pch;
+				INFOPLIST_FILE = "Doing_Time-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				PRODUCT_NAME = "Doing Time";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Test Flight";
 		};
 		4886B87112F2223A0095E9C4 /* Distribution */ = {
 			isa = XCBuildConfiguration;
@@ -463,11 +533,13 @@
 		4886B87212F2223A0095E9C4 /* Distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALTERNATE_MODE = "";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_OBJCPP_ARC_ABI = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_RESOURCE_RULES_PATH = "";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -476,9 +548,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Doing_Time_Prefix.pch;
 				INFOPLIST_FILE = "Doing_Time-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "Doing Time";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Distribution;
@@ -518,6 +592,7 @@
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
 				1D6058950D05DD3E006BFB54 /* Release */,
+				48785A6B14B22B19008186A7 /* Test Flight */,
 				4886B87212F2223A0095E9C4 /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -528,6 +603,7 @@
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
 				C01FCF5008A954540054247B /* Release */,
+				48785A6A14B22B19008186A7 /* Test Flight */,
 				4886B87112F2223A0095E9C4 /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
