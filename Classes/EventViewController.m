@@ -62,7 +62,7 @@
 	NSDate *startDate = [NSDate midnightForDate:[event objectForKey:startKey]];
 	NSDate *endDate = [event objectForKey:endKey];
     NSDate *calcEndDate = endDate;
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:includeLastDayInCalc]) {
+    if ([[event allKeys] containsObject:includeLastDayInCalcKey] && ![[event valueForKey:includeLastDayInCalcKey] boolValue]) {
         calcEndDate = [calcEndDate dateByAddingTimeInterval:-86400.0];
     }
 	NSDate *today = [NSDate midnightForDate:[NSDate date]];

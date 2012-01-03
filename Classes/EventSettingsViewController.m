@@ -45,10 +45,16 @@
 						  startKey,
 						  [NSDate distantFuture],
 						  endKey,
+                          [NSNumber numberWithBool:YES],
+                          includeLastDayInCalcKey,
 						  nil];
 		} else {
 			self.event = [NSMutableDictionary dictionaryWithDictionary:[[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] objectAtIndex:index]];
 			self.newEvent = NO;
+            if (![[self.event allKeys] containsObject:includeLastDayInCalcKey]) {
+                [self.event setValue:[NSNumber numberWithBool:YES] forKey:includeLastDayInCalcKey];
+                [self saveEvent];
+            }
 		}
 	}
 	return self;
@@ -114,6 +120,11 @@
 		[self showDateErrorAlert];
 		return;
 	}
+    [self saveEvent];
+	[self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)saveEvent {
 	NSMutableArray *events = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey]];
 	if (self.newEvent) {
 		[events addObject:self.event];
@@ -121,95 +132,152 @@
 		[events replaceObjectAtIndex:self.index withObject:self.event];
 	}
 	[[NSUserDefaults standardUserDefaults] setObject:events forKey:eventsKey];
-	[[NSUserDefaults standardUserDefaults] synchronize];
-	[self.navigationController popViewControllerAnimated:YES];
+	[[NSUserDefaults standardUserDefaults] synchronize];    
 }
 
 #pragma mark -
 #pragma mark Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return 1;
+	return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return 3; // We are not enabling the calendar linking functionality
+    switch (section) {
+        case 0:
+            return 3;
+            break;
+        case 1:
+            return 1; // no calendar link yet
+            break;
+        default:
+            return 0;
+            break;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.row == 0) {
+    //static NSString *DefaultCellIdentifier = @"DefaultCell";
+	static NSString *SubtitleCellIdentifier = @"SubtitleCell";
+	static NSString *Value1CellIdentifier = @"Value1Cell";
+	if (indexPath.section == 0 && indexPath.row == 0) {
 		return self.titleViewCell;
 	}
-    static NSString *CellIdentifier = @"Cell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-	if (cell == nil) {
-		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+    UITableViewCell *cell;
+	if (indexPath.section == 0) {
+		cell = [tableView dequeueReusableCellWithIdentifier:Value1CellIdentifier];
+		if (cell == nil) {
+			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:Value1CellIdentifier];
+		}
+    } else {
+		cell = [tableView dequeueReusableCellWithIdentifier:SubtitleCellIdentifier];
+		if (cell == nil) {
+			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:SubtitleCellIdentifier];
+		}
 	}
     
 	cell.accessoryType = UITableViewCellAccessoryNone;
-	cell.detailTextLabel.textColor = self.detailTextLabelColor;
 	
-	switch (indexPath.row) {
-		case 0:
-			cell.textLabel.text = NSLocalizedString(@"Title", @"Label for the event title");
-			cell.detailTextLabel.text = [self.event valueForKey:titleKey];
-			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-			break;
-		case 1:
-			cell.textLabel.text = NSLocalizedString(@"Start Date", @"Label for the day the event starts");
-			if (![[self.event valueForKey:startKey] isEqualToDate:[NSDate distantPast]]) {
-				cell.detailTextLabel.text = [NSDateFormatter localizedStringFromDate:[self.event valueForKey:startKey]
-																		   dateStyle:NSDateFormatterLongStyle
-																		   timeStyle:NSDateFormatterNoStyle];
-				if (![self verifyDateOrder]) {
-					cell.detailTextLabel.textColor = [UIColor redColor]; 
-				}
-			} else {
-				cell.detailTextLabel.text = [NSDateFormatter localizedStringFromDate:[NSDate date]
-																		   dateStyle:NSDateFormatterLongStyle
-																		   timeStyle:NSDateFormatterNoStyle];					
-				cell.detailTextLabel.textColor = [UIColor whiteColor];
-			}
-			break;
-		case 2:
-			cell.textLabel.text = NSLocalizedString(@"End Date", @"Label for the day the event ends");
-			if (![[self.event valueForKey:endKey] isEqualToDate:[NSDate distantFuture]]) {
-				cell.detailTextLabel.text = [NSDateFormatter localizedStringFromDate:[self.event valueForKey:endKey]
-																		   dateStyle:NSDateFormatterLongStyle
-																		   timeStyle:NSDateFormatterNoStyle];
-				if (![self verifyDateOrder]) {
-					cell.detailTextLabel.textColor = [UIColor redColor]; 
-				} 
-			} else {
-				cell.detailTextLabel.text = [NSDateFormatter localizedStringFromDate:[NSDate date]
-																		   dateStyle:NSDateFormatterLongStyle
-																		   timeStyle:NSDateFormatterNoStyle];
-				cell.detailTextLabel.textColor = [UIColor whiteColor];
-			}
-			break;
-		case 3:
-			cell.textLabel.text = NSLocalizedString(@"Link to Event", @"Label or button link event to the system calendar");
-			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-			if ([self.event valueForKey:linkKey]) {
-				EKEvent *event = [self.eventStore eventWithIdentifier:[self.event valueForKey:linkKey]];
-				cell.detailTextLabel.text = event.title; //event title
-			} else {
-				cell.detailTextLabel.text = NSLocalizedString(@"None", @"Label to indicate that event is not linked to the system calendar");
-			}
-			break;
-		default:
-			break;
-	}
+    switch (indexPath.section) {
+        case 0:
+            switch (indexPath.row) {
+                case 0:
+                    cell.textLabel.text = NSLocalizedString(@"Title", @"Label for the event title");
+                    cell.detailTextLabel.text = [self.event valueForKey:titleKey];
+                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    break;
+                case 1:
+                    cell.textLabel.text = NSLocalizedString(@"Start Date", @"Label for the day the event starts");
+                    cell.detailTextLabel.textColor = self.detailTextLabelColor;
+                    if (![[self.event valueForKey:startKey] isEqualToDate:[NSDate distantPast]]) {
+                        cell.detailTextLabel.text = [NSDateFormatter localizedStringFromDate:[self.event valueForKey:startKey]
+                                                                                   dateStyle:NSDateFormatterLongStyle
+                                                                                   timeStyle:NSDateFormatterNoStyle];
+                        if (![self verifyDateOrder]) {
+                            cell.detailTextLabel.textColor = [UIColor redColor]; 
+                        }
+                    } else {
+                        cell.detailTextLabel.text = [NSDateFormatter localizedStringFromDate:[NSDate date]
+                                                                                   dateStyle:NSDateFormatterLongStyle
+                                                                                   timeStyle:NSDateFormatterNoStyle];					
+                        cell.detailTextLabel.textColor = [UIColor whiteColor];
+                    }
+                    break;
+                case 2:
+                    cell.textLabel.text = NSLocalizedString(@"End Date", @"Label for the day the event ends");
+                    cell.detailTextLabel.textColor = self.detailTextLabelColor;
+                    if (![[self.event valueForKey:endKey] isEqualToDate:[NSDate distantFuture]]) {
+                        cell.detailTextLabel.text = [NSDateFormatter localizedStringFromDate:[self.event valueForKey:endKey]
+                                                                                   dateStyle:NSDateFormatterLongStyle
+                                                                                   timeStyle:NSDateFormatterNoStyle];
+                        if (![self verifyDateOrder]) {
+                            cell.detailTextLabel.textColor = [UIColor redColor]; 
+                        } 
+                    } else {
+                        cell.detailTextLabel.text = [NSDateFormatter localizedStringFromDate:[NSDate date]
+                                                                                   dateStyle:NSDateFormatterLongStyle
+                                                                                   timeStyle:NSDateFormatterNoStyle];
+                        cell.detailTextLabel.textColor = [UIColor whiteColor];
+                    }
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case 1:
+            switch (indexPath.row) {
+                case 0:
+					cell.textLabel.text = NSLocalizedString(@"Include End Date", @"Label for cell that includes checkmark to indicate that events are calculated to include the last day");
+					if ([[self.event valueForKey:includeLastDayInCalcKey] boolValue]) {
+						cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                        cell.detailTextLabel.text = NSLocalizedString(@"Event is through end date", @"Explanitory label for \"Include End Date\" if checked");
+					} else {
+						cell.accessoryType = UITableViewCellAccessoryNone;
+                        cell.detailTextLabel.text = NSLocalizedString(@"Event is until end date", @"Explanitory label for \"Include End Date\" if not checked");
+					}
+                    break;                    
+                case 3: // link to calendar
+                    cell.textLabel.text = NSLocalizedString(@"Link to Event", @"Label or button link event to the system calendar");
+                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    if ([self.event valueForKey:linkKey]) {
+                        EKEvent *event = [self.eventStore eventWithIdentifier:[self.event valueForKey:linkKey]];
+                        cell.detailTextLabel.text = event.title; //event title
+                    } else {
+                        cell.detailTextLabel.text = NSLocalizedString(@"None", @"Label to indicate that event is not linked to the system calendar");
+                    }
+                    break;
+                default:
+                    break;
+            }
+        default:
+            break;
+    }
     return cell;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	return nil;
+    switch (section) {
+        case 0:
+            return nil;
+            break;
+        case 1:
+			return NSLocalizedString(@"Display", @"Heading for settings affecting the display of events");
+        default:
+            return nil;
+            break;
+    }
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
-	return NSLocalizedString(@"Give the event a title and set the start and end dates.", @"Label with basic instructions for the user");
+    switch (section) {
+        case 0:
+            return NSLocalizedString(@"Give the event a title and set the start and end dates.", @"Label with basic instructions for the user");
+            break;
+        default:
+            return nil;
+            break;
+    }
 }
 
 // Override to support conditional editing of the table view.
@@ -227,65 +295,81 @@
 	[self verifyDateOrder];
 	[self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:YES];
 	self.datePicker.datePickerMode = UIDatePickerModeDate;
-	if (indexPath.row) {
+	if (indexPath.row && indexPath.section) {
 		[self.titleView resignFirstResponder];
 	}
-	switch (indexPath.row) {
-		case 0:
-			break;
-		case 1:
-			if (!self.settingStartDate) {
-				self.settingEndDate = NO;
-				[self hideDatePicker:NO];
-				[self.datePicker setDate:[self.event valueForKey:startKey]
-								animated:YES];
-				if ([[self.event valueForKey:startKey] isEqualToDate:[NSDate distantPast]]) {
-					[self.datePicker setDate:[NSDate date] animated:YES];
-				}
-				[self.datePicker removeTarget:self
-									   action:@selector(changeEndDate:)
-							 forControlEvents:UIControlEventValueChanged];
-				[self.datePicker addTarget:self
-									action:@selector(changeStartDate:)
-						  forControlEvents:UIControlEventValueChanged];
-			} else {
-				[self hideDatePicker:YES];
-				[self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-			}
-			self.settingStartDate = !self.settingStartDate;
-			break;
-		case 2:
-			if (!self.settingEndDate) {
-				self.settingStartDate = NO;
-				[self hideDatePicker:NO];
-				[self.datePicker setDate:[self.event valueForKey:endKey] 
-								animated:YES];
-				if ([[self.event valueForKey:endKey] isEqualToDate:[NSDate distantFuture]]) {
-					[self.datePicker setDate:[NSDate date] animated:YES];
-				}
-				[self.datePicker removeTarget:self
-									   action:@selector(changeStartDate:)
-							 forControlEvents:UIControlEventValueChanged];
-				[self.datePicker addTarget:self
-									action:@selector(changeEndDate:)
-						  forControlEvents:UIControlEventValueChanged];					
-			} else {
-				[self hideDatePicker:YES];
-				[self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-			}
-			self.settingEndDate = !self.settingEndDate;
-			break;
-		case 3:
-			[self clearDatePicker];
-			link = [self.event valueForKey:linkKey];
-			if (link) {
-				[self.changeLinkedEventActionSheet showInView:self.view];
-			} else {
-				[self.linkUnlinkedEventActionSheet showInView:self.view];
-			}
-		default:
-			break;
-	}
+    switch (indexPath.section) {
+        case 0:
+            switch (indexPath.row) {
+                case 0:
+                    break;
+                case 1:
+                    if (!self.settingStartDate) {
+                        self.settingEndDate = NO;
+                        [self hideDatePicker:NO];
+                        [self.datePicker setDate:[self.event valueForKey:startKey]
+                                        animated:YES];
+                        if ([[self.event valueForKey:startKey] isEqualToDate:[NSDate distantPast]]) {
+                            [self.datePicker setDate:[NSDate date] animated:YES];
+                        }
+                        [self.datePicker removeTarget:self
+                                               action:@selector(changeEndDate:)
+                                     forControlEvents:UIControlEventValueChanged];
+                        [self.datePicker addTarget:self
+                                            action:@selector(changeStartDate:)
+                                  forControlEvents:UIControlEventValueChanged];
+                    } else {
+                        [self hideDatePicker:YES];
+                        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+                    }
+                    self.settingStartDate = !self.settingStartDate;
+                    break;
+                case 2:
+                    if (!self.settingEndDate) {
+                        self.settingStartDate = NO;
+                        [self hideDatePicker:NO];
+                        [self.datePicker setDate:[self.event valueForKey:endKey] 
+                                        animated:YES];
+                        if ([[self.event valueForKey:endKey] isEqualToDate:[NSDate distantFuture]]) {
+                            [self.datePicker setDate:[NSDate date] animated:YES];
+                        }
+                        [self.datePicker removeTarget:self
+                                               action:@selector(changeStartDate:)
+                                     forControlEvents:UIControlEventValueChanged];
+                        [self.datePicker addTarget:self
+                                            action:@selector(changeEndDate:)
+                                  forControlEvents:UIControlEventValueChanged];					
+                    } else {
+                        [self hideDatePicker:YES];
+                        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+                    }
+                    self.settingEndDate = !self.settingEndDate;
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case 1:
+            switch (indexPath.row) {
+                case 0:
+                    [self.event setValue:[NSNumber numberWithBool:(![[self.event valueForKey:includeLastDayInCalcKey] boolValue])] forKey:includeLastDayInCalcKey];
+                    [self.tableView reloadData];
+                    break;
+                case 3:
+                    [self clearDatePicker];
+                    link = [self.event valueForKey:linkKey];
+                    if (link) {
+                        [self.changeLinkedEventActionSheet showInView:self.view];
+                    } else {
+                        [self.linkUnlinkedEventActionSheet showInView:self.view];
+                    }
+                default:
+                    break;
+            }
+            break;
+        default:
+            break;
+    }
 }
 
 //- (NSIndexPath *)tableView:tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {

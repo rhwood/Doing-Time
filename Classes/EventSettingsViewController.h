@@ -33,6 +33,7 @@
 - (id)initWithEventIndex:(NSUInteger)index;
 - (void)cancel;
 - (void)done;
+- (void)saveEvent;
 - (BOOL)verifyNonemptyTitle;
 
 #pragma mark -
