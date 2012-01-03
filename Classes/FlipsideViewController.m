@@ -155,9 +155,9 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 	if (![self.appDelegate.appStore hasTransactionsForAllProducts]) {
-		return 4; // Disable the support elements for 1.2
+		return 4;
 	}
-	return 3; // Disable the support elements for 1.2
+	return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -174,7 +174,7 @@
 			return [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count] + 1;
 			break;
 		case 1: // Display
-			return 3;
+			return 4;
 			break;
 		case 2: // Store
             if (self.allowInAppPurchases) {
@@ -209,15 +209,15 @@
 		if (cell == nil) {
 			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:DefaultCellIdentifier];
 		}
-	} else if (section == 0 || section == 2) {
-		cell = [tableView dequeueReusableCellWithIdentifier:SubtitleCellIdentifier];
-		if (cell == nil) {
-			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:SubtitleCellIdentifier];
-		}
-	} else {
+	} else if (section == 1 && indexPath.row == 3) {
 		cell = [tableView dequeueReusableCellWithIdentifier:Value1CellIdentifier];
 		if (cell == nil) {
 			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:Value1CellIdentifier];
+		}
+    } else {
+		cell = [tableView dequeueReusableCellWithIdentifier:SubtitleCellIdentifier];
+		if (cell == nil) {
+			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:SubtitleCellIdentifier];
 		}
 	}
 
@@ -246,7 +246,7 @@
 		case 1: // Display
 			switch (indexPath.row) {
 				case 0:
-					cell.textLabel.text = NSLocalizedString(@"Show Percentages", @"Label for cell that includes checkmark to indicate that events are displayed with percentages");
+					cell.textLabel.text = NSLocalizedString(@"Percentages", @"Label for cell that includes checkmark to indicate that events are displayed with percentages");
 					cell.detailTextLabel.text = @"";
 					if ([[NSUserDefaults standardUserDefaults] boolForKey:showPercentageKey]) {
 						cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -255,7 +255,7 @@
 					}
 					break;
                 case 1:
-                    cell.textLabel.text = NSLocalizedString(@"Show Remaining Days Only", @"Label for cell that includes checkmark to indicate that events are displayed with the completed days count");
+                    cell.textLabel.text = NSLocalizedString(@"Remaining Days Only", @"Label for cell that includes checkmark to indicate that events are displayed with the completed days count");
                     cell.detailTextLabel.text = @"";
                     // the text displayed to the user is the reverse of the setting
                     if (![[NSUserDefaults standardUserDefaults] boolForKey:showCompletedDaysKey]) {
@@ -265,6 +265,15 @@
                     }
                     break;
 				case 2:
+					cell.textLabel.text = NSLocalizedString(@"Include Last Day", @"Label for cell that includes checkmark to indicate that events are calculated to include the last day");
+					cell.detailTextLabel.text = NSLocalizedString(@"Calculations include last day", @"Explanitory label for \"Include Last Day\"");
+					if ([[NSUserDefaults standardUserDefaults] boolForKey:includeLastDayInCalc]) {
+						cell.accessoryType = UITableViewCellAccessoryCheckmark;
+					} else {
+						cell.accessoryType = UITableViewCellAccessoryNone;
+					}
+					break;
+				case 3:
 					cell.textLabel.text = NSLocalizedString(@"Day ends at", @"Label for cell that includes the hour of the day at which the day is considered past.");
 					if ([[NSUserDefaults standardUserDefaults] objectForKey:dayOverKey]) {
 						cell.detailTextLabel.text = [NSDateFormatter localizedStringFromDate:[[NSUserDefaults standardUserDefaults] objectForKey:dayOverKey]
@@ -458,7 +467,14 @@
                     [self.tableView reloadData];
                     [self.delegate eventDisplayMethodUpdated];
                     break;
-				case 2:
+                case 2:
+                    [[NSUserDefaults standardUserDefaults] setBool:(![[NSUserDefaults standardUserDefaults]
+                                                                      boolForKey:includeLastDayInCalc])
+                                                            forKey:includeLastDayInCalc];
+                    [self.tableView reloadData];
+                    [self.delegate eventDisplayMethodUpdated];
+                    break;
+				case 3:
 					if (self.datePicker.hidden) {
 						self.datePicker.datePickerMode = UIDatePickerModeTime;
 						[self hideDatePicker:NO];

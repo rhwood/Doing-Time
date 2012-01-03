@@ -61,6 +61,10 @@
 						 dateByAddingTimeInterval:-86400.0];
 	NSDate *startDate = [NSDate midnightForDate:[event objectForKey:startKey]];
 	NSDate *endDate = [event objectForKey:endKey];
+    NSDate *calcEndDate = endDate;
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:includeLastDayInCalc]) {
+        calcEndDate = [calcEndDate dateByAddingTimeInterval:-86400.0];
+    }
 	NSDate *today = [NSDate midnightForDate:[NSDate date]];
 	NSLog(@"Since midnight for %@ is %f", today, [today timeIntervalSinceNow]);
 	if (fabs(dayEnds) > fabs([today timeIntervalSinceNow])) {
@@ -75,6 +79,7 @@
 	NSLog(@"End date:    %@", endDate);
 	NSLog(@"Today:       %@", today);
 	NSLog(@"Calc start:  %@", calcStartDate);
+    NSLog(@"Calc end:    %@", calcEndDate);
 	NSLog(@"Reference:   %@", [[NSUserDefaults standardUserDefaults] objectForKey:dayOverKey]);
 	NSLog(@"Now:         %@", [NSDate date]);
 	NSLog(@"Day ends at: %f", dayEnds);
@@ -88,17 +93,21 @@
 	NSLog(@"%d days complete", completed);
 	NSInteger left = [[[NSCalendar currentCalendar] components:NSDayCalendarUnit
 													  fromDate:today 
-														toDate:[NSDate dateWithTimeInterval:[endDate timeIntervalSinceDate:today]
+														toDate:[NSDate dateWithTimeInterval:[calcEndDate timeIntervalSinceDate:today]
 																				  sinceDate:today]
 													   options:0]
 					  day];
 	NSLog(@"%d days left", left);
 	NSInteger duration = [[[NSCalendar currentCalendar] components:NSDayCalendarUnit
 														  fromDate:calcStartDate 
-															toDate:endDate
+															toDate:calcEndDate
 														   options:0]
 						  day];
 	NSLog(@"%d total days", duration);
+    if (!duration) {
+        duration = 1;
+        left++;
+    }
 	if (completed <= 0) {
 		inFuture = (completed * -1) + 1;
 		completed = 0;
@@ -185,7 +194,7 @@
                                                          dateStyle:NSDateFormatterMediumStyle
                                                          timeStyle:NSDateFormatterNoStyle]];
     } else {
-        dateRange.text = [NSDateFormatter localizedStringFromDate:endDate
+        dateRange.text = [NSDateFormatter localizedStringFromDate:startDate
                                                         dateStyle:NSDateFormatterMediumStyle
                                                         timeStyle:NSDateFormatterNoStyle];
     }

@@ -20,6 +20,7 @@ NSString *const multiEventTransactionKey = @"multipleEvents";
 NSString *const currentEventKey = @"currentEvent";
 NSString *const showPercentageKey = @"showPercentages";
 NSString *const showCompletedDaysKey = @"showCompletedDays";
+NSString *const includeLastDayInCalc = @"includeLastDayInCalc";
 NSString *const transactionsKey = @"AppStoreTransactions";
 
 #pragma mark -
