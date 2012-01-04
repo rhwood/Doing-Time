@@ -135,6 +135,11 @@
 	[[NSUserDefaults standardUserDefaults] synchronize];    
 }
 
+- (void)switchIncludeLastDayInCalc:(id)sender {
+    [self.event setValue:[NSNumber numberWithBool:[(UISwitch *)sender isOn]] forKey:includeLastDayInCalcKey];
+    
+}
+
 #pragma mark -
 #pragma mark Table view data source
 
@@ -160,9 +165,6 @@
     //static NSString *DefaultCellIdentifier = @"DefaultCell";
 	static NSString *SubtitleCellIdentifier = @"SubtitleCell";
 	static NSString *Value1CellIdentifier = @"Value1Cell";
-	if (indexPath.section == 0 && indexPath.row == 0) {
-		return self.titleViewCell;
-	}
     
     UITableViewCell *cell;
 	if (indexPath.section == 0) {
@@ -183,9 +185,7 @@
         case 0:
             switch (indexPath.row) {
                 case 0:
-                    cell.textLabel.text = NSLocalizedString(@"Title", @"Label for the event title");
-                    cell.detailTextLabel.text = [self.event valueForKey:titleKey];
-                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    return self.titleViewCell;
                     break;
                 case 1:
                     cell.textLabel.text = NSLocalizedString(@"Start Date", @"Label for the day the event starts");
@@ -229,11 +229,15 @@
             switch (indexPath.row) {
                 case 0:
 					cell.textLabel.text = NSLocalizedString(@"Include End Date", @"Label for cell that includes checkmark to indicate that events are calculated to include the last day");
+                    cell.accessoryView = [[UISwitch alloc] initWithFrame:CGRectZero];
+                    [(UISwitch *)cell.accessoryView addTarget:self 
+                                                       action:@selector(switchIncludeLastDayInCalc:)
+                                             forControlEvents:UIControlEventValueChanged];
 					if ([[self.event valueForKey:includeLastDayInCalcKey] boolValue]) {
-						cell.accessoryType = UITableViewCellAccessoryCheckmark;
+						[(UISwitch *)cell.accessoryView setOn:YES];
                         cell.detailTextLabel.text = NSLocalizedString(@"Event is through end date", @"Explanitory label for \"Include End Date\" if checked");
 					} else {
-						cell.accessoryType = UITableViewCellAccessoryNone;
+						[(UISwitch *)cell.accessoryView setOn:NO];
                         cell.detailTextLabel.text = NSLocalizedString(@"Event is until end date", @"Explanitory label for \"Include End Date\" if not checked");
 					}
                     break;                    
@@ -352,8 +356,7 @@
         case 1:
             switch (indexPath.row) {
                 case 0:
-                    [self.event setValue:[NSNumber numberWithBool:(![[self.event valueForKey:includeLastDayInCalcKey] boolValue])] forKey:includeLastDayInCalcKey];
-                    [self.tableView reloadData];
+                    // include last day in calc is handled by trapping the switch change
                     break;
                 case 3:
                     [self clearDatePicker];

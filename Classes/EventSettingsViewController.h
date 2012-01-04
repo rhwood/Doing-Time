@@ -35,6 +35,7 @@
 - (void)done;
 - (void)saveEvent;
 - (BOOL)verifyNonemptyTitle;
+- (IBAction)switchIncludeLastDayInCalc:(id)sender;
 
 #pragma mark -
 #pragma mark Date pickers
