@@ -53,6 +53,11 @@
 - (void)changeEndingTime:(id)sender;
 - (void)hideDatePicker:(BOOL)hidden;
 
+#pragma mark - Display Settings
+
+- (IBAction)switchShowPercentages:(id)sender;
+- (IBAction)switchShowRemainingDays:(id)sender;
+
 #pragma mark -
 #pragma mark Purchases
 

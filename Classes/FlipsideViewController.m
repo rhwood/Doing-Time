@@ -248,21 +248,21 @@
 				case 0:
 					cell.textLabel.text = NSLocalizedString(@"Percentages", @"Label for cell that includes checkmark to indicate that events are displayed with percentages");
 					cell.detailTextLabel.text = @"";
-					if ([[NSUserDefaults standardUserDefaults] boolForKey:showPercentageKey]) {
-						cell.accessoryType = UITableViewCellAccessoryCheckmark;
-					} else {
-						cell.accessoryType = UITableViewCellAccessoryNone;
-					}
+                    cell.accessoryView = [[UISwitch alloc] initWithFrame:CGRectZero];
+                    [(UISwitch *)cell.accessoryView setOn:[[NSUserDefaults standardUserDefaults] boolForKey:showPercentageKey]];
+                    [(UISwitch *)cell.accessoryView addTarget:self 
+                                                       action:@selector(switchShowPercentages:)
+                                             forControlEvents:UIControlEventValueChanged];
 					break;
                 case 1:
                     cell.textLabel.text = NSLocalizedString(@"Remaining Days Only", @"Label for cell that includes checkmark to indicate that events are displayed with the completed days count");
                     cell.detailTextLabel.text = @"";
                     // the text displayed to the user is the reverse of the setting
-                    if (![[NSUserDefaults standardUserDefaults] boolForKey:showCompletedDaysKey]) {
-                        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-                    } else {
-                        cell.accessoryType = UITableViewCellAccessoryNone;
-                    }
+                    cell.accessoryView = [[UISwitch alloc] initWithFrame:CGRectZero];
+                    [(UISwitch *)cell.accessoryView setOn:![[NSUserDefaults standardUserDefaults] boolForKey:showCompletedDaysKey]];
+                    [(UISwitch *)cell.accessoryView addTarget:self 
+                                                       action:@selector(switchShowRemainingDays:)
+                                             forControlEvents:UIControlEventValueChanged];
                     break;
 				case 2:
 					cell.textLabel.text = NSLocalizedString(@"Day ends at", @"Label for cell that includes the hour of the day at which the day is considered past.");
@@ -445,18 +445,10 @@
 		case 1: // Display
 			switch (indexPath.row) {
 				case 0:
-					[[NSUserDefaults standardUserDefaults] setBool:(![[NSUserDefaults standardUserDefaults] 
-																	  boolForKey:showPercentageKey])
-															forKey:showPercentageKey];
-					[self.tableView reloadData];
-					[self.delegate eventDisplayMethodUpdated];
+                    // showPercentageKey setting is a UISwitch
 					break;
                 case 1:
-                    [[NSUserDefaults standardUserDefaults] setBool:(![[NSUserDefaults standardUserDefaults]
-                                                                      boolForKey:showCompletedDaysKey])
-                                                            forKey:showCompletedDaysKey];
-                    [self.tableView reloadData];
-                    [self.delegate eventDisplayMethodUpdated];
+                    // showCompletedDaysKey setting is a UISwitch
                     break;
                 case 2:
 					if (self.datePicker.hidden) {
@@ -568,6 +560,19 @@
 		[self.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionNone animated:YES];
 		self.datePicker.hidden = hidden;
 	}
+}
+
+#pragma mark - Display Settings
+
+- (void)switchShowPercentages:(id)sender {
+    [[NSUserDefaults standardUserDefaults] setBool:[(UISwitch *)sender isOn] forKey:showPercentageKey];
+    [self.delegate eventDisplayMethodUpdated];
+}
+
+- (void)switchShowRemainingDays:(id)sender {
+    // inverse of switch since setting is displayed using opposite language
+    [[NSUserDefaults standardUserDefaults] setBool:![(UISwitch *)sender isOn] forKey:showCompletedDaysKey];
+    [self.delegate eventDisplayMethodUpdated];
 }
 
 #pragma mark -
