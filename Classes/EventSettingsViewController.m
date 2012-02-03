@@ -299,7 +299,7 @@
 	[self verifyDateOrder];
 	[self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:YES];
 	self.datePicker.datePickerMode = UIDatePickerModeDate;
-	if (indexPath.row && indexPath.section) {
+	if (indexPath.row || indexPath.section) {
 		[self.titleView resignFirstResponder];
 	}
     switch (indexPath.section) {
