@@ -31,7 +31,6 @@
 		487E29FF137D906B0004761D /* AboutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 487E29FE137D906B0004761D /* AboutView.xib */; };
 		48924A1B131D67DA002AC7F5 /* EventSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48924A18131D67DA002AC7F5 /* EventSettingsViewController.m */; };
 		489E2891130782DB00E40ACA /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 489E2890130782DB00E40ACA /* StoreKit.framework */; };
-		48ABF44312F1C7E6009142AF /* Icon.xcf in Resources */ = {isa = PBXBuildFile; fileRef = 48ABF44212F1C7E6009142AF /* Icon.xcf */; };
 		48ADE0C41343B51E005E96EB /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 48ADE0C31343B51E005E96EB /* Constants.m */; };
 		48B38236134BA44A009B874B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 48B38235134BA44A009B874B /* Default.png */; };
 		48CE213813159502003C179A /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48CE213713159502003C179A /* EventKit.framework */; };
@@ -304,7 +303,6 @@
 				4859316E12D9C6D9003BD7D6 /* Icon-iPad.png in Resources */,
 				4859316F12D9C6D9003BD7D6 /* Icon.png in Resources */,
 				4859317012D9C6D9003BD7D6 /* Icon@2x.png in Resources */,
-				48ABF44312F1C7E6009142AF /* Icon.xcf in Resources */,
 				48CE82BC1350CAC700D94BA6 /* EventSettingsView.xib in Resources */,
 				48CE82B41350CAC600D94BA6 /* EventView.xib in Resources */,
 				48B38236134BA44A009B874B /* Default.png in Resources */,
