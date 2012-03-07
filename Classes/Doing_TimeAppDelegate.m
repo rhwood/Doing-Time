@@ -22,7 +22,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     
-    [TestFlight takeOff:@"Insert your Team Token here"];
+    [TestFlight takeOff:@"5aef4a4c9d323abe0561075aa2dc62f0_MTA2NjgyMDEyLTAzLTA2IDIwOjE1OjA5LjU0MDY0OQ"];
 
 	//self.eventStore = [[EKEventStore alloc] init];
 	
