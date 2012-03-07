@@ -60,7 +60,6 @@
 		289233AD0DB2D0DB0083E9F9 /* FlipsideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FlipsideViewController.m; path = Classes/FlipsideViewController.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* Doing_Time_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Doing_Time_Prefix.pch; sourceTree = "<group>"; };
-		4801A93A13FA304900379150 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = ../../External/QuincyKit/1.2/iPhone/English.lproj/CrashReporter.strings; sourceTree = "<group>"; };
 		48110EC112C9804C00948558 /* PieChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PieChartView.m; path = Classes/PieChartView.m; sourceTree = "<group>"; };
 		4828119F135C9EA8003704EC /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		4828129B135CA5C3003704EC /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = AboutViewController.h; path = Classes/AboutViewController.h; sourceTree = "<group>"; };
@@ -199,7 +198,6 @@
 			isa = PBXGroup;
 			children = (
 				48785A6C14B22C56008186A7 /* Test Flight.plist */,
-				4801A93913FA304900379150 /* CrashReporter.strings */,
 				482812A4135CA6AC003704EC /* ASlogo1-64x192.png */,
 				487E29FE137D906B0004761D /* AboutView.xib */,
 				48B38235134BA44A009B874B /* Default.png */,
@@ -365,14 +363,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		4801A93913FA304900379150 /* CrashReporter.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4801A93A13FA304900379150 /* English */,
-			);
-			name = CrashReporter.strings;
-			sourceTree = "<group>";
-		};
 		487E29FE137D906B0004761D /* AboutView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
