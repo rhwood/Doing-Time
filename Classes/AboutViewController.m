@@ -135,7 +135,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     if (section == ([self numberOfSectionsInTableView:tableView] - 1)) {
-        return [NSString localizedStringWithFormat:NSLocalizedString(@"%@ %@ %@", @"About view version footer"),
+        return [NSString localizedStringWithFormat:NSLocalizedString(@"%@ %@ (%@)", @"About view version footer"),
                 [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
                 [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"],
                 [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]];
