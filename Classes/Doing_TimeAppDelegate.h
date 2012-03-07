@@ -9,12 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <EventKit/EventKit.h>
 #import "Constants.h"
-#import "CrashReportSender.h"
 
 @class MainViewController;
 @class AppStoreDelegate;
 
-@interface Doing_TimeAppDelegate : NSObject <UIApplicationDelegate, CrashReportSenderDelegate> {
+@interface Doing_TimeAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
     MainViewController *mainViewController;
 	AppStoreDelegate *_appStore;

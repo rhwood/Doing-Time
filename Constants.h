@@ -22,6 +22,7 @@ extern NSString *const currentEventKey;
 extern NSString *const showPercentageKey;
 extern NSString *const showCompletedDaysKey;
 extern NSString *const includeLastDayInCalcKey;
+extern NSString *const showEventDatesKey;
 extern NSString *const transactionsKey;
 
 #pragma mark -

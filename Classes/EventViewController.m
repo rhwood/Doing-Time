@@ -75,6 +75,10 @@
 		// get difference between timezones and adjust today & dayOver time
 		NSLog(@"Humph.");
 	}
+    BOOL showDateRange = YES;
+    if ([[event allKeys] containsObject:showEventDatesKey] && ![[event valueForKey:showEventDatesKey] boolValue]) {
+        showDateRange = NO;
+    }
 	NSLog(@"Start date:  %@", startDate);
 	NSLog(@"End date:    %@", endDate);
 	NSLog(@"Today:       %@", today);
@@ -185,20 +189,24 @@
 							  inPast];
 		}
 	}
-    if (duration != 1) {
-        dateRange.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%@ to %@", @"The range from start to end"),
-                          [NSDateFormatter localizedStringFromDate:startDate
-                                                         dateStyle:NSDateFormatterMediumStyle
-                                                         timeStyle:NSDateFormatterNoStyle],
-                          [NSDateFormatter localizedStringFromDate:endDate
-                                                         dateStyle:NSDateFormatterMediumStyle
-                                                         timeStyle:NSDateFormatterNoStyle]];
-    } else {
-        dateRange.text = [NSDateFormatter localizedStringFromDate:startDate
-                                                        dateStyle:NSDateFormatterMediumStyle
-                                                        timeStyle:NSDateFormatterNoStyle];
+    if (showDateRange) {
+        dateRange.hidden = NO;
+        if (duration != 1) {
+            dateRange.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%@ to %@", @"The range from start to end"),
+                              [NSDateFormatter localizedStringFromDate:startDate
+                                                             dateStyle:NSDateFormatterMediumStyle
+                                                             timeStyle:NSDateFormatterNoStyle],
+                              [NSDateFormatter localizedStringFromDate:endDate
+                                                             dateStyle:NSDateFormatterMediumStyle
+                                                             timeStyle:NSDateFormatterNoStyle]];
+        } else {
+            dateRange.text = [NSDateFormatter localizedStringFromDate:startDate
+                                                            dateStyle:NSDateFormatterMediumStyle
+                                                            timeStyle:NSDateFormatterNoStyle];
+        }
+	} else {
+        dateRange.hidden = YES;
     }
-	
 	forceRedraw = (completed == self.oldComplete) ? forceRedraw : YES;
 	forceRedraw = (left == self.oldLeft) ? forceRedraw : YES;
 	forceRedraw = (duration == self.oldTotal) ? forceRedraw : YES;

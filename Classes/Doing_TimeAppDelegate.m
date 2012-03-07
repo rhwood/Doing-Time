@@ -9,12 +9,8 @@
 #import "Doing_TimeAppDelegate.h"
 #import "MainViewController.h"
 #import "AppStoreDelegate.h"
-#import "CrashReportSender.h"
-
-#define CRASH_REPORTER_URL [NSURL URLWithString:@"http://www.axsw.co/quincy/crash_v200.php"]
 
 @implementation Doing_TimeAppDelegate
-
 
 @synthesize window;
 @synthesize mainViewController;
@@ -26,7 +22,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     
-    // Override point for customization after application launch.  
+    [TestFlight takeOff:@"Insert your Team Token here"];
+
 	//self.eventStore = [[EKEventStore alloc] init];
 	
 	// Migrate from version 1 settings to version 2 settings
@@ -93,8 +90,6 @@
     [window addSubview:mainViewController.view];
     [window makeKeyAndVisible];
 
-	[[CrashReportSender sharedCrashReportSender] sendCrashReportToURL:CRASH_REPORTER_URL delegate:self activateFeedback:NO];
-	
     return YES;
 }
 

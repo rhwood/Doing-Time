@@ -72,7 +72,7 @@
 			return 4;
 			break;
 		case 2:
-			return 2;
+			return 1;
 			break;
 		default:
 			return 0;
@@ -124,10 +124,6 @@
 					cell.textLabel.text = @"Dain Kaplan";
 					cell.detailTextLabel.text = @"Chartreuse";
 					break;
-				case 1:
-					cell.textLabel.text = @"Andreas Linde";
-					cell.detailTextLabel.text = @"QuincyKit";
-					break;
 				default:
 					break;
 			}
@@ -137,46 +133,15 @@
     return cell;
 }
 
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+    if (section == ([self numberOfSectionsInTableView:tableView] - 1)) {
+        return [NSString localizedStringWithFormat:NSLocalizedString(@"%@ %@ %@", @"About view version footer"),
+                [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
+                [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"],
+                [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]];
+    }
+    return nil;
 }
-*/
-
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source.
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
-    }   
-}
-*/
-
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
 
 #pragma mark -
 #pragma mark Table view delegate
@@ -214,9 +179,6 @@
 			switch (indexPath.row) {
 				case 0: // Chartreuse site
 					[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://axsw.co/fuCJn9"]];
-					break;
-				case 1: // QuincyKit
-					[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://axsw.co/kEhPlB"]];
 					break;
 				default:
 					break;

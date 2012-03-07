@@ -481,7 +481,7 @@
 					mailController = [[MFMailComposeViewController alloc] init];
 					mailController.mailComposeDelegate = self;
 					[mailController setSubject:[NSString localizedStringWithFormat:NSLocalizedString(@"Doing Time %@ Feedback", @"Email subject for application feedback"),
-											[[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]]];
+											[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]]];
 					[mailController setToRecipients:[NSArray arrayWithObject:@"Support@AlexandriaSoftware.com"]];
 					[mailController setMessageBody:@"" isHTML:NO];
 					if (mailController) {

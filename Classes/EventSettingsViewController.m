@@ -47,12 +47,18 @@
 						  endKey,
                           [NSNumber numberWithBool:YES],
                           includeLastDayInCalcKey,
+                          [NSNumber numberWithBool:YES],
+                          showEventDatesKey,
 						  nil];
 		} else {
 			self.event = [NSMutableDictionary dictionaryWithDictionary:[[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] objectAtIndex:index]];
 			self.newEvent = NO;
             if (![[self.event allKeys] containsObject:includeLastDayInCalcKey]) {
                 [self.event setValue:[NSNumber numberWithBool:YES] forKey:includeLastDayInCalcKey];
+                [self saveEvent];
+            }
+            if (![[self.event allKeys] containsObject:showEventDatesKey]) {
+                [self.event setValue:[NSNumber numberWithBool:YES] forKey:showEventDatesKey];
                 [self saveEvent];
             }
 		}
@@ -140,6 +146,10 @@
     
 }
 
+- (void)switchShowEventDates:(id)sender {
+    [self.event setValue:[NSNumber numberWithBool:[(UISwitch *)sender isOn]] forKey:showEventDatesKey];
+}
+
 #pragma mark -
 #pragma mark Table view data source
 
@@ -153,7 +163,7 @@
             return 3;
             break;
         case 1:
-            return 1; // no calendar link yet
+            return 2; // no calendar link yet
             break;
         default:
             return 0;
@@ -240,7 +250,21 @@
 						[(UISwitch *)cell.accessoryView setOn:NO];
                         cell.detailTextLabel.text = NSLocalizedString(@"Event is until end date", @"Explanitory label for \"Include End Date\" if not checked");
 					}
-                    break;                    
+                    break;
+                case 1:
+                    cell.textLabel.text = NSLocalizedString(@"Dates", @"Label for cell that includes checkmark to indicate that event dates should be displayed");
+                    cell.accessoryView = [[UISwitch alloc] initWithFrame:CGRectZero];
+                    [(UISwitch *)cell.accessoryView addTarget:self
+                                                       action:@selector(switchShowEventDates:)
+                                             forControlEvents:UIControlEventValueChanged];
+                    if ([[self.event valueForKey:showEventDatesKey] boolValue]) {
+						[(UISwitch *)cell.accessoryView setOn:YES];
+                        cell.detailTextLabel.text = NSLocalizedString(@"Event dates are shown", @"Explanitory label for \"Dates\" if checked");
+					} else {
+						[(UISwitch *)cell.accessoryView setOn:NO];
+                        cell.detailTextLabel.text = NSLocalizedString(@"Event dates are hidden", @"Explanitory label for \"Dates\" if not checked");
+                    }
+                    break;
                 case 3: // link to calendar
                     cell.textLabel.text = NSLocalizedString(@"Link to Event", @"Label or button link event to the system calendar");
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -357,6 +381,9 @@
             switch (indexPath.row) {
                 case 0:
                     // include last day in calc is handled by trapping the switch change
+                    break;
+                case 1:
+                    // show event dates is handled by trapping the switch change
                     break;
                 case 3:
                     [self clearDatePicker];
