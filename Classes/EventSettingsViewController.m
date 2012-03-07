@@ -143,11 +143,12 @@
 
 - (void)switchIncludeLastDayInCalc:(id)sender {
     [self.event setValue:[NSNumber numberWithBool:[(UISwitch *)sender isOn]] forKey:includeLastDayInCalcKey];
-    
+    [self.tableView reloadData];
 }
 
 - (void)switchShowEventDates:(id)sender {
     [self.event setValue:[NSNumber numberWithBool:[(UISwitch *)sender isOn]] forKey:showEventDatesKey];
+    [self.tableView reloadData];
 }
 
 #pragma mark -
