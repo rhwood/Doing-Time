@@ -68,12 +68,12 @@
 	NSDate *today = [NSDate midnightForDate:[NSDate date]];
 	//NSLog(@"Since midnight for %@ is %f", today, [today timeIntervalSinceNow]);
 	if (fabs(dayEnds) > fabs([today timeIntervalSinceNow])) {
-		NSLog(@"Day is incomplete");
+		//NSLog(@"Day is incomplete");
 	}
 	//NSLog(@"Seconds from GMT: %i", [[NSTimeZone localTimeZone] secondsFromGMT]);
 	if ([[NSTimeZone localTimeZone] secondsFromGMTForDate:today] != [[NSTimeZone localTimeZone] secondsFromGMTForDate:startDate]) {
 		// get difference between timezones and adjust today & dayOver time
-		NSLog(@"Humph.");
+		//NSLog(@"Humph.");
 	}
     BOOL showDateRange = YES;
     if ([[event allKeys] containsObject:showEventDatesKey] && ![[event valueForKey:showEventDatesKey] boolValue]) {

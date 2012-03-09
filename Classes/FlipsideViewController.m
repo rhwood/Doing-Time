@@ -418,7 +418,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     MFMailComposeViewController* mailController;
-	NSLog(@"%@", indexPath);
 	NSUInteger section = indexPath.section;
 	if (indexPath.section >= 2 && 
 		[self.appDelegate.appStore hasTransactionsForAllProducts]) {
