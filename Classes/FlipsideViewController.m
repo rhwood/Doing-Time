@@ -418,7 +418,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     MFMailComposeViewController* mailController;
-    AboutViewController *aboutController;
 	NSLog(@"%@", indexPath);
 	NSUInteger section = indexPath.section;
 	if (indexPath.section >= 2 && 
@@ -477,21 +476,20 @@
 		case 3: // Help
 			switch (indexPath.row) {
 				case 0:
-					NSLog(@"Why can't I allocate a device after following a path in a switch?");
-					mailController = [[MFMailComposeViewController alloc] init];
-					mailController.mailComposeDelegate = self;
-					[mailController setSubject:[NSString localizedStringWithFormat:NSLocalizedString(@"Doing Time %@ Feedback", @"Email subject for application feedback"),
-											[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]]];
-					[mailController setToRecipients:[NSArray arrayWithObject:@"Support@AlexandriaSoftware.com"]];
-					[mailController setMessageBody:@"" isHTML:NO];
-					if (mailController) {
-						[self presentModalViewController:mailController animated:YES];
-					}
+					if (YES) { // Why can't I allocate an object after following a path in a switch?
+                        mailController = [[MFMailComposeViewController alloc] init];
+                        mailController.mailComposeDelegate = self;
+                        [mailController setSubject:[NSString localizedStringWithFormat:NSLocalizedString(@"Doing Time %@ Feedback", @"Email subject for application feedback"),
+                                                [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]]];
+                        [mailController setToRecipients:[NSArray arrayWithObject:@"Support@AlexandriaSoftware.com"]];
+                        [mailController setMessageBody:@"" isHTML:NO];
+                        if (mailController) {
+                            [self presentModalViewController:mailController animated:YES];
+                        }
+                    }
 					break;
 				case 1:
-					NSLog(@"Why can't I allocate a device after following a path in a switch?");
-					aboutController = [[AboutViewController alloc] initWithNibName:@"AboutView" bundle:nil];
-					[self.navigationController pushViewController:aboutController animated:YES];
+					[self.navigationController pushViewController:[[AboutViewController alloc] initWithNibName:@"AboutView" bundle:nil] animated:YES];
 					break;
 				default:
 					break;
