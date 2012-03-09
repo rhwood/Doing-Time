@@ -66,11 +66,11 @@
         calcEndDate = [calcEndDate dateByAddingTimeInterval:-86400.0];
     }
 	NSDate *today = [NSDate midnightForDate:[NSDate date]];
-	NSLog(@"Since midnight for %@ is %f", today, [today timeIntervalSinceNow]);
+	//NSLog(@"Since midnight for %@ is %f", today, [today timeIntervalSinceNow]);
 	if (fabs(dayEnds) > fabs([today timeIntervalSinceNow])) {
 		NSLog(@"Day is incomplete");
 	}
-	NSLog(@"Seconds from GMT: %i", [[NSTimeZone localTimeZone] secondsFromGMT]);
+	//NSLog(@"Seconds from GMT: %i", [[NSTimeZone localTimeZone] secondsFromGMT]);
 	if ([[NSTimeZone localTimeZone] secondsFromGMTForDate:today] != [[NSTimeZone localTimeZone] secondsFromGMTForDate:startDate]) {
 		// get difference between timezones and adjust today & dayOver time
 		NSLog(@"Humph.");
@@ -79,14 +79,14 @@
     if ([[event allKeys] containsObject:showEventDatesKey] && ![[event valueForKey:showEventDatesKey] boolValue]) {
         showDateRange = NO;
     }
-	NSLog(@"Start date:  %@", startDate);
-	NSLog(@"End date:    %@", endDate);
-	NSLog(@"Today:       %@", today);
-	NSLog(@"Calc start:  %@", calcStartDate);
-    NSLog(@"Calc end:    %@", calcEndDate);
-	NSLog(@"Reference:   %@", [[NSUserDefaults standardUserDefaults] objectForKey:dayOverKey]);
-	NSLog(@"Now:         %@", [NSDate date]);
-	NSLog(@"Day ends at: %f", dayEnds);
+	//NSLog(@"Start date:  %@", startDate);
+	//NSLog(@"End date:    %@", endDate);
+	//NSLog(@"Today:       %@", today);
+	//NSLog(@"Calc start:  %@", calcStartDate);
+    //NSLog(@"Calc end:    %@", calcEndDate);
+	//NSLog(@"Reference:   %@", [[NSUserDefaults standardUserDefaults] objectForKey:dayOverKey]);
+	//NSLog(@"Now:         %@", [NSDate date]);
+	//NSLog(@"Day ends at: %f", dayEnds);
 	
 	NSInteger completed = [[[NSCalendar currentCalendar] components:NSDayCalendarUnit
 														   fromDate:today 
@@ -94,20 +94,20 @@
 																					   sinceDate:today]
 															options:0]
 						   day];
-	NSLog(@"%d days complete", completed);
+	//NSLog(@"%d days complete", completed);
 	NSInteger left = [[[NSCalendar currentCalendar] components:NSDayCalendarUnit
 													  fromDate:today 
 														toDate:[NSDate dateWithTimeInterval:[calcEndDate timeIntervalSinceDate:today]
 																				  sinceDate:today]
 													   options:0]
 					  day];
-	NSLog(@"%d days left", left);
+	//NSLog(@"%d days left", left);
 	NSInteger duration = [[[NSCalendar currentCalendar] components:NSDayCalendarUnit
 														  fromDate:calcStartDate 
 															toDate:calcEndDate
 														   options:0]
 						  day];
-	NSLog(@"%d total days", duration);
+	//NSLog(@"%d total days", duration);
     if (!duration) {
         duration = 1;
         left++;
@@ -129,8 +129,8 @@
 			left = duration;
 		}
     }
-    NSLog(@"%d days in future", inFuture);
-    NSLog(@"%d days in past", inPast);
+    //NSLog(@"%d days in future", inFuture);
+    //NSLog(@"%d days in past", inPast);
 	float interval = 1.0 / duration;
 	
 	_eventTitle.text = [event objectForKey:titleKey];
@@ -217,7 +217,6 @@
 	self.oldTitle = _eventTitle.text;
 
 	if ([self isViewLoaded] && forceRedraw) {
-        NSLog(@"redrawing now");
 		_pieChart.alpha = 0.0;
 		[_pieChart setHidden:NO];
 		[_pieChart setNeedsDisplay];

@@ -146,7 +146,6 @@
 	NSTimeInterval ti = [(NSDate *)[[NSUserDefaults standardUserDefaults] objectForKey:dayOverKey]
 						 timeIntervalSinceReferenceDate];
 	NSDate* dayOver = [[NSDate UTCMidnightForDate:[NSDate date]] dateByAddingTimeInterval:ti];
-	NSLog(@"Scheduling redraw for %@ (current time: %@)", dayOver, [NSDate date]);
 	if (self.dayOverTimer) {
 		if ([[self.dayOverTimer fireDate] isEqualToDate:dayOver]) {
 			return;
@@ -184,7 +183,6 @@
 
 - (void)showPager {
 	if ([self.appDelegate.appStore hasTransactionForProduct:multipleEventsProductIdentifier]) {
-		NSLog(@"showing Pager");
 		[UIView beginAnimations:@"animateDisplayPager" context:NULL];
 		self.controls.frame = CGRectOffset(self.controls.frame, 0, -self.controls.frame.size.height);
 		self.scroller.frame = CGRectMake(0, 0, self.scroller.frame.size.width, self.scroller.frame.size.height - (self.controls.frame.size.height / 2));
@@ -202,7 +200,6 @@
 }
 
 - (void)eventDidUpdate:(NSUInteger)eventIdentifier {
-	NSLog(@"eventDidUpdate:%u (%u items in events)", eventIdentifier, [self.events count]);
 	if (eventIdentifier == [self.events count]) {
 		[self loadScrollerWithEvent:eventIdentifier];
 		self.pager.numberOfPages = [self.events count];
