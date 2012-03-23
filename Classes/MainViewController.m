@@ -79,7 +79,7 @@
 													  object:[UIApplication sharedApplication]
 													   queue:nil
 												  usingBlock:^(NSNotification *notification) {
-													  [self redrawEvents:NO];
+													  [self reloadEvents];
 													  [self scheduleRedrawOnDayOver];
 												  }];
 	[[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillResignActiveNotification
@@ -90,7 +90,8 @@
 														  [self.dayOverTimer invalidate];
 														  self.dayOverTimer = nil;
 													  }
-												  }];
+                                                      [self unloadEvents];
+                                                  }];
 	[self scheduleRedrawOnDayOver];
 }
 
@@ -164,6 +165,20 @@
 												 userInfo:nil
 												  repeats:NO];
 	[[NSRunLoop currentRunLoop] addTimer:self.dayOverTimer forMode:NSRunLoopCommonModes];
+}
+
+- (void)unloadEvents {
+    NSLog(@"Unloading events");
+    [self.events removeAllObjects];
+}
+
+- (void)reloadEvents {
+    NSLog(@"Reloading events");
+    for (NSUInteger i = 0; i < self.pager.numberOfPages; i++) {
+		[self loadScrollerWithEvent:i];
+        [self redrawEvent:i forceRedraw:YES];
+        NSLog(@"Reloaded event #%i", i);
+	}
 }
 
 - (void)handleSwipeFrom:(UISwipeGestureRecognizer *)gestureRecognizer {

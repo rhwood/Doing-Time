@@ -41,6 +41,8 @@
 - (void)redrawEventsOnTimer:(NSTimer *)timer;
 - (void)resizeEventsInScroller:(float)heightDifference;
 - (void)scheduleRedrawOnDayOver;
+- (void)reloadEvents;
+- (void)unloadEvents;
 
 #pragma mark -
 #pragma mark Settings Handling
