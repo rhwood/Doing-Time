@@ -222,6 +222,7 @@
 	}
 
 	cell.accessoryType = UITableViewCellAccessoryNone;
+    cell.accessoryView = nil;
 	
     switch (section) {
 		case 0: // Events
