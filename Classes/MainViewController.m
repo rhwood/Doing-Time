@@ -112,6 +112,7 @@
 		self.scroller.contentSize = CGSizeMake(self.scroller.frame.size.width * [self.events count], self.scroller.frame.size.height);
 	} else {
 		controller = [self.events objectAtIndex:event];
+        [controller redrawEvent:YES];
 	}
 	if (controller.view.superview == nil) {
 		CGRect frame = self.scroller.frame;
@@ -169,16 +170,18 @@
 
 - (void)unloadEvents {
     NSLog(@"Unloading events");
-    [self.events removeAllObjects];
+    for (UIView *view in [self.scroller subviews]) {
+        [view removeFromSuperview];   
+    }
 }
 
 - (void)reloadEvents {
     NSLog(@"Reloading events");
     for (NSUInteger i = 0; i < self.pager.numberOfPages; i++) {
 		[self loadScrollerWithEvent:i];
-        [self redrawEvent:i forceRedraw:YES];
         NSLog(@"Reloaded event #%i", i);
 	}
+    [self changePage:nil];
 }
 
 - (void)handleSwipeFrom:(UISwipeGestureRecognizer *)gestureRecognizer {
