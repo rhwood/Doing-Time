@@ -37,6 +37,7 @@
 		48CE82BE1350CAC700D94BA6 /* FlipsideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48CE82BD1350CAC700D94BA6 /* FlipsideView.xib */; };
 		48CE82C01350CAC700D94BA6 /* MainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48CE82BF1350CAC700D94BA6 /* MainView.xib */; };
 		48CE82E81350D37B00D94BA6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 48CE82E71350D37B00D94BA6 /* Localizable.strings */; };
+		48D8CFEF151DFC360017B6CB /* Icon-iPad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 48D8CFEE151DFC360017B6CB /* Icon-iPad@2x.png */; };
 		48E61CDF131E9E210077DA8E /* EventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E61CDC131E9E210077DA8E /* EventViewController.m */; };
 		48EF13721382ED2400FF37C2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48EF13711382ED2400FF37C2 /* SystemConfiguration.framework */; };
 		48F02F291506D6A600E20A3F /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 48F02F251506D6A600E20A3F /* libTestFlight.a */; };
@@ -85,6 +86,7 @@
 		48CE213713159502003C179A /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		48CE82C11350CB7E00D94BA6 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		48D477681322B647003256D5 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = Constants.h; sourceTree = "<group>"; };
+		48D8CFEE151DFC360017B6CB /* Icon-iPad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPad@2x.png"; sourceTree = "<group>"; };
 		48E61CDB131E9E210077DA8E /* EventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = EventViewController.h; path = Classes/EventViewController.h; sourceTree = "<group>"; };
 		48E61CDC131E9E210077DA8E /* EventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventViewController.m; path = Classes/EventViewController.m; sourceTree = "<group>"; };
 		48E61CDD131E9E210077DA8E /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = en.lproj/EventView.xib; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 				8D1107310486CEB800E47090 /* Doing_Time-Info.plist */,
 				48ABF44212F1C7E6009142AF /* Icon.xcf */,
 				4859316B12D9C6D9003BD7D6 /* Icon-iPad.png */,
+				48D8CFEE151DFC360017B6CB /* Icon-iPad@2x.png */,
 				4859316C12D9C6D9003BD7D6 /* Icon.png */,
 				4859316D12D9C6D9003BD7D6 /* Icon@2x.png */,
 				48CE82E71350D37B00D94BA6 /* Localizable.strings */,
@@ -316,6 +319,7 @@
 				48CE82E81350D37B00D94BA6 /* Localizable.strings in Resources */,
 				487E29FF137D906B0004761D /* AboutView.xib in Resources */,
 				482812A5135CA6AC003704EC /* ASlogo1-64x192.png in Resources */,
+				48D8CFEF151DFC360017B6CB /* Icon-iPad@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
