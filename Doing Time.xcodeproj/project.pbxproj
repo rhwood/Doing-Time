@@ -37,10 +37,12 @@
 		48CE82BE1350CAC700D94BA6 /* FlipsideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48CE82BD1350CAC700D94BA6 /* FlipsideView.xib */; };
 		48CE82C01350CAC700D94BA6 /* MainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48CE82BF1350CAC700D94BA6 /* MainView.xib */; };
 		48CE82E81350D37B00D94BA6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 48CE82E71350D37B00D94BA6 /* Localizable.strings */; };
+		48D2F2F41537A194006FA78B /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 48D2F2F01537A194006FA78B /* libTestFlight.a */; };
+		48D2F2F51537A195006FA78B /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 48D2F2F11537A194006FA78B /* README.txt */; };
+		48D2F2F61537A195006FA78B /* release_notes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 48D2F2F21537A194006FA78B /* release_notes.txt */; };
 		48D8CFEF151DFC360017B6CB /* Icon-iPad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 48D8CFEE151DFC360017B6CB /* Icon-iPad@2x.png */; };
 		48E61CDF131E9E210077DA8E /* EventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E61CDC131E9E210077DA8E /* EventViewController.m */; };
 		48EF13721382ED2400FF37C2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48EF13711382ED2400FF37C2 /* SystemConfiguration.framework */; };
-		48F02F291506D6A600E20A3F /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 48F02F251506D6A600E20A3F /* libTestFlight.a */; };
 		48F02F2D1506D6E200E20A3F /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 48F02F2C1506D6E200E20A3F /* libz.dylib */; };
 /* End PBXBuildFile section */
 
@@ -85,16 +87,16 @@
 		48B38235134BA44A009B874B /* Default.png */ = {isa = PBXFileReference; explicitFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		48CE213713159502003C179A /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		48CE82C11350CB7E00D94BA6 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		48D2F2F01537A194006FA78B /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		48D2F2F11537A194006FA78B /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		48D2F2F21537A194006FA78B /* release_notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.txt; sourceTree = "<group>"; };
+		48D2F2F31537A194006FA78B /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		48D477681322B647003256D5 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = Constants.h; sourceTree = "<group>"; };
 		48D8CFEE151DFC360017B6CB /* Icon-iPad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPad@2x.png"; sourceTree = "<group>"; };
 		48E61CDB131E9E210077DA8E /* EventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = EventViewController.h; path = Classes/EventViewController.h; sourceTree = "<group>"; };
 		48E61CDC131E9E210077DA8E /* EventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventViewController.m; path = Classes/EventViewController.m; sourceTree = "<group>"; };
 		48E61CDD131E9E210077DA8E /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = en.lproj/EventView.xib; sourceTree = "<group>"; };
 		48EF13711382ED2400FF37C2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		48F02F251506D6A600E20A3F /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
-		48F02F261506D6A600E20A3F /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
-		48F02F271506D6A600E20A3F /* release_notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.txt; sourceTree = "<group>"; };
-		48F02F281506D6A600E20A3F /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		48F02F2C1506D6E200E20A3F /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		8D1107310486CEB800E47090 /* Doing_Time-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Doing_Time-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -114,7 +116,7 @@
 				48CE213813159502003C179A /* EventKit.framework in Frameworks */,
 				482811A0135C9EA8003704EC /* MessageUI.framework in Frameworks */,
 				48EF13721382ED2400FF37C2 /* SystemConfiguration.framework in Frameworks */,
-				48F02F291506D6A600E20A3F /* libTestFlight.a in Frameworks */,
+				48D2F2F41537A194006FA78B /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -174,7 +176,7 @@
 				080E96DDFE201D6D7F000001 /* Application Delegate */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
-				48F02F241506D6A600E20A3F /* TestFlightSDK0.8.3 */,
+				48D2F2EF1537A194006FA78B /* TestFlightSDK1 */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
@@ -242,15 +244,15 @@
 			name = "Supporting Classes";
 			sourceTree = "<group>";
 		};
-		48F02F241506D6A600E20A3F /* TestFlightSDK0.8.3 */ = {
+		48D2F2EF1537A194006FA78B /* TestFlightSDK1 */ = {
 			isa = PBXGroup;
 			children = (
-				48F02F251506D6A600E20A3F /* libTestFlight.a */,
-				48F02F261506D6A600E20A3F /* README.txt */,
-				48F02F271506D6A600E20A3F /* release_notes.txt */,
-				48F02F281506D6A600E20A3F /* TestFlight.h */,
+				48D2F2F01537A194006FA78B /* libTestFlight.a */,
+				48D2F2F11537A194006FA78B /* README.txt */,
+				48D2F2F21537A194006FA78B /* release_notes.txt */,
+				48D2F2F31537A194006FA78B /* TestFlight.h */,
 			);
-			path = TestFlightSDK0.8.3;
+			path = TestFlightSDK1;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -320,6 +322,8 @@
 				487E29FF137D906B0004761D /* AboutView.xib in Resources */,
 				482812A5135CA6AC003704EC /* ASlogo1-64x192.png in Resources */,
 				48D8CFEF151DFC360017B6CB /* Icon-iPad@2x.png in Resources */,
+				48D2F2F51537A195006FA78B /* README.txt in Resources */,
+				48D2F2F61537A195006FA78B /* release_notes.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -445,7 +449,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/TestFlightSDK0.8.3\"",
+					"\"$(SRCROOT)/TestFlightSDK1\"",
 				);
 				PRODUCT_NAME = "Doing Time";
 				PROVISIONING_PROFILE = "";
@@ -475,7 +479,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/TestFlightSDK0.8.3\"",
+					"\"$(SRCROOT)/TestFlightSDK1\"",
 				);
 				PRODUCT_NAME = "Doing Time";
 				PROVISIONING_PROFILE = "";
@@ -522,7 +526,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/TestFlightSDK0.8.3\"",
+					"\"$(SRCROOT)/TestFlightSDK1\"",
 				);
 				PRODUCT_NAME = "Doing Time";
 				PROVISIONING_PROFILE = "";
@@ -569,7 +573,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/TestFlightSDK0.8.3\"",
+					"\"$(SRCROOT)/TestFlightSDK1\"",
 				);
 				PRODUCT_NAME = "Doing Time";
 				PROVISIONING_PROFILE = "";
