@@ -47,6 +47,7 @@
 }
 
 - (BOOL)setPieChartValues:(BOOL)forceRedraw {
+    NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
 	if (self.eventID >= [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count]) {
 		return NO; // do not attempt to setup the piechart if the event ID is not in the array
 	}
@@ -79,35 +80,35 @@
     if ([[event allKeys] containsObject:showEventDatesKey] && ![[event valueForKey:showEventDatesKey] boolValue]) {
         showDateRange = NO;
     }
-	//NSLog(@"Start date:  %@", startDate);
-	//NSLog(@"End date:    %@", endDate);
-	//NSLog(@"Today:       %@", today);
-	//NSLog(@"Calc start:  %@", calcStartDate);
-    //NSLog(@"Calc end:    %@", calcEndDate);
-	//NSLog(@"Reference:   %@", [[NSUserDefaults standardUserDefaults] objectForKey:dayOverKey]);
-	//NSLog(@"Now:         %@", [NSDate date]);
-	//NSLog(@"Day ends at: %f", dayEnds);
+	NSLog(@"Start date:  %@", startDate);
+	NSLog(@"End date:    %@", endDate);
+	NSLog(@"Today:       %@", today);
+	NSLog(@"Calc start:  %@", calcStartDate);
+    NSLog(@"Calc end:    %@", calcEndDate);
+	NSLog(@"Reference:   %@", [[NSUserDefaults standardUserDefaults] objectForKey:dayOverKey]);
+	NSLog(@"Now:         %@", [NSDate date]);
+	NSLog(@"Day ends at: %f", dayEnds);
 	
-	NSInteger completed = [[[NSCalendar currentCalendar] components:NSDayCalendarUnit
+	NSInteger completed = [[gregorianCalendar components:NSDayCalendarUnit
 														   fromDate:today 
 															 toDate:[NSDate dateWithTimeInterval:[today timeIntervalSinceDate:calcStartDate]
 																					   sinceDate:today]
 															options:0]
 						   day];
-	//NSLog(@"%d days complete", completed);
-	NSInteger left = [[[NSCalendar currentCalendar] components:NSDayCalendarUnit
+	NSInteger left = [[gregorianCalendar components:NSDayCalendarUnit
 													  fromDate:today 
 														toDate:[NSDate dateWithTimeInterval:[calcEndDate timeIntervalSinceDate:today]
 																				  sinceDate:today]
 													   options:0]
 					  day];
-	//NSLog(@"%d days left", left);
-	NSInteger duration = [[[NSCalendar currentCalendar] components:NSDayCalendarUnit
+	NSInteger duration = [[gregorianCalendar components:NSDayCalendarUnit
 														  fromDate:calcStartDate 
 															toDate:calcEndDate
 														   options:0]
 						  day];
-	//NSLog(@"%d total days", duration);
+	NSLog(@"%d days complete", completed);
+	NSLog(@"%d days left", left);
+	NSLog(@"%d total days", duration);
     if (!duration) {
         duration = 1;
         left++;
@@ -129,8 +130,23 @@
 			left = duration;
 		}
     }
-    //NSLog(@"%d days in future", inFuture);
-    //NSLog(@"%d days in past", inPast);
+    if (duration != (completed + left)) {
+        if (duration == (completed + left + 1)) {
+            if (fabs(dayEnds) > fabs([today timeIntervalSinceNow])) {
+                left++;
+            } else {
+                completed++;
+            }
+        } else {
+            TFLog(@"Event (from %@ to %@) has duration (%d) != days complete (%d) + days left (%d)", startDate, endDate, duration, completed, left);
+        }
+    }
+    NSLog(@"--after adjustments--");
+	NSLog(@"%d days complete", completed);
+	NSLog(@"%d days left", left);
+	NSLog(@"%d total days", duration);
+    NSLog(@"%d days in future", inFuture);
+    NSLog(@"%d days in past", inPast);
 	float interval = 1.0 / duration;
 	
 	_eventTitle.text = [event objectForKey:titleKey];
