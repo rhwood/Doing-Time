@@ -12,4 +12,5 @@
     #import <Foundation/Foundation.h>
     #import <UIKit/UIKit.h>
     #import "TestFlight.h"
+    #import "TFLoggingManager.h"
 #endif
