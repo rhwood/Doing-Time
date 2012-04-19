@@ -85,7 +85,7 @@
 		489E2890130782DB00E40ACA /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		48ABF44212F1C7E6009142AF /* Icon.xcf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Icon.xcf; sourceTree = "<group>"; };
 		48ADE0C31343B51E005E96EB /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
-		48AEFA8F153C31890064ED0D /* TFLoggingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; name = TFLoggingManager.h; path = Classes/TFLoggingManager.h; sourceTree = "<group>"; };
+		48AEFA8F153C31890064ED0D /* TFLoggingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TFLoggingManager.h; path = Classes/TFLoggingManager.h; sourceTree = "<group>"; };
 		48AEFA90153C31890064ED0D /* TFLoggingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TFLoggingManager.m; path = Classes/TFLoggingManager.m; sourceTree = "<group>"; };
 		48B38235134BA44A009B874B /* Default.png */ = {isa = PBXFileReference; explicitFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		48CE213713159502003C179A /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
@@ -574,6 +574,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Doing_Time_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = DISTRIBUTION;
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "Doing_Time-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;

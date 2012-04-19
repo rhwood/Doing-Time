@@ -14,3 +14,7 @@
     #import "TestFlight.h"
     #import "TFLoggingManager.h"
 #endif
+
+#ifdef DISTRIBUTION
+    #define NSLog(__FORMAT__, ...) /* */
+#endif
