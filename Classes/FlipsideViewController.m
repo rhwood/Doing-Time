@@ -27,8 +27,9 @@
 @synthesize activityView = _activityView;
 @synthesize eventBeingUpdated;
 @synthesize allowInAppPurchases;
-@synthesize tap;
 @synthesize swipe;
+@synthesize tap;
+@synthesize tapInsideEndingTimeViewCell;
 
 #pragma mark -
 #pragma mark View lifecycle
@@ -59,10 +60,11 @@
 	// set the detailTextLabel.textColor since its not a built in color
 	self.detailTextLabelColor = [UIColor colorWithRed:0.22 green:0.33 blue:0.53 alpha:1.0];
     
-    self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissDatePicker)];
-    self.tap.cancelsTouchesInView = NO;
     self.swipe = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dismissDatePicker)];
     self.swipe.cancelsTouchesInView = NO;
+    self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissDatePicker)];
+    self.tap.cancelsTouchesInView = NO;
+    self.tapInsideEndingTimeViewCell = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doTapInsideEndingTimeViewCell)];
     
 	// App Store
 	[[NSNotificationCenter defaultCenter] addObserverForName:AXAppStoreDidReceiveProductsList
@@ -549,8 +551,9 @@
 		[UIView beginAnimations:@"animateDisplayPager" context:NULL];
 		if (!hidden) {
             [self.tableView cellForRowAtIndexPath:self.endingTimeViewCellIndexPath].selectionStyle = UITableViewCellSelectionStyleBlue;
-            [self.tableView addGestureRecognizer:self.tap];
             [self.view addGestureRecognizer:self.swipe];
+            [self.tableView addGestureRecognizer:self.tap];
+            [[self.tableView cellForRowAtIndexPath:self.endingTimeViewCellIndexPath] addGestureRecognizer:self.tapInsideEndingTimeViewCell];
 			self.datePicker.hidden = NO;
 			self.tableView.frame = CGRectMake(self.tableView.frame.origin.x,
 											  self.tableView.frame.origin.y,
@@ -577,8 +580,14 @@
 
 - (void)dismissDatePicker {
     [self hideDatePicker:YES];
-    [self.tableView removeGestureRecognizer:self.tap];
     [self.view removeGestureRecognizer:self.swipe];
+    [self.tableView removeGestureRecognizer:self.tap];
+    [[self.tableView cellForRowAtIndexPath:self.endingTimeViewCellIndexPath] removeGestureRecognizer:self.tapInsideEndingTimeViewCell];
+}
+
+- (void)doTapInsideEndingTimeViewCell {
+    [self dismissDatePicker];
+    [self.tableView deselectRowAtIndexPath:self.endingTimeViewCellIndexPath animated:YES];
 }
 
 #pragma mark - Display Settings

@@ -53,6 +53,7 @@
 - (void)changeEndingTime:(id)sender;
 - (void)hideDatePicker:(BOOL)hidden;
 - (void)dismissDatePicker;
+- (void)doTapInsideEndingTimeViewCell;
 
 #pragma mark - Display Settings
 
@@ -80,8 +81,9 @@
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView* activityIndicator;
 @property (nonatomic, retain) IBOutlet UILabel* activityLabel;
 @property (nonatomic, retain) IBOutlet UIView* activityView;
-@property (strong, retain) UITapGestureRecognizer* tap;
 @property (strong, retain) UIPanGestureRecognizer* swipe;
+@property (strong, retain) UITapGestureRecognizer* tap;
+@property (strong) UITapGestureRecognizer* tapInsideEndingTimeViewCell;
 
 @end
 
