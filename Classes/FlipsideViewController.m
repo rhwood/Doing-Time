@@ -27,6 +27,8 @@
 @synthesize activityView = _activityView;
 @synthesize eventBeingUpdated;
 @synthesize allowInAppPurchases;
+@synthesize tap;
+@synthesize swipe;
 
 #pragma mark -
 #pragma mark View lifecycle
@@ -53,9 +55,15 @@
 	[self.navigationController setNavigationBarHidden:NO];
     self.view.backgroundColor = [UIColor viewFlipsideBackgroundColor];
 	self.showErrorAlert = YES;
-	self.endingTimeViewCellIndexPath = [NSIndexPath indexPathForRow:1 inSection:1];
+	self.endingTimeViewCellIndexPath = [NSIndexPath indexPathForRow:2 inSection:1];
 	// set the detailTextLabel.textColor since its not a built in color
 	self.detailTextLabelColor = [UIColor colorWithRed:0.22 green:0.33 blue:0.53 alpha:1.0];
+    
+    self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissDatePicker)];
+    self.tap.cancelsTouchesInView = NO;
+    self.swipe = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dismissDatePicker)];
+    self.swipe.cancelsTouchesInView = NO;
+    
 	// App Store
 	[[NSNotificationCenter defaultCenter] addObserverForName:AXAppStoreDidReceiveProductsList
 													  object:self.appDelegate.appStore
@@ -445,11 +453,14 @@
 			switch (indexPath.row) {
 				case 0:
                     // showPercentageKey setting is a UISwitch
+                    [tableView cellForRowAtIndexPath:indexPath].selectionStyle = UITableViewCellSelectionStyleNone;
 					break;
                 case 1:
                     // showCompletedDaysKey setting is a UISwitch
+                    [tableView cellForRowAtIndexPath:indexPath].selectionStyle = UITableViewCellSelectionStyleNone;
                     break;
                 case 2:
+                    [tableView cellForRowAtIndexPath:indexPath].selectionStyle = UITableViewCellSelectionStyleBlue;
 					if (self.datePicker.hidden) {
 						self.datePicker.datePickerMode = UIDatePickerModeTime;
 						[self hideDatePicker:NO];
@@ -537,6 +548,9 @@
 	if (hidden != self.datePicker.hidden) {
 		[UIView beginAnimations:@"animateDisplayPager" context:NULL];
 		if (!hidden) {
+            [self.tableView cellForRowAtIndexPath:self.endingTimeViewCellIndexPath].selectionStyle = UITableViewCellSelectionStyleBlue;
+            [self.tableView addGestureRecognizer:self.tap];
+            [self.view addGestureRecognizer:self.swipe];
 			self.datePicker.hidden = NO;
 			self.tableView.frame = CGRectMake(self.tableView.frame.origin.x,
 											  self.tableView.frame.origin.y,
@@ -546,6 +560,7 @@
 												 0,
 												 -self.datePicker.frame.size.height - self.navigationController.navigationBar.frame.size.height);
 		} else {
+            [self.tableView deselectRowAtIndexPath:self.endingTimeViewCellIndexPath animated:YES];
 			self.tableView.frame = CGRectMake(self.tableView.frame.origin.x,
 											  self.tableView.frame.origin.y,
 											  self.tableView.frame.size.width,
@@ -558,6 +573,12 @@
 		[self.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionNone animated:YES];
 		self.datePicker.hidden = hidden;
 	}
+}
+
+- (void)dismissDatePicker {
+    [self hideDatePicker:YES];
+    [self.tableView removeGestureRecognizer:self.tap];
+    [self.view removeGestureRecognizer:self.swipe];
 }
 
 #pragma mark - Display Settings
