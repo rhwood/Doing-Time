@@ -535,6 +535,10 @@
 	return proposedDestinationIndexPath;
 }
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [self dismissDatePicker];
+}
+
 #pragma mark -
 #pragma mark Date Pickers
 
