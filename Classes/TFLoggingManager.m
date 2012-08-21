@@ -32,7 +32,7 @@ typedef enum {
 }
 
 - (id) init {
-    if (([super init] != nil)) {
+    if ((self = [super init])) {
         self.userDefaultsKey = @"TFLoggingAuthorized";
         self.requestTitle = NSLocalizedString(@"Error Report", @"TFLogging Request Authorization Title");
         self.requestMessage = NSLocalizedString(@"This app has detected an error. Would you like to provide the developer anonymous error data so they can try to fix the problem?", @"TFLogging Request Authorization Message");
