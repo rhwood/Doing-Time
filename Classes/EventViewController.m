@@ -58,15 +58,14 @@
 	NSTimeInterval dayEnds = [[[NSUserDefaults standardUserDefaults] objectForKey:dayOverKey] 
 							  timeIntervalSinceReferenceDate] + [[NSTimeZone localTimeZone] secondsFromGMT];
 	NSDictionary *event = [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] objectAtIndex:self.eventID];
-	NSDate *calcStartDate = [[event objectForKey:startKey]
-						 dateByAddingTimeInterval:-86400.0];
-	NSDate *startDate = [NSDate midnightForDate:[event objectForKey:startKey]];
-	NSDate *endDate = [event objectForKey:endKey];
-    NSDate *calcEndDate = endDate;
+	NSDate *startDate = [[NSDate midnightForDate:[event objectForKey:startKey]] dateByAddingTimeInterval:1.0];
+	NSDate *calcStartDate = startDate;
+	NSDate *endDate = [[NSDate midnightForDate:[event objectForKey:endKey]] dateByAddingTimeInterval:1.0];
+    NSDate *calcEndDate = [endDate dateByAddingTimeInterval:(86400.0 + 1.0)];
     if ([[event allKeys] containsObject:includeLastDayInCalcKey] && ![[event valueForKey:includeLastDayInCalcKey] boolValue]) {
-        calcEndDate = [calcEndDate dateByAddingTimeInterval:-86400.0];
+        calcEndDate = [endDate dateByAddingTimeInterval:1.0];
     }
-	NSDate *today = [NSDate midnightForDate:[NSDate date]];
+	NSDate *today = [[NSDate midnightForDate:[NSDate date]] dateByAddingTimeInterval:1.0];
 	//NSLog(@"Since midnight for %@ is %f", today, [today timeIntervalSinceNow]);
 	if (fabs(dayEnds) > fabs([today timeIntervalSinceNow])) {
 		//NSLog(@"Day is incomplete");
