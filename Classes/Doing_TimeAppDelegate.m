@@ -39,7 +39,7 @@
 		if ([[NSUserDefaults standardUserDefaults] objectForKey:@"Link"]) {
 			[activity setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"Link"] forKey:linkKey];
 		}
-		NSArray *activities = [NSArray arrayWithObject:activity];
+		NSArray *activities = @[activity];
 		[[NSUserDefaults standardUserDefaults] setObject:activities forKey:eventsKey];
 		[[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Title"];
 		[[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Start Date"];
@@ -52,14 +52,9 @@
 
 	if (![[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey]) {
 		NSDate *today = [NSDate midnightForDate:[NSDate date]];
-		[[NSUserDefaults standardUserDefaults] setObject:[NSArray arrayWithObject:[NSDictionary dictionaryWithObjectsAndKeys:
-																				   NSLocalizedString(@"Doing Time", @"Application Name"),
-																				   titleKey,
-																				   today,
-																				   startKey,
-																				   today,
-																				   endKey,
-																				   nil]]
+		[[NSUserDefaults standardUserDefaults] setObject:@[@{titleKey: NSLocalizedString(@"Doing Time", @"Application Name"),
+																				   startKey: today,
+																				   endKey: today}]
 												  forKey:eventsKey];
 		
 	}

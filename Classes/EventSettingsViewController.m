@@ -45,20 +45,20 @@
 						  startKey,
 						  [NSDate distantFuture],
 						  endKey,
-                          [NSNumber numberWithBool:YES],
+                          @(YES),
                           includeLastDayInCalcKey,
-                          [NSNumber numberWithBool:YES],
+                          @(YES),
                           showEventDatesKey,
 						  nil];
 		} else {
 			self.event = [NSMutableDictionary dictionaryWithDictionary:[[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] objectAtIndex:index]];
 			self.newEvent = NO;
             if (![[self.event allKeys] containsObject:includeLastDayInCalcKey]) {
-                [self.event setValue:[NSNumber numberWithBool:YES] forKey:includeLastDayInCalcKey];
+                [self.event setValue:@(YES) forKey:includeLastDayInCalcKey];
                 [self saveEvent];
             }
             if (![[self.event allKeys] containsObject:showEventDatesKey]) {
-                [self.event setValue:[NSNumber numberWithBool:YES] forKey:showEventDatesKey];
+                [self.event setValue:@(YES) forKey:showEventDatesKey];
                 [self saveEvent];
             }
 		}
@@ -142,12 +142,12 @@
 }
 
 - (void)switchIncludeLastDayInCalc:(id)sender {
-    [self.event setValue:[NSNumber numberWithBool:[(UISwitch *)sender isOn]] forKey:includeLastDayInCalcKey];
+    [self.event setValue:@([(UISwitch *)sender isOn]) forKey:includeLastDayInCalcKey];
     [self.tableView reloadData];
 }
 
 - (void)switchShowEventDates:(id)sender {
-    [self.event setValue:[NSNumber numberWithBool:[(UISwitch *)sender isOn]] forKey:showEventDatesKey];
+    [self.event setValue:@([(UISwitch *)sender isOn]) forKey:showEventDatesKey];
     [self.tableView reloadData];
 }
 

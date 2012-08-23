@@ -71,8 +71,7 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 	}
 	[[NSNotificationCenter defaultCenter] postNotificationName:AXAppStoreDidReceiveProductsList
 														object:self
-													  userInfo:[NSDictionary dictionaryWithObject:self.validProducts
-																						   forKey:AXAppStoreProducts]];
+													  userInfo:@{AXAppStoreProducts: self.validProducts}];
 }
 
 - (SKProduct *)productData:(NSString *)productIdentifier {
@@ -106,8 +105,7 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 - (void)request:(SKRequest *)request didFailWithError:(NSError *)error {
 	[[NSNotificationCenter defaultCenter] postNotificationName:AXAppStoreRequestFailed
 														object:self
-													  userInfo:[NSDictionary dictionaryWithObject:error
-																						   forKey:AXAppStoreRequestError]];
+													  userInfo:@{AXAppStoreRequestError: error}];
 }
 
 #pragma mark -
@@ -140,16 +138,12 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 	if (transaction.error.code != SKErrorPaymentCancelled) {
 		[[NSNotificationCenter defaultCenter] postNotificationName:AXAppStoreTransactionFailed
 															object:self
-														  userInfo:[NSDictionary dictionaryWithObjectsAndKeys:transaction.payment.productIdentifier,
-																	AXAppStoreProductIdentifier,
-																	transaction.error,
-																	AXAppStoreTransactionError,
-																	nil]];
+														  userInfo:@{AXAppStoreProductIdentifier: transaction.payment.productIdentifier,
+																	AXAppStoreTransactionError: transaction.error}];
 	} else {
 		[[NSNotificationCenter defaultCenter] postNotificationName:AXAppStoreTransactionCancelled
 															object:self
-														  userInfo:[NSDictionary dictionaryWithObject:transaction.payment.productIdentifier
-																							   forKey:AXAppStoreProductIdentifier]];
+														  userInfo:@{AXAppStoreProductIdentifier: transaction.payment.productIdentifier}];
 	}
 	[[SKPaymentQueue defaultQueue] finishTransaction:transaction];
 }
@@ -167,8 +161,7 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 - (void)provideContent:(NSString *)productIdentifier {
 	[[NSNotificationCenter defaultCenter] postNotificationName:AXAppStoreNewContentShouldBeProvided
 														object:self
-													  userInfo:[NSDictionary dictionaryWithObject:productIdentifier
-																						   forKey:AXAppStoreProductIdentifier]];
+													  userInfo:@{AXAppStoreProductIdentifier: productIdentifier}];
 }
 
 - (void)queuePaymentForProduct:(SKProduct *)product {

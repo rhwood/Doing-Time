@@ -67,17 +67,17 @@ typedef enum {
     switch (buttonIndex) {
         case 0:
             [[NSUserDefaults standardUserDefaults] setInteger:TFLoggingNeverAuthorized forKey:self.userDefaultsKey];
-            [TestFlight setOptions:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:@"sendLogOnlyOnCrash"]];
+            [TestFlight setOptions:@{@"sendLogOnlyOnCrash": @(YES)}];
             _authorized = NO;
             break;
         case 1:
             [[NSUserDefaults standardUserDefaults] setInteger:TFLoggingAsk forKey:self.userDefaultsKey];
-            [TestFlight setOptions:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:NO] forKey:@"sendLogOnlyOnCrash"]];
+            [TestFlight setOptions:@{@"sendLogOnlyOnCrash": @(NO)}];
             _authorized = YES;
             break;
         case 2:
             [[NSUserDefaults standardUserDefaults] setInteger:TFLoggingAlwaysAuthorized forKey:self.userDefaultsKey];
-            [TestFlight setOptions:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:NO] forKey:@"sendLogOnlyOnCrash"]];
+            [TestFlight setOptions:@{@"sendLogOnlyOnCrash": @(NO)}];
             _authorized = YES;
             break;
         default:

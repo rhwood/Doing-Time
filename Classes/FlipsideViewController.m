@@ -370,7 +370,7 @@
 		[events removeObjectAtIndex:indexPath.row];
 		[[NSUserDefaults standardUserDefaults] setObject:events forKey:eventsKey];
 		[[NSUserDefaults standardUserDefaults] synchronize];
-		[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+		[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
 		[delegate eventWasRemoved:indexPath.row];
 	} else {
 		[self addEvent];
@@ -494,7 +494,7 @@
                         mailController.mailComposeDelegate = self;
                         [mailController setSubject:[NSString localizedStringWithFormat:NSLocalizedString(@"Doing Time %@ Feedback", @"Email subject for application feedback"),
                                                 [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]]];
-                        [mailController setToRecipients:[NSArray arrayWithObject:@"Support@AlexandriaSoftware.com"]];
+                        [mailController setToRecipients:@[@"Support@AlexandriaSoftware.com"]];
                         [mailController setMessageBody:@"" isHTML:NO];
                         if (mailController) {
                             [self presentModalViewController:mailController animated:YES];
