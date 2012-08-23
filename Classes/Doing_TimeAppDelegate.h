@@ -20,10 +20,10 @@
 	EKEventStore *_eventStore;
 }
 
-@property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) IBOutlet MainViewController *mainViewController;
-@property (nonatomic, retain) IBOutlet EKEventStore *eventStore;
-@property (nonatomic, retain) IBOutlet AppStoreDelegate *appStore;
+@property (nonatomic, strong) IBOutlet UIWindow *window;
+@property (nonatomic, strong) IBOutlet MainViewController *mainViewController;
+@property (nonatomic, strong) IBOutlet EKEventStore *eventStore;
+@property (nonatomic, strong) IBOutlet AppStoreDelegate *appStore;
 
 @end
 

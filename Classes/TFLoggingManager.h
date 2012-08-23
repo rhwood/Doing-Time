@@ -11,9 +11,9 @@
 @interface TFLoggingManager : NSObject
 
 @property (nonatomic, readonly) Boolean authorized;
-@property (nonatomic, retain) NSString *userDefaultsKey;
-@property (nonatomic, retain) NSString *requestTitle;
-@property (nonatomic, retain) NSString *requestMessage;
+@property (nonatomic, strong) NSString *userDefaultsKey;
+@property (nonatomic, strong) NSString *requestTitle;
+@property (nonatomic, strong) NSString *requestMessage;
 
 - (void)requestAuthorization;
 

@@ -33,18 +33,18 @@
 - (IBAction)showInfo:(id)sender;
 - (BOOL)setPieChartValues:(BOOL)forceRedraw;
 
-@property (nonatomic, retain) IBOutlet PieChartView *pieChart;
-@property (nonatomic, retain) IBOutlet UILabel *daysComplete;
-@property (nonatomic, retain) IBOutlet UILabel *daysLeft;
-@property (nonatomic, retain) IBOutlet UILabel *dateRange;
-@property (nonatomic, retain) IBOutlet UILabel *eventTitle;
-@property (nonatomic, retain) IBOutlet UIView *controls;
-@property (nonatomic, retain) IBOutlet UIView *piePlate;
-@property (nonatomic, retain) IBOutlet MainViewController *mainView;
+@property (nonatomic, strong) IBOutlet PieChartView *pieChart;
+@property (nonatomic, strong) IBOutlet UILabel *daysComplete;
+@property (nonatomic, strong) IBOutlet UILabel *daysLeft;
+@property (nonatomic, strong) IBOutlet UILabel *dateRange;
+@property (nonatomic, strong) IBOutlet UILabel *eventTitle;
+@property (nonatomic, strong) IBOutlet UIView *controls;
+@property (nonatomic, strong) IBOutlet UIView *piePlate;
+@property (nonatomic, strong) IBOutlet MainViewController *mainView;
 @property NSUInteger eventID;
 @property NSInteger oldComplete;
 @property NSInteger oldLeft;
 @property NSInteger oldTotal;
-@property (nonatomic, retain) NSString *oldTitle;
+@property (nonatomic, strong) NSString *oldTitle;
 
 @end

@@ -59,21 +59,21 @@
 #pragma mark Properties
 
 @property NSUInteger index;
-@property (nonatomic, retain) NSMutableDictionary* event;
-@property (nonatomic, retain) IBOutlet UITableView* tableView;
-@property (nonatomic, retain) IBOutlet UIDatePicker* datePicker;
+@property (nonatomic, strong) NSMutableDictionary* event;
+@property (nonatomic, strong) IBOutlet UITableView* tableView;
+@property (nonatomic, strong) IBOutlet UIDatePicker* datePicker;
 @property BOOL settingStartDate;
 @property BOOL settingEndDate;
 @property BOOL showErrorAlert;
 @property BOOL newEvent;
-@property (nonatomic, retain) IBOutlet EKEventStore* eventStore;
-@property (nonatomic, retain) NSIndexPath* startDateViewCellIndexPath;
-@property (nonatomic, retain) NSIndexPath* endDateViewCellIndexPath;
-@property (nonatomic, retain) UIColor* detailTextLabelColor;
-@property (nonatomic, retain) UIActionSheet* linkUnlinkedEventActionSheet;
-@property (nonatomic, retain) UIActionSheet* changeLinkedEventActionSheet;
+@property (nonatomic, strong) IBOutlet EKEventStore* eventStore;
+@property (nonatomic, strong) NSIndexPath* startDateViewCellIndexPath;
+@property (nonatomic, strong) NSIndexPath* endDateViewCellIndexPath;
+@property (nonatomic, strong) UIColor* detailTextLabelColor;
+@property (nonatomic, strong) UIActionSheet* linkUnlinkedEventActionSheet;
+@property (nonatomic, strong) UIActionSheet* changeLinkedEventActionSheet;
 @property (nonatomic, assign) IBOutlet UITextField* titleView;
-@property (nonatomic, retain) IBOutlet UITableViewCell* titleViewCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* titleViewCell;
 @property BOOL cancelling;
 
 @end

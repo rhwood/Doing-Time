@@ -71,16 +71,16 @@
 #pragma mark Properties
 
 @property (nonatomic, assign) id <FlipsideViewControllerDelegate> delegate;
-@property (nonatomic, retain) IBOutlet UITableView* tableView;
-@property (nonatomic, retain) IBOutlet UIDatePicker* datePicker;
+@property (nonatomic, strong) IBOutlet UITableView* tableView;
+@property (nonatomic, strong) IBOutlet UIDatePicker* datePicker;
 @property BOOL showErrorAlert;
-@property (nonatomic, retain) NSIndexPath* endingTimeViewCellIndexPath;
-@property (nonatomic, retain) UIColor* detailTextLabelColor;
-@property (nonatomic, retain) Doing_TimeAppDelegate* appDelegate;
+@property (nonatomic, strong) NSIndexPath* endingTimeViewCellIndexPath;
+@property (nonatomic, strong) UIColor* detailTextLabelColor;
+@property (nonatomic, strong) Doing_TimeAppDelegate* appDelegate;
 @property NSUInteger eventBeingUpdated;
-@property (nonatomic, retain) IBOutlet UIActivityIndicatorView* activityIndicator;
-@property (nonatomic, retain) IBOutlet UILabel* activityLabel;
-@property (nonatomic, retain) IBOutlet UIView* activityView;
+@property (nonatomic, strong) IBOutlet UIActivityIndicatorView* activityIndicator;
+@property (nonatomic, strong) IBOutlet UILabel* activityLabel;
+@property (nonatomic, strong) IBOutlet UIView* activityView;
 @property (strong, retain) UIPanGestureRecognizer* swipe;
 @property (strong, retain) UITapGestureRecognizer* tap;
 @property (strong) UITapGestureRecognizer* tapInsideEndingTimeViewCell;

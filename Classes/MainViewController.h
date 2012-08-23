@@ -54,15 +54,15 @@
 
 - (void)hideAdBanner:(BOOL)hide animated:(BOOL)animated;
 
-@property (nonatomic, retain) IBOutlet UIView *controls;
-@property (nonatomic, retain) IBOutlet EKEventStore *eventStore;
-@property (nonatomic, retain) IBOutlet UIPageControl *pager;
-@property (nonatomic, retain) IBOutlet UIScrollView *scroller;
-@property (nonatomic, retain) IBOutlet NSMutableArray *events;
+@property (nonatomic, strong) IBOutlet UIView *controls;
+@property (nonatomic, strong) IBOutlet EKEventStore *eventStore;
+@property (nonatomic, strong) IBOutlet UIPageControl *pager;
+@property (nonatomic, strong) IBOutlet UIScrollView *scroller;
+@property (nonatomic, strong) IBOutlet NSMutableArray *events;
 @property BOOL bannerIsVisible;
 @property BOOL pagerDidScroll;
-@property (nonatomic, retain) Doing_TimeAppDelegate *appDelegate;
-@property (nonatomic, retain) IBOutlet ADBannerView *adBanner;
-@property (nonatomic, retain) NSTimer *dayOverTimer;
+@property (nonatomic, strong) Doing_TimeAppDelegate *appDelegate;
+@property (nonatomic, strong) IBOutlet ADBannerView *adBanner;
+@property (nonatomic, strong) NSTimer *dayOverTimer;
 
 @end

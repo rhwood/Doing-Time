@@ -15,5 +15,5 @@
 
 }
 
-@property (nonatomic, retain) IBOutlet UITableViewCell* logoCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* logoCell;
 @end
