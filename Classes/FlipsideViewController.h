@@ -18,9 +18,7 @@
 @interface FlipsideViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate> {
 	__unsafe_unretained id <FlipsideViewControllerDelegate> delegate;
 	UITableView* _tableView;
-	UIDatePicker* _datePicker;
 	BOOL showErrorAlert;
-	NSIndexPath* _endingTimeViewCellIndexPath;
 	UIColor* _detailTextLabelColor;
 	Doing_TimeAppDelegate* _appDelegate;
 	NSUInteger eventBeingUpdated;
@@ -46,14 +44,6 @@
 #pragma mark Events
 
 - (void)addEvent;
-
-#pragma mark -
-#pragma mark Date picker
-
-- (void)changeEndingTime:(id)sender;
-- (void)hideDatePicker:(BOOL)hidden;
-- (void)dismissDatePicker;
-- (void)doTapInsideEndingTimeViewCell;
 
 #pragma mark - Display Settings
 

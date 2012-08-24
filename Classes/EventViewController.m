@@ -55,8 +55,6 @@
 	NSInteger inPast = 0;
 	// BOOL isRealStart = NO;
 	// startDate is used for computations, realStartDate is used for sane UI
-	NSTimeInterval dayEnds = [[[NSUserDefaults standardUserDefaults] objectForKey:dayOverKey] 
-							  timeIntervalSinceReferenceDate] + [[NSTimeZone localTimeZone] secondsFromGMT];
 	NSDictionary *event = [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] objectAtIndex:self.eventID];
 	NSDate *startDate = [[NSDate midnightForDate:[event objectForKey:startKey]] dateByAddingTimeInterval:1.0];
 	NSDate *calcStartDate = startDate;
@@ -67,9 +65,6 @@
     }
 	NSDate *today = [[NSDate midnightForDate:[NSDate date]] dateByAddingTimeInterval:1.0];
 	//NSLog(@"Since midnight for %@ is %f", today, [today timeIntervalSinceNow]);
-	if (fabs(dayEnds) > fabs([today timeIntervalSinceNow])) {
-		//NSLog(@"Day is incomplete");
-	}
 	//NSLog(@"Seconds from GMT: %i", [[NSTimeZone localTimeZone] secondsFromGMT]);
 	if ([[NSTimeZone localTimeZone] secondsFromGMTForDate:today] != [[NSTimeZone localTimeZone] secondsFromGMTForDate:startDate]) {
 		// get difference between timezones and adjust today & dayOver time
@@ -86,7 +81,6 @@
     NSLog(@"Calc end:    %@", calcEndDate);
 	NSLog(@"Reference:   %@", [[NSUserDefaults standardUserDefaults] objectForKey:dayOverKey]);
 	NSLog(@"Now:         %@", [NSDate date]);
-	NSLog(@"Day ends at: %f", dayEnds);
 	
 	NSInteger completed = [[gregorianCalendar components:NSDayCalendarUnit
 														   fromDate:today 
@@ -120,22 +114,10 @@
 		inPast = left * -1;
 		completed = duration;
 		left = 0;
-	} else if (fabs(dayEnds) > fabs([today timeIntervalSinceNow])) {
-		completed--;
-		left++;
-		if (completed < 0) {
-			inFuture = (completed * -1) + 1;
-			completed = 0;
-			left = duration;
-		}
     }
     if (duration != (completed + left)) {
         if (duration == (completed + left + 1)) {
-            if (fabs(dayEnds) > fabs([today timeIntervalSinceNow])) {
-                left++;
-            } else {
-                completed++;
-            }
+            completed++;
         } else {
             TFLog(@"Event (from %@ to %@) has duration (%d) != days complete (%d) + days left (%d)", startDate, endDate, duration, completed, left);
         }

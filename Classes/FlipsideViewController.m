@@ -16,9 +16,7 @@
 
 @synthesize delegate;
 @synthesize tableView = _tableView;
-@synthesize datePicker = _datePicker;
 @synthesize showErrorAlert;
-@synthesize endingTimeViewCellIndexPath = _endingTimeViewCellIndexPath;
 @synthesize detailTextLabelColor = _detailTextLabelColor;
 @synthesize appDelegate = _appDelegate;
 @synthesize appStoreRequestFailed;
@@ -27,9 +25,6 @@
 @synthesize activityView = _activityView;
 @synthesize eventBeingUpdated;
 @synthesize allowInAppPurchases;
-@synthesize swipe;
-@synthesize tap;
-@synthesize tapInsideEndingTimeViewCell;
 
 #pragma mark -
 #pragma mark View lifecycle
@@ -59,12 +54,6 @@
 	self.endingTimeViewCellIndexPath = [NSIndexPath indexPathForRow:2 inSection:1];
 	// set the detailTextLabel.textColor since its not a built in color
 	self.detailTextLabelColor = [UIColor colorWithRed:0.22 green:0.33 blue:0.53 alpha:1.0];
-    
-    self.swipe = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dismissDatePicker)];
-    self.swipe.cancelsTouchesInView = NO;
-    self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissDatePicker)];
-    self.tap.cancelsTouchesInView = NO;
-    self.tapInsideEndingTimeViewCell = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doTapInsideEndingTimeViewCell)];
     
 	// App Store
 	[[NSNotificationCenter defaultCenter] addObserverForName:AXAppStoreDidReceiveProductsList
@@ -184,7 +173,7 @@
 			return [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count] + 1;
 			break;
 		case 1: // Display
-			return 3;
+			return 2;
 			break;
 		case 2: // Store
             if (self.allowInAppPurchases) {
@@ -275,14 +264,6 @@
                                                        action:@selector(switchShowRemainingDays:)
                                              forControlEvents:UIControlEventValueChanged];
                     break;
-				case 2:
-					cell.textLabel.text = NSLocalizedString(@"Day ends at", @"Label for cell that includes the hour of the day at which the day is considered past.");
-					if ([[NSUserDefaults standardUserDefaults] objectForKey:dayOverKey]) {
-						cell.detailTextLabel.text = [NSDateFormatter localizedStringFromDate:[[NSUserDefaults standardUserDefaults] objectForKey:dayOverKey]
-																					dateStyle:NSDateFormatterNoStyle
-																					timeStyle:NSDateFormatterShortStyle];
-					}
-					break;
 				default:
 					break;
 			}
@@ -434,9 +415,6 @@
 		[self.appDelegate.appStore hasTransactionsForAllProducts]) {
 		section = indexPath.section + 1;
 	}
-	if (NSOrderedSame != [indexPath compare:self.endingTimeViewCellIndexPath]) {
-		[self hideDatePicker:YES];
-	}
 	self.showErrorAlert = YES;
 	[self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:YES];
 	switch (section) {
@@ -461,18 +439,6 @@
                     // showCompletedDaysKey setting is a UISwitch
                     [tableView cellForRowAtIndexPath:indexPath].selectionStyle = UITableViewCellSelectionStyleNone;
                     break;
-                case 2:
-                    [tableView cellForRowAtIndexPath:indexPath].selectionStyle = UITableViewCellSelectionStyleBlue;
-					if (self.datePicker.hidden) {
-						self.datePicker.datePickerMode = UIDatePickerModeTime;
-						[self hideDatePicker:NO];
-						[self.datePicker setDate:[[NSUserDefaults standardUserDefaults] objectForKey:dayOverKey]
-										animated:YES];
-					} else {
-						[self hideDatePicker:YES];
-						[self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-					}
-					break;
 				default:
 					break;
 					
@@ -533,65 +499,6 @@
 		return [NSIndexPath indexPathForRow:eventsCount - 1 inSection:sourceIndexPath.section];
 	}
 	return proposedDestinationIndexPath;
-}
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    [self dismissDatePicker];
-}
-
-#pragma mark -
-#pragma mark Date Pickers
-
-- (void)changeEndingTime:(id)sender {
-	[[NSUserDefaults standardUserDefaults] setObject:self.datePicker.date forKey:dayOverKey];
-	[self.tableView cellForRowAtIndexPath:self.endingTimeViewCellIndexPath].detailTextLabel.text = [NSDateFormatter localizedStringFromDate:self.datePicker.date
-																																  dateStyle:NSDateFormatterNoStyle
-																																  timeStyle:NSDateFormatterShortStyle];
-	[self.delegate dayOverTimeUpdated];
-}
-
-- (void)hideDatePicker:(BOOL)hidden {
-	if (hidden != self.datePicker.hidden) {
-		[UIView beginAnimations:@"animateDisplayPager" context:NULL];
-		if (!hidden) {
-            [self.tableView cellForRowAtIndexPath:self.endingTimeViewCellIndexPath].selectionStyle = UITableViewCellSelectionStyleBlue;
-            [self.view addGestureRecognizer:self.swipe];
-            [self.tableView addGestureRecognizer:self.tap];
-            [[self.tableView cellForRowAtIndexPath:self.endingTimeViewCellIndexPath] addGestureRecognizer:self.tapInsideEndingTimeViewCell];
-			self.datePicker.hidden = NO;
-			self.tableView.frame = CGRectMake(self.tableView.frame.origin.x,
-											  self.tableView.frame.origin.y,
-											  self.tableView.frame.size.width,
-											  self.tableView.frame.size.height - self.datePicker.frame.size.height);
-			self.datePicker.frame = CGRectOffset(self.datePicker.frame,
-												 0,
-												 -self.datePicker.frame.size.height - self.navigationController.navigationBar.frame.size.height);
-		} else {
-            [self.tableView deselectRowAtIndexPath:self.endingTimeViewCellIndexPath animated:YES];
-			self.tableView.frame = CGRectMake(self.tableView.frame.origin.x,
-											  self.tableView.frame.origin.y,
-											  self.tableView.frame.size.width,
-											  self.tableView.frame.size.height + self.datePicker.frame.size.height);
-			self.datePicker.frame = CGRectOffset(self.datePicker.frame, 
-												 0,
-												 self.datePicker.frame.size.height + self.navigationController.navigationBar.frame.size.height);
-		}
-		[UIView commitAnimations];
-		[self.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionNone animated:YES];
-		self.datePicker.hidden = hidden;
-	}
-}
-
-- (void)dismissDatePicker {
-    [self hideDatePicker:YES];
-    [self.view removeGestureRecognizer:self.swipe];
-    [self.tableView removeGestureRecognizer:self.tap];
-    [[self.tableView cellForRowAtIndexPath:self.endingTimeViewCellIndexPath] removeGestureRecognizer:self.tapInsideEndingTimeViewCell];
-}
-
-- (void)doTapInsideEndingTimeViewCell {
-    [self dismissDatePicker];
-    [self.tableView deselectRowAtIndexPath:self.endingTimeViewCellIndexPath animated:YES];
 }
 
 #pragma mark - Display Settings
