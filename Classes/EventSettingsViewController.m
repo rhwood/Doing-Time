@@ -47,6 +47,8 @@
 						  endKey,
                           @(YES),
                           includeLastDayInCalcKey,
+                          @(NO),
+                          dayOverKey,
                           @(YES),
                           showEventDatesKey,
 						  nil];
@@ -55,6 +57,10 @@
 			self.newEvent = NO;
             if (![[self.event allKeys] containsObject:includeLastDayInCalcKey]) {
                 [self.event setValue:@(YES) forKey:includeLastDayInCalcKey];
+                [self saveEvent];
+            }
+            if (![[self.event allKeys] containsObject:dayOverKey]) {
+                [self.event setValue:@(NO) forKey:dayOverKey];
                 [self saveEvent];
             }
             if (![[self.event allKeys] containsObject:showEventDatesKey]) {
@@ -138,11 +144,16 @@
 		[events replaceObjectAtIndex:self.index withObject:self.event];
 	}
 	[[NSUserDefaults standardUserDefaults] setObject:events forKey:eventsKey];
-	[[NSUserDefaults standardUserDefaults] synchronize];    
+	[[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)switchIncludeLastDayInCalc:(id)sender {
     [self.event setValue:@([(UISwitch *)sender isOn]) forKey:includeLastDayInCalcKey];
+    [self.tableView reloadData];
+}
+
+- (void)switchTodayIsComplete:(id)sender {
+    [self.event setValue:@([(UISwitch *)sender isOn]) forKey:dayOverKey];
     [self.tableView reloadData];
 }
 
@@ -164,7 +175,7 @@
             return 3;
             break;
         case 1:
-            return 2; // no calendar link yet
+            return 3; // no calendar link yet
             break;
         default:
             return 0;
@@ -253,6 +264,20 @@
 					}
                     break;
                 case 1:
+                    cell.textLabel.text = NSLocalizedString(@"Today is Past", @"Label for cell that includes checkmark to indicate that today is treated as remaining or not");
+                    cell.accessoryView = [[UISwitch alloc] initWithFrame:CGRectZero];
+                    [(UISwitch *)cell.accessoryView addTarget:self
+                                                       action:@selector(switchTodayIsComplete:)
+                                             forControlEvents:UIControlEventValueChanged];
+                    if ([[self.event valueForKey:dayOverKey] boolValue]) {
+                        [(UISwitch *)cell.accessoryView setOn:YES];
+                        cell.detailTextLabel.text = NSLocalizedString(@"Today is in completion count", @"Explanatory label for \"Today is Complete\" if checked");
+                    } else {
+                        [(UISwitch *)cell.accessoryView setOn:NO];
+                        cell.detailTextLabel.text = NSLocalizedString(@"Today is in remaining count", @"Explanatory label for \"Today is Complete\" if not checked");
+                    }
+                    break;
+                case 2:
                     cell.textLabel.text = NSLocalizedString(@"Dates", @"Label for cell that includes checkmark to indicate that event dates should be displayed");
                     cell.accessoryView = [[UISwitch alloc] initWithFrame:CGRectZero];
                     [(UISwitch *)cell.accessoryView addTarget:self

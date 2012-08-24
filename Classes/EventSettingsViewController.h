@@ -36,6 +36,7 @@
 - (void)saveEvent;
 - (BOOL)verifyNonemptyTitle;
 - (IBAction)switchIncludeLastDayInCalc:(id)sender;
+- (IBAction)switchTodayIsComplete:(id)sender;
 - (IBAction)switchShowEventDates:(id)sender;
 
 #pragma mark -

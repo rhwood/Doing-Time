@@ -106,6 +106,10 @@
         duration = 1;
         left++;
     }
+    if ([[event allKeys] containsObject:dayOverKey] && [[event valueForKey:dayOverKey] boolValue]) {
+        completed++;
+        left--;
+    }
 	if (completed <= 0) {
 		inFuture = (completed * -1) + 1;
 		completed = 0;
