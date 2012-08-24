@@ -264,17 +264,17 @@
 					}
                     break;
                 case 1:
-                    cell.textLabel.text = NSLocalizedString(@"Today is Past", @"Label for cell that includes checkmark to indicate that today is treated as remaining or not");
+                    cell.textLabel.text = NSLocalizedString(@"Today is Over", @"Label for cell that includes checkmark to indicate that today is treated as remaining or not");
                     cell.accessoryView = [[UISwitch alloc] initWithFrame:CGRectZero];
                     [(UISwitch *)cell.accessoryView addTarget:self
                                                        action:@selector(switchTodayIsComplete:)
                                              forControlEvents:UIControlEventValueChanged];
                     if ([[self.event valueForKey:dayOverKey] boolValue]) {
                         [(UISwitch *)cell.accessoryView setOn:YES];
-                        cell.detailTextLabel.text = NSLocalizedString(@"Today is in completion count", @"Explanatory label for \"Today is Complete\" if checked");
+                        cell.detailTextLabel.text = NSLocalizedString(@"Today is counted complete", @"Explanatory label for \"Today is Over\" if checked");
                     } else {
                         [(UISwitch *)cell.accessoryView setOn:NO];
-                        cell.detailTextLabel.text = NSLocalizedString(@"Today is in remaining count", @"Explanatory label for \"Today is Complete\" if not checked");
+                        cell.detailTextLabel.text = NSLocalizedString(@"Today is counted remaining", @"Explanatory label for \"Today is Over\" if not checked");
                     }
                     break;
                 case 2:
