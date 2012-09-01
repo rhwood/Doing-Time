@@ -28,6 +28,8 @@
 		487E29FF137D906B0004761D /* AboutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 487E29FE137D906B0004761D /* AboutView.xib */; };
 		48924A1B131D67DA002AC7F5 /* EventSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48924A18131D67DA002AC7F5 /* EventSettingsViewController.m */; };
 		489E2891130782DB00E40ACA /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 489E2890130782DB00E40ACA /* StoreKit.framework */; };
+		489F72B315F2BCD200B5D0E7 /* ASlogo1-64x192@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 489F72B215F2BCD200B5D0E7 /* ASlogo1-64x192@2x.png */; };
+		489F72B515F2C28500B5D0E7 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 489F72B415F2C28500B5D0E7 /* Default@2x.png */; };
 		48ADE0C41343B51E005E96EB /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 48ADE0C31343B51E005E96EB /* Constants.m */; };
 		48AEFA91153C31890064ED0D /* TFLoggingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 48AEFA90153C31890064ED0D /* TFLoggingManager.m */; };
 		48B38236134BA44A009B874B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 48B38235134BA44A009B874B /* Default.png */; };
@@ -84,6 +86,8 @@
 		48924A19131D67DA002AC7F5 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = en.lproj/EventSettingsView.xib; sourceTree = "<group>"; };
 		489E2890130782DB00E40ACA /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		489F72B015F2B7EC00B5D0E7 /* Icon.acorn */ = {isa = PBXFileReference; lastKnownFileType = file; path = Icon.acorn; sourceTree = "<group>"; };
+		489F72B215F2BCD200B5D0E7 /* ASlogo1-64x192@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ASlogo1-64x192@2x.png"; sourceTree = "<group>"; };
+		489F72B415F2C28500B5D0E7 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		48ADE0C31343B51E005E96EB /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		48AEFA8F153C31890064ED0D /* TFLoggingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TFLoggingManager.h; path = Classes/TFLoggingManager.h; sourceTree = "<group>"; };
 		48AEFA90153C31890064ED0D /* TFLoggingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TFLoggingManager.m; path = Classes/TFLoggingManager.m; sourceTree = "<group>"; };
@@ -202,16 +206,18 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				489F72B015F2B7EC00B5D0E7 /* Icon.acorn */,
 				482812A4135CA6AC003704EC /* ASlogo1-64x192.png */,
+				489F72B215F2BCD200B5D0E7 /* ASlogo1-64x192@2x.png */,
 				487E29FE137D906B0004761D /* AboutView.xib */,
 				48B38235134BA44A009B874B /* Default.png */,
+				489F72B415F2C28500B5D0E7 /* Default@2x.png */,
 				48CE82BB1350CAC700D94BA6 /* EventSettingsView.xib */,
 				48CE82B31350CAC600D94BA6 /* EventView.xib */,
 				48CE82BD1350CAC700D94BA6 /* FlipsideView.xib */,
 				48CE82BF1350CAC700D94BA6 /* MainView.xib */,
 				48CE82B51350CAC600D94BA6 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* Doing_Time-Info.plist */,
+				489F72B015F2B7EC00B5D0E7 /* Icon.acorn */,
 				4859316B12D9C6D9003BD7D6 /* Icon-iPad.png */,
 				48D8CFEE151DFC360017B6CB /* Icon-iPad@2x.png */,
 				4859316C12D9C6D9003BD7D6 /* Icon.png */,
@@ -329,6 +335,8 @@
 				48D8CFEF151DFC360017B6CB /* Icon-iPad@2x.png in Resources */,
 				48D2F2F51537A195006FA78B /* README.txt in Resources */,
 				48D2F2F61537A195006FA78B /* release_notes.txt in Resources */,
+				489F72B315F2BCD200B5D0E7 /* ASlogo1-64x192@2x.png in Resources */,
+				489F72B515F2C28500B5D0E7 /* Default@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
