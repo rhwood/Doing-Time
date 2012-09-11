@@ -64,12 +64,6 @@
         calcEndDate = [endDate dateByAddingTimeInterval:1.0];
     }
 	NSDate *today = [[NSDate midnightForDate:[NSDate date]] dateByAddingTimeInterval:1.0];
-	//NSLog(@"Since midnight for %@ is %f", today, [today timeIntervalSinceNow]);
-	//NSLog(@"Seconds from GMT: %i", [[NSTimeZone localTimeZone] secondsFromGMT]);
-	if ([[NSTimeZone localTimeZone] secondsFromGMTForDate:today] != [[NSTimeZone localTimeZone] secondsFromGMTForDate:startDate]) {
-		// get difference between timezones and adjust today & dayOver time
-		//NSLog(@"Humph.");
-	}
     BOOL showDateRange = YES;
     if ([[event allKeys] containsObject:showEventDatesKey] && ![[event valueForKey:showEventDatesKey] boolValue]) {
         showDateRange = NO;
