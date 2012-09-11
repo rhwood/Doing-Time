@@ -222,7 +222,7 @@
 		[self loadScrollerWithEvent:eventIdentifier];
 		self.pager.numberOfPages = [self.events count];
 	} else {
-		[self redrawEvent:eventIdentifier forceRedraw:NO];
+		[self redrawEvent:eventIdentifier forceRedraw:YES];
 	}
 }
 
