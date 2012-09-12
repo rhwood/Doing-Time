@@ -59,7 +59,7 @@
 	NSDate *startDate = [[NSDate midnightForDate:[event objectForKey:startKey]] dateByAddingTimeInterval:1.0];
 	NSDate *calcStartDate = startDate;
 	NSDate *endDate = [[NSDate midnightForDate:[event objectForKey:endKey]] dateByAddingTimeInterval:1.0];
-    NSDate *calcEndDate = [endDate dateByAddingTimeInterval:(86400.0 + 1.0)];
+    NSDate *calcEndDate = [endDate dateByAddingTimeInterval:(86400.0)];
     if ([[event allKeys] containsObject:includeLastDayInCalcKey] && ![[event valueForKey:includeLastDayInCalcKey] boolValue]) {
         calcEndDate = [endDate dateByAddingTimeInterval:1.0];
     }
@@ -73,7 +73,6 @@
 	NSLog(@"Today:       %@", today);
 	NSLog(@"Calc start:  %@", calcStartDate);
     NSLog(@"Calc end:    %@", calcEndDate);
-	NSLog(@"Reference:   %@", [[NSUserDefaults standardUserDefaults] objectForKey:dayOverKey]);
 	NSLog(@"Now:         %@", [NSDate date]);
 	
 	NSInteger completed = [[gregorianCalendar components:NSDayCalendarUnit

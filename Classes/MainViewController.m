@@ -143,11 +143,7 @@
 }
 
 - (void)scheduleRedrawOnDayOver {
-	// get dayOver from NSUserDefaults
-	// if this fires too soon, add 5 seconds
-	NSTimeInterval ti = [(NSDate *)[[NSUserDefaults standardUserDefaults] objectForKey:dayOverKey]
-						 timeIntervalSinceReferenceDate];
-	NSDate* dayOver = [[NSDate UTCMidnightForDate:[NSDate date]] dateByAddingTimeInterval:ti];
+	NSDate* dayOver = [[NSDate UTCMidnightForDate:[NSDate date]] dateByAddingTimeInterval:1.0];
 	if (self.dayOverTimer) {
 		if ([[self.dayOverTimer fireDate] isEqualToDate:dayOver]) {
 			return;
