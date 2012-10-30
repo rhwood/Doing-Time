@@ -185,7 +185,7 @@
 				080E96DDFE201D6D7F000001 /* Application Delegate */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
-				48D2F2EF1537A194006FA78B /* TestFlightSDK1 */,
+				48D2F2EF1537A194006FA78B /* TestFlightSDK */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
@@ -258,7 +258,7 @@
 			name = "Supporting Classes";
 			sourceTree = "<group>";
 		};
-		48D2F2EF1537A194006FA78B /* TestFlightSDK1 */ = {
+		48D2F2EF1537A194006FA78B /* TestFlightSDK */ = {
 			isa = PBXGroup;
 			children = (
 				48D2F2F01537A194006FA78B /* libTestFlight.a */,
@@ -266,6 +266,7 @@
 				48D2F2F21537A194006FA78B /* release_notes.txt */,
 				48D2F2F31537A194006FA78B /* TestFlight.h */,
 			);
+			name = TestFlightSDK;
 			path = TestFlightSDK1;
 			sourceTree = "<group>";
 		};
