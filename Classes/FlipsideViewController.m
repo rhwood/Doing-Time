@@ -173,7 +173,7 @@
 			break;
 		case 2: // Store
             if (self.allowInAppPurchases) {
-                return [self.appDelegate.appStore.validProducts count];
+                return self.appDelegate.appStore.validProducts.count + 1;
             } else {
                 return 0;
             }
@@ -265,17 +265,21 @@
 			}
 			break;
 		case 2: // Store
-			if (self.appDelegate.appStore.canMakePayments &&
-				[self.appDelegate.appStore.validProducts count]) {
-				cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-				SKProduct *product = [self.appDelegate.appStore.products objectForKey:[self.appDelegate.appStore.validProducts objectAtIndex:indexPath.row]];
-				NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-				[numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-				[numberFormatter setLocale:product.priceLocale];
-				cell.textLabel.text = product.localizedTitle;
-				cell.detailTextLabel.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%@ for %@", @"String containing the description of an in-app purchase followed by the cost."), 
-											 product.localizedDescription,
-											 [numberFormatter stringFromNumber:product.price]];
+			if (self.appDelegate.appStore.canMakePayments) {
+                if (indexPath.row < self.appDelegate.appStore.validProducts.count) {
+                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    SKProduct *product = [self.appDelegate.appStore.products objectForKey:[self.appDelegate.appStore.validProducts objectAtIndex:indexPath.row]];
+                    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+                    [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+                    [numberFormatter setLocale:product.priceLocale];
+                    cell.textLabel.text = product.localizedTitle;
+                    cell.detailTextLabel.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%@ for %@", @"String containing the description of an in-app purchase followed by the cost."),
+                                                 product.localizedDescription,
+                                                 [numberFormatter stringFromNumber:product.price]];
+                } else {
+                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    cell.textLabel.text = NSLocalizedString(@"Restore Purchases", @"Label for link to restore purchases");
+                }
 			}
 			break;
 		case 3: // Support
@@ -442,10 +446,16 @@
 			break;
 		case 2: // Store
 			if (self.appDelegate.appStore.canMakePayments) {
-				SKProduct *product = [self.appDelegate.appStore.products objectForKey:[[self.appDelegate.appStore.products allKeys] objectAtIndex:indexPath.row]];
-				self.activityLabel.text = [NSString localizedStringWithFormat:NSLocalizedString(@"Getting %@...", @"Label indicating that app is getting an in-app purchase (with %@ as the title)"), product.localizedTitle];
-				[self hidePurchaseActivity:NO];
-				[self.appDelegate.appStore queuePaymentForProduct:product];
+                if (indexPath.row < self.appDelegate.appStore.products.count) {
+                    SKProduct *product = [self.appDelegate.appStore.products objectForKey:[[self.appDelegate.appStore.products allKeys] objectAtIndex:indexPath.row]];
+                    self.activityLabel.text = [NSString localizedStringWithFormat:NSLocalizedString(@"Getting %@...", @"Label indicating that app is getting an in-app purchase (with %@ as the title)"), product.localizedTitle];
+                    [self hidePurchaseActivity:NO];
+                    [self.appDelegate.appStore queuePaymentForProduct:product];
+                } else {
+                    self.activityLabel.text = NSLocalizedString(@"Restoring purchases...", @"Label indicating that app is restoring purchases");
+                    [self hidePurchaseActivity:NO];
+                    [self.appDelegate.appStore restoreCompletedTransactions];
+                }
 			}
 			break;
 		case 3: // Help
