@@ -11,7 +11,7 @@
 #ifdef __OBJC__
     #import <Foundation/Foundation.h>
     #import <UIKit/UIKit.h>
-    #import "TestFlight.h"
+    #import "TestFlightSDK/TestFlight.h"
     #import "TFLoggingManager.h"
 #endif
 
