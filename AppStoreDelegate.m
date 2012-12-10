@@ -191,4 +191,8 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 	[[SKPaymentQueue defaultQueue] finishTransaction:transaction];
 }
 
+- (void)restoreCompletedTransactions {
+    [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
+}
+
 @end

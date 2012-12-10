@@ -61,6 +61,7 @@ extern NSString *const AXAppStoreTransactionStore;
 - (void)queuePaymentForProduct:(SKProduct *)product withQuantity:(NSUInteger)quantity;
 - (void)recordTransaction:(SKPaymentTransaction *)transaction;
 - (void)restoreTransaction:(SKPaymentTransaction *)transaction;
+- (void)restoreCompletedTransactions;
 
 @property (nonatomic, strong) NSMutableDictionary *transactionStore;
 @property (nonatomic, strong) NSMutableDictionary *products;
