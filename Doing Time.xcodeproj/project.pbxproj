@@ -23,7 +23,6 @@
 		4859316F12D9C6D9003BD7D6 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4859316C12D9C6D9003BD7D6 /* Icon.png */; };
 		4859317012D9C6D9003BD7D6 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4859316D12D9C6D9003BD7D6 /* Icon@2x.png */; };
 		485BAB5113498E31005EE6BE /* AppStoreDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 485BAB4F13498E31005EE6BE /* AppStoreDelegate.m */; };
-		485F3FE413156B32003A3525 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 485F3FE313156B32003A3525 /* EventKitUI.framework */; };
 		487026B612D7CAE800E90108 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 487026B512D7CAE800E90108 /* iAd.framework */; };
 		4870279D12D80B3000E90108 /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4870279B12D80B3000E90108 /* NSDate+Additions.m */; };
 		487E29FF137D906B0004761D /* AboutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 487E29FE137D906B0004761D /* AboutView.xib */; };
@@ -34,7 +33,6 @@
 		48ADE0C41343B51E005E96EB /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 48ADE0C31343B51E005E96EB /* Constants.m */; };
 		48AEFA91153C31890064ED0D /* TFLoggingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 48AEFA90153C31890064ED0D /* TFLoggingManager.m */; };
 		48B38236134BA44A009B874B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 48B38235134BA44A009B874B /* Default.png */; };
-		48CE213813159502003C179A /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48CE213713159502003C179A /* EventKit.framework */; };
 		48CE82B41350CAC600D94BA6 /* EventView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48CE82B31350CAC600D94BA6 /* EventView.xib */; };
 		48CE82B61350CAC600D94BA6 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48CE82B51350CAC600D94BA6 /* MainWindow.xib */; };
 		48CE82BC1350CAC700D94BA6 /* EventSettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48CE82BB1350CAC700D94BA6 /* EventSettingsView.xib */; };
@@ -42,8 +40,6 @@
 		48CE82C01350CAC700D94BA6 /* MainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48CE82BF1350CAC700D94BA6 /* MainView.xib */; };
 		48CE82E81350D37B00D94BA6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 48CE82E71350D37B00D94BA6 /* Localizable.strings */; };
 		48D2F2F41537A194006FA78B /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 48D2F2F01537A194006FA78B /* libTestFlight.a */; };
-		48D2F2F51537A195006FA78B /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 48D2F2F11537A194006FA78B /* README.md */; };
-		48D2F2F61537A195006FA78B /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 48D2F2F21537A194006FA78B /* release_notes.md */; };
 		48D8CFEF151DFC360017B6CB /* Icon-iPad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 48D8CFEE151DFC360017B6CB /* Icon-iPad@2x.png */; };
 		48E61CDF131E9E210077DA8E /* EventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E61CDC131E9E210077DA8E /* EventViewController.m */; };
 		48EF13721382ED2400FF37C2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48EF13711382ED2400FF37C2 /* SystemConfiguration.framework */; };
@@ -79,7 +75,6 @@
 		4859316D12D9C6D9003BD7D6 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		485BAB4E13498E31005EE6BE /* AppStoreDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AppStoreDelegate.h; sourceTree = "<group>"; };
 		485BAB4F13498E31005EE6BE /* AppStoreDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppStoreDelegate.m; sourceTree = "<group>"; };
-		485F3FE313156B32003A3525 /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
 		487026B512D7CAE800E90108 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		4870279A12D80B3000E90108 /* NSDate+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = "NSDate+Additions.h"; path = "Classes/NSDate+Additions.h"; sourceTree = "<group>"; };
 		4870279B12D80B3000E90108 /* NSDate+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+Additions.m"; path = "Classes/NSDate+Additions.m"; sourceTree = "<group>"; };
@@ -94,12 +89,11 @@
 		48AEFA8F153C31890064ED0D /* TFLoggingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TFLoggingManager.h; path = Classes/TFLoggingManager.h; sourceTree = "<group>"; };
 		48AEFA90153C31890064ED0D /* TFLoggingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TFLoggingManager.m; path = Classes/TFLoggingManager.m; sourceTree = "<group>"; };
 		48B38235134BA44A009B874B /* Default.png */ = {isa = PBXFileReference; explicitFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		48CE213713159502003C179A /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		48CE82C11350CB7E00D94BA6 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		48D2F2F01537A194006FA78B /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTestFlight.a; path = ../TestFlightSDK/libTestFlight.a; sourceTree = "<group>"; };
-		48D2F2F11537A194006FA78B /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.md; path = ../TestFlightSDK/README.md; sourceTree = "<group>"; };
-		48D2F2F21537A194006FA78B /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = release_notes.md; path = ../TestFlightSDK/release_notes.md; sourceTree = "<group>"; };
-		48D2F2F31537A194006FA78B /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestFlight.h; path = ../TestFlightSDK/TestFlight.h; sourceTree = "<group>"; };
+		48D2F2F01537A194006FA78B /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		48D2F2F11537A194006FA78B /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		48D2F2F21537A194006FA78B /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
+		48D2F2F31537A194006FA78B /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		48D477681322B647003256D5 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = Constants.h; sourceTree = "<group>"; };
 		48D8CFEE151DFC360017B6CB /* Icon-iPad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPad@2x.png"; sourceTree = "<group>"; };
 		48E61CDB131E9E210077DA8E /* EventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = EventViewController.h; path = Classes/EventViewController.h; sourceTree = "<group>"; };
@@ -115,17 +109,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48D2F2F41537A194006FA78B /* libTestFlight.a in Frameworks */,
 				48F02F2D1506D6E200E20A3F /* libz.dylib in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765590DF743DE002DB57D /* CoreGraphics.framework in Frameworks */,
 				487026B612D7CAE800E90108 /* iAd.framework in Frameworks */,
 				489E2891130782DB00E40ACA /* StoreKit.framework in Frameworks */,
-				485F3FE413156B32003A3525 /* EventKitUI.framework in Frameworks */,
-				48CE213813159502003C179A /* EventKit.framework in Frameworks */,
 				482811A0135C9EA8003704EC /* MessageUI.framework in Frameworks */,
 				48EF13721382ED2400FF37C2 /* SystemConfiguration.framework in Frameworks */,
-				48D2F2F41537A194006FA78B /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -185,7 +177,6 @@
 				080E96DDFE201D6D7F000001 /* Application Delegate */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
-				48D2F2EF1537A194006FA78B /* TestFlightSDK */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
@@ -234,13 +225,12 @@
 			isa = PBXGroup;
 			children = (
 				288765580DF743DE002DB57D /* CoreGraphics.framework */,
-				485F3FE313156B32003A3525 /* EventKitUI.framework */,
-				48CE213713159502003C179A /* EventKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				487026B512D7CAE800E90108 /* iAd.framework */,
 				4828119F135C9EA8003704EC /* MessageUI.framework */,
 				489E2890130782DB00E40ACA /* StoreKit.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
+				48D2F2EF1537A194006FA78B /* TestFlightSDK */,
 				48EF13711382ED2400FF37C2 /* SystemConfiguration.framework */,
 				48F02F2C1506D6E200E20A3F /* libz.dylib */,
 			);
@@ -266,8 +256,7 @@
 				48D2F2F21537A194006FA78B /* release_notes.md */,
 				48D2F2F31537A194006FA78B /* TestFlight.h */,
 			);
-			name = TestFlightSDK;
-			path = TestFlightSDK1;
+			path = TestFlightSDK;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -337,8 +326,6 @@
 				487E29FF137D906B0004761D /* AboutView.xib in Resources */,
 				482812A5135CA6AC003704EC /* ASlogo1-64x192.png in Resources */,
 				48D8CFEF151DFC360017B6CB /* Icon-iPad@2x.png in Resources */,
-				48D2F2F51537A195006FA78B /* README.md in Resources */,
-				48D2F2F61537A195006FA78B /* release_notes.md in Resources */,
 				489F72B315F2BCD200B5D0E7 /* ASlogo1-64x192@2x.png in Resources */,
 				489F72B515F2C28500B5D0E7 /* Default@2x.png in Resources */,
 				48342DD21601E85700446664 /* Default-568h@2x.png in Resources */,
@@ -465,7 +452,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/TestFlightSDK1\"",
+					"\"$(SRCROOT)/TestFlightSDK\"",
 				);
 				PRODUCT_NAME = "Doing Time";
 				PROVISIONING_PROFILE = "";
@@ -492,7 +479,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/TestFlightSDK1\"",
+					"\"$(SRCROOT)/TestFlightSDK\"",
 				);
 				PRODUCT_NAME = "Doing Time";
 				PROVISIONING_PROFILE = "";
@@ -537,7 +524,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/TestFlightSDK1\"",
+					"\"$(SRCROOT)/TestFlightSDK\"",
 				);
 				PRODUCT_NAME = "Doing Time";
 				PROVISIONING_PROFILE = "";
@@ -583,7 +570,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/TestFlightSDK1\"",
+					"\"$(SRCROOT)/TestFlightSDK\"",
 				);
 				PRODUCT_NAME = "Doing Time";
 				PROVISIONING_PROFILE = "";

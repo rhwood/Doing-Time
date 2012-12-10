@@ -21,7 +21,7 @@
 @synthesize settingEndDate;
 @synthesize showErrorAlert;
 @synthesize newEvent;
-@synthesize eventStore = _eventStore;
+//@synthesize eventStore = _eventStore;
 @synthesize startDateViewCellIndexPath = _startDateViewCellIndexPath;
 @synthesize endDateViewCellIndexPath = _endDateViewCellIndexPath;
 @synthesize detailTextLabelColor = _detailTextLabelColor;
@@ -107,8 +107,8 @@
 														   otherButtonTitles:NSLocalizedString(@"Change Linked Event", @""),
 										 NSLocalizedString(@"Create New Event", @""),
 										 nil];
-	Doing_TimeAppDelegate *appDelegate = (Doing_TimeAppDelegate *)[UIApplication sharedApplication].delegate;
-	self.eventStore = appDelegate.eventStore;
+//	Doing_TimeAppDelegate *appDelegate = (Doing_TimeAppDelegate *)[UIApplication sharedApplication].delegate;
+//	self.eventStore = appDelegate.eventStore;
 }
 
 /*
@@ -292,14 +292,14 @@
                     }
                     break;
                 case 3: // link to calendar
-                    cell.textLabel.text = NSLocalizedString(@"Link to Event", @"Label or button link event to the system calendar");
-                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                    if ([self.event valueForKey:linkKey]) {
-                        EKEvent *event = [self.eventStore eventWithIdentifier:[self.event valueForKey:linkKey]];
-                        cell.detailTextLabel.text = event.title; //event title
-                    } else {
-                        cell.detailTextLabel.text = NSLocalizedString(@"None", @"Label to indicate that event is not linked to the system calendar");
-                    }
+//                    cell.textLabel.text = NSLocalizedString(@"Link to Event", @"Label or button link event to the system calendar");
+//                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//                    if ([self.event valueForKey:linkKey]) {
+//                        EKEvent *event = [self.eventStore eventWithIdentifier:[self.event valueForKey:linkKey]];
+//                        cell.detailTextLabel.text = event.title; //event title
+//                    } else {
+//                        cell.detailTextLabel.text = NSLocalizedString(@"None", @"Label to indicate that event is not linked to the system calendar");
+//                    }
                     break;
                 default:
                     break;
@@ -543,36 +543,36 @@
 	return inOrder;
 }
 
-#pragma mark -
-#pragma mark Calendar Events
-
-- (void)createCalendarEvent {
-	EKEventEditViewController* controller = [[EKEventEditViewController alloc] init];
-    controller.eventStore = self.eventStore;
-    controller.editViewDelegate = self;
-    [self presentModalViewController: controller animated:YES];
-}
-
-- (void)editCalendarEvent:(NSString *)identifier {
-	
-}
-
-- (void)eventEditViewController:(EKEventEditViewController *)controller didCompleteWithAction:(EKEventEditViewAction)action {
-	if (action == EKEventEditViewActionSaved) {
-		EKEvent* event = controller.event;
-		[[NSUserDefaults standardUserDefaults] setObject:event.title forKey:titleKey];
-		[[NSUserDefaults standardUserDefaults] setObject:event.startDate forKey:startKey];
-		[[NSUserDefaults standardUserDefaults] setObject:event.endDate forKey:endKey];
-		[[NSUserDefaults standardUserDefaults] setObject:event.eventIdentifier forKey:linkKey];
-		[self.tableView reloadData];
-	}
-    [self dismissModalViewControllerAnimated:YES];
-}
-
-- (void)selectCalendarEvent {
-	
-}
-
+//#pragma mark -
+//#pragma mark Calendar Events
+//
+//- (void)createCalendarEvent {
+//	EKEventEditViewController* controller = [[EKEventEditViewController alloc] init];
+//    controller.eventStore = self.eventStore;
+//    controller.editViewDelegate = self;
+//    [self presentModalViewController: controller animated:YES];
+//}
+//
+//- (void)editCalendarEvent:(NSString *)identifier {
+//	
+//}
+//
+//- (void)eventEditViewController:(EKEventEditViewController *)controller didCompleteWithAction:(EKEventEditViewAction)action {
+//	if (action == EKEventEditViewActionSaved) {
+//		EKEvent* event = controller.event;
+//		[[NSUserDefaults standardUserDefaults] setObject:event.title forKey:titleKey];
+//		[[NSUserDefaults standardUserDefaults] setObject:event.startDate forKey:startKey];
+//		[[NSUserDefaults standardUserDefaults] setObject:event.endDate forKey:endKey];
+//		[[NSUserDefaults standardUserDefaults] setObject:event.eventIdentifier forKey:linkKey];
+//		[self.tableView reloadData];
+//	}
+//    [self dismissModalViewControllerAnimated:YES];
+//}
+//
+//- (void)selectCalendarEvent {
+//	
+//}
+//
 #pragma mark -
 #pragma mark Text field delegate
 
@@ -610,26 +610,26 @@
 #pragma mark Action sheet view delegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-	if (actionSheet == self.linkUnlinkedEventActionSheet) {
-		if (buttonIndex == actionSheet.cancelButtonIndex) {
-			// do nothing
-		} else if (buttonIndex == actionSheet.firstOtherButtonIndex) {
-			[self selectCalendarEvent];
-		} else {
-			[self createCalendarEvent];
-		}
-	} else if (actionSheet == self.changeLinkedEventActionSheet) {
-		if (buttonIndex == actionSheet.cancelButtonIndex) {
-			// do nothing
-		} else if (buttonIndex == actionSheet.destructiveButtonIndex) {
-			[self.event setValue:nil forKey:linkKey];
-		} else if (buttonIndex == actionSheet.firstOtherButtonIndex) {
-			[self selectCalendarEvent];
-		} else {
-			[self createCalendarEvent];
-		}
-	}
-	[self.tableView reloadData];
+//	if (actionSheet == self.linkUnlinkedEventActionSheet) {
+//		if (buttonIndex == actionSheet.cancelButtonIndex) {
+//			// do nothing
+//		} else if (buttonIndex == actionSheet.firstOtherButtonIndex) {
+//			[self selectCalendarEvent];
+//		} else {
+//			[self createCalendarEvent];
+//		}
+//	} else if (actionSheet == self.changeLinkedEventActionSheet) {
+//		if (buttonIndex == actionSheet.cancelButtonIndex) {
+//			// do nothing
+//		} else if (buttonIndex == actionSheet.destructiveButtonIndex) {
+//			[self.event setValue:nil forKey:linkKey];
+//		} else if (buttonIndex == actionSheet.firstOtherButtonIndex) {
+//			[self selectCalendarEvent];
+//		} else {
+//			[self createCalendarEvent];
+//		}
+//	}
+//	[self.tableView reloadData];
 }
 
 #pragma mark -

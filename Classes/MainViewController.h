@@ -8,12 +8,12 @@
 
 #import "FlipsideViewController.h"
 #import <iAd/iAd.h>
-#import <EventKit/EventKit.h>
+//#import <EventKit/EventKit.h>
 
 @interface MainViewController : UIViewController <UIApplicationDelegate, FlipsideViewControllerDelegate, ADBannerViewDelegate, UIScrollViewDelegate> {
 	
 	UIView *_controls;
-	EKEventStore *_eventStore;
+//	EKEventStore *_eventStore;
 	BOOL _bannerIsVisible;
 	UIPageControl *_pager;
 	UIScrollView *_scroller;
@@ -55,7 +55,7 @@
 - (void)hideAdBanner:(BOOL)hide animated:(BOOL)animated;
 
 @property (nonatomic, strong) IBOutlet UIView *controls;
-@property (nonatomic, strong) IBOutlet EKEventStore *eventStore;
+//@property (nonatomic, strong) IBOutlet EKEventStore *eventStore;
 @property (nonatomic, strong) IBOutlet UIPageControl *pager;
 @property (nonatomic, strong) IBOutlet UIScrollView *scroller;
 @property (nonatomic, strong) IBOutlet NSMutableArray *events;

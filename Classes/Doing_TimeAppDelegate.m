@@ -15,7 +15,7 @@
 
 @synthesize window;
 @synthesize mainViewController;
-@synthesize eventStore = _eventStore;
+//@synthesize eventStore = _eventStore;
 @synthesize appStore = _appStore;
 
 #pragma mark -

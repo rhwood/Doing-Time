@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <EventKit/EventKit.h>
+//#import <EventKit/EventKit.h>
 #import "Constants.h"
 
 @class MainViewController;
@@ -17,12 +17,12 @@
     UIWindow *window;
     MainViewController *mainViewController;
 	AppStoreDelegate *_appStore;
-	EKEventStore *_eventStore;
+//	EKEventStore *_eventStore;
 }
 
 @property (nonatomic, strong) IBOutlet UIWindow *window;
 @property (nonatomic, strong) IBOutlet MainViewController *mainViewController;
-@property (nonatomic, strong) IBOutlet EKEventStore *eventStore;
+//@property (nonatomic, strong) IBOutlet EKEventStore *eventStore;
 @property (nonatomic, strong) IBOutlet AppStoreDelegate *appStore;
 
 @end

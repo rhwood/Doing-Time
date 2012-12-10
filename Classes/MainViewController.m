@@ -16,7 +16,7 @@
 
 @synthesize controls = _controls;
 @synthesize bannerIsVisible = _bannerIsVisible;
-@synthesize eventStore = _eventStore;
+//@synthesize eventStore = _eventStore;
 @synthesize pager = _pager;
 @synthesize scroller = _scroller;
 @synthesize events = _events;
@@ -32,7 +32,7 @@
 	// Set Defaults
 	self.bannerIsVisible = NO;
 	self.appDelegate = (Doing_TimeAppDelegate *)[UIApplication sharedApplication].delegate;
-	self.eventStore = self.appDelegate.eventStore;
+//	self.eventStore = self.appDelegate.eventStore;
 
 	// Display Defaults
 	if ([self.appDelegate.appStore hasTransactionForProduct:multipleEventsProductIdentifier]) {

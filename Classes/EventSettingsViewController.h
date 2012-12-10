@@ -7,10 +7,10 @@
 //
 
 #import "NSDate+Additions.h"
-#import <EventKit/EventKit.h>
-#import <EventKitUI/EventKitUI.h>
+//#import <EventKit/EventKit.h>
+//#import <EventKitUI/EventKitUI.h>
 
-@interface EventSettingsViewController : UIViewController <EKEventEditViewDelegate, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UIActionSheetDelegate> {
+@interface EventSettingsViewController : UIViewController <UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UIActionSheetDelegate> {
 	NSUInteger _index;
 	NSMutableDictionary* _event;
 	UITableView* _tableView;
@@ -19,7 +19,7 @@
 	BOOL settingEndDate;
 	BOOL showErrorAlert;
 	BOOL newEvent;
-	EKEventStore* _eventStore;
+//	EKEventStore* _eventStore;
 	NSIndexPath* _startDateViewCellIndexPath;
 	NSIndexPath* _endDateViewCellIndexPath;
 	UIColor* _detailTextLabelColor;
@@ -49,12 +49,12 @@
 - (void)showDateErrorAlert;
 - (BOOL)verifyDateOrder;
 
-#pragma mark -
-#pragma mark Calendar Events
-
-- (void)createCalendarEvent;
-- (void)editCalendarEvent:(NSString *)identifier;
-- (void)selectCalendarEvent;
+//#pragma mark -
+//#pragma mark Calendar Events
+//
+//- (void)createCalendarEvent;
+//- (void)editCalendarEvent:(NSString *)identifier;
+//- (void)selectCalendarEvent;
 
 #pragma mark -
 #pragma mark Properties
@@ -67,7 +67,7 @@
 @property BOOL settingEndDate;
 @property BOOL showErrorAlert;
 @property BOOL newEvent;
-@property (nonatomic, strong) IBOutlet EKEventStore* eventStore;
+//@property (nonatomic, strong) IBOutlet EKEventStore* eventStore;
 @property (nonatomic, strong) NSIndexPath* startDateViewCellIndexPath;
 @property (nonatomic, strong) NSIndexPath* endDateViewCellIndexPath;
 @property (nonatomic, strong) UIColor* detailTextLabelColor;
