@@ -23,7 +23,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     
-    [TestFlight takeOff:@"5aef4a4c9d323abe0561075aa2dc62f0_MTA2NjgyMDEyLTAzLTA2IDIwOjE1OjA5LjU0MDY0OQ"];
+    [TestFlight takeOff:@"8224ac7b-0bfa-4396-b5bc-3b2404fbc9f0"];
 
 	//self.eventStore = [[EKEventStore alloc] init];
 	
