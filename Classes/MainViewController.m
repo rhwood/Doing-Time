@@ -42,6 +42,9 @@
 	} else {
 		self.pager.numberOfPages = 1;
 		self.pager.currentPage = 0;
+        self.controls.hidden = YES;
+        self.bannerIsVisible = YES;
+        [self hideAdBanner:YES animated:NO];
 	}
 
 	// Recognize left/right swipes
@@ -198,9 +201,6 @@
 - (void)showPager {
 	if ([self.appDelegate.appStore hasTransactionForProduct:multipleEventsProductIdentifier]) {
 		[UIView beginAnimations:@"animateDisplayPager" context:NULL];
-		self.controls.frame = CGRectOffset(self.controls.frame, 0, -self.controls.frame.size.height);
-		self.scroller.frame = CGRectMake(0, 0, self.scroller.frame.size.width, self.scroller.frame.size.height - (self.controls.frame.size.height / 2));
-		[self resizeEventsInScroller:self.controls.frame.size.height / -2];
 		self.pager.superview.hidden = NO;
 		[UIView commitAnimations];
 	}
@@ -267,21 +267,6 @@
 	self.pagerDidScroll = YES;
 }
 
-- (void)resizeEventsInScroller:(float)heightDifference {
-	for (EventViewController *event in self.events) {
-		if ((NSNull *)event != [NSNull null]) {
-			event.piePlate.frame = CGRectMake(event.piePlate.frame.origin.x - (heightDifference /2),
-											  event.piePlate.frame.origin.y,
-											  event.piePlate.frame.size.width + heightDifference,
-											  event.piePlate.frame.size.height);
-//			event.controls.frame = CGRectMake(event.controls.frame.origin.x,
-//											  event.controls.frame.origin.y,
-//											  event.controls.frame.size.width,
-//											  event.controls.frame.size.height + (heightDifference /2));
-		}
-	}
-}
-
 #pragma mark -
 #pragma mark Scroll view delegate
 
@@ -313,25 +298,8 @@
 	if (animated) {
 		[UIView beginAnimations:@"animateAdBanner" context:NULL];
 	}
-	if (hide) {
-		// Assumes the banner view is placed at the bottom of the screen.
-        self.adBanner.frame = CGRectOffset(self.adBanner.frame, 0, self.adBanner.frame.size.height);
-		self.scroller.frame = CGRectMake(self.scroller.frame.origin.x,
-										 self.scroller.frame.origin.y,
-										 self.scroller.frame.size.width,
-										 self.scroller.frame.size.height + self.adBanner.frame.size.height);
-		[self resizeEventsInScroller:self.adBanner.frame.size.height];
-        self.bannerIsVisible = NO;		
-	} else {
-		// Assumes the banner view is just off the bottom of the screen.
-        self.adBanner.frame = CGRectOffset(self.adBanner.frame, 0, - self.adBanner.frame.size.height);
-		self.scroller.frame = CGRectMake(self.scroller.frame.origin.x,
-										 self.scroller.frame.origin.y,
-										 self.scroller.frame.size.width,
-										 self.scroller.frame.size.height - self.adBanner.frame.size.height);
-		[self resizeEventsInScroller:self.adBanner.frame.size.height * -1];
-        self.bannerIsVisible = YES;		
-	}
+    self.bannerIsVisible = !hide;
+    self.adBanner.hidden = hide;
 	if (animated) {
 		[UIView commitAnimations];
 	}
@@ -343,13 +311,16 @@
 }
 
 - (void)bannerViewDidLoadAd:(ADBannerView *)banner {
+    NSLog(@"Loaded ad");
 	if ([self.adBanner superview] && !self.bannerIsVisible) {
 		[self hideAdBanner:NO animated:YES];
     }	
 }
 
 - (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error	{
-	if (self.bannerIsVisible) {
+    NSLog(@"Failed to receive ad");
+	if ([self.adBanner superview] && self.bannerIsVisible) {
+        NSLog(@"Hiding banner");
 		[self hideAdBanner:YES animated:YES];
     }	
 }

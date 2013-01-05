@@ -39,7 +39,6 @@
 - (void)redrawEvent:(NSInteger)event forceRedraw:(BOOL)forceRedraw;
 - (void)redrawEvents:(BOOL)forceRedraw;
 - (void)redrawEventsOnTimer:(NSTimer *)timer;
-- (void)resizeEventsInScroller:(float)heightDifference;
 - (void)scheduleRedrawOnDayOver;
 - (void)reloadEvents;
 - (void)unloadEvents;
