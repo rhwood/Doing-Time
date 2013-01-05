@@ -148,16 +148,19 @@
 }
 
 - (void)switchIncludeLastDayInCalc:(id)sender {
+    [self clearDatePicker];
     [self.event setValue:@([(UISwitch *)sender isOn]) forKey:includeLastDayInCalcKey];
     [self.tableView reloadData];
 }
 
 - (void)switchTodayIsComplete:(id)sender {
+    [self clearDatePicker];
     [self.event setValue:@([(UISwitch *)sender isOn]) forKey:dayOverKey];
     [self.tableView reloadData];
 }
 
 - (void)switchShowEventDates:(id)sender {
+    [self clearDatePicker];
     [self.event setValue:@([(UISwitch *)sender isOn]) forKey:showEventDatesKey];
     [self.tableView reloadData];
 }
@@ -255,6 +258,9 @@
                     [(UISwitch *)cell.accessoryView addTarget:self 
                                                        action:@selector(switchIncludeLastDayInCalc:)
                                              forControlEvents:UIControlEventValueChanged];
+                    [(UISwitch *)cell.accessoryView addTarget:self
+                                                       action:@selector(clearDatePicker)
+                                             forControlEvents:UIControlEventAllEvents];
 					if ([[self.event valueForKey:includeLastDayInCalcKey] boolValue]) {
 						[(UISwitch *)cell.accessoryView setOn:YES];
                         cell.detailTextLabel.text = NSLocalizedString(@"Event is through end date", @"Explanitory label for \"Include End Date\" if checked");
@@ -269,6 +275,9 @@
                     [(UISwitch *)cell.accessoryView addTarget:self
                                                        action:@selector(switchTodayIsComplete:)
                                              forControlEvents:UIControlEventValueChanged];
+                    [(UISwitch *)cell.accessoryView addTarget:self
+                                                       action:@selector(clearDatePicker)
+                                             forControlEvents:UIControlEventAllEvents];
                     if ([[self.event valueForKey:dayOverKey] boolValue]) {
                         [(UISwitch *)cell.accessoryView setOn:YES];
                         cell.detailTextLabel.text = NSLocalizedString(@"Today is counted complete", @"Explanatory label for \"Today is Over\" if checked");
@@ -283,6 +292,9 @@
                     [(UISwitch *)cell.accessoryView addTarget:self
                                                        action:@selector(switchShowEventDates:)
                                              forControlEvents:UIControlEventValueChanged];
+                    [(UISwitch *)cell.accessoryView addTarget:self
+                                                       action:@selector(clearDatePicker)
+                                             forControlEvents:UIControlEventAllEvents];
                     if ([[self.event valueForKey:showEventDatesKey] boolValue]) {
 						[(UISwitch *)cell.accessoryView setOn:YES];
                         cell.detailTextLabel.text = NSLocalizedString(@"Event dates are shown", @"Explanitory label for \"Dates\" if checked");
@@ -404,15 +416,18 @@
             }
             break;
         case 1:
+            [self clearDatePicker];
             switch (indexPath.row) {
                 case 0:
                     // include last day in calc is handled by trapping the switch change
                     break;
                 case 1:
+                    // today is complete is handled by trapping the switch change
+                    break;
+                case 2:
                     // show event dates is handled by trapping the switch change
                     break;
                 case 3:
-                    [self clearDatePicker];
                     link = [self.event valueForKey:linkKey];
                     if (link) {
                         [self.changeLinkedEventActionSheet showInView:self.view];
@@ -443,7 +458,7 @@
 //	return indexPath;
 //}
 //
-//#pragma mark -
+#pragma mark -
 #pragma mark Date Pickers
 
 - (void)changeStartDate:(id)sender {
