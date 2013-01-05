@@ -482,7 +482,7 @@
 											  self.tableView.frame.size.height - self.datePicker.frame.size.height);
 			self.datePicker.frame = CGRectOffset(self.datePicker.frame,
 												 0,
-												 -self.datePicker.frame.size.height - self.navigationController.navigationBar.frame.size.height);
+												 -self.datePicker.frame.size.height);
 		} else {
 			self.tableView.frame = CGRectMake(self.tableView.frame.origin.x,
 											  self.tableView.frame.origin.y,
@@ -490,7 +490,7 @@
 											  self.tableView.frame.size.height + self.datePicker.frame.size.height);
 			self.datePicker.frame = CGRectOffset(self.datePicker.frame, 
 												 0,
-												 self.datePicker.frame.size.height + self.navigationController.navigationBar.frame.size.height);
+												 self.datePicker.frame.size.height);
 		}
 		[UIView commitAnimations];
 		self.datePicker.hidden = hidden;
