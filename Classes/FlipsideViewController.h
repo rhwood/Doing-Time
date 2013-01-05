@@ -62,7 +62,6 @@
 
 @property (nonatomic, assign) id <FlipsideViewControllerDelegate> delegate;
 @property (nonatomic, strong) IBOutlet UITableView* tableView;
-@property (nonatomic, strong) IBOutlet UIDatePicker* datePicker;
 @property BOOL showErrorAlert;
 @property (nonatomic, strong) NSIndexPath* endingTimeViewCellIndexPath;
 @property (nonatomic, strong) UIColor* detailTextLabelColor;

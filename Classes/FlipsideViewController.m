@@ -582,7 +582,6 @@
 	// e.g. self.myOutlet = nil;
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	self.tableView = nil;
-	self.datePicker = nil;
 	self.activityLabel = nil;
 	self.activityView = nil;
 }
