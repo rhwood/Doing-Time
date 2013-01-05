@@ -109,9 +109,15 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 }
 
 - (void)paymentQueue:(SKPaymentQueue *)queue restoreCompletedTransactionsFailedWithError:(NSError *)error {
-    [[NSNotificationCenter defaultCenter] postNotificationName:AXAppStoreTransactionFailed
-                                                        object:self
-                                                      userInfo:@{AXAppStoreRequestError: error}];
+	if (error.code != SKErrorPaymentCancelled) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:AXAppStoreTransactionFailed
+                                                            object:self
+                                                          userInfo:@{AXAppStoreTransactionError: error}];
+	} else {
+		[[NSNotificationCenter defaultCenter] postNotificationName:AXAppStoreTransactionCancelled
+															object:self
+														  userInfo:nil];
+	}
 }
 
 #pragma mark -
