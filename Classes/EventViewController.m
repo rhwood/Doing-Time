@@ -47,6 +47,9 @@
 }
 
 - (BOOL)setPieChartValues:(BOOL)forceRedraw {
+    NSUInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit;
+    NSDateComponents *oneDay = [[NSDateComponents alloc] init];
+    [oneDay setDay:1];
     NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
 	if (self.eventID >= [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count]) {
 		return NO; // do not attempt to setup the piechart if the event ID is not in the array
@@ -56,14 +59,16 @@
 	// BOOL isRealStart = NO;
 	// startDate is used for computations, realStartDate is used for sane UI
 	NSDictionary *event = [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] objectAtIndex:self.eventID];
-	NSDate *startDate = [[NSDate midnightForDate:[event objectForKey:startKey]] dateByAddingTimeInterval:1.0];
+    //NSDate *startDate = [gregorianCalendar dateFromComponents:[gregorianCalendar components:unitFlags fromDate:[event objectForKey:startKey]]];
+    //NSDate *endDate = [gregorianCalendar dateFromComponents:[gregorianCalendar components:unitFlags fromDate:[event objectForKey:endKey]]];
+    NSDate *startDate = [event objectForKey:startKey];
 	NSDate *calcStartDate = startDate;
-	NSDate *endDate = [[NSDate midnightForDate:[event objectForKey:endKey]] dateByAddingTimeInterval:1.0];
-    NSDate *calcEndDate = [endDate dateByAddingTimeInterval:(86400.0)];
+    NSDate *endDate = [event objectForKey:endKey];
+    NSDate *calcEndDate = [gregorianCalendar dateByAddingComponents:oneDay toDate:endDate options:0];
     if ([[event allKeys] containsObject:includeLastDayInCalcKey] && ![[event valueForKey:includeLastDayInCalcKey] boolValue]) {
         calcEndDate = [endDate dateByAddingTimeInterval:1.0];
     }
-	NSDate *today = [[NSDate midnightForDate:[NSDate date]] dateByAddingTimeInterval:1.0];
+	NSDate *today = [gregorianCalendar dateFromComponents:[gregorianCalendar components:unitFlags fromDate:[NSDate date]]];
     BOOL showDateRange = YES;
     if ([[event allKeys] containsObject:showEventDatesKey] && ![[event valueForKey:showEventDatesKey] boolValue]) {
         showDateRange = NO;
@@ -74,23 +79,21 @@
 	NSLog(@"Calc start:  %@", calcStartDate);
     NSLog(@"Calc end:    %@", calcEndDate);
 	NSLog(@"Now:         %@", [NSDate date]);
-	
-	NSInteger completed = [[gregorianCalendar components:NSDayCalendarUnit
-														   fromDate:today 
-															 toDate:[NSDate dateWithTimeInterval:[today timeIntervalSinceDate:calcStartDate]
-																					   sinceDate:today]
-															options:0]
+
+    NSInteger completed = [[gregorianCalendar components:NSDayCalendarUnit
+                                                fromDate:calcStartDate
+                                                  toDate:today
+                                                 options:0]
 						   day];
 	NSInteger left = [[gregorianCalendar components:NSDayCalendarUnit
-													  fromDate:today 
-														toDate:[NSDate dateWithTimeInterval:[calcEndDate timeIntervalSinceDate:today]
-																				  sinceDate:today]
-													   options:0]
+                                           fromDate:today
+                                             toDate:calcEndDate
+                                            options:0]
 					  day];
 	NSInteger duration = [[gregorianCalendar components:NSDayCalendarUnit
-														  fromDate:calcStartDate 
-															toDate:calcEndDate
-														   options:0]
+                                               fromDate:calcStartDate
+                                                 toDate:calcEndDate
+                                                options:0]
 						  day];
 	NSLog(@"%d days complete", completed);
 	NSLog(@"%d days left", left);
