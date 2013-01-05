@@ -534,7 +534,7 @@
 											  self.tableView.frame.size.height - self.activityView.frame.size.height);
 			self.activityView.frame = CGRectOffset(self.activityView.frame,
 												 0,
-												 -self.activityView.frame.size.height - self.navigationController.navigationBar.frame.size.height);
+												 - self.activityView.frame.size.height);
 		} else {
 			self.tableView.frame = CGRectMake(self.tableView.frame.origin.x,
 											  self.tableView.frame.origin.y,
@@ -542,7 +542,7 @@
 											  self.tableView.frame.size.height + self.activityView.frame.size.height);
 			self.activityView.frame = CGRectOffset(self.activityView.frame, 
 												 0,
-												 self.activityView.frame.size.height + self.navigationController.navigationBar.frame.size.height);
+												 + self.activityView.frame.size.height);
 		}
 		[UIView commitAnimations];
 		[self.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionNone animated:YES];
