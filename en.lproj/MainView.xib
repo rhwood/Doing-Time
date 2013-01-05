@@ -54,7 +54,7 @@
 					</object>
 					<object class="IBADBannerView" id="39599109">
 						<reference key="NSNextResponder" ref="883825266"/>
-						<int key="NSvFlags">258</int>
+						<int key="NSvFlags">266</int>
 						<string key="NSFrame">{{0, 410}, {320, 50}}</string>
 						<reference key="NSSuperview" ref="883825266"/>
 						<reference key="NSWindow"/>
@@ -300,14 +300,6 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/MainViewController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">NSMutableArray</string>
-					<string key="superclassName">NSArray</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/NSMutableArray.h</string>
 					</object>
 				</object>
 			</array>
