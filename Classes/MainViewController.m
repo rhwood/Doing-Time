@@ -311,16 +311,13 @@
 }
 
 - (void)bannerViewDidLoadAd:(ADBannerView *)banner {
-    NSLog(@"Loaded ad");
 	if ([self.adBanner superview] && !self.bannerIsVisible) {
 		[self hideAdBanner:NO animated:YES];
     }	
 }
 
 - (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error	{
-    NSLog(@"Failed to receive ad");
 	if ([self.adBanner superview] && self.bannerIsVisible) {
-        NSLog(@"Hiding banner");
 		[self hideAdBanner:YES animated:YES];
     }	
 }
