@@ -29,14 +29,10 @@
 	
 	// Migrate from version 1 settings to version 2 settings
 	if ([[NSUserDefaults standardUserDefaults] stringForKey:@"Title"]) {
-		NSMutableDictionary *activity = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-								  [[NSUserDefaults standardUserDefaults] stringForKey:@"Title"],
-								  titleKey,
-								  [[NSUserDefaults standardUserDefaults] objectForKey:@"Start Date"],
-								  startKey,
-								  [[NSUserDefaults standardUserDefaults] objectForKey:@"End Date"],
-								  endKey,
-								  nil];
+        NSMutableDictionary *activity = [NSMutableDictionary dictionaryWithDictionary:@{
+                                                                             titleKey:[[NSUserDefaults standardUserDefaults] stringForKey:@"Title"],
+                                                                             startKey:[[NSUserDefaults standardUserDefaults] objectForKey:@"Start Date"],
+                                                                               endKey:[[NSUserDefaults standardUserDefaults] objectForKey:@"End Date"]}];
 		if ([[NSUserDefaults standardUserDefaults] objectForKey:@"Link"]) {
 			[activity setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"Link"] forKey:linkKey];
 		}

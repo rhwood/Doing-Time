@@ -39,19 +39,13 @@
 		self.index = index;
 		if (self.index == [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count]) {
 			self.newEvent = YES;
-			self.event = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"",
-						  titleKey,
-						  [NSDate distantPast],
-						  startKey,
-						  [NSDate distantFuture],
-						  endKey,
-                          @(YES),
-                          includeLastDayInCalcKey,
-                          @(NO),
-                          dayOverKey,
-                          @(YES),
-                          showEventDatesKey,
-						  nil];
+            self.event = [NSMutableDictionary dictionaryWithDictionary:@{
+                                                              titleKey:@"",
+                                                              startKey:[NSDate distantPast],
+                                                                endKey:[NSDate distantFuture],
+                                               includeLastDayInCalcKey:@(YES),
+                                                            dayOverKey:@(NO),
+                                                     showEventDatesKey:@(YES)}];
 		} else {
 			self.event = [NSMutableDictionary dictionaryWithDictionary:[[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] objectAtIndex:index]];
 			self.newEvent = NO;
