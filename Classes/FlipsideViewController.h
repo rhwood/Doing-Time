@@ -45,11 +45,6 @@
 
 - (void)addEvent;
 
-#pragma mark - Display Settings
-
-- (IBAction)switchShowPercentages:(id)sender;
-- (IBAction)switchShowRemainingDays:(id)sender;
-
 #pragma mark -
 #pragma mark Purchases
 

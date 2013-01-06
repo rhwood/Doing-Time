@@ -150,9 +150,9 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 	if (![self.appDelegate.appStore hasTransactionsForAllProducts]) {
-		return 4;
+		return 3;
 	}
-	return 3;
+	return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -168,17 +168,14 @@
 			}
 			return [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count] + 1;
 			break;
-		case 1: // Display
-			return 2;
-			break;
-		case 2: // Store
+		case 1: // Store
             if (self.allowInAppPurchases) {
                 return self.appDelegate.appStore.validProducts.count + 1;
             } else {
                 return 0;
             }
 			break;
-		case 3: // Support
+		case 2: // Support
 			return 2;
 			break;
 		default:
@@ -199,7 +196,7 @@
 	NSUInteger eventsCount = [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count];
 
 	UITableViewCell *cell;
-	if (section == 3 || (indexPath.section != section) || (indexPath.section == 0 && indexPath.row == eventsCount + 1)) {
+	if (section == 2 || (indexPath.section != section) || (indexPath.section == 0 && indexPath.row == eventsCount + 1)) {
 		cell = [tableView dequeueReusableCellWithIdentifier:DefaultCellIdentifier];
 		if (cell == nil) {
 			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:DefaultCellIdentifier];
@@ -239,32 +236,7 @@
 																			timeStyle:NSDateFormatterNoStyle]];
 			}
 			break;
-		case 1: // Display
-			switch (indexPath.row) {
-				case 0:
-					cell.textLabel.text = NSLocalizedString(@"Percentages", @"Label for cell that includes checkmark to indicate that events are displayed with percentages");
-					cell.detailTextLabel.text = @"";
-                    cell.accessoryView = [[UISwitch alloc] initWithFrame:CGRectZero];
-                    [(UISwitch *)cell.accessoryView setOn:[[NSUserDefaults standardUserDefaults] boolForKey:showPercentageKey]];
-                    [(UISwitch *)cell.accessoryView addTarget:self 
-                                                       action:@selector(switchShowPercentages:)
-                                             forControlEvents:UIControlEventValueChanged];
-					break;
-                case 1:
-                    cell.textLabel.text = NSLocalizedString(@"Remaining Days Only", @"Label for cell that includes checkmark to indicate that events are displayed with the completed days count");
-                    cell.detailTextLabel.text = @"";
-                    // the text displayed to the user is the reverse of the setting
-                    cell.accessoryView = [[UISwitch alloc] initWithFrame:CGRectZero];
-                    [(UISwitch *)cell.accessoryView setOn:![[NSUserDefaults standardUserDefaults] boolForKey:showCompletedDaysKey]];
-                    [(UISwitch *)cell.accessoryView addTarget:self 
-                                                       action:@selector(switchShowRemainingDays:)
-                                             forControlEvents:UIControlEventValueChanged];
-                    break;
-				default:
-					break;
-			}
-			break;
-		case 2: // Store
+		case 1: // Store
 			if (self.appDelegate.appStore.canMakePayments) {
                 if (indexPath.row < self.appDelegate.appStore.validProducts.count) {
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -282,7 +254,7 @@
                 }
 			}
 			break;
-		case 3: // Support
+		case 2: // Support
 			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 			switch (indexPath.row) {
 				case 0:
@@ -317,12 +289,9 @@
 			return NSLocalizedString(@"Events", @"Heading for list of events");
 			break;
 		case 1:
-			return NSLocalizedString(@"Display", @"Heading for settings affecting the display of events");
-			break;
-		case 2:
 			return NSLocalizedString(@"Available Upgrades", @"Heading for list of available in-app purchases");
 			break;
-		case 3:
+		case 2:
 			return NSLocalizedString(@"About Doing Time", @"Heading for list of elements about the app (help, credits, feedback, etc)");
 			break;
 		default:
@@ -377,8 +346,6 @@
 		case 0:
 			break;
 		case 1:
-			break;
-		case 2:
             if (self.allowInAppPurchases) {
                 if (!self.appDelegate.appStore.canMakePayments) {
                     return [NSString localizedStringWithFormat:NSLocalizedString(@"In-App Purchases are disabled on this %@.", @"Notice that the user cannot purchase an available upgrade due to policy."), 
@@ -395,7 +362,7 @@
                 return NSLocalizedString(@"In-App Purchases have been disabled due to threats of patent litigation.", @"Notice that In-App Purchases are disabled.");
             }
 			break;
-		case 3:
+		case 2:
 			break;
 	}
 	return nil;
@@ -429,22 +396,7 @@
 				[self addEvent];
 			}
 			break;
-		case 1: // Display
-			switch (indexPath.row) {
-				case 0:
-                    // showPercentageKey setting is a UISwitch
-                    [tableView cellForRowAtIndexPath:indexPath].selectionStyle = UITableViewCellSelectionStyleNone;
-					break;
-                case 1:
-                    // showCompletedDaysKey setting is a UISwitch
-                    [tableView cellForRowAtIndexPath:indexPath].selectionStyle = UITableViewCellSelectionStyleNone;
-                    break;
-				default:
-					break;
-					
-			}
-			break;
-		case 2: // Store
+		case 1: // Store
 			if (self.appDelegate.appStore.canMakePayments) {
                 if (indexPath.row < self.appDelegate.appStore.products.count) {
                     SKProduct *product = [self.appDelegate.appStore.products objectForKey:[[self.appDelegate.appStore.products allKeys] objectAtIndex:indexPath.row]];
@@ -458,7 +410,7 @@
                 }
 			}
 			break;
-		case 3: // Help
+		case 2: // About
 			switch (indexPath.row) {
 				case 0:
 					if (YES) { // Why can't I allocate an object after following a path in a switch?
@@ -505,19 +457,6 @@
 		return [NSIndexPath indexPathForRow:eventsCount - 1 inSection:sourceIndexPath.section];
 	}
 	return proposedDestinationIndexPath;
-}
-
-#pragma mark - Display Settings
-
-- (void)switchShowPercentages:(id)sender {
-    [[NSUserDefaults standardUserDefaults] setBool:[(UISwitch *)sender isOn] forKey:showPercentageKey];
-    [self.delegate eventDisplayMethodUpdated];
-}
-
-- (void)switchShowRemainingDays:(id)sender {
-    // inverse of switch since setting is displayed using opposite language
-    [[NSUserDefaults standardUserDefaults] setBool:![(UISwitch *)sender isOn] forKey:showCompletedDaysKey];
-    [self.delegate eventDisplayMethodUpdated];
 }
 
 #pragma mark -

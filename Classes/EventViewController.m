@@ -59,6 +59,8 @@
 	// BOOL isRealStart = NO;
 	// startDate is used for computations, realStartDate is used for sane UI
 	NSDictionary *event = [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] objectAtIndex:self.eventID];
+    BOOL showPercentage = [[event objectForKey:showPercentageKey] boolValue];
+    BOOL showRemainingDaysOnly = [[event objectForKey:showCompletedDaysKey] boolValue];
     //NSDate *startDate = [gregorianCalendar dateFromComponents:[gregorianCalendar components:unitFlags fromDate:[event objectForKey:startKey]]];
     //NSDate *endDate = [gregorianCalendar dateFromComponents:[gregorianCalendar components:unitFlags fromDate:[event objectForKey:endKey]]];
     NSDate *startDate = [event objectForKey:startKey];
@@ -143,13 +145,13 @@
 	
 	NSString *days = NSLocalizedString(@"days", @"Plural for \"day\"");
 	if (!inFuture) {
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:showCompletedDaysKey]) {
+        if (showRemainingDaysOnly) {
             if (completed == 1) {
                 days = NSLocalizedString(@"day", @"Singular form of \"day\"");
             }
             if (completed == 0) {
                 _daysComplete.text = nil;
-            } else if (![[NSUserDefaults standardUserDefaults] boolForKey:showPercentageKey]) {
+            } else if (!showPercentage) {
                 _daysComplete.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%d %@ complete", @"The number (%d) of days (%@) complete"), completed, days];
             } else {
                 _daysComplete.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%d %@ (%2.4g%%) complete", @"The number (%d) of days (%@) complete with the percent of days past in parenthesis"), completed, days, interval * completed * 100];
@@ -173,7 +175,7 @@
 		}
 		if (left == 0) {
 			_daysLeft.text = NSLocalizedString(@"Done today", @"The message displayed on the last day of an event");
-		} else if (![[NSUserDefaults standardUserDefaults] boolForKey:showPercentageKey]) { 
+		} else if (!showPercentage) {
 			_daysLeft.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%d %@ left", @"The number (%d) of days (%@) remaining"), left, days];
 		} else {
 			_daysLeft.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%d %@ (%2.4g%%) left", @"The number (%d) of days (%@) remaining with the percentage remaining in parenthesis"), left, days, interval * left * 100];
@@ -247,18 +249,6 @@
 	return forceRedraw;
 }
 
-// The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-/*
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization.
-    }
-    return self;
-}
-*/
-
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
 	[self setPieChartValues:YES];
@@ -273,16 +263,11 @@
 }
 
 - (void)didReceiveMemoryWarning {
-    // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc. that aren't in use.
 }
 
 - (void)viewDidUnload {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 @end

@@ -73,11 +73,11 @@
 	// cancel button
 	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
 																						  target:self
-																			action:@selector(cancel)];
+                                                                                          action:@selector(cancel)];
 	// done button
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
 																						   target:self
-																			 action:@selector(done)];
+                                                                                           action:@selector(done)];
     self.view.backgroundColor = [UIColor viewFlipsideBackgroundColor];
 	self.titleView.text = [self.event valueForKey:titleKey];
 	self.titleView.borderStyle = UITextBorderStyleNone;
@@ -101,8 +101,8 @@
 														   otherButtonTitles:NSLocalizedString(@"Change Linked Event", @""),
 										 NSLocalizedString(@"Create New Event", @""),
 										 nil];
-//	Doing_TimeAppDelegate *appDelegate = (Doing_TimeAppDelegate *)[UIApplication sharedApplication].delegate;
-//	self.eventStore = appDelegate.eventStore;
+    //	Doing_TimeAppDelegate *appDelegate = (Doing_TimeAppDelegate *)[UIApplication sharedApplication].delegate;
+    //	self.eventStore = appDelegate.eventStore;
 }
 
 /*
@@ -134,12 +134,14 @@
 	NSMutableArray *events = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey]];
 	if (self.newEvent) {
 		[events addObject:self.event];
-	} else {		
+	} else {
 		[events replaceObjectAtIndex:self.index withObject:self.event];
 	}
 	[[NSUserDefaults standardUserDefaults] setObject:events forKey:eventsKey];
 	[[NSUserDefaults standardUserDefaults] synchronize];
 }
+
+#pragma mark - Display Settings
 
 - (void)switchIncludeLastDayInCalc:(id)sender {
     [self clearDatePicker];
@@ -159,11 +161,23 @@
     [self.tableView reloadData];
 }
 
-#pragma mark -
-#pragma mark Table view data source
+- (void)switchShowPercentages:(id)sender {
+    [self clearDatePicker];
+    [self.event setValue:@([(UISwitch *)sender isOn]) forKey:showPercentageKey];
+    [self.tableView reloadData];
+}
+
+- (void)switchShowRemainingDays:(id)sender {
+    // inverse of switch since setting is displayed using opposite language
+    [self clearDatePicker];
+    [self.event setValue:@(![(UISwitch *)sender isOn]) forKey:showCompletedDaysKey];
+    [self.tableView reloadData];
+}
+
+#pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return 2;
+	return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -172,7 +186,10 @@
             return 3;
             break;
         case 1:
-            return 3; // no calendar link yet
+            return 2; // no calendar link yet
+            break;
+        case 2:
+            return 3;
             break;
         default:
             return 0;
@@ -214,12 +231,12 @@
                                                                                    dateStyle:NSDateFormatterLongStyle
                                                                                    timeStyle:NSDateFormatterNoStyle];
                         if (![self verifyDateOrder]) {
-                            cell.detailTextLabel.textColor = [UIColor redColor]; 
+                            cell.detailTextLabel.textColor = [UIColor redColor];
                         }
                     } else {
                         cell.detailTextLabel.text = [NSDateFormatter localizedStringFromDate:[NSDate date]
                                                                                    dateStyle:NSDateFormatterLongStyle
-                                                                                   timeStyle:NSDateFormatterNoStyle];					
+                                                                                   timeStyle:NSDateFormatterNoStyle];
                         cell.detailTextLabel.textColor = [UIColor whiteColor];
                     }
                     break;
@@ -231,8 +248,8 @@
                                                                                    dateStyle:NSDateFormatterLongStyle
                                                                                    timeStyle:NSDateFormatterNoStyle];
                         if (![self verifyDateOrder]) {
-                            cell.detailTextLabel.textColor = [UIColor redColor]; 
-                        } 
+                            cell.detailTextLabel.textColor = [UIColor redColor];
+                        }
                     } else {
                         cell.detailTextLabel.text = [NSDateFormatter localizedStringFromDate:[NSDate date]
                                                                                    dateStyle:NSDateFormatterLongStyle
@@ -249,7 +266,7 @@
                 case 0:
 					cell.textLabel.text = NSLocalizedString(@"Include End Date", @"Label for cell that includes checkmark to indicate that events are calculated to include the last day");
                     cell.accessoryView = [[UISwitch alloc] initWithFrame:CGRectZero];
-                    [(UISwitch *)cell.accessoryView addTarget:self 
+                    [(UISwitch *)cell.accessoryView addTarget:self
                                                        action:@selector(switchIncludeLastDayInCalc:)
                                              forControlEvents:UIControlEventValueChanged];
                     [(UISwitch *)cell.accessoryView addTarget:self
@@ -280,7 +297,23 @@
                         cell.detailTextLabel.text = NSLocalizedString(@"Today is counted remaining", @"Explanatory label for \"Today is Over\" if not checked");
                     }
                     break;
-                case 2:
+                case 2: // link to calendar
+                    //                    cell.textLabel.text = NSLocalizedString(@"Link to Event", @"Label or button link event to the system calendar");
+                    //                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    //                    if ([self.event valueForKey:linkKey]) {
+                    //                        EKEvent *event = [self.eventStore eventWithIdentifier:[self.event valueForKey:linkKey]];
+                    //                        cell.detailTextLabel.text = event.title; //event title
+                    //                    } else {
+                    //                        cell.detailTextLabel.text = NSLocalizedString(@"None", @"Label to indicate that event is not linked to the system calendar");
+                    //                    }
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case 2:
+            switch (indexPath.row) {
+                case 0:
                     cell.textLabel.text = NSLocalizedString(@"Dates", @"Label for cell that includes checkmark to indicate that event dates should be displayed");
                     cell.accessoryView = [[UISwitch alloc] initWithFrame:CGRectZero];
                     [(UISwitch *)cell.accessoryView addTarget:self
@@ -297,15 +330,42 @@
                         cell.detailTextLabel.text = NSLocalizedString(@"Event dates are hidden", @"Explanitory label for \"Dates\" if not checked");
                     }
                     break;
-                case 3: // link to calendar
-//                    cell.textLabel.text = NSLocalizedString(@"Link to Event", @"Label or button link event to the system calendar");
-//                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-//                    if ([self.event valueForKey:linkKey]) {
-//                        EKEvent *event = [self.eventStore eventWithIdentifier:[self.event valueForKey:linkKey]];
-//                        cell.detailTextLabel.text = event.title; //event title
-//                    } else {
-//                        cell.detailTextLabel.text = NSLocalizedString(@"None", @"Label to indicate that event is not linked to the system calendar");
-//                    }
+                case 1:
+                    cell.textLabel.text = NSLocalizedString(@"Percentages", @"Label for cell that includes checkmark to indicate that events are displayed with percentages");
+                    cell.detailTextLabel.text = @"";
+                    cell.accessoryView = [[UISwitch alloc] initWithFrame:CGRectZero];
+                    [(UISwitch *)cell.accessoryView addTarget:self
+                                                       action:@selector(switchShowPercentages:)
+                                             forControlEvents:UIControlEventValueChanged];
+                    [(UISwitch *)cell.accessoryView addTarget:self
+                                                       action:@selector(clearDatePicker)
+                                             forControlEvents:UIControlEventAllEvents];
+                    if ([[self.event valueForKey:showPercentageKey] boolValue]) {
+                        [(UISwitch *)cell.accessoryView setOn:YES];
+                        cell.detailTextLabel.text = NSLocalizedString(@"Percentages are shown", @"Explanitory label for \"Percentages\" if checked");
+                    } else {
+                        [(UISwitch *)cell.accessoryView setOn:NO];
+                        cell.detailTextLabel.text = NSLocalizedString(@"Percentages are hidden", @"Explanitory label for \"Percentages\" if not checked");
+                    }
+                    break;
+                case 2:
+                    cell.textLabel.text = NSLocalizedString(@"Remaining Days Only", @"Label for cell that includes checkmark to indicate that events are displayed with the completed days count");
+                    cell.detailTextLabel.text = @"";
+                    // the text displayed to the user is the reverse of the setting
+                    cell.accessoryView = [[UISwitch alloc] initWithFrame:CGRectZero];
+                    [(UISwitch *)cell.accessoryView addTarget:self
+                                                       action:@selector(switchShowRemainingDays:)
+                                             forControlEvents:UIControlEventValueChanged];
+                    [(UISwitch *)cell.accessoryView addTarget:self
+                                                       action:@selector(clearDatePicker)
+                                             forControlEvents:UIControlEventAllEvents];
+                    if (![[self.event valueForKey:showCompletedDaysKey] boolValue]) {
+                        [(UISwitch *)cell.accessoryView setOn:YES];
+                        cell.detailTextLabel.text = NSLocalizedString(@"Completed days are hidden", @"Explanitory label for \"Remaining Days Only\" if checked");
+                    } else {
+                        [(UISwitch *)cell.accessoryView setOn:NO];
+                        cell.detailTextLabel.text = NSLocalizedString(@"Completed days are shown", @"Explanitory label for \"Remaining Days Only\" if not checked");
+                    }
                     break;
                 default:
                     break;
@@ -322,7 +382,11 @@
             return nil;
             break;
         case 1:
+            return NSLocalizedString(@"Date Handling", @"Heading for settings affecting date calculations");
+            break;
+        case 2:
 			return NSLocalizedString(@"Display", @"Heading for settings affecting the display of events");
+            break;
         default:
             return nil;
             break;
@@ -388,7 +452,7 @@
                     if (!self.settingEndDate) {
                         self.settingStartDate = NO;
                         [self hideDatePicker:NO];
-                        [self.datePicker setDate:[self.event valueForKey:endKey] 
+                        [self.datePicker setDate:[self.event valueForKey:endKey]
                                         animated:YES];
                         if ([[self.event valueForKey:endKey] isEqualToDate:[NSDate distantFuture]]) {
                             [self.datePicker setDate:[NSDate date] animated:YES];
@@ -398,7 +462,7 @@
                                      forControlEvents:UIControlEventValueChanged];
                         [self.datePicker addTarget:self
                                             action:@selector(changeEndDate:)
-                                  forControlEvents:UIControlEventValueChanged];					
+                                  forControlEvents:UIControlEventValueChanged];
                     } else {
                         [self hideDatePicker:YES];
                         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -414,14 +478,13 @@
             switch (indexPath.row) {
                 case 0:
                     // include last day in calc is handled by trapping the switch change
+                    [tableView cellForRowAtIndexPath:indexPath].selectionStyle = UITableViewCellSelectionStyleNone;
                     break;
                 case 1:
                     // today is complete is handled by trapping the switch change
+                    [tableView cellForRowAtIndexPath:indexPath].selectionStyle = UITableViewCellSelectionStyleNone;
                     break;
                 case 2:
-                    // show event dates is handled by trapping the switch change
-                    break;
-                case 3:
                     link = [self.event valueForKey:linkKey];
                     if (link) {
                         [self.changeLinkedEventActionSheet showInView:self.view];
@@ -432,6 +495,24 @@
                     break;
             }
             break;
+        case 2:
+            [self clearDatePicker];
+            switch (indexPath.row) {
+                case 0:
+                    // show event dates is handled by trapping the switch change
+                    [tableView cellForRowAtIndexPath:indexPath].selectionStyle = UITableViewCellSelectionStyleNone;
+                    break;
+                case 1:
+                    // show percentages only is handled by trapping the switch change
+                    [tableView cellForRowAtIndexPath:indexPath].selectionStyle = UITableViewCellSelectionStyleNone;
+                    break;
+                case 2:
+                    // show only remaining days is handled by trapping the switch change
+                    [tableView cellForRowAtIndexPath:indexPath].selectionStyle = UITableViewCellSelectionStyleNone;
+                    break;
+                default:
+                    break;
+            }
         default:
             break;
     }
@@ -497,7 +578,7 @@
 											  self.tableView.frame.origin.y,
 											  self.tableView.frame.size.width,
 											  self.tableView.frame.size.height + self.datePicker.frame.size.height);
-			self.datePicker.frame = CGRectOffset(self.datePicker.frame, 
+			self.datePicker.frame = CGRectOffset(self.datePicker.frame,
 												 0,
 												 self.datePicker.frame.size.height);
 		}
@@ -511,11 +592,11 @@
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Cannot Save Event", @"Title for error saving event")
 														message:NSLocalizedString(@"The start date must be before the end date.", @"Label indicating that the start day is not before the end day")
 													   delegate:nil
-											   cancelButtonTitle:NSLocalizedString(@"OK", @"Label indicating the user acknowledges the issue")
+                                              cancelButtonTitle:NSLocalizedString(@"OK", @"Label indicating the user acknowledges the issue")
 											  otherButtonTitles:nil];
 		[alert show];
 		self.showErrorAlert = NO;
-	}	
+	}
 }
 
 - (BOOL)verifyDateOrder {
@@ -563,7 +644,7 @@
 //}
 //
 //- (void)editCalendarEvent:(NSString *)identifier {
-//	
+//
 //}
 //
 //- (void)eventEditViewController:(EKEventEditViewController *)controller didCompleteWithAction:(EKEventEditViewAction)action {
@@ -579,7 +660,7 @@
 //}
 //
 //- (void)selectCalendarEvent {
-//	
+//
 //}
 //
 #pragma mark -
@@ -619,26 +700,26 @@
 #pragma mark Action sheet view delegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-//	if (actionSheet == self.linkUnlinkedEventActionSheet) {
-//		if (buttonIndex == actionSheet.cancelButtonIndex) {
-//			// do nothing
-//		} else if (buttonIndex == actionSheet.firstOtherButtonIndex) {
-//			[self selectCalendarEvent];
-//		} else {
-//			[self createCalendarEvent];
-//		}
-//	} else if (actionSheet == self.changeLinkedEventActionSheet) {
-//		if (buttonIndex == actionSheet.cancelButtonIndex) {
-//			// do nothing
-//		} else if (buttonIndex == actionSheet.destructiveButtonIndex) {
-//			[self.event setValue:nil forKey:linkKey];
-//		} else if (buttonIndex == actionSheet.firstOtherButtonIndex) {
-//			[self selectCalendarEvent];
-//		} else {
-//			[self createCalendarEvent];
-//		}
-//	}
-//	[self.tableView reloadData];
+    //	if (actionSheet == self.linkUnlinkedEventActionSheet) {
+    //		if (buttonIndex == actionSheet.cancelButtonIndex) {
+    //			// do nothing
+    //		} else if (buttonIndex == actionSheet.firstOtherButtonIndex) {
+    //			[self selectCalendarEvent];
+    //		} else {
+    //			[self createCalendarEvent];
+    //		}
+    //	} else if (actionSheet == self.changeLinkedEventActionSheet) {
+    //		if (buttonIndex == actionSheet.cancelButtonIndex) {
+    //			// do nothing
+    //		} else if (buttonIndex == actionSheet.destructiveButtonIndex) {
+    //			[self.event setValue:nil forKey:linkKey];
+    //		} else if (buttonIndex == actionSheet.firstOtherButtonIndex) {
+    //			[self selectCalendarEvent];
+    //		} else {
+    //			[self createCalendarEvent];
+    //		}
+    //	}
+    //	[self.tableView reloadData];
 }
 
 #pragma mark -

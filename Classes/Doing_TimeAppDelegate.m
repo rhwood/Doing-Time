@@ -45,13 +45,36 @@
 	}
 	[[NSUserDefaults standardUserDefaults] synchronize];
 
-	// Set reasonable defaults for the first event here
+    // Migrate from version 2 settings to version 3 settings
+    if ([[NSUserDefaults standardUserDefaults] integerForKey:@"Version"] < 3) {
+        BOOL showCompletedDays = YES;
+        if ([[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] valueForKey:showCompletedDaysKey]) {
+            showCompletedDays = [[NSUserDefaults standardUserDefaults] boolForKey:showCompletedDaysKey];
+        }
+        BOOL showPrecentage = NO;
+        if ([[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] valueForKey:showPercentageKey]) {
+            showCompletedDays = [[NSUserDefaults standardUserDefaults] boolForKey:showPercentageKey];
+        }
+        NSMutableArray *events = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey]];
+        for (int i = 0; i < events.count; i++) {
+            NSMutableDictionary *event = [events objectAtIndex:i];
+            [event setValue:@(showCompletedDays) forKey:showCompletedDaysKey];
+            [event setValue:@(showPrecentage) forKey:showPercentageKey];
+            [events replaceObjectAtIndex:i withObject:event];
+        }
+        [[NSUserDefaults standardUserDefaults] setInteger:3 forKey:@"Version"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
 
+	// Set reasonable defaults for the first event here
 	if (![[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey]) {
 		NSDate *today = [NSDate midnightForDate:[NSDate date]];
-		[[NSUserDefaults standardUserDefaults] setObject:@[@{titleKey: NSLocalizedString(@"Doing Time", @"Application Name"),
-																				   startKey: today,
-																				   endKey: today}]
+		[[NSUserDefaults standardUserDefaults] setObject:@[@{
+                                                titleKey:NSLocalizedString(@"Doing Time", @"Application Name"),
+                                                startKey:today,
+                                                  endKey:today,
+                                    showCompletedDaysKey:@(YES),
+                                       showPercentageKey:@(NO)}]
 												  forKey:eventsKey];
 		
 	}
