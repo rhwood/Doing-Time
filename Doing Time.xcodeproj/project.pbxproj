@@ -199,12 +199,12 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				48342DD11601E85700446664 /* Default-568h@2x.png */,
 				482812A4135CA6AC003704EC /* ASlogo1-64x192.png */,
 				489F72B215F2BCD200B5D0E7 /* ASlogo1-64x192@2x.png */,
 				487E29FE137D906B0004761D /* AboutView.xib */,
 				48B38235134BA44A009B874B /* Default.png */,
 				489F72B415F2C28500B5D0E7 /* Default@2x.png */,
+				48342DD11601E85700446664 /* Default-568h@2x.png */,
 				48CE82BB1350CAC700D94BA6 /* EventSettingsView.xib */,
 				48CE82B31350CAC600D94BA6 /* EventView.xib */,
 				48CE82BD1350CAC700D94BA6 /* FlipsideView.xib */,
