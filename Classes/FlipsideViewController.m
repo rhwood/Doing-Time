@@ -34,7 +34,7 @@
 
     self.allowInAppPurchases = YES; // set to NO until Lodsys patent litigation threat is lifted
     
-	self.eventBeingUpdated = 0;
+	self.eventBeingUpdated = INT_MAX;
 	
 	self.appDelegate = (Doing_TimeAppDelegate *)[UIApplication sharedApplication].delegate;
 	self.appStoreRequestFailed = NO;
