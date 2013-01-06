@@ -23,6 +23,8 @@ NSString *const showCompletedDaysKey = @"showCompletedDays";
 NSString *const includeLastDayInCalcKey = @"includeLastDayInCalc";
 NSString *const showEventDatesKey = @"showEventDates";
 NSString *const transactionsKey = @"AppStoreTransactions";
+NSString *const showPieChartOnlyKey = @"showPieChartOnly";
+NSString *const versionKey = @"version";
 
 #pragma mark -
 #pragma mark App Store product identifiers

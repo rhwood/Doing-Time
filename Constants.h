@@ -24,6 +24,8 @@ extern NSString *const showCompletedDaysKey;
 extern NSString *const includeLastDayInCalcKey;
 extern NSString *const showEventDatesKey;
 extern NSString *const transactionsKey;
+extern NSString *const showPieChartOnlyKey;
+extern NSString *const versionKey;
 
 #pragma mark -
 #pragma mark App Store product identifiers

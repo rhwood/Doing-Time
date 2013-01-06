@@ -46,7 +46,7 @@
 	[[NSUserDefaults standardUserDefaults] synchronize];
 
     // Migrate from version 2 settings to version 3 settings
-    if ([[NSUserDefaults standardUserDefaults] integerForKey:@"Version"] < 3) {
+    if ([[NSUserDefaults standardUserDefaults] integerForKey:versionKey] < 3) {
         BOOL showCompletedDays = YES;
         if ([[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] valueForKey:showCompletedDaysKey]) {
             showCompletedDays = [[NSUserDefaults standardUserDefaults] boolForKey:showCompletedDaysKey];
@@ -60,9 +60,10 @@
             NSMutableDictionary *event = [events objectAtIndex:i];
             [event setValue:@(showCompletedDays) forKey:showCompletedDaysKey];
             [event setValue:@(showPrecentage) forKey:showPercentageKey];
+            [event setValue:@(NO) forKey:showPieChartOnlyKey];
             [events replaceObjectAtIndex:i withObject:event];
         }
-        [[NSUserDefaults standardUserDefaults] setInteger:3 forKey:@"Version"];
+        [[NSUserDefaults standardUserDefaults] setInteger:3 forKey:versionKey];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
 

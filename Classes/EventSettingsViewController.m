@@ -45,20 +45,39 @@
                                                                 endKey:[NSDate distantFuture],
                                                includeLastDayInCalcKey:@(YES),
                                                             dayOverKey:@(NO),
-                                                     showEventDatesKey:@(YES)}];
+                                                     showEventDatesKey:@(YES),
+                                                     showPercentageKey:@(YES),
+                                                  showCompletedDaysKey:@(NO),
+                                                   showPieChartOnlyKey:@(NO)}];
 		} else {
 			self.event = [NSMutableDictionary dictionaryWithDictionary:[[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] objectAtIndex:index]];
 			self.newEvent = NO;
+            BOOL save = NO;
             if (![[self.event allKeys] containsObject:includeLastDayInCalcKey]) {
                 [self.event setValue:@(YES) forKey:includeLastDayInCalcKey];
-                [self saveEvent];
+                save = YES;
             }
             if (![[self.event allKeys] containsObject:dayOverKey]) {
                 [self.event setValue:@(NO) forKey:dayOverKey];
-                [self saveEvent];
+                save = YES;
             }
             if (![[self.event allKeys] containsObject:showEventDatesKey]) {
                 [self.event setValue:@(YES) forKey:showEventDatesKey];
+                save = YES;
+            }
+            if (![[self.event allKeys] containsObject:showPercentageKey]) {
+                [self.event setValue:@(YES) forKey:showPercentageKey];
+                save = YES;
+            }
+            if (![[self.event allKeys] containsObject:showCompletedDaysKey]) {
+                [self.event setValue:@(NO) forKey:showCompletedDaysKey];
+                save = YES;
+            }
+            if (![[self.event allKeys] containsObject:showPieChartOnlyKey]) {
+                [self.event setValue:@(NO) forKey:showPieChartOnlyKey];
+                save = YES;
+            }
+            if (save) {
                 [self saveEvent];
             }
 		}
@@ -174,6 +193,13 @@
     [self.tableView reloadData];
 }
 
+- (void)switchShowPieChartOnly:(id)sender {
+    // inverse of switch since setting is displayed using opposite language
+    [self clearDatePicker];
+    [self.event setValue:@(![(UISwitch *)sender isOn]) forKey:showPieChartOnlyKey];
+    [self.tableView reloadData];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -189,7 +215,7 @@
             return 2; // no calendar link yet
             break;
         case 2:
-            return 3;
+            return 4;
             break;
         default:
             return 0;
@@ -367,6 +393,25 @@
                         cell.detailTextLabel.text = NSLocalizedString(@"Completed days are shown", @"Explanitory label for \"Remaining Days Only\" if not checked");
                     }
                     break;
+                case 3:
+                    cell.textLabel.text = NSLocalizedString(@"Statistics", @"Label for cell that includes checkmark to indicate that only the pie chart should be displayed");
+                    cell.detailTextLabel.text = @"";
+                    cell.accessoryView = [[UISwitch alloc] initWithFrame:CGRectZero];
+                    [(UISwitch *)cell.accessoryView addTarget:self
+                                                       action:@selector(switchShowPieChartOnly:)
+                                             forControlEvents:UIControlEventValueChanged];
+                    [(UISwitch *)cell.accessoryView addTarget:self
+                                                       action:@selector(clearDatePicker)
+                                             forControlEvents:UIControlEventAllEvents];
+                    // the text displayed to the user is the reverse of the setting
+                    if (![self.event[showPieChartOnlyKey] boolValue]) {
+                        [(UISwitch *)cell.accessoryView setOn:YES];
+                        cell.detailTextLabel.text = NSLocalizedString(@"Statistics are shown", @"Explanitory label for \"Statistics\" if checked");
+                    } else {
+                        [(UISwitch *)cell.accessoryView setOn:NO];
+                        cell.detailTextLabel.text = NSLocalizedString(@"Statistics are hidden", @"Explanitory label for \"Statistics\" if not checked");
+                    }
+                    break;
                 default:
                     break;
             }
@@ -497,6 +542,8 @@
             break;
         case 2:
             [self clearDatePicker];
+            [tableView cellForRowAtIndexPath:indexPath].selectionStyle = UITableViewCellSelectionStyleNone;
+            /*
             switch (indexPath.row) {
                 case 0:
                     // show event dates is handled by trapping the switch change
@@ -513,6 +560,7 @@
                 default:
                     break;
             }
+             */
         default:
             break;
     }
