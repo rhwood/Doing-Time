@@ -41,17 +41,13 @@
 - (void)redrawEvent:(BOOL)forceRedraw {
 	forceRedraw = [self setPieChartValues:forceRedraw];
 	if (forceRedraw) {
-        for (UIView *view in self.view.subviews) {
-            [view setNeedsDisplay];
-            [view setNeedsLayout];
-        }
+        // TODO: including all these works, but are probably overkill - need to only trigger the minimum needed changes
         [self.view setNeedsDisplay];
         [self.view setNeedsLayout];
         [self.mainView.scroller setNeedsDisplay];
         [self.mainView.scroller setNeedsLayout];
         [self.mainView.view setNeedsDisplay];
         [self.mainView.view setNeedsLayout];
-        // TODO: including all these works, but are probably overkill
 	}
 }
 
@@ -225,23 +221,24 @@
 		_pieChart.alpha = 0.0;
 		[_pieChart setHidden:NO];
 		[_pieChart setNeedsDisplay];
-		
-		_daysComplete.alpha = 0.0;
-		[_daysComplete setHidden:NO];
-		[_daysComplete setNeedsDisplay];
-		
-		_daysLeft.alpha = 0.0;
-		[_daysLeft setHidden:NO];
-		[_daysLeft setNeedsDisplay];
-		
-		dateRange.alpha = 0.0;
-		[dateRange setHidden:NO];
-		[dateRange setNeedsDisplay];
-		
+		if (!self.daysComplete.hidden) {
+            _daysComplete.alpha = 0.0;
+            [_daysComplete setHidden:NO];
+            [_daysComplete setNeedsDisplay];
+        }
+        if (!showPieChartOnly) {
+            _daysLeft.alpha = 0.0;
+            [_daysLeft setHidden:NO];
+            [_daysLeft setNeedsDisplay];
+		}
+        if (showDateRange) {
+            dateRange.alpha = 0.0;
+            [dateRange setHidden:NO];
+            [dateRange setNeedsDisplay];
+        }
 		_eventTitle.alpha = 0.0;
 		[_eventTitle setHidden:NO];
 		[_eventTitle setNeedsDisplay];
-		
 		// Animate the fade-in
 		[UIView beginAnimations:nil context:NULL];
 		[UIView setAnimationDuration:0.5];
