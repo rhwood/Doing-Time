@@ -47,10 +47,10 @@
         }
         [self.view setNeedsDisplay];
         [self.view setNeedsLayout];
-        [self.view.superview setNeedsDisplay];
-        [self.view.superview setNeedsLayout];
-        [self.view.superview.superview setNeedsDisplay];
-        [self.view.superview.superview setNeedsLayout];
+        [self.mainView.scroller setNeedsDisplay];
+        [self.mainView.scroller setNeedsLayout];
+        [self.mainView.view setNeedsDisplay];
+        [self.mainView.view setNeedsLayout];
         // TODO: including all these works, but are probably overkill
 	}
 }
