@@ -18,15 +18,15 @@
 #define END_DATE 2
 // Table Dates section
 #define DATES 1
-#define INCLUDE_END 0
-#define TODAY_IS_OVER 1
-#define CALENDAR 2
+#define SHOW_DATES 0
+#define INCLUDE_END 1
+#define TODAY_IS_OVER 2
+#define CALENDAR 3
 // Table Stats section
 #define STATS 2
-#define SHOW_DATES 0
+#define SHOW_STATS 0
 #define SHOW_PERCENTS 1
 #define SHOW_COMPLETE 2
-#define SHOW_STATS 3
 
 @implementation EventSettingsViewController
 
@@ -229,10 +229,10 @@
             return 3;
             break;
         case DATES:
-            return 2; // no calendar link yet
+            return 3; // no calendar link yet
             break;
         case STATS:
-            return 4;
+            return 3;
             break;
         default:
             return 0;
@@ -306,6 +306,20 @@
             break;
         case DATES:
             switch (indexPath.row) {
+                case SHOW_DATES:
+                    cell.textLabel.text = NSLocalizedString(@"Dates", @"Label for cell that includes checkmark to indicate that event dates should be displayed");
+                    cell.accessoryView = [[UISwitch alloc] initWithFrame:CGRectZero];
+                    [(UISwitch *)cell.accessoryView addTarget:self
+                                                       action:@selector(switchShowEventDates:)
+                                             forControlEvents:UIControlEventValueChanged];
+                    if ([[self.event valueForKey:showEventDatesKey] boolValue]) {
+						[(UISwitch *)cell.accessoryView setOn:YES];
+                        cell.detailTextLabel.text = NSLocalizedString(@"Event dates are shown", @"Explanitory label for \"Dates\" if checked");
+					} else {
+						[(UISwitch *)cell.accessoryView setOn:NO];
+                        cell.detailTextLabel.text = NSLocalizedString(@"Event dates are hidden", @"Explanitory label for \"Dates\" if not checked");
+                    }
+                    break;
                 case INCLUDE_END:
 					cell.textLabel.text = NSLocalizedString(@"Include End Date", @"Label for cell that includes checkmark to indicate that events are calculated to include the last day");
                     cell.accessoryView = [[UISwitch alloc] initWithFrame:CGRectZero];
@@ -350,18 +364,20 @@
             break;
         case STATS:
             switch (indexPath.row) {
-                case SHOW_DATES:
-                    cell.textLabel.text = NSLocalizedString(@"Dates", @"Label for cell that includes checkmark to indicate that event dates should be displayed");
+                case SHOW_STATS:
+                    cell.textLabel.text = NSLocalizedString(@"Statistics", @"Label for cell that includes checkmark to indicate that only the pie chart should be displayed");
+                    cell.detailTextLabel.text = @"";
                     cell.accessoryView = [[UISwitch alloc] initWithFrame:CGRectZero];
                     [(UISwitch *)cell.accessoryView addTarget:self
-                                                       action:@selector(switchShowEventDates:)
+                                                       action:@selector(switchShowPieChartOnly:)
                                              forControlEvents:UIControlEventValueChanged];
-                    if ([[self.event valueForKey:showEventDatesKey] boolValue]) {
-						[(UISwitch *)cell.accessoryView setOn:YES];
-                        cell.detailTextLabel.text = NSLocalizedString(@"Event dates are shown", @"Explanitory label for \"Dates\" if checked");
-					} else {
-						[(UISwitch *)cell.accessoryView setOn:NO];
-                        cell.detailTextLabel.text = NSLocalizedString(@"Event dates are hidden", @"Explanitory label for \"Dates\" if not checked");
+                    // the text displayed to the user is the reverse of the setting
+                    if (![self.event[showPieChartOnlyKey] boolValue]) {
+                        [(UISwitch *)cell.accessoryView setOn:YES];
+                        cell.detailTextLabel.text = NSLocalizedString(@"Statistics are shown", @"Explanitory label for \"Statistics\" if checked");
+                    } else {
+                        [(UISwitch *)cell.accessoryView setOn:NO];
+                        cell.detailTextLabel.text = NSLocalizedString(@"Statistics are hidden", @"Explanitory label for \"Statistics\" if not checked");
                     }
                     break;
                 case SHOW_PERCENTS:
@@ -395,22 +411,6 @@
                         cell.detailTextLabel.text = NSLocalizedString(@"Completed days are shown", @"Explanitory label for \"Remaining Days Only\" if not checked");
                     }
                     break;
-                case SHOW_STATS:
-                    cell.textLabel.text = NSLocalizedString(@"Statistics", @"Label for cell that includes checkmark to indicate that only the pie chart should be displayed");
-                    cell.detailTextLabel.text = @"";
-                    cell.accessoryView = [[UISwitch alloc] initWithFrame:CGRectZero];
-                    [(UISwitch *)cell.accessoryView addTarget:self
-                                                       action:@selector(switchShowPieChartOnly:)
-                                             forControlEvents:UIControlEventValueChanged];
-                    // the text displayed to the user is the reverse of the setting
-                    if (![self.event[showPieChartOnlyKey] boolValue]) {
-                        [(UISwitch *)cell.accessoryView setOn:YES];
-                        cell.detailTextLabel.text = NSLocalizedString(@"Statistics are shown", @"Explanitory label for \"Statistics\" if checked");
-                    } else {
-                        [(UISwitch *)cell.accessoryView setOn:NO];
-                        cell.detailTextLabel.text = NSLocalizedString(@"Statistics are hidden", @"Explanitory label for \"Statistics\" if not checked");
-                    }
-                    break;
                 default:
                     break;
             }
@@ -426,10 +426,10 @@
             return nil;
             break;
         case DATES:
-            return NSLocalizedString(@"Date Handling", @"Heading for settings affecting date calculations");
+            return NSLocalizedString(@"Dates", @"Heading for settings affecting date calculations");
             break;
         case STATS:
-			return NSLocalizedString(@"Display", @"Heading for settings affecting the display of events");
+			return NSLocalizedString(@"Statistics", @"Heading for settings affecting the display of events");
             break;
         default:
             return nil;
@@ -520,6 +520,10 @@
         case DATES:
             [self clearDatePicker];
             switch (indexPath.row) {
+                case SHOW_DATES:
+                    // show event dates is handled by trapping the switch change
+                    [tableView cellForRowAtIndexPath:indexPath].selectionStyle = UITableViewCellSelectionStyleNone;
+                    break;
                 case INCLUDE_END:
                     // include last day in calc is handled by trapping the switch change
                     [tableView cellForRowAtIndexPath:indexPath].selectionStyle = UITableViewCellSelectionStyleNone;
@@ -544,10 +548,6 @@
             [tableView cellForRowAtIndexPath:indexPath].selectionStyle = UITableViewCellSelectionStyleNone;
             /*
             switch (indexPath.row) {
-                case SHOW_DATES:
-                    // show event dates is handled by trapping the switch change
-                    [tableView cellForRowAtIndexPath:indexPath].selectionStyle = UITableViewCellSelectionStyleNone;
-                    break;
                 case SHOW_PERCENTS:
                     // show percentages only is handled by trapping the switch change
                     [tableView cellForRowAtIndexPath:indexPath].selectionStyle = UITableViewCellSelectionStyleNone;
