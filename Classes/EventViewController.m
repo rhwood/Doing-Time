@@ -12,6 +12,12 @@
 #import "NSDate+Additions.h"
 #import "Constants.h"
 
+@interface EventViewController (Private)
+
+- (Boolean)eventEqualsOldEvent:(NSDictionary *)newEvent;
+
+@end
+
 @implementation EventViewController
 
 @synthesize pieChart = _pieChart;
@@ -23,18 +29,11 @@
 @synthesize controls = _controls;
 @synthesize piePlate = _piePlate;
 @synthesize mainView = _mainView;
-@synthesize oldComplete = _oldComplete;
-@synthesize oldLeft = _oldLeft;
-@synthesize oldTotal = _oldTotal;
-@synthesize oldTitle = _oldTitle;
 
 - (id)initWithEvent:(NSUInteger)event {
 	if (self = [super initWithNibName:@"EventView" bundle:nil]) {
 		self.eventID = event;
-		self.oldTitle = @"";
-		self.oldComplete = -1;
-		self.oldLeft = -1;
-		self.oldTotal = -1;
+        self.oldEvent = nil;
 	}
 	return self;
 }
@@ -42,7 +41,17 @@
 - (void)redrawEvent:(BOOL)forceRedraw {
 	forceRedraw = [self setPieChartValues:forceRedraw];
 	if (forceRedraw) {
-		[self.pieChart setNeedsDisplay];
+        for (UIView *view in self.view.subviews) {
+            [view setNeedsDisplay];
+            [view setNeedsLayout];
+        }
+        [self.view setNeedsDisplay];
+        [self.view setNeedsLayout];
+        [self.view.superview setNeedsDisplay];
+        [self.view.superview setNeedsLayout];
+        [self.view.superview.superview setNeedsDisplay];
+        [self.view.superview.superview setNeedsLayout];
+        // TODO: including all these works, but are probably overkill
 	}
 }
 
@@ -209,14 +218,8 @@
                                                             timeStyle:NSDateFormatterNoStyle];
         }
     }
-	forceRedraw = (completed == self.oldComplete) ? forceRedraw : YES;
-	forceRedraw = (left == self.oldLeft) ? forceRedraw : YES;
-	forceRedraw = (duration == self.oldTotal) ? forceRedraw : YES;
-	forceRedraw = ([self.oldTitle isEqualToString:_eventTitle.text]) ? forceRedraw : YES;
-	self.oldComplete = completed;
-	self.oldLeft = left;
-	self.oldTotal = duration;
-	self.oldTitle = _eventTitle.text;
+	forceRedraw = ([self eventEqualsOldEvent:event]) ? forceRedraw : YES;
+    self.oldEvent = event;
 
 	if ([self isViewLoaded] && forceRedraw) {
 		_pieChart.alpha = 0.0;
@@ -250,6 +253,15 @@
 		[UIView commitAnimations];
 	}
 	return forceRedraw;
+}
+
+- (Boolean)eventEqualsOldEvent:(NSDictionary *)newEvent {
+    for (NSString *key in self.oldEvent.allKeys) {
+        if (![newEvent[key] isEqual:self.oldEvent[key]]) {
+            return false;
+        }
+    }
+    return true;
 }
 
 - (void)viewDidLoad {

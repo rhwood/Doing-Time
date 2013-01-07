@@ -22,10 +22,6 @@
 	MainViewController *_mainView;
 
 	NSUInteger _eventID;
-	NSInteger _oldComplete;
-	NSInteger _oldLeft;
-	NSInteger _oldTotal;
-	NSString *_oldTitle;
 }
 
 - (id)initWithEvent:(NSUInteger)event;
@@ -42,9 +38,6 @@
 @property (nonatomic, strong) IBOutlet UIView *piePlate;
 @property (nonatomic, strong) IBOutlet MainViewController *mainView;
 @property NSUInteger eventID;
-@property NSInteger oldComplete;
-@property NSInteger oldLeft;
-@property NSInteger oldTotal;
-@property (nonatomic, strong) NSString *oldTitle;
+@property (nonatomic, strong) NSDictionary *oldEvent;
 
 @end

@@ -117,7 +117,7 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // force every event to redraw/recalculate when next drawn
     for (EventViewController* event in self.mainViewController.events) {
-        event.oldTotal = -1;
+        event.oldEvent = nil;
     }
 }
 
