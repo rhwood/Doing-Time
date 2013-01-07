@@ -295,9 +295,6 @@
                     [(UISwitch *)cell.accessoryView addTarget:self
                                                        action:@selector(switchIncludeLastDayInCalc:)
                                              forControlEvents:UIControlEventValueChanged];
-                    [(UISwitch *)cell.accessoryView addTarget:self
-                                                       action:@selector(clearDatePicker)
-                                             forControlEvents:UIControlEventAllEvents];
 					if ([[self.event valueForKey:includeLastDayInCalcKey] boolValue]) {
 						[(UISwitch *)cell.accessoryView setOn:YES];
                         cell.detailTextLabel.text = NSLocalizedString(@"Event is through end date", @"Explanitory label for \"Include End Date\" if checked");
@@ -312,9 +309,6 @@
                     [(UISwitch *)cell.accessoryView addTarget:self
                                                        action:@selector(switchTodayIsComplete:)
                                              forControlEvents:UIControlEventValueChanged];
-                    [(UISwitch *)cell.accessoryView addTarget:self
-                                                       action:@selector(clearDatePicker)
-                                             forControlEvents:UIControlEventAllEvents];
                     if ([[self.event valueForKey:dayOverKey] boolValue]) {
                         [(UISwitch *)cell.accessoryView setOn:YES];
                         cell.detailTextLabel.text = NSLocalizedString(@"Today is counted complete", @"Explanatory label for \"Today is Over\" if checked");
@@ -345,9 +339,6 @@
                     [(UISwitch *)cell.accessoryView addTarget:self
                                                        action:@selector(switchShowEventDates:)
                                              forControlEvents:UIControlEventValueChanged];
-                    [(UISwitch *)cell.accessoryView addTarget:self
-                                                       action:@selector(clearDatePicker)
-                                             forControlEvents:UIControlEventAllEvents];
                     if ([[self.event valueForKey:showEventDatesKey] boolValue]) {
 						[(UISwitch *)cell.accessoryView setOn:YES];
                         cell.detailTextLabel.text = NSLocalizedString(@"Event dates are shown", @"Explanitory label for \"Dates\" if checked");
@@ -363,9 +354,6 @@
                     [(UISwitch *)cell.accessoryView addTarget:self
                                                        action:@selector(switchShowPercentages:)
                                              forControlEvents:UIControlEventValueChanged];
-                    [(UISwitch *)cell.accessoryView addTarget:self
-                                                       action:@selector(clearDatePicker)
-                                             forControlEvents:UIControlEventAllEvents];
                     if ([[self.event valueForKey:showPercentageKey] boolValue]) {
                         [(UISwitch *)cell.accessoryView setOn:YES];
                         cell.detailTextLabel.text = NSLocalizedString(@"Percentages are shown", @"Explanitory label for \"Percentages\" if checked");
@@ -382,9 +370,6 @@
                     [(UISwitch *)cell.accessoryView addTarget:self
                                                        action:@selector(switchShowRemainingDays:)
                                              forControlEvents:UIControlEventValueChanged];
-                    [(UISwitch *)cell.accessoryView addTarget:self
-                                                       action:@selector(clearDatePicker)
-                                             forControlEvents:UIControlEventAllEvents];
                     if (![[self.event valueForKey:showCompletedDaysKey] boolValue]) {
                         [(UISwitch *)cell.accessoryView setOn:YES];
                         cell.detailTextLabel.text = NSLocalizedString(@"Completed days are hidden", @"Explanitory label for \"Remaining Days Only\" if checked");
@@ -400,9 +385,6 @@
                     [(UISwitch *)cell.accessoryView addTarget:self
                                                        action:@selector(switchShowPieChartOnly:)
                                              forControlEvents:UIControlEventValueChanged];
-                    [(UISwitch *)cell.accessoryView addTarget:self
-                                                       action:@selector(clearDatePicker)
-                                             forControlEvents:UIControlEventAllEvents];
                     // the text displayed to the user is the reverse of the setting
                     if (![self.event[showPieChartOnlyKey] boolValue]) {
                         [(UISwitch *)cell.accessoryView setOn:YES];
