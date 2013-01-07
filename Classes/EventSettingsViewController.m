@@ -11,6 +11,23 @@
 #import "Doing_TimeAppDelegate.h"
 #import "Constants.h"
 
+// Table Event section
+#define EVENT 0
+#define TITLE 0
+#define START_DATE 1
+#define END_DATE 2
+// Table Dates section
+#define DATES 1
+#define INCLUDE_END 0
+#define TODAY_IS_OVER 1
+#define CALENDAR 2
+// Table Stats section
+#define STATS 2
+#define SHOW_DATES 0
+#define SHOW_PERCENTS 1
+#define SHOW_COMPLETE 2
+#define SHOW_STATS 3
+
 @implementation EventSettingsViewController
 
 @synthesize index = _index;
@@ -102,8 +119,8 @@
 	self.titleView.borderStyle = UITextBorderStyleNone;
 	[self clearDatePicker];
 	self.showErrorAlert = YES;
-	self.startDateViewCellIndexPath = [NSIndexPath indexPathForRow:1 inSection:0];
-	self.endDateViewCellIndexPath = [NSIndexPath indexPathForRow:2 inSection:0];
+	self.startDateViewCellIndexPath = [NSIndexPath indexPathForRow:START_DATE inSection:EVENT];
+	self.endDateViewCellIndexPath = [NSIndexPath indexPathForRow:END_DATE inSection:EVENT];
 	// set the detailTextLabel.textColor since its not a built in color
 	self.detailTextLabelColor = [UIColor colorWithRed:0.22 green:0.33 blue:0.53 alpha:1.0];
 	self.linkUnlinkedEventActionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Link to Event in Calendar", @"Action sheet title to link event to system calendar")
@@ -208,13 +225,13 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section) {
-        case 0:
+        case EVENT:
             return 3;
             break;
-        case 1:
+        case DATES:
             return 2; // no calendar link yet
             break;
-        case 2:
+        case STATS:
             return 4;
             break;
         default:
@@ -229,7 +246,7 @@
 	static NSString *Value1CellIdentifier = @"Value1Cell";
     
     UITableViewCell *cell;
-	if (indexPath.section == 0) {
+	if (indexPath.section == EVENT) {
 		cell = [tableView dequeueReusableCellWithIdentifier:Value1CellIdentifier];
 		if (cell == nil) {
 			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:Value1CellIdentifier];
@@ -244,12 +261,12 @@
 	cell.accessoryType = UITableViewCellAccessoryNone;
 	
     switch (indexPath.section) {
-        case 0:
+        case EVENT:
             switch (indexPath.row) {
-                case 0:
+                case TITLE:
                     return self.titleViewCell;
                     break;
-                case 1:
+                case START_DATE:
                     cell.textLabel.text = NSLocalizedString(@"Start Date", @"Label for the day the event starts");
                     cell.detailTextLabel.textColor = self.detailTextLabelColor;
                     if (![[self.event valueForKey:startKey] isEqualToDate:[NSDate distantPast]]) {
@@ -266,7 +283,7 @@
                         cell.detailTextLabel.textColor = [UIColor whiteColor];
                     }
                     break;
-                case 2:
+                case END_DATE:
                     cell.textLabel.text = NSLocalizedString(@"End Date", @"Label for the day the event ends");
                     cell.detailTextLabel.textColor = self.detailTextLabelColor;
                     if (![[self.event valueForKey:endKey] isEqualToDate:[NSDate distantFuture]]) {
@@ -287,9 +304,9 @@
                     break;
             }
             break;
-        case 1:
+        case DATES:
             switch (indexPath.row) {
-                case 0:
+                case INCLUDE_END:
 					cell.textLabel.text = NSLocalizedString(@"Include End Date", @"Label for cell that includes checkmark to indicate that events are calculated to include the last day");
                     cell.accessoryView = [[UISwitch alloc] initWithFrame:CGRectZero];
                     [(UISwitch *)cell.accessoryView addTarget:self
@@ -303,7 +320,7 @@
                         cell.detailTextLabel.text = NSLocalizedString(@"Event is until end date", @"Explanitory label for \"Include End Date\" if not checked");
 					}
                     break;
-                case 1:
+                case TODAY_IS_OVER:
                     cell.textLabel.text = NSLocalizedString(@"Today is Over", @"Label for cell that includes checkmark to indicate that today is treated as remaining or not");
                     cell.accessoryView = [[UISwitch alloc] initWithFrame:CGRectZero];
                     [(UISwitch *)cell.accessoryView addTarget:self
@@ -317,7 +334,7 @@
                         cell.detailTextLabel.text = NSLocalizedString(@"Today is counted remaining", @"Explanatory label for \"Today is Over\" if not checked");
                     }
                     break;
-                case 2: // link to calendar
+                case CALENDAR: // link to calendar
                     //                    cell.textLabel.text = NSLocalizedString(@"Link to Event", @"Label or button link event to the system calendar");
                     //                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     //                    if ([self.event valueForKey:linkKey]) {
@@ -331,9 +348,9 @@
                     break;
             }
             break;
-        case 2:
+        case STATS:
             switch (indexPath.row) {
-                case 0:
+                case SHOW_DATES:
                     cell.textLabel.text = NSLocalizedString(@"Dates", @"Label for cell that includes checkmark to indicate that event dates should be displayed");
                     cell.accessoryView = [[UISwitch alloc] initWithFrame:CGRectZero];
                     [(UISwitch *)cell.accessoryView addTarget:self
@@ -347,7 +364,7 @@
                         cell.detailTextLabel.text = NSLocalizedString(@"Event dates are hidden", @"Explanitory label for \"Dates\" if not checked");
                     }
                     break;
-                case 1:
+                case SHOW_PERCENTS:
                     cell.textLabel.text = NSLocalizedString(@"Percentages", @"Label for cell that includes checkmark to indicate that events are displayed with percentages");
                     cell.detailTextLabel.text = @"";
                     cell.accessoryView = [[UISwitch alloc] initWithFrame:CGRectZero];
@@ -362,7 +379,7 @@
                         cell.detailTextLabel.text = NSLocalizedString(@"Percentages are hidden", @"Explanitory label for \"Percentages\" if not checked");
                     }
                     break;
-                case 2:
+                case SHOW_COMPLETE:
                     cell.textLabel.text = NSLocalizedString(@"Remaining Days Only", @"Label for cell that includes checkmark to indicate that events are displayed with the completed days count");
                     cell.detailTextLabel.text = @"";
                     // the text displayed to the user is the reverse of the setting
@@ -378,7 +395,7 @@
                         cell.detailTextLabel.text = NSLocalizedString(@"Completed days are shown", @"Explanitory label for \"Remaining Days Only\" if not checked");
                     }
                     break;
-                case 3:
+                case SHOW_STATS:
                     cell.textLabel.text = NSLocalizedString(@"Statistics", @"Label for cell that includes checkmark to indicate that only the pie chart should be displayed");
                     cell.detailTextLabel.text = @"";
                     cell.accessoryView = [[UISwitch alloc] initWithFrame:CGRectZero];
@@ -405,13 +422,13 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     switch (section) {
-        case 0:
+        case EVENT:
             return nil;
             break;
-        case 1:
+        case DATES:
             return NSLocalizedString(@"Date Handling", @"Heading for settings affecting date calculations");
             break;
-        case 2:
+        case STATS:
 			return NSLocalizedString(@"Display", @"Heading for settings affecting the display of events");
             break;
         default:
@@ -422,7 +439,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     switch (section) {
-        case 0:
+        case EVENT:
             return NSLocalizedString(@"Give the event a title and\nset the start and end dates.", @"Label with basic instructions for the user");
             break;
         default:
@@ -450,11 +467,11 @@
 		[self.titleView resignFirstResponder];
 	}
     switch (indexPath.section) {
-        case 0:
+        case EVENT:
             switch (indexPath.row) {
-                case 0:
+                case TITLE:
                     break;
-                case 1:
+                case START_DATE:
                     if (!self.settingStartDate) {
                         self.settingEndDate = NO;
                         [self hideDatePicker:NO];
@@ -475,7 +492,7 @@
                     }
                     self.settingStartDate = !self.settingStartDate;
                     break;
-                case 2:
+                case END_DATE:
                     if (!self.settingEndDate) {
                         self.settingStartDate = NO;
                         [self hideDatePicker:NO];
@@ -500,18 +517,18 @@
                     break;
             }
             break;
-        case 1:
+        case DATES:
             [self clearDatePicker];
             switch (indexPath.row) {
-                case 0:
+                case INCLUDE_END:
                     // include last day in calc is handled by trapping the switch change
                     [tableView cellForRowAtIndexPath:indexPath].selectionStyle = UITableViewCellSelectionStyleNone;
                     break;
-                case 1:
+                case TODAY_IS_OVER:
                     // today is complete is handled by trapping the switch change
                     [tableView cellForRowAtIndexPath:indexPath].selectionStyle = UITableViewCellSelectionStyleNone;
                     break;
-                case 2:
+                case CALENDAR:
                     link = [self.event valueForKey:linkKey];
                     if (link) {
                         [self.changeLinkedEventActionSheet showInView:self.view];
@@ -522,20 +539,20 @@
                     break;
             }
             break;
-        case 2:
+        case STATS:
             [self clearDatePicker];
             [tableView cellForRowAtIndexPath:indexPath].selectionStyle = UITableViewCellSelectionStyleNone;
             /*
             switch (indexPath.row) {
-                case 0:
+                case SHOW_DATES:
                     // show event dates is handled by trapping the switch change
                     [tableView cellForRowAtIndexPath:indexPath].selectionStyle = UITableViewCellSelectionStyleNone;
                     break;
-                case 1:
+                case SHOW_PERCENTS:
                     // show percentages only is handled by trapping the switch change
                     [tableView cellForRowAtIndexPath:indexPath].selectionStyle = UITableViewCellSelectionStyleNone;
                     break;
-                case 2:
+                case SHOW_COMPLETE:
                     // show only remaining days is handled by trapping the switch change
                     [tableView cellForRowAtIndexPath:indexPath].selectionStyle = UITableViewCellSelectionStyleNone;
                     break;
