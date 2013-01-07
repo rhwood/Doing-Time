@@ -423,7 +423,7 @@
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     switch (section) {
         case 0:
-            return NSLocalizedString(@"Give the event a title and set the start and end dates.", @"Label with basic instructions for the user");
+            return NSLocalizedString(@"Give the event a title and\nset the start and end dates.", @"Label with basic instructions for the user");
             break;
         default:
             return nil;
