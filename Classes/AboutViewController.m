@@ -22,6 +22,7 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 	self.title = NSLocalizedString(@"About Doing Time", @"");
+    self.accessibilityLabel = self.title;
 }
 
 /*
@@ -88,6 +89,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
     }
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.isAccessibilityElement = YES;
 	switch (indexPath.section) {
 		case 0:
 			return self.logoCell;
@@ -97,18 +99,22 @@
 				case 0:
 					cell.textLabel.text = NSLocalizedString(@"Web", @"Short term for World Wide Web");
 					cell.detailTextLabel.text = @"alexandriasoftware.com";
+                    cell.accessibilityLabel = NSLocalizedString(@"On the web at alexandriasoftware.com", @"AccessibilityLabel for Web");
 					break;
 				case 1:
 					cell.textLabel.text = NSLocalizedString(@"Twitter", @"Short term for Twitter");
 					cell.detailTextLabel.text = @"@alexandriasw";
+                    cell.accessibilityLabel = NSLocalizedString(@"On Twitter at alexandriasw", @"AccessibilityLabel for Twitter");
 					break;
 				case 2:
 					cell.textLabel.text = NSLocalizedString(@"Facebook", @"Short term for Facebook");
 					cell.detailTextLabel.text = NSLocalizedString(@"Like us!", @"Facebook \"Like us!\" tagline");
+                    cell.accessibilityLabel = NSLocalizedString(@"Like us on Facebook!", @"AccessibilityLabel for Facebook");
 					break;
 				case 3:
 					cell.textLabel.text = NSLocalizedString(@"Support", @"Short title for support resources");
 					cell.detailTextLabel.text = NSLocalizedString(@"Contact Us", @"Short invitation to send us a message");
+                    cell.accessibilityLabel = NSLocalizedString(@"Contact us via our website.", @"AccessibilityLabel for Contact Us");
 					break;
 				default:
 					break;
@@ -119,6 +125,7 @@
 				case 0:
 					cell.textLabel.text = @"Dain Kaplan";
 					cell.detailTextLabel.text = @"Chartreuse";
+                    cell.accessibilityLabel = NSLocalizedString(@"We thank Dain Kaplan for Chartreuse.", @"AccessibilityLabel for Chartreuse (thanks)");
 					break;
 				default:
 					break;
