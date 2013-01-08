@@ -307,17 +307,17 @@
         case DATES:
             switch (indexPath.row) {
                 case SHOW_DATES:
-                    cell.textLabel.text = NSLocalizedString(@"Dates", @"Label for cell that includes checkmark to indicate that event dates should be displayed");
+                    cell.textLabel.text = NSLocalizedString(@"Show Dates", @"Label for cell that includes checkmark to indicate that event dates should be displayed");
                     cell.accessoryView = [[UISwitch alloc] initWithFrame:CGRectZero];
                     [(UISwitch *)cell.accessoryView addTarget:self
                                                        action:@selector(switchShowEventDates:)
                                              forControlEvents:UIControlEventValueChanged];
                     if ([[self.event valueForKey:showEventDatesKey] boolValue]) {
 						[(UISwitch *)cell.accessoryView setOn:YES];
-                        cell.detailTextLabel.text = NSLocalizedString(@"Event dates are shown", @"Explanitory label for \"Dates\" if checked");
+                        cell.detailTextLabel.text = NSLocalizedString(@"Event dates are displayed", @"Explanitory label for \"Show Dates\" if checked");
 					} else {
 						[(UISwitch *)cell.accessoryView setOn:NO];
-                        cell.detailTextLabel.text = NSLocalizedString(@"Event dates are hidden", @"Explanitory label for \"Dates\" if not checked");
+                        cell.detailTextLabel.text = NSLocalizedString(@"Event dates are hidden", @"Explanitory label for \"Show Dates\" if not checked");
                     }
                     break;
                 case INCLUDE_END:
@@ -365,7 +365,7 @@
         case STATS:
             switch (indexPath.row) {
                 case SHOW_STATS:
-                    cell.textLabel.text = NSLocalizedString(@"Statistics", @"Label for cell that includes checkmark to indicate that only the pie chart should be displayed");
+                    cell.textLabel.text = NSLocalizedString(@"Show Statistics", @"Label for cell that includes checkmark to indicate that only the pie chart should be displayed");
                     cell.detailTextLabel.text = @"";
                     cell.accessoryView = [[UISwitch alloc] initWithFrame:CGRectZero];
                     [(UISwitch *)cell.accessoryView addTarget:self
@@ -374,10 +374,10 @@
                     // the text displayed to the user is the reverse of the setting
                     if (![self.event[showPieChartOnlyKey] boolValue]) {
                         [(UISwitch *)cell.accessoryView setOn:YES];
-                        cell.detailTextLabel.text = NSLocalizedString(@"Statistics are shown", @"Explanitory label for \"Statistics\" if checked");
+                        cell.detailTextLabel.text = NSLocalizedString(@"Statistics are displayed", @"Explanitory label for \"Show Statistics\" if checked");
                     } else {
                         [(UISwitch *)cell.accessoryView setOn:NO];
-                        cell.detailTextLabel.text = NSLocalizedString(@"Statistics are hidden", @"Explanitory label for \"Statistics\" if not checked");
+                        cell.detailTextLabel.text = NSLocalizedString(@"Statistics are hidden", @"Explanitory label for \"Show Statistics\" if not checked");
                     }
                     break;
                 case SHOW_PERCENTS:
