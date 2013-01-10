@@ -23,7 +23,7 @@ NSString *const showCompletedDaysKey = @"showCompletedDays";
 NSString *const includeLastDayInCalcKey = @"includeLastDayInCalc";
 NSString *const showEventDatesKey = @"showEventDates";
 NSString *const transactionsKey = @"AppStoreTransactions";
-NSString *const showPieChartOnlyKey = @"showPieChartOnly";
+NSString *const showTotalsKey = @"showTotals";
 NSString *const versionKey = @"version";
 
 #pragma mark -

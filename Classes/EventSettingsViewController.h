@@ -43,7 +43,7 @@
 - (IBAction)switchShowEventDates:(id)sender;
 - (IBAction)switchShowPercentages:(id)sender;
 - (IBAction)switchShowRemainingDays:(id)sender;
-- (IBAction)switchShowPieChartOnly:(id)sender;
+- (IBAction)switchShowTotals:(id)sender;
 
 #pragma mark -
 #pragma mark Date pickers

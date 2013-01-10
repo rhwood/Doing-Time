@@ -60,7 +60,7 @@
             NSMutableDictionary *event = [events objectAtIndex:i];
             [event setValue:@(showCompletedDays) forKey:showCompletedDaysKey];
             [event setValue:@(showPrecentage) forKey:showPercentageKey];
-            [event setValue:@(NO) forKey:showPieChartOnlyKey];
+            [event setValue:@(YES) forKey:showTotalsKey];
             [events replaceObjectAtIndex:i withObject:event];
         }
         [[NSUserDefaults standardUserDefaults] setInteger:3 forKey:versionKey];

@@ -24,8 +24,8 @@
 #define CALENDAR 3
 // Table Stats section
 #define STATS 2
-#define SHOW_STATS 0
-#define SHOW_PERCENTS 1
+#define SHOW_PERCENTS 0
+#define SHOW_TOTALS 1
 #define SHOW_COMPLETE 2
 
 @implementation EventSettingsViewController
@@ -65,7 +65,7 @@
                                                      showEventDatesKey:@(YES),
                                                      showPercentageKey:@(YES),
                                                   showCompletedDaysKey:@(NO),
-                                                   showPieChartOnlyKey:@(NO)}];
+                                                         showTotalsKey:@(YES)}];
 		} else {
 			self.event = [NSMutableDictionary dictionaryWithDictionary:[[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] objectAtIndex:index]];
 			self.newEvent = NO;
@@ -90,8 +90,8 @@
                 [self.event setValue:@(NO) forKey:showCompletedDaysKey];
                 save = YES;
             }
-            if (![[self.event allKeys] containsObject:showPieChartOnlyKey]) {
-                [self.event setValue:@(NO) forKey:showPieChartOnlyKey];
+            if (![[self.event allKeys] containsObject:showTotalsKey]) {
+                [self.event setValue:@(YES) forKey:showTotalsKey];
                 save = YES;
             }
             if (save) {
@@ -210,10 +210,9 @@
     [self.tableView reloadData];
 }
 
-- (void)switchShowPieChartOnly:(id)sender {
-    // inverse of switch since setting is displayed using opposite language
+- (void)switchShowTotals:(id)sender {
     [self clearDatePicker];
-    [self.event setValue:@(![(UISwitch *)sender isOn]) forKey:showPieChartOnlyKey];
+    [self.event setValue:@([(UISwitch *)sender isOn]) forKey:showTotalsKey];
     [self.tableView reloadData];
 }
 
@@ -364,22 +363,6 @@
             break;
         case STATS:
             switch (indexPath.row) {
-                case SHOW_STATS:
-                    cell.textLabel.text = NSLocalizedString(@"Show Statistics", @"Label for cell that includes checkmark to indicate that only the pie chart should be displayed");
-                    cell.detailTextLabel.text = @"";
-                    cell.accessoryView = [[UISwitch alloc] initWithFrame:CGRectZero];
-                    [(UISwitch *)cell.accessoryView addTarget:self
-                                                       action:@selector(switchShowPieChartOnly:)
-                                             forControlEvents:UIControlEventValueChanged];
-                    // the text displayed to the user is the reverse of the setting
-                    if (![self.event[showPieChartOnlyKey] boolValue]) {
-                        [(UISwitch *)cell.accessoryView setOn:YES];
-                        cell.detailTextLabel.text = NSLocalizedString(@"Statistics are displayed", @"Explanitory label for \"Show Statistics\" if checked");
-                    } else {
-                        [(UISwitch *)cell.accessoryView setOn:NO];
-                        cell.detailTextLabel.text = NSLocalizedString(@"Statistics are hidden", @"Explanitory label for \"Show Statistics\" if not checked");
-                    }
-                    break;
                 case SHOW_PERCENTS:
                     cell.textLabel.text = NSLocalizedString(@"Percentages", @"Label for cell that includes checkmark to indicate that events are displayed with percentages");
                     cell.detailTextLabel.text = @"";
@@ -393,6 +376,21 @@
                     } else {
                         [(UISwitch *)cell.accessoryView setOn:NO];
                         cell.detailTextLabel.text = NSLocalizedString(@"Percentages are hidden", @"Explanitory label for \"Percentages\" if not checked");
+                    }
+                    break;
+                case SHOW_TOTALS:
+                    cell.textLabel.text = NSLocalizedString(@"Totals", @"Label for cell that includes checkmark to indicate that events are displayed with dates");
+                    cell.detailTextLabel.text = @"";
+                    cell.accessoryView = [[UISwitch alloc] initWithFrame:CGRectZero];
+                    [(UISwitch *)cell.accessoryView addTarget:self
+                                                       action:@selector(switchShowTotals:)
+                                             forControlEvents:UIControlEventValueChanged];
+                    if ([self.event[showTotalsKey] boolValue]) {
+                        [(UISwitch *)cell.accessoryView setOn:YES];
+                        cell.detailTextLabel.text = NSLocalizedString(@"Totals are shown", @"Explanitory label for \"Totals\" if checked");
+                    } else {
+                        [(UISwitch *)cell.accessoryView setOn:NO];
+                        cell.detailTextLabel.text = NSLocalizedString(@"Totals are hidden", @"Explanitory label for \"Totals\" if not checked");
                     }
                     break;
                 case SHOW_COMPLETE:
