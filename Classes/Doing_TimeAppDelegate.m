@@ -51,15 +51,15 @@
         if ([[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] valueForKey:showCompletedDaysKey]) {
             showCompletedDays = [[NSUserDefaults standardUserDefaults] boolForKey:showCompletedDaysKey];
         }
-        BOOL showPrecentage = NO;
+        BOOL showPercentage = NO;
         if ([[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] valueForKey:showPercentageKey]) {
-            showCompletedDays = [[NSUserDefaults standardUserDefaults] boolForKey:showPercentageKey];
+            showPercentage = [[NSUserDefaults standardUserDefaults] boolForKey:showPercentageKey];
         }
         NSMutableArray *events = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey]];
         for (int i = 0; i < events.count; i++) {
             NSMutableDictionary *event = [events objectAtIndex:i];
             [event setValue:@(showCompletedDays) forKey:showCompletedDaysKey];
-            [event setValue:@(showPrecentage) forKey:showPercentageKey];
+            [event setValue:@(showPercentage) forKey:showPercentageKey];
             [event setValue:@(YES) forKey:showTotalsKey];
             [events replaceObjectAtIndex:i withObject:event];
         }
