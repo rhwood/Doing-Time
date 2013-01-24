@@ -55,12 +55,18 @@
         if ([[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] valueForKey:showPercentageKey]) {
             showPercentage = [[NSUserDefaults standardUserDefaults] boolForKey:showPercentageKey];
         }
+        NSInteger today = 0;
+        if ([[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] valueForKey:dayOverKey]) {
+            today = ([[NSUserDefaults standardUserDefaults] boolForKey:dayOverKey]) ? todayIsOver : todayIsRemaining;
+        }
         NSMutableArray *events = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey]];
         for (int i = 0; i < events.count; i++) {
             NSMutableDictionary *event = [events objectAtIndex:i];
             [event setValue:@(showCompletedDays) forKey:showCompletedDaysKey];
             [event setValue:@(showPercentage) forKey:showPercentageKey];
             [event setValue:@(YES) forKey:showTotalsKey];
+            [event setValue:@(([[event valueForKey:dayOverKey] boolValue]) ? todayIsOver : todayIsRemaining) forKey:todayIsKey];
+            [event removeObjectForKey:dayOverKey];
             [events replaceObjectAtIndex:i withObject:event];
         }
         [[NSUserDefaults standardUserDefaults] setInteger:3 forKey:versionKey];
@@ -75,18 +81,11 @@
                                                 startKey:today,
                                                   endKey:today,
                                     showCompletedDaysKey:@(YES),
-                                       showPercentageKey:@(NO)}]
+                                       showPercentageKey:@(NO),
+                                              todayIsKey:@(todayIsNotCounted)}]
 												  forKey:eventsKey];
-		
+        [[NSUserDefaults standardUserDefaults] synchronize];
 	}
-    // set showCompletedDaysKey to v1.2 behavior if the key does not exist
-    if (![[[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys] containsObject:showCompletedDaysKey]) {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:showCompletedDaysKey];
-    }
-	if ([[NSUserDefaults standardUserDefaults] objectForKey:dayOverKey]) {
-		[[NSUserDefaults standardUserDefaults] removeObjectForKey:dayOverKey];
-	}
-	[[NSUserDefaults standardUserDefaults] synchronize];	
 	
 	// Observe the store
 	self.appStore = [[AppStoreDelegate alloc] initWithDictionary:[[NSUserDefaults standardUserDefaults] dictionaryForKey:transactionsKey]];
