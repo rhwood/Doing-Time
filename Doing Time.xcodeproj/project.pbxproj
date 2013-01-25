@@ -24,7 +24,7 @@
 		4859317012D9C6D9003BD7D6 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4859316D12D9C6D9003BD7D6 /* Icon@2x.png */; };
 		485BAB5113498E31005EE6BE /* AppStoreDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 485BAB4F13498E31005EE6BE /* AppStoreDelegate.m */; };
 		485BD59816B14BF500424CC8 /* TodaySettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 485BD59A16B14BF500424CC8 /* TodaySettingsView.xib */; };
-		485BD59D16B14DC300424CC8 /* TodaySettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 485BD59C16B14DC300424CC8 /* TodaySettingViewController.m */; };
+		485BD59D16B14DC300424CC8 /* TodaySettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 485BD59C16B14DC300424CC8 /* TodaySettingsViewController.m */; };
 		487026B612D7CAE800E90108 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 487026B512D7CAE800E90108 /* iAd.framework */; };
 		4870279D12D80B3000E90108 /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4870279B12D80B3000E90108 /* NSDate+Additions.m */; };
 		487E29FF137D906B0004761D /* AboutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 487E29FE137D906B0004761D /* AboutView.xib */; };
@@ -78,8 +78,8 @@
 		485BAB4E13498E31005EE6BE /* AppStoreDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AppStoreDelegate.h; sourceTree = "<group>"; };
 		485BAB4F13498E31005EE6BE /* AppStoreDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppStoreDelegate.m; sourceTree = "<group>"; };
 		485BD59916B14BF500424CC8 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TodaySettingsView.xib; sourceTree = "<group>"; };
-		485BD59B16B14DC300424CC8 /* TodaySettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TodaySettingViewController.h; path = Classes/TodaySettingViewController.h; sourceTree = "<group>"; };
-		485BD59C16B14DC300424CC8 /* TodaySettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TodaySettingViewController.m; path = Classes/TodaySettingViewController.m; sourceTree = "<group>"; };
+		485BD59B16B14DC300424CC8 /* TodaySettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TodaySettingsViewController.h; path = Classes/TodaySettingsViewController.h; sourceTree = "<group>"; };
+		485BD59C16B14DC300424CC8 /* TodaySettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TodaySettingsViewController.m; path = Classes/TodaySettingsViewController.m; sourceTree = "<group>"; };
 		487026B512D7CAE800E90108 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		4870279A12D80B3000E90108 /* NSDate+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = "NSDate+Additions.h"; path = "Classes/NSDate+Additions.h"; sourceTree = "<group>"; };
 		4870279B12D80B3000E90108 /* NSDate+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+Additions.m"; path = "Classes/NSDate+Additions.m"; sourceTree = "<group>"; };
@@ -156,8 +156,8 @@
 				48924A18131D67DA002AC7F5 /* EventSettingsViewController.m */,
 				289233AC0DB2D0DB0083E9F9 /* FlipsideViewController.h */,
 				289233AD0DB2D0DB0083E9F9 /* FlipsideViewController.m */,
-				485BD59B16B14DC300424CC8 /* TodaySettingViewController.h */,
-				485BD59C16B14DC300424CC8 /* TodaySettingViewController.m */,
+				485BD59B16B14DC300424CC8 /* TodaySettingsViewController.h */,
+				485BD59C16B14DC300424CC8 /* TodaySettingsViewController.m */,
 			);
 			name = "Settings Views";
 			sourceTree = "<group>";
@@ -376,7 +376,7 @@
 				485BAB5113498E31005EE6BE /* AppStoreDelegate.m in Sources */,
 				4828129F135CA5C3003704EC /* AboutViewController.m in Sources */,
 				48AEFA91153C31890064ED0D /* TFLoggingManager.m in Sources */,
-				485BD59D16B14DC300424CC8 /* TodaySettingViewController.m in Sources */,
+				485BD59D16B14DC300424CC8 /* TodaySettingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

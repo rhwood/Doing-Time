@@ -7,11 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Constants.h"
 
-@interface TodaySettingViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface TodaySettingsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+
+- (id)initWithTodaySetting:(TodayIs)setting;
 
 #pragma mark - Properties
 
 @property (nonatomic, strong) IBOutlet UITableView* tableView;
+@property (nonatomic) TodayIs setting;
 
 @end

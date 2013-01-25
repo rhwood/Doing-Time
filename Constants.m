@@ -29,12 +29,6 @@ NSString *const versionKey = @"version";
 
 NSString *const dayOverKey = @"dayIsOverAt";
 
-#pragma mark - Today constants
-
-NSInteger const todayIsOver = -1;
-NSInteger const todayIsNotCounted = 0;
-NSInteger const todayIsRemaining = 1;
-
 #pragma mark - App Store product identifiers
 
 NSString *const multipleEventsProductIdentifier = @"com.alexandriasoftware.doingtime.multipleEvents";

@@ -39,7 +39,6 @@
 #pragma mark - Display Settings
 
 - (IBAction)switchIncludeLastDayInCalc:(id)sender;
-- (IBAction)switchTodayIsComplete:(id)sender;
 - (IBAction)switchShowEventDates:(id)sender;
 - (IBAction)switchShowPercentages:(id)sender;
 - (IBAction)switchShowRemainingDays:(id)sender;

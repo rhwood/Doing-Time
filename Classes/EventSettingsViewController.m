@@ -7,6 +7,7 @@
 //
 
 #import "EventSettingsViewController.h"
+#import "TodaySettingsViewController.h"
 #import "MainViewController.h"
 #import "Doing_TimeAppDelegate.h"
 #import "Constants.h"
@@ -20,7 +21,7 @@
 #define DATES 1
 #define SHOW_DATES 0
 #define INCLUDE_END 1
-#define TODAY_IS_OVER 2
+#define TODAY_IS 2
 #define CALENDAR 3
 // Table Stats section
 #define STATS 2
@@ -61,7 +62,7 @@
                                                               startKey:[NSDate distantPast],
                                                                 endKey:[NSDate distantFuture],
                                                includeLastDayInCalcKey:@(YES),
-                                                            dayOverKey:@(NO),
+                                                            todayIsKey:@(todayIsNotCounted),
                                                      showEventDatesKey:@(YES),
                                                      showPercentageKey:@(YES),
                                                   showCompletedDaysKey:@(NO),
@@ -74,8 +75,12 @@
                 [self.event setValue:@(YES) forKey:includeLastDayInCalcKey];
                 save = YES;
             }
-            if (![[self.event allKeys] containsObject:dayOverKey]) {
-                [self.event setValue:@(NO) forKey:dayOverKey];
+            if (![[self.event allKeys] containsObject:todayIsKey]) {
+                [self.event setValue:@(todayIsNotCounted) forKey:todayIsKey];
+                save = YES;
+            }
+            if ([[self.event allKeys] containsObject:dayOverKey]) {
+                [self.event removeObjectForKey:dayOverKey];
                 save = YES;
             }
             if (![[self.event allKeys] containsObject:showEventDatesKey]) {
@@ -185,12 +190,6 @@
     [self.tableView reloadData];
 }
 
-- (void)switchTodayIsComplete:(id)sender {
-    [self clearDatePicker];
-    [self.event setValue:@([(UISwitch *)sender isOn]) forKey:dayOverKey];
-    [self.tableView reloadData];
-}
-
 - (void)switchShowEventDates:(id)sender {
     [self clearDatePicker];
     [self.event setValue:@([(UISwitch *)sender isOn]) forKey:showEventDatesKey];
@@ -245,7 +244,7 @@
 	static NSString *Value1CellIdentifier = @"Value1Cell";
     
     UITableViewCell *cell;
-	if (indexPath.section == EVENT) {
+	if (indexPath.section == EVENT || indexPath.row == TODAY_IS) {
 		cell = [tableView dequeueReusableCellWithIdentifier:Value1CellIdentifier];
 		if (cell == nil) {
 			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:Value1CellIdentifier];
@@ -333,18 +332,21 @@
                         cell.detailTextLabel.text = NSLocalizedString(@"Event is until end date", @"Explanitory label for \"Include End Date\" if not checked");
 					}
                     break;
-                case TODAY_IS_OVER:
-                    cell.textLabel.text = NSLocalizedString(@"Today is Over", @"Label for cell that includes checkmark to indicate that today is treated as remaining or not");
-                    cell.accessoryView = [[UISwitch alloc] initWithFrame:CGRectZero];
-                    [(UISwitch *)cell.accessoryView addTarget:self
-                                                       action:@selector(switchTodayIsComplete:)
-                                             forControlEvents:UIControlEventValueChanged];
-                    if ([[self.event valueForKey:dayOverKey] boolValue]) {
-                        [(UISwitch *)cell.accessoryView setOn:YES];
-                        cell.detailTextLabel.text = NSLocalizedString(@"Today is counted complete", @"Explanatory label for \"Today is Over\" if checked");
-                    } else {
-                        [(UISwitch *)cell.accessoryView setOn:NO];
-                        cell.detailTextLabel.text = NSLocalizedString(@"Today is counted remaining", @"Explanatory label for \"Today is Over\" if not checked");
+                case TODAY_IS:
+                    cell.textLabel.text = NSLocalizedString(@"Treat today as", @"Label for cell that shows how today is handled");
+                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    switch ([[self.event valueForKey:todayIsKey] integerValue]) {
+                        case todayIsOver:
+                            cell.detailTextLabel.text = NSLocalizedString(@"Complete", @"Label for handling today as if it is already over");
+                            break;
+                        case todayIsNotCounted:
+                            cell.detailTextLabel.text = NSLocalizedString(@"Uncounted", @"Label for handling today as if it is neither remaining or over");
+                            break;
+                        case todayIsRemaining:
+                            cell.detailTextLabel.text = NSLocalizedString(@"Remaining", @"Label for handling today as if it is not yet over");
+                            break;
+                        default:
+                            break;
                     }
                     break;
                 case CALENDAR: // link to calendar
@@ -526,9 +528,11 @@
                     // include last day in calc is handled by trapping the switch change
                     [tableView cellForRowAtIndexPath:indexPath].selectionStyle = UITableViewCellSelectionStyleNone;
                     break;
-                case TODAY_IS_OVER:
-                    // today is complete is handled by trapping the switch change
-                    [tableView cellForRowAtIndexPath:indexPath].selectionStyle = UITableViewCellSelectionStyleNone;
+                case TODAY_IS:
+                    if (YES) { // workaround inability to create object as first statement in case
+                        TodaySettingsViewController *controller = [[TodaySettingsViewController alloc] initWithTodaySetting:[[self.event valueForKey:todayIsKey] integerValue]];
+                        [self.navigationController pushViewController:controller animated:YES];
+                    }
                     break;
                 case CALENDAR:
                     link = [self.event valueForKey:linkKey];
