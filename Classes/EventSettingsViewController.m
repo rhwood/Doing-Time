@@ -110,7 +110,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	// navigation items
-	self.navigationItem.title = @"Event";
+	self.navigationItem.title = NSLocalizedString(@"Event",@"Title for event settings view");
 	// cancel button
 	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
 																						  target:self
