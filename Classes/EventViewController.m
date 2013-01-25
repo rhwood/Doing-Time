@@ -107,9 +107,18 @@
         duration = 1;
         left++;
     }
-    if ([[event allKeys] containsObject:dayOverKey] && [[event valueForKey:dayOverKey] boolValue]) {
-        completed++;
-        left--;
+    switch ([event[todayIsKey] integerValue]) {
+        case todayIsNotCounted:
+            completed--;
+            break;
+        case todayIsOver:
+            completed++;
+            break;
+        case todayIsRemaining:
+            left++;
+            break;
+        default:
+            break;
     }
 	if (completed <= 0) {
 		inFuture = (completed * -1) + 1;
