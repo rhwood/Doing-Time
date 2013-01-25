@@ -333,7 +333,7 @@
 					}
                     break;
                 case TODAY_IS:
-                    cell.textLabel.text = NSLocalizedString(@"Treat today as", @"Label for cell that shows how today is handled");
+                    cell.textLabel.text = NSLocalizedString(@"Treat Today As", @"Label for cell that shows how today is handled");
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     switch ([[self.event valueForKey:todayIsKey] integerValue]) {
                         case todayIsOver:
