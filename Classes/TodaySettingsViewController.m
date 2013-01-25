@@ -25,8 +25,12 @@
     [super viewDidLoad];
 	// navigation items
 	self.navigationItem.title = NSLocalizedString(@"Today Is",@"Title for TodaySettingsView");
+    self.accessibilityLabel = self.navigationItem.title;
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] postNotificationName:todayIsKey object:self userInfo:@{todayIsKey: @(self.setting)}];
+}
 
 #pragma mark - Table view data source
 

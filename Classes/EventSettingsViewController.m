@@ -531,6 +531,14 @@
                 case TODAY_IS:
                     if (YES) { // workaround inability to create object as first statement in case
                         TodaySettingsViewController *controller = [[TodaySettingsViewController alloc] initWithTodaySetting:[[self.event valueForKey:todayIsKey] integerValue]];
+                        [[NSNotificationCenter defaultCenter] addObserverForName:todayIsKey
+                                                                          object:controller
+                                                                           queue:[NSOperationQueue currentQueue]
+                                                                      usingBlock:^(NSNotification *note) {
+                                                                          [self.event setValue:[note.userInfo valueForKey:todayIsKey] forKey:todayIsKey];
+                                                                          [[NSNotificationCenter defaultCenter] removeObserver:self name:todayIsKey object:note.object];
+                                                                          [self.tableView reloadData];
+                                                                      }];
                         [self.navigationController pushViewController:controller animated:YES];
                     }
                     break;
