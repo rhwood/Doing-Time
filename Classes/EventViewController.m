@@ -115,7 +115,9 @@
             completed++;
             break;
         case todayIsRemaining:
-            left++;
+            if (![today isEqualToDate:[gregorianCalendar dateFromComponents:[gregorianCalendar components:unitFlags fromDate:calcEndDate]]]) {
+                left++;
+            }
             break;
         default:
             break;
@@ -196,7 +198,7 @@
                 days = NSLocalizedString(@"days", @"");
             }
             if (left == 0) {
-                _daysLeft.text = NSLocalizedString(@"Done today", @"The message displayed on the last day of an event");
+                _daysLeft.text = NSLocalizedString(@"Ends today", @"The message displayed on the last day of an event");
             } else if (!showPercentage && showTotals) {
                 _daysLeft.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%d %@ left", @"The number (%d) of days (%@) remaining"), left, days];
             } else if (!showTotals && showPercentage) {
