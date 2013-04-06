@@ -35,6 +35,8 @@
 - (void)done;
 - (void)saveEvent;
 - (BOOL)verifyNonemptyTitle;
+- (void)calculateDuration;
+- (void)hideInputs;
 
 #pragma mark - Display Settings
 
@@ -75,11 +77,16 @@
 //@property (nonatomic, strong) IBOutlet EKEventStore* eventStore;
 @property (nonatomic, strong) NSIndexPath* startDateViewCellIndexPath;
 @property (nonatomic, strong) NSIndexPath* endDateViewCellIndexPath;
+@property (nonatomic, strong) NSIndexPath* durationViewCellIndexPath;
 @property (nonatomic, strong) UIColor* detailTextLabelColor;
 @property (nonatomic, strong) UIActionSheet* linkUnlinkedEventActionSheet;
 @property (nonatomic, strong) UIActionSheet* changeLinkedEventActionSheet;
 @property (nonatomic, assign) IBOutlet UITextField* titleView;
 @property (nonatomic, strong) IBOutlet UITableViewCell* titleViewCell;
+@property (nonatomic, strong) IBOutlet UITextField* durationView;
+@property (nonatomic, strong) IBOutlet UITableViewCell* durationViewCell;
 @property BOOL cancelling;
+@property NSUInteger duration;
+@property (nonatomic, strong) NSCalendar *calendar;
 
 @end

@@ -17,6 +17,7 @@
 #define TITLE 0
 #define START_DATE 1
 #define END_DATE 2
+#define DURATION 3
 // Table Dates section
 #define DATES 1
 #define SHOW_DATES 0
@@ -54,6 +55,7 @@
 
 - (id)initWithEventIndex:(NSUInteger)index {
 	if ((self = [super initWithNibName:@"EventSettingsView" bundle:nil])) {
+        self.calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
 		self.index = index;
 		if (self.index == [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count]) {
 			self.newEvent = YES;
@@ -103,6 +105,7 @@
                 [self saveEvent];
             }
 		}
+        [self calculateDuration];
 	}
 	return self;
 }
@@ -126,6 +129,7 @@
 	self.showErrorAlert = YES;
 	self.startDateViewCellIndexPath = [NSIndexPath indexPathForRow:START_DATE inSection:EVENT];
 	self.endDateViewCellIndexPath = [NSIndexPath indexPathForRow:END_DATE inSection:EVENT];
+    self.durationViewCellIndexPath = [NSIndexPath indexPathForRow:DURATION inSection:EVENT];
 	// set the detailTextLabel.textColor since its not a built in color
 	self.detailTextLabelColor = [UIColor colorWithRed:0.22 green:0.33 blue:0.53 alpha:1.0];
 	self.linkUnlinkedEventActionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Link to Event in Calendar", @"Action sheet title to link event to system calendar")
@@ -142,6 +146,14 @@
 														   otherButtonTitles:NSLocalizedString(@"Change Linked Event", @""),
 										 NSLocalizedString(@"Create New Event", @""),
 										 nil];
+    // Add gesture recognized to handle taps between cells
+    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideInputs)];
+    [self.tableView addGestureRecognizer:gestureRecognizer];
+    gestureRecognizer.cancelsTouchesInView = NO;
+    // Add duration cell, since it's accessory view is unique
+    self.durationView.textColor = self.detailTextLabelColor;
+    self.durationView.text = [[NSNumber numberWithUnsignedInteger:self.duration] stringValue];
+    self.durationView.keyboardType = UIKeyboardTypeNumberPad;
     //	Doing_TimeAppDelegate *appDelegate = (Doing_TimeAppDelegate *)[UIApplication sharedApplication].delegate;
     //	self.eventStore = appDelegate.eventStore;
 }
@@ -182,12 +194,36 @@
 	[[NSUserDefaults standardUserDefaults] synchronize];
 }
 
+#pragma mark - Duration
+
+- (void)calculateDuration {
+    switch ([self.event[startKey] compare:self.event[endKey]]) {
+        case NSOrderedAscending:
+            self.duration = [[self.calendar components:NSDayCalendarUnit
+                                              fromDate:self.event[startKey]
+                                                toDate:self.event[endKey]
+                                               options:0]
+                             day];
+            break;
+        case NSOrderedSame:
+            self.duration = 0;
+            break;
+        case NSOrderedDescending:
+            self.duration = 0;
+            return;
+    }
+    if ([self.event[includeLastDayInCalcKey] boolValue]) {
+        self.duration = self.duration + 1;
+    }
+}
+
 #pragma mark - Display Settings
 
 - (void)switchIncludeLastDayInCalc:(id)sender {
     [self clearDatePicker];
     [self.event setValue:@([(UISwitch *)sender isOn]) forKey:includeLastDayInCalcKey];
-    [self.tableView reloadData];
+    [self calculateDuration];
+    self.durationView.text = [[NSNumber numberWithUnsignedInteger:self.duration] stringValue];
 }
 
 - (void)switchShowEventDates:(id)sender {
@@ -224,7 +260,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section) {
         case EVENT:
-            return 3;
+            return 4;
             break;
         case DATES:
             return 3; // no calendar link yet
@@ -244,7 +280,7 @@
 	static NSString *Value1CellIdentifier = @"Value1Cell";
     
     UITableViewCell *cell;
-	if (indexPath.section == EVENT || indexPath.row == TODAY_IS) {
+	if ((indexPath.section == EVENT && indexPath.row != DURATION) || (indexPath.section == DATES && indexPath.row == TODAY_IS)) {
 		cell = [tableView dequeueReusableCellWithIdentifier:Value1CellIdentifier];
 		if (cell == nil) {
 			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:Value1CellIdentifier];
@@ -298,6 +334,8 @@
                         cell.detailTextLabel.textColor = [UIColor whiteColor];
                     }
                     break;
+                case DURATION:
+                    return self.durationViewCell;
                 default:
                     break;
             }
@@ -461,11 +499,15 @@
 	NSString *link;
 	self.showErrorAlert = YES;
 	[self verifyDateOrder];
+    [self calculateDuration];
 	[self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:YES];
 	self.datePicker.datePickerMode = UIDatePickerModeDate;
 	if (indexPath.row || indexPath.section) {
 		[self.titleView resignFirstResponder];
 	}
+    if (![indexPath isEqual:self.durationViewCellIndexPath]) {
+        [self.durationView resignFirstResponder];
+    }
     switch (indexPath.section) {
         case EVENT:
             switch (indexPath.row) {
@@ -512,6 +554,8 @@
                         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
                     }
                     self.settingEndDate = !self.settingEndDate;
+                    break;
+                case DURATION:
                     break;
                 default:
                     break;
@@ -600,6 +644,8 @@
 																																 dateStyle:NSDateFormatterLongStyle
 																																 timeStyle:NSDateFormatterNoStyle];
 	[self verifyDateOrder];
+    [self calculateDuration];
+    self.durationView.text = [[NSNumber numberWithUnsignedInteger:self.duration] stringValue];
 }
 
 - (void)changeEndDate:(id)sender {
@@ -609,6 +655,8 @@
 																															   dateStyle:NSDateFormatterLongStyle
 																															   timeStyle:NSDateFormatterNoStyle];
 	[self verifyDateOrder];
+    [self calculateDuration];
+    self.durationView.text = [[NSNumber numberWithUnsignedInteger:self.duration] stringValue];
 }
 
 - (void)clearDatePicker {
@@ -616,6 +664,14 @@
 	[self.datePicker setDate:[NSDate date] animated:NO];
 	self.settingStartDate = NO;
 	self.settingEndDate = NO;
+}
+
+- (void)hideInputs {
+    [self hideDatePicker:YES];
+    [self.view endEditing:NO];
+    [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
+    self.settingEndDate = NO;
+    self.settingStartDate = NO;
 }
 
 - (void)hideDatePicker:(BOOL)hidden {
@@ -741,9 +797,19 @@
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
-	if (![self verifyNonemptyTitle]) {
-		[self.titleView becomeFirstResponder];
-	}
+    if ([textField isEqual:self.titleView]) {
+        if (![self verifyNonemptyTitle]) {
+            [self.titleView becomeFirstResponder];
+        }
+    } else {
+        NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
+        offsetComponents.day = [self.durationView.text integerValue];
+        if (!self.event[includeLastDayInCalcKey]) {
+            offsetComponents.day = offsetComponents.day + 1;
+        }
+        self.event[endKey] = [self.calendar dateByAddingComponents:offsetComponents toDate:self.event[startKey] options:0];
+        [self.tableView reloadRowsAtIndexPaths:@[self.endDateViewCellIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
@@ -751,6 +817,9 @@
 	[self hideDatePicker:YES];
 	self.settingStartDate = NO;
 	self.settingEndDate = NO;
+    if ([textField isEqual:self.durationView]) {
+        self.durationView.text = nil;
+    }
 }
 
 #pragma mark -
