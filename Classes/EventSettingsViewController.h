@@ -54,6 +54,7 @@
 - (void)clearDatePicker;
 - (void)hideDatePicker:(BOOL)hidden;
 - (void)showDateErrorAlert;
+- (void)showDurationErrorAlert;
 - (BOOL)verifyDateOrder;
 
 //#pragma mark -

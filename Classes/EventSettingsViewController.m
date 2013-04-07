@@ -179,6 +179,10 @@
 		[self showDateErrorAlert];
 		return;
 	}
+    if (self.duration <= 0) {
+        [self showDurationErrorAlert];
+        return;
+    }
     [self saveEvent];
 	[self.navigationController popViewControllerAnimated:YES];
 }
@@ -704,6 +708,18 @@
 	if (self.showErrorAlert) {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Cannot Save Event", @"Title for error saving event")
 														message:NSLocalizedString(@"The start date must be before the end date.", @"Label indicating that the start day is not before the end day")
+													   delegate:nil
+                                              cancelButtonTitle:NSLocalizedString(@"OK", @"Label indicating the user acknowledges the issue")
+											  otherButtonTitles:nil];
+		[alert show];
+		self.showErrorAlert = NO;
+	}
+}
+
+- (void)showDurationErrorAlert {
+	if (self.showErrorAlert) {
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Cannot Save Event", @"Title for error saving event")
+														message:NSLocalizedString(@"Event must be 1 or more days long.\n\nInclude the end date in the event\nor change the end date.", @"Label indicating that event has zero days duration")
 													   delegate:nil
                                               cancelButtonTitle:NSLocalizedString(@"OK", @"Label indicating the user acknowledges the issue")
 											  otherButtonTitles:nil];
