@@ -64,46 +64,40 @@
 	// BOOL isRealStart = NO;
 	// startDate is used for computations, realStartDate is used for sane UI
 	NSDictionary *event = [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] objectAtIndex:self.eventID];
-    BOOL showPercentage = [[event objectForKey:showPercentageKey] boolValue];
-    BOOL showRemainingDaysOnly = [[event objectForKey:showCompletedDaysKey] boolValue];
+    BOOL showPercentage = [event[showPercentageKey] boolValue];
+    BOOL showRemainingDaysOnly = [event[showCompletedDaysKey] boolValue];
     BOOL showTotals = [event[showTotalsKey] boolValue];
     BOOL showDateRange = [event[showEventDatesKey] boolValue];
-    //NSDate *startDate = [self.calendar dateFromComponents:[self.calendar components:unitFlags fromDate:[event objectForKey:startKey]]];
-    //NSDate *endDate = [self.calendar dateFromComponents:[self.calendar components:unitFlags fromDate:[event objectForKey:endKey]]];
-    NSDate *startDate = [event objectForKey:startKey];
-	NSDate *calcStartDate = startDate;
-    NSDate *endDate = [event objectForKey:endKey];
-    NSDate *calcEndDate = [self.calendar dateByAddingComponents:oneDay toDate:endDate options:0];
-    if (event[includeLastDayInCalcKey]) {
-        calcEndDate = [endDate dateByAddingTimeInterval:1.0];
-    }
-	NSDate *today = [self.calendar dateFromComponents:[self.calendar components:unitFlags fromDate:[NSDate date]]];
+    NSDate *startDate = event[startKey];
+    NSDate *endDate = event[endKey];
+    NSDate *calcEndDate = ([event[includeLastDayInCalcKey] boolValue]) ? [self.calendar dateByAddingComponents:oneDay toDate:endDate options:0] : endDate;
+	NSDate *today = [NSDate midnightForDate:[NSDate date]];
 	NSLog(@"Start date:  %@", startDate);
 	NSLog(@"End date:    %@", endDate);
 	NSLog(@"Today:       %@", today);
-	NSLog(@"Calc start:  %@", calcStartDate);
     NSLog(@"Calc end:    %@", calcEndDate);
 	NSLog(@"Now:         %@", [NSDate date]);
 
     NSInteger completed = [[self.calendar components:NSDayCalendarUnit
-                                                fromDate:calcStartDate
-                                                  toDate:today
-                                                 options:0]
+                                            fromDate:startDate
+                                              toDate:today
+                                             options:0]
 						   day];
 	NSInteger left = [[self.calendar components:NSDayCalendarUnit
-                                           fromDate:today
-                                             toDate:calcEndDate
-                                            options:0]
+                                       fromDate:today
+                                         toDate:calcEndDate
+                                        options:0]
 					  day];
 	NSInteger duration = [[self.calendar components:NSDayCalendarUnit
-                                               fromDate:calcStartDate
-                                                 toDate:calcEndDate
-                                                options:0]
+                                           fromDate:startDate
+                                             toDate:calcEndDate
+                                            options:0]
 						  day];
 	NSLog(@"%d days complete", completed);
 	NSLog(@"%d days left", left);
 	NSLog(@"%d total days", duration);
     if (!duration) {
+        // TODO: Error out and lead user to event settings (Issue #31)
         duration = 1;
         left++;
     }
