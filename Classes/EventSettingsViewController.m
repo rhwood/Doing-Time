@@ -55,7 +55,7 @@
 
 - (id)initWithEventIndex:(NSUInteger)index {
 	if ((self = [super initWithNibName:@"EventSettingsView" bundle:nil])) {
-        self.calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        self.calendar = [NSCalendar currentCalendar];
 		self.index = index;
 		if (self.index == [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count]) {
 			self.newEvent = YES;

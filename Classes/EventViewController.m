@@ -34,6 +34,7 @@
 	if (self = [super initWithNibName:@"EventView" bundle:nil]) {
 		self.eventID = event;
         self.oldEvent = nil;
+        self.calendar = [NSCalendar currentCalendar];
 	}
 	return self;
 }
@@ -55,7 +56,6 @@
     NSUInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit;
     NSDateComponents *oneDay = [[NSDateComponents alloc] init];
     [oneDay setDay:1];
-    NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
 	if (self.eventID >= [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count]) {
 		return NO; // do not attempt to setup the piechart if the event ID is not in the array
 	}
@@ -68,16 +68,16 @@
     BOOL showRemainingDaysOnly = [[event objectForKey:showCompletedDaysKey] boolValue];
     BOOL showTotals = [event[showTotalsKey] boolValue];
     BOOL showDateRange = [event[showEventDatesKey] boolValue];
-    //NSDate *startDate = [gregorianCalendar dateFromComponents:[gregorianCalendar components:unitFlags fromDate:[event objectForKey:startKey]]];
-    //NSDate *endDate = [gregorianCalendar dateFromComponents:[gregorianCalendar components:unitFlags fromDate:[event objectForKey:endKey]]];
+    //NSDate *startDate = [self.calendar dateFromComponents:[self.calendar components:unitFlags fromDate:[event objectForKey:startKey]]];
+    //NSDate *endDate = [self.calendar dateFromComponents:[self.calendar components:unitFlags fromDate:[event objectForKey:endKey]]];
     NSDate *startDate = [event objectForKey:startKey];
 	NSDate *calcStartDate = startDate;
     NSDate *endDate = [event objectForKey:endKey];
-    NSDate *calcEndDate = [gregorianCalendar dateByAddingComponents:oneDay toDate:endDate options:0];
+    NSDate *calcEndDate = [self.calendar dateByAddingComponents:oneDay toDate:endDate options:0];
     if (event[includeLastDayInCalcKey]) {
         calcEndDate = [endDate dateByAddingTimeInterval:1.0];
     }
-	NSDate *today = [gregorianCalendar dateFromComponents:[gregorianCalendar components:unitFlags fromDate:[NSDate date]]];
+	NSDate *today = [self.calendar dateFromComponents:[self.calendar components:unitFlags fromDate:[NSDate date]]];
 	NSLog(@"Start date:  %@", startDate);
 	NSLog(@"End date:    %@", endDate);
 	NSLog(@"Today:       %@", today);
@@ -85,17 +85,17 @@
     NSLog(@"Calc end:    %@", calcEndDate);
 	NSLog(@"Now:         %@", [NSDate date]);
 
-    NSInteger completed = [[gregorianCalendar components:NSDayCalendarUnit
+    NSInteger completed = [[self.calendar components:NSDayCalendarUnit
                                                 fromDate:calcStartDate
                                                   toDate:today
                                                  options:0]
 						   day];
-	NSInteger left = [[gregorianCalendar components:NSDayCalendarUnit
+	NSInteger left = [[self.calendar components:NSDayCalendarUnit
                                            fromDate:today
                                              toDate:calcEndDate
                                             options:0]
 					  day];
-	NSInteger duration = [[gregorianCalendar components:NSDayCalendarUnit
+	NSInteger duration = [[self.calendar components:NSDayCalendarUnit
                                                fromDate:calcStartDate
                                                  toDate:calcEndDate
                                                 options:0]
@@ -115,7 +115,7 @@
             completed++;
             break;
         case todayIsRemaining:
-            if (![today isEqualToDate:[gregorianCalendar dateFromComponents:[gregorianCalendar components:unitFlags fromDate:calcEndDate]]]) {
+            if (![today isEqualToDate:[self.calendar dateFromComponents:[self.calendar components:unitFlags fromDate:calcEndDate]]]) {
                 left++;
             }
             break;
