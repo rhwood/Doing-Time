@@ -480,6 +480,8 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+    return nil;
+    /*
     switch (section) {
         case EVENT:
             return NSLocalizedString(@"Give the event a title and\nset the start and end dates.", @"Label with basic instructions for the user");
@@ -488,6 +490,7 @@
             return nil;
             break;
     }
+     */
 }
 
 // Override to support conditional editing of the table view.
