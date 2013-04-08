@@ -20,15 +20,15 @@
 #define DURATION 3
 // Table Dates section
 #define DATES 1
-#define SHOW_DATES 0
-#define INCLUDE_END 1
-#define TODAY_IS 2
-#define CALENDAR 3
+#define INCLUDE_END 0
+#define TODAY_IS 1
+#define CALENDAR 2
 // Table Stats section
-#define STATS 2
-#define SHOW_PERCENTS 0
-#define SHOW_TOTALS 1
-#define SHOW_COMPLETE 2
+#define DISPLAY 2
+#define SHOW_DATES 0
+#define SHOW_PERCENTS 1
+#define SHOW_TOTALS 2
+#define SHOW_COMPLETE 3
 
 @implementation EventSettingsViewController
 
@@ -267,10 +267,10 @@
             return 4;
             break;
         case DATES:
-            return 3; // no calendar link yet
+            return 2; // no calendar linking yet
             break;
-        case STATS:
-            return 3;
+        case DISPLAY:
+            return 4;
             break;
         default:
             return 0;
@@ -284,7 +284,7 @@
 	static NSString *Value1CellIdentifier = @"Value1Cell";
     
     UITableViewCell *cell;
-	if ((indexPath.section == EVENT && indexPath.row != DURATION) || (indexPath.section == DATES && indexPath.row == TODAY_IS)) {
+	if ((indexPath.section == EVENT) || (indexPath.section == DATES && indexPath.row == TODAY_IS)) {
 		cell = [tableView dequeueReusableCellWithIdentifier:Value1CellIdentifier];
 		if (cell == nil) {
 			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:Value1CellIdentifier];
@@ -346,20 +346,6 @@
             break;
         case DATES:
             switch (indexPath.row) {
-                case SHOW_DATES:
-                    cell.textLabel.text = NSLocalizedString(@"Show Dates", @"Label for cell that includes checkmark to indicate that event dates should be displayed");
-                    cell.accessoryView = [[UISwitch alloc] initWithFrame:CGRectZero];
-                    [(UISwitch *)cell.accessoryView addTarget:self
-                                                       action:@selector(switchShowEventDates:)
-                                             forControlEvents:UIControlEventValueChanged];
-                    if ([[self.event valueForKey:showEventDatesKey] boolValue]) {
-						[(UISwitch *)cell.accessoryView setOn:YES];
-                        cell.detailTextLabel.text = NSLocalizedString(@"Event dates are displayed", @"Explanitory label for \"Show Dates\" if checked");
-					} else {
-						[(UISwitch *)cell.accessoryView setOn:NO];
-                        cell.detailTextLabel.text = NSLocalizedString(@"Event dates are hidden", @"Explanitory label for \"Show Dates\" if not checked");
-                    }
-                    break;
                 case INCLUDE_END:
 					cell.textLabel.text = NSLocalizedString(@"Include End Date", @"Label for cell that includes checkmark to indicate that events are calculated to include the last day");
                     cell.accessoryView = [[UISwitch alloc] initWithFrame:CGRectZero];
@@ -405,8 +391,22 @@
                     break;
             }
             break;
-        case STATS:
+        case DISPLAY:
             switch (indexPath.row) {
+                case SHOW_DATES:
+                    cell.textLabel.text = NSLocalizedString(@"Show Dates", @"Label for cell that includes checkmark to indicate that event dates should be displayed");
+                    cell.accessoryView = [[UISwitch alloc] initWithFrame:CGRectZero];
+                    [(UISwitch *)cell.accessoryView addTarget:self
+                                                       action:@selector(switchShowEventDates:)
+                                             forControlEvents:UIControlEventValueChanged];
+                    if ([[self.event valueForKey:showEventDatesKey] boolValue]) {
+						[(UISwitch *)cell.accessoryView setOn:YES];
+                        cell.detailTextLabel.text = NSLocalizedString(@"Event dates are displayed", @"Explanitory label for \"Show Dates\" if checked");
+					} else {
+						[(UISwitch *)cell.accessoryView setOn:NO];
+                        cell.detailTextLabel.text = NSLocalizedString(@"Event dates are hidden", @"Explanitory label for \"Show Dates\" if not checked");
+                    }
+                    break;
                 case SHOW_PERCENTS:
                     cell.textLabel.text = NSLocalizedString(@"Percentages", @"Label for cell that includes checkmark to indicate that events are displayed with percentages");
                     cell.detailTextLabel.text = @"";
@@ -470,8 +470,8 @@
         case DATES:
             return NSLocalizedString(@"Dates", @"Heading for settings affecting date calculations");
             break;
-        case STATS:
-			return NSLocalizedString(@"Statistics", @"Heading for settings affecting the display of events");
+        case DISPLAY:
+			return NSLocalizedString(@"Display", @"Heading for settings affecting the display of events");
             break;
         default:
             return nil;
@@ -571,10 +571,6 @@
         case DATES:
             [self clearDatePicker];
             switch (indexPath.row) {
-                case SHOW_DATES:
-                    // show event dates is handled by trapping the switch change
-                    [tableView cellForRowAtIndexPath:indexPath].selectionStyle = UITableViewCellSelectionStyleNone;
-                    break;
                 case INCLUDE_END:
                     // include last day in calc is handled by trapping the switch change
                     [tableView cellForRowAtIndexPath:indexPath].selectionStyle = UITableViewCellSelectionStyleNone;
@@ -604,11 +600,15 @@
                     break;
             }
             break;
-        case STATS:
+        case DISPLAY:
             [self clearDatePicker];
             [tableView cellForRowAtIndexPath:indexPath].selectionStyle = UITableViewCellSelectionStyleNone;
             /*
             switch (indexPath.row) {
+                case SHOW_DATES:
+                    // show event dates is handled by trapping the switch change
+                    [tableView cellForRowAtIndexPath:indexPath].selectionStyle = UITableViewCellSelectionStyleNone;
+                    break;
                 case SHOW_PERCENTS:
                     // show percentages only is handled by trapping the switch change
                     [tableView cellForRowAtIndexPath:indexPath].selectionStyle = UITableViewCellSelectionStyleNone;
