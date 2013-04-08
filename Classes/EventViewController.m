@@ -109,13 +109,22 @@
             completed++;
             break;
         case todayIsRemaining:
-            if (![today isEqualToDate:[self.calendar dateFromComponents:[self.calendar components:unitFlags fromDate:calcEndDate]]]) {
+            if (![today isEqualToDate:calcEndDate]) {
                 left++;
             }
             break;
         default:
             break;
     }
+    if (left <= 0) {
+        completed = duration;
+        inPast = left * -1;
+        left = 0;
+    }
+    if (!left && ![endDate isEqual:calcEndDate]) {
+        inPast = inPast + 1;
+    }
+    /*
 	if (completed <= 0) {
 		inFuture = (completed * -1) + 1;
 		completed = 0;
@@ -132,6 +141,7 @@
             TFLog(@"Event (from %@ to %@) has duration (%d) != days complete (%d) + days left (%d)", startDate, endDate, duration, completed, left);
         }
     }
+     */
     NSLog(@"--after adjustments--");
 	NSLog(@"%d days complete", completed);
 	NSLog(@"%d days left", left);
