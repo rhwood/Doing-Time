@@ -96,33 +96,58 @@
 	NSLog(@"%d days complete", completed);
 	NSLog(@"%d days left", left);
 	NSLog(@"%d total days", duration);
+    NSLog(@"--adjusting--");
     if (!duration) {
         // TODO: Error out and lead user to event settings (Issue #31)
         duration = 1;
         left++;
     }
-    switch ([event[todayIsKey] integerValue]) {
-        case todayIsNotCounted:
-            completed--;
-            break;
-        case todayIsOver:
-            completed++;
-            break;
-        case todayIsRemaining:
-            if (![today isEqualToDate:calcEndDate]) {
-                left++;
-            }
-            break;
-        default:
-            break;
+    // only make adjustments for today if event is current
+    if (left >= 0 && completed >= 0) {
+        switch ([event[todayIsKey] integerValue]) {
+            case todayIsNotCounted:
+                NSLog(@"today is not counted (left --)");
+                left--;
+                break;
+            case todayIsOver:
+                NSLog(@"today is over (complete ++ & left --)");
+                completed++;
+                left--;
+                break;
+            case todayIsRemaining:
+                //            if (![today isEqualToDate:calcEndDate]) {
+                //                NSLog(@"today is remaining (left ++)");
+                //                left++;
+                //            }
+                break;
+            default:
+                break;
+        }
     }
+    // event is over
     if (left <= 0) {
+        NSLog(@"event is over");
         completed = duration;
         inPast = left * -1;
         left = 0;
     }
-    if (!left && ![endDate isEqual:calcEndDate]) {
-        inPast = inPast + 1;
+    // if caclEndDate was not extended & event is over,
+    // event is actually one day farther in the past than originally calculated
+    // this check may not be needed at all
+    //    if (!left && [endDate isEqual:calcEndDate]) {
+    //        NSLog(@"distant past (inPast ++)");
+    //        inPast = inPast + 1;
+    //    }
+    // event has yet to begin
+    if (completed < 0) {
+        NSLog(@"event is in future");
+        left = duration;
+        inFuture = completed * -1;
+        completed = 0;
+    }
+    // calculations have created too long an event
+    if ((completed + left) > duration) {
+        NSLog(@"NOW WHAT?");
     }
     /*
 	if (completed <= 0) {
