@@ -62,7 +62,7 @@
 	NSInteger inPast = 0;
 	NSDictionary *event = [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] objectAtIndex:self.eventID];
     BOOL showPercentage = [event[showPercentageKey] boolValue];
-    BOOL showRemainingDaysOnly = [event[showCompletedDaysKey] boolValue];
+    BOOL showCompleted = [event[showCompletedDaysKey] boolValue];
     BOOL showTotals = [event[showTotalsKey] boolValue];
     BOOL showDateRange = [event[showEventDatesKey] boolValue];
     NSDate *startDate = event[startKey];
@@ -159,27 +159,32 @@
     NSLog((showTotals) ? @"Showing totals" : @"Hiding totals");
     NSLog((showPercentage) ? @"Showing percentage" : @"Hiding percentage");
     if (showPercentage || showTotals) {
-        NSLog(@"Writing percentages or totals");
-        _daysComplete.hidden = NO;
+        _daysComplete.hidden = !showCompleted;
         _daysLeft.hidden = NO;
         if (!inFuture) {
-            if (showRemainingDaysOnly) {
+            // event is ongoing or past
+            if (completed == 1) {
+                days = NSLocalizedString(@"day", @"Singular form of \"day\"");
+            }
+            if (completed == 0) {
+                _daysComplete.text = [NSString localizedStringWithFormat:NSLocalizedString(@"Starting today", @"Message displayed when event starts to today, but today is not \"complete\"")];
+            } else if (!showPercentage && showTotals) {
                 if (completed == 1) {
-                    days = NSLocalizedString(@"day", @"Singular form of \"day\"");
-                }
-                if (completed == 0) {
-                    _daysComplete.hidden = YES;
-                } else if (!showPercentage && showTotals) {
+                    _daysComplete.text = [NSString localizedStringWithFormat:NSLocalizedString(@"Started yesterday", @"Started yesterday, but no percentages displayed")];
+                } else {
                     _daysComplete.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%d %@ complete", @"The number (%d) of days (%@) complete"), completed, days];
-                } else if (!showTotals && showPercentage) {
-                    _daysComplete.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%2.4g%% complete", @"The percentage of days complete"), interval * completed * 100];
+                }
+            } else if (!showTotals && showPercentage) {
+                _daysComplete.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%2.4g%% complete", @"The percentage of days complete"), interval * completed * 100];
+            } else {
+                if (completed == 1) {
+                    _daysComplete.text = [NSString localizedStringWithFormat:NSLocalizedString(@"Started yesterday (%2.4g%% complete)", @"Started yesterday, with percentage complete"), interval * completed * 100];
                 } else {
                     _daysComplete.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%d %@ (%2.4g%%) complete", @"The number (%d) of days (%@) complete with the percent of days past in parenthesis"), completed, days, interval * completed * 100];
                 }
-            } else {
-                _daysComplete.hidden = YES;
             }
         } else if (showTotals) {
+            // event is in future, and we are showing stats
             if (inFuture == 1) {
                 _daysComplete.text = NSLocalizedString(@"Begins tomorrow", @"The message displayed when the event will start tomorrow");
             } else {
@@ -187,9 +192,12 @@
                                       inFuture];
             }
         } else {
+            // event is in future, but we are being vague
             _daysComplete.text = NSLocalizedString(@"Not yet begun", @"The message displayed when event will start in future, but totals are hidden");
         }
         if (!inPast) {
+            // event is ongoing or in future
+            // reset plurality of days since the inFuture tests could have botched it for us
             if (left == 1) {
                 days = NSLocalizedString(@"day", @"");
             } else {
@@ -205,6 +213,7 @@
                 _daysLeft.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%d %@ (%2.4g%%) left", @"The number (%d) of days (%@) remaining with the percentage remaining in parenthesis"), left, days, interval * left * 100];
             }
         } else if (showTotals) {
+            // event is past, and we are showing stats
             if (inPast == 1) {
                 _daysLeft.text = NSLocalizedString(@"Ended yesterday", @"Message displayed to indicate the event ended the day prior.");
             } else {
@@ -212,9 +221,11 @@
                                   inPast];
             }
         } else {
+            // event is past, but we are being vague
             _daysLeft.text = NSLocalizedString(@"Ended", @"Message displayed when event is over, but totals are hidden");
         }
     } else {
+        // hide any statistics
         _daysComplete.hidden = YES;
         _daysLeft.hidden = YES;
     }
