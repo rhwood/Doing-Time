@@ -124,6 +124,11 @@
         completed = duration;
         inPast = left * -1;
         left = 0;
+        if (![event[includeLastDayInCalcKey] boolValue]) {
+            // this solves the problem only half the time!
+            NSLog(@"drift since last day is not included");
+            inPast++;
+        }
     }
     // event has yet to begin
     if (completed < 0) {
@@ -169,7 +174,7 @@
             if (completed == 0) {
                 _daysComplete.text = [NSString localizedStringWithFormat:NSLocalizedString(@"Starting today", @"Message displayed when event starts to today, but today is not \"complete\"")];
             } else if (!showPercentage && showTotals) {
-                if (completed == 1) {
+                if (completed == 1 && !inPast) {
                     _daysComplete.text = [NSString localizedStringWithFormat:NSLocalizedString(@"Started yesterday", @"Started yesterday, but no percentages displayed")];
                 } else {
                     _daysComplete.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%d %@ complete", @"The number (%d) of days (%@) complete"), completed, days];
@@ -177,7 +182,7 @@
             } else if (!showTotals && showPercentage) {
                 _daysComplete.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%2.4g%% complete", @"The percentage of days complete"), interval * completed * 100];
             } else {
-                if (completed == 1) {
+                if (completed == 1 && !inPast) {
                     _daysComplete.text = [NSString localizedStringWithFormat:NSLocalizedString(@"Started yesterday (%2.4g%% complete)", @"Started yesterday, with percentage complete"), interval * completed * 100];
                 } else {
                     _daysComplete.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%d %@ (%2.4g%%) complete", @"The number (%d) of days (%@) complete with the percent of days past in parenthesis"), completed, days, interval * completed * 100];
