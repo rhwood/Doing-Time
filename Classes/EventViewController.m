@@ -53,7 +53,6 @@
 }
 
 - (BOOL)setPieChartValues:(BOOL)forceRedraw {
-    NSUInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit;
     NSDateComponents *oneDay = [[NSDateComponents alloc] init];
     [oneDay setDay:1];
 	if (self.eventID >= [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count]) {
@@ -61,8 +60,6 @@
 	}
 	NSInteger inFuture = 0;
 	NSInteger inPast = 0;
-	// BOOL isRealStart = NO;
-	// startDate is used for computations, realStartDate is used for sane UI
 	NSDictionary *event = [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] objectAtIndex:self.eventID];
     BOOL showPercentage = [event[showPercentageKey] boolValue];
     BOOL showRemainingDaysOnly = [event[showCompletedDaysKey] boolValue];
@@ -115,10 +112,7 @@
                 left--;
                 break;
             case todayIsRemaining:
-                //            if (![today isEqualToDate:calcEndDate]) {
-                //                NSLog(@"today is remaining (left ++)");
-                //                left++;
-                //            }
+                // logical default case
                 break;
             default:
                 break;
@@ -131,13 +125,6 @@
         inPast = left * -1;
         left = 0;
     }
-    // if caclEndDate was not extended & event is over,
-    // event is actually one day farther in the past than originally calculated
-    // this check may not be needed at all
-    //    if (!left && [endDate isEqual:calcEndDate]) {
-    //        NSLog(@"distant past (inPast ++)");
-    //        inPast = inPast + 1;
-    //    }
     // event has yet to begin
     if (completed < 0) {
         NSLog(@"event is in future");
@@ -147,26 +134,8 @@
     }
     // calculations have created too long an event
     if ((completed + left) > duration) {
-        NSLog(@"NOW WHAT?");
+        TFLog(@"Event (from %@ to %@) has duration (%d) != days complete (%d) + days left (%d)\n(today is %@, last day is counted %@)", startDate, endDate, duration, completed, left, event[todayIsKey], event[includeLastDayInCalcKey]);
     }
-    /*
-	if (completed <= 0) {
-		inFuture = (completed * -1) + 1;
-		completed = 0;
-		left = duration;
-	} else if (completed > duration) {
-		inPast = left * -1;
-		completed = duration;
-		left = 0;
-    }
-    if (duration != (completed + left)) {
-        if (duration == (completed + left + 1)) {
-            completed++;
-        } else {
-            TFLog(@"Event (from %@ to %@) has duration (%d) != days complete (%d) + days left (%d)", startDate, endDate, duration, completed, left);
-        }
-    }
-     */
     NSLog(@"--after adjustments--");
 	NSLog(@"%d days complete", completed);
 	NSLog(@"%d days left", left);
