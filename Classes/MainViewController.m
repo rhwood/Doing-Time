@@ -254,6 +254,9 @@
 	//controller.navigationController = navigationController;
 	controller.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
 	[self presentModalViewController:navigationController animated:YES];
+    if ([sender respondsToSelector:@selector(eventID)]) {
+        [controller editEvent:[sender eventID]];
+    }
 }
 
 - (IBAction)changePage:(id)sender {

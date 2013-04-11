@@ -145,6 +145,12 @@
 	self.eventBeingUpdated = controller.index;
 }
 
+- (void)editEvent:(NSUInteger)eventID {
+    EventSettingsViewController *controller = [[EventSettingsViewController alloc] initWithEventIndex:eventID];
+    [self.navigationController pushViewController:controller animated:YES];
+    self.eventBeingUpdated = controller.index;
+}
+
 #pragma mark -
 #pragma mark Table view data source
 
@@ -388,9 +394,10 @@
 		case 0: // Activity
 			if (indexPath.row != [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count]) {
 				// open eventSettingsViewController
-				EventSettingsViewController *controller = [[EventSettingsViewController alloc] initWithEventIndex:indexPath.row];
-				[self.navigationController pushViewController:controller animated:YES];
-				eventBeingUpdated = controller.index;
+//				EventSettingsViewController *controller = [[EventSettingsViewController alloc] initWithEventIndex:indexPath.row];
+//				[self.navigationController pushViewController:controller animated:YES];
+//				eventBeingUpdated = controller.index;
+                [self editEvent:indexPath.row];
 			} else if ([self.appDelegate.appStore hasTransactionForProduct:multipleEventsProductIdentifier]) {
 				// add empty event to array
 				[self addEvent];

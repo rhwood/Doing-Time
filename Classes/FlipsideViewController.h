@@ -44,6 +44,7 @@
 #pragma mark Events
 
 - (void)addEvent;
+- (void)editEvent:(NSUInteger)eventID;
 
 #pragma mark -
 #pragma mark Purchases

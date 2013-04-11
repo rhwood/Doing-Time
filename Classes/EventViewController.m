@@ -35,6 +35,7 @@
 		self.eventID = event;
         self.oldEvent = nil;
         self.calendar = [NSCalendar currentCalendar];
+        self.showingAlert = NO;
 	}
 	return self;
 }
@@ -95,9 +96,17 @@
 	NSLog(@"%d total days", duration);
     NSLog(@"--adjusting--");
     if (!duration) {
-        // TODO: Error out and lead user to event settings (Issue #31)
-        duration = 1;
-        left++;
+        if (!self.showingAlert) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Cannot Display Event", @"Title for error displaying event")
+                                                            message:NSLocalizedString(@"Event must be 1 or more days long.\n\nInclude the end date in the event\nor change the end date.", @"Label indicating that event has zero days duration")
+                                                           delegate:self
+                                                  cancelButtonTitle:NSLocalizedString(@"OK", @"Label indicating the user acknowledges the issue")
+                                                  otherButtonTitles:nil];
+            self.showingAlert = YES;
+            [alert show];
+        } else {
+            return NO;
+        }
     }
     // only make adjustments for today if event is current
     if (left >= 0 && completed >= 0) {
@@ -308,6 +317,15 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return UIInterfaceOrientationIsPortrait(interfaceOrientation);
 }
+
+#pragma mark - UIAlertView delegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    self.showingAlert = NO;
+    [self showInfo:self];
+}
+
+#pragma mark - Memory management
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
