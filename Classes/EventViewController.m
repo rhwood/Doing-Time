@@ -124,9 +124,8 @@
         completed = duration;
         inPast = left * -1;
         left = 0;
-        if (![event[includeLastDayInCalcKey] boolValue]) {
-            // this solves the problem only half the time!
-            NSLog(@"drift since last day is not included");
+        if ([endDate isEqualToDate:calcEndDate]) {
+            NSLog(@"last day not in event");
             inPast++;
         }
     }
