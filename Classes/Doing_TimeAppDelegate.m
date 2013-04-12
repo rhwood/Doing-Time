@@ -101,7 +101,7 @@
 
     // Add the main view controller's view to the window and display.
 
-    [window addSubview:mainViewController.view];
+    window.rootViewController = mainViewController;
     [window makeKeyAndVisible];
 
     return YES;
