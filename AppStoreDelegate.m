@@ -150,8 +150,10 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 	if (transaction.error.code != SKErrorPaymentCancelled) {
 		[[NSNotificationCenter defaultCenter] postNotificationName:AXAppStoreTransactionFailed
 															object:self
-														  userInfo:@{AXAppStoreProductIdentifier: transaction.payment.productIdentifier,
-																	AXAppStoreTransactionError: transaction.error}];
+														  userInfo:@{
+                                       AXAppStoreProductIdentifier: (transaction.payment.productIdentifier) ? transaction.payment.productIdentifier : [NSNull null],
+                                        AXAppStoreTransactionError: (transaction.error) ? transaction.error : [NSNull null]}
+         ];
 	} else {
 		[[NSNotificationCenter defaultCenter] postNotificationName:AXAppStoreTransactionCancelled
 															object:self
