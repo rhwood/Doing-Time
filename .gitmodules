@@ -1,0 +1,3 @@
+[submodule "CargoBay"]
+	path = CargoBay
+	url = git://github.com/mattt/CargoBay.git
