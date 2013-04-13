@@ -33,6 +33,7 @@
 - (id)initWithEventIndex:(NSUInteger)index;
 - (void)cancel;
 - (void)done;
+- (Boolean)verifyEvent;
 - (void)saveEvent;
 - (BOOL)verifyNonemptyTitle;
 - (void)calculateDuration;

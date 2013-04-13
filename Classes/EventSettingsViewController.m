@@ -172,19 +172,25 @@
 }
 
 - (void)done {
+    if ([self verifyEvent]) {
+        [self saveEvent];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
+- (Boolean)verifyEvent {
 	if (![self verifyNonemptyTitle]) {
-		return;
+		return NO;
 	}
 	if (![self verifyDateOrder]) {
 		[self showDateErrorAlert];
-		return;
+		return NO;
 	}
     if (self.duration <= 0) {
         [self showDurationErrorAlert];
-        return;
+        return NO;
     }
-    [self saveEvent];
-	[self.navigationController popViewControllerAnimated:YES];
+    return YES;
 }
 
 - (void)saveEvent {
