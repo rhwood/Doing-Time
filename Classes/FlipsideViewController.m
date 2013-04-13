@@ -163,7 +163,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-	if (section == 2 &&
+	if (section == 1 &&
 		[self.appDelegate.appStore hasTransactionsForAllProducts]) {
 		section++;
 	}
@@ -195,7 +195,7 @@
 	static NSString *SubtitleCellIdentifier = @"SubtitleCell";
 	static NSString *Value1CellIdentifier = @"Value1Cell";
 	NSUInteger section = indexPath.section;
-	if (indexPath.section == 2 &&
+	if (indexPath.section == 1 &&
 		[self.appDelegate.appStore hasTransactionsForAllProducts]) {
 		section = indexPath.section + 1;
 	}
@@ -286,7 +286,7 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	if (section == 2 &&
+	if (section == 1 &&
 		[self.appDelegate.appStore hasTransactionsForAllProducts]) {
 		section++;
 	}
@@ -344,7 +344,7 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
-	if (section == 2 &&
+	if (section == 1 &&
 		[self.appDelegate.appStore hasTransactionsForAllProducts]) {
 		section++;
 	}
@@ -384,7 +384,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     MFMailComposeViewController* mailController;
 	NSUInteger section = indexPath.section;
-	if (indexPath.section >= 2 && 
+	if (indexPath.section >= 1 &&
 		[self.appDelegate.appStore hasTransactionsForAllProducts]) {
 		section = indexPath.section + 1;
 	}
