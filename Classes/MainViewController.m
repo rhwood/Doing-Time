@@ -99,9 +99,23 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-	if (![self.events count]) {
-		[self showInfo:nil];
-	}
+    if (![[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey].count) {
+        // Set reasonable defaults for the first event here
+        if (![[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey]) {
+            NSDate *today = [NSDate midnightForDate:[NSDate date]];
+            [[NSUserDefaults standardUserDefaults] setObject:@[@{
+                                                    titleKey:NSLocalizedString(@"Doing Time", @"Application Name"),
+                                                    startKey:today,
+                                                      endKey:today,
+                                        showCompletedDaysKey:@(YES),
+                                           showPercentageKey:@(NO),
+                                                  todayIsKey:@(todayIsNotCounted)}]
+                                                      forKey:eventsKey];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+        // TODO: Display a nice message about setting first event
+        [self showInfo:self.events[0]];
+    }
 }
 
 - (void)loadScrollerWithEvent:(NSUInteger)event {

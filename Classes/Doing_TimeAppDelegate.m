@@ -73,20 +73,6 @@
         [[NSUserDefaults standardUserDefaults] setInteger:3 forKey:versionKey];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
-
-	// Set reasonable defaults for the first event here
-	if (![[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey]) {
-		NSDate *today = [NSDate midnightForDate:[NSDate date]];
-		[[NSUserDefaults standardUserDefaults] setObject:@[@{
-                                                titleKey:NSLocalizedString(@"Doing Time", @"Application Name"),
-                                                startKey:today,
-                                                  endKey:today,
-                                    showCompletedDaysKey:@(YES),
-                                       showPercentageKey:@(NO),
-                                              todayIsKey:@(todayIsNotCounted)}]
-												  forKey:eventsKey];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-	}
 	
 	// Observe the store
 	self.appStore = [[AppStoreDelegate alloc] initWithDictionary:[[NSUserDefaults standardUserDefaults] dictionaryForKey:transactionsKey]];
