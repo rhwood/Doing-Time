@@ -223,11 +223,12 @@
 }
 
 - (void)showDuration {
-    if (self.event[startKey] && self.event[endKey]) {
+    if ([self.event[endKey] isEqualToDate:[NSDate distantFuture]] ||
+        [self.event[startKey] isEqualToDate:[NSDate distantPast]]) {
+        self.durationView.text = nil;
+    } else {
         [self calculateDuration];
         self.durationView.text = [NSNumber numberWithUnsignedInteger:self.duration].stringValue;
-    } else {
-        self.durationView.text = nil;
     }
 }
 
@@ -827,7 +828,7 @@
         if (![self verifyNonemptyTitle]) {
             [self.titleView becomeFirstResponder];
         }
-    } else if (self.durationView.text.length) {
+    } else if (self.durationView.text.length && ![self.event[startKey] isEqualToDate:[NSDate distantPast]]) {
         NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
         offsetComponents.day = [self.durationView.text integerValue];
         if (!self.event[includeLastDayInCalcKey]) {
