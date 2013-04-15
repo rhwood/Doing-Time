@@ -105,7 +105,6 @@
                 [self saveEvent];
             }
 		}
-        [self calculateDuration];
 	}
 	return self;
 }
@@ -132,20 +131,20 @@
     self.durationViewCellIndexPath = [NSIndexPath indexPathForRow:DURATION inSection:EVENT];
 	// set the detailTextLabel.textColor since its not a built in color
 	self.detailTextLabelColor = [UIColor colorWithRed:0.22 green:0.33 blue:0.53 alpha:1.0];
-	self.linkUnlinkedEventActionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Link to Event in Calendar", @"Action sheet title to link event to system calendar")
-																	delegate:self
-														   cancelButtonTitle:NSLocalizedString(@"Cancel", @"Button to not link event to calendar")
-													  destructiveButtonTitle:nil
-														   otherButtonTitles:NSLocalizedString(@"Existing Event", @"Button to link to event already in calendar"),
-										 NSLocalizedString(@"Create New Event", @"Button to create event in calendar"),
-										 nil];
-	self.changeLinkedEventActionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Link to Event in Calendar", @"")
-																	delegate:self
-														   cancelButtonTitle:NSLocalizedString(@"Cancel", @"")
-													  destructiveButtonTitle:NSLocalizedString(@"Remove Link", @"Button to unlink an event from the system calendar")
-														   otherButtonTitles:NSLocalizedString(@"Change Linked Event", @""),
-										 NSLocalizedString(@"Create New Event", @""),
-										 nil];
+//	self.linkUnlinkedEventActionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Link to Event in Calendar", @"Action sheet title to link event to system calendar")
+//																	delegate:self
+//														   cancelButtonTitle:NSLocalizedString(@"Cancel", @"Button to not link event to calendar")
+//													  destructiveButtonTitle:nil
+//														   otherButtonTitles:NSLocalizedString(@"Existing Event", @"Button to link to event already in calendar"),
+//										 NSLocalizedString(@"Create New Event", @"Button to create event in calendar"),
+//										 nil];
+//	self.changeLinkedEventActionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Link to Event in Calendar", @"")
+//																	delegate:self
+//														   cancelButtonTitle:NSLocalizedString(@"Cancel", @"")
+//													  destructiveButtonTitle:NSLocalizedString(@"Remove Link", @"Button to unlink an event from the system calendar")
+//														   otherButtonTitles:NSLocalizedString(@"Change Linked Event", @""),
+//										 NSLocalizedString(@"Create New Event", @""),
+//										 nil];
     // Add gesture recognized to handle taps between cells
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideInputs)];
     [self.tableView addGestureRecognizer:gestureRecognizer];
@@ -153,18 +152,14 @@
     // Add duration cell, since it's accessory view is unique
     self.durationView.textColor = self.detailTextLabelColor;
     self.durationView.keyboardType = UIKeyboardTypeNumberPad;
-    [self showDuration];
     //	Doing_TimeAppDelegate *appDelegate = (Doing_TimeAppDelegate *)[UIApplication sharedApplication].delegate;
     //	self.eventStore = appDelegate.eventStore;
 }
 
-/*
- // Override to allow orientations other than the default portrait orientation.
- - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
- // Return YES for supported orientations
- return (interfaceOrientation == UIInterfaceOrientationPortrait);
- }
- */
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self showDuration];
+}
 
 - (void)cancel {
 	self.cancelling = YES;
