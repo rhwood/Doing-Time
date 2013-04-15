@@ -152,8 +152,8 @@
     gestureRecognizer.cancelsTouchesInView = NO;
     // Add duration cell, since it's accessory view is unique
     self.durationView.textColor = self.detailTextLabelColor;
-    self.durationView.text = [[NSNumber numberWithUnsignedInteger:self.duration] stringValue];
     self.durationView.keyboardType = UIKeyboardTypeNumberPad;
+    [self showDuration];
     //	Doing_TimeAppDelegate *appDelegate = (Doing_TimeAppDelegate *)[UIApplication sharedApplication].delegate;
     //	self.eventStore = appDelegate.eventStore;
 }
@@ -227,13 +227,21 @@
     }
 }
 
+- (void)showDuration {
+    if (self.event[startKey] && self.event[endKey]) {
+        [self calculateDuration];
+        self.durationView.text = [NSNumber numberWithUnsignedInteger:self.duration].stringValue;
+    } else {
+        self.durationView.text = nil;
+    }
+}
+
 #pragma mark - Display Settings
 
 - (void)switchIncludeLastDayInCalc:(id)sender {
     [self clearDatePicker];
     [self.event setValue:@([(UISwitch *)sender isOn]) forKey:includeLastDayInCalcKey];
-    [self calculateDuration];
-    self.durationView.text = [[NSNumber numberWithUnsignedInteger:self.duration] stringValue];
+    [self showDuration];
 }
 
 - (void)switchShowEventDates:(id)sender {
@@ -657,8 +665,7 @@
 																																 dateStyle:NSDateFormatterLongStyle
 																																 timeStyle:NSDateFormatterNoStyle];
 	[self verifyDateOrder];
-    [self calculateDuration];
-    self.durationView.text = [[NSNumber numberWithUnsignedInteger:self.duration] stringValue];
+    [self showDuration];
 }
 
 - (void)changeEndDate:(id)sender {
@@ -668,8 +675,7 @@
 																															   dateStyle:NSDateFormatterLongStyle
 																															   timeStyle:NSDateFormatterNoStyle];
 	[self verifyDateOrder];
-    [self calculateDuration];
-    self.durationView.text = [[NSNumber numberWithUnsignedInteger:self.duration] stringValue];
+    [self showDuration];
 }
 
 - (void)clearDatePicker {
@@ -826,7 +832,7 @@
         if (![self verifyNonemptyTitle]) {
             [self.titleView becomeFirstResponder];
         }
-    } else {
+    } else if (self.durationView.text.length) {
         NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
         offsetComponents.day = [self.durationView.text integerValue];
         if (!self.event[includeLastDayInCalcKey]) {
@@ -834,6 +840,8 @@
         }
         self.event[endKey] = [self.calendar dateByAddingComponents:offsetComponents toDate:self.event[startKey] options:0];
         [self.tableView reloadRowsAtIndexPaths:@[self.endDateViewCellIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    } else {
+        [self showDuration];
     }
 }
 

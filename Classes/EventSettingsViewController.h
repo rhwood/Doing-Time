@@ -36,8 +36,12 @@
 - (Boolean)verifyEvent;
 - (void)saveEvent;
 - (BOOL)verifyNonemptyTitle;
-- (void)calculateDuration;
 - (void)hideInputs;
+
+#pragma mark - Duration
+
+- (void)calculateDuration;
+- (void)showDuration;
 
 #pragma mark - Display Settings
 
