@@ -423,8 +423,10 @@
 					if (YES) { // Why can't I allocate an object after following a path in a switch?
                         mailController = [[MFMailComposeViewController alloc] init];
                         mailController.mailComposeDelegate = self;
-                        [mailController setSubject:[NSString localizedStringWithFormat:NSLocalizedString(@"Doing Time %@ Feedback", @"Email subject for application feedback"),
-                                                [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]]];
+                        [mailController setSubject:[NSString localizedStringWithFormat:NSLocalizedString(@"Doing Time %@ (%@) Feedback", @"Email subject for application feedback"),
+                                                    [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"],
+                                                    [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]
+                                                    ]];
                         [mailController setToRecipients:@[@"Support@AlexandriaSoftware.com"]];
                         [mailController setMessageBody:@"" isHTML:NO];
                         if (mailController) {
