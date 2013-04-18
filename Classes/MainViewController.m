@@ -113,7 +113,12 @@
                                                       forKey:eventsKey];
             [[NSUserDefaults standardUserDefaults] synchronize];
         }
-        // TODO: Display a nice message about setting first event
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Welcome to Doing Time", @"Title for intro alert")
+                                                        message:NSLocalizedString(@"Doing Time shows the progress towards completing a multi-day event.\n\nLet's configure our first event now.", @"Label for intro alert.")
+                                                       delegate:self
+                                              cancelButtonTitle:NSLocalizedString(@"OK", @"Label indicating the user acknowledges the issue")
+                                              otherButtonTitles:nil];
+        [alert show];
         [self showInfo:self.events[0]];
     }
 }
