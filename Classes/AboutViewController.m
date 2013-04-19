@@ -69,7 +69,7 @@
 			return 4;
 			break;
 		case 2:
-			return 1;
+			return 2;
 			break;
 		default:
 			return 0;
@@ -127,6 +127,10 @@
 					cell.detailTextLabel.text = @"Chartreuse";
                     cell.accessibilityLabel = NSLocalizedString(@"We thank Dain Kaplan for Chartreuse.", @"AccessibilityLabel for Chartreuse (thanks)");
 					break;
+                case 1:
+                    cell.textLabel.text = @"Glyphish";
+                    cell.detailTextLabel.text = NSLocalizedString(@"Icons", @"Icons");
+                    cell.accessibilityLabel = NSLocalizedString(@"We thank Glyphish for the icons in Doing Time.", @"AccessibilityLabel for Glyphish icons (thanks)");
 				default:
 					break;
 			}
@@ -138,7 +142,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     if (section == ([self numberOfSectionsInTableView:tableView] - 1)) {
-        return [NSString localizedStringWithFormat:NSLocalizedString(@"%@ %@ (%@)", @"About view version footer"),
+        return [NSString localizedStringWithFormat:NSLocalizedString(@"%@ version %@ (%@)", @"About view version footer"),
                 [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
                 [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"],
                 [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]];
@@ -183,6 +187,9 @@
 				case 0: // Chartreuse site
 					[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://axsw.co/fuCJn9"]];
 					break;
+                case 1: // Glyphish site
+                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://axsw.co/11IOfOC"]];
+                    break;
 				default:
 					break;
 			}
