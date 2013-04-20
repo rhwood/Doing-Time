@@ -8,6 +8,12 @@
 
 #import "AppStoreDelegate.h"
 
+#if TARGET_IPHONE_SIMULATOR
+    #define BYPASS_STORE 0
+#else
+    #define BYPASS_STORE 0
+#endif
+
 NSString *const AXAppStoreDidReceiveProductsList = @"AXAppStoreDidReceiveProductsList";
 NSString *const AXAppStoreNewContentShouldBeProvided = @"AXAppStoreNewContentShouldBeProvided";
 NSString *const AXAppStoreProducts = @"AXAppStoreProducts";
@@ -169,7 +175,7 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 - (BOOL)hasTransactionForProduct:(NSString *)productIdentifier {
 	// ensure product is in self.products so that self.products count can be compared to self.transactionStore count
 	[self productData:productIdentifier];
-	return ([self.transactionStore valueForKey:productIdentifier]) ? YES : NO;
+	return ([self.transactionStore valueForKey:productIdentifier] || BYPASS_STORE) ? YES : NO;
 }
 
 - (void)provideContent:(NSString *)productIdentifier {
