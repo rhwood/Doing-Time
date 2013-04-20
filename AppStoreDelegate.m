@@ -9,7 +9,7 @@
 #import "AppStoreDelegate.h"
 
 #if TARGET_IPHONE_SIMULATOR
-    #define BYPASS_STORE 0
+    #define BYPASS_STORE 1 // 0 to see as without purchases 1 to see as with purchases
 #else
     #define BYPASS_STORE 0
 #endif
