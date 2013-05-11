@@ -102,16 +102,23 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
 	if (![[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count]) {
 		[self addEvent];
 	}
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
 	if (eventBeingUpdated < [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count]) {
 		[delegate eventDidUpdate:eventBeingUpdated];
 		[self.tableView reloadData];
 	}
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self.tableView cellForRowAtIndexPath:self.tableView.indexPathForSelectedRow].selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 - (IBAction)done:(id)sender {
