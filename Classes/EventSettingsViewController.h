@@ -91,6 +91,8 @@
 @property (nonatomic, strong) IBOutlet UITableViewCell* titleViewCell;
 @property (nonatomic, strong) IBOutlet UITextField* durationView;
 @property (nonatomic, strong) IBOutlet UITableViewCell* durationViewCell;
+@property (nonatomic, strong) IBOutlet UITextView* urlView;
+@property (nonatomic, strong) IBOutlet UITableViewCell* urlViewCell;
 @property BOOL cancelling;
 @property NSUInteger duration;
 @property (nonatomic, strong) NSCalendar *calendar;

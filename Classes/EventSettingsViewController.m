@@ -29,6 +29,9 @@
 #define SHOW_PERCENTS 1
 #define SHOW_TOTALS 2
 #define SHOW_COMPLETE 3
+// Table URL section
+#define URL_SECT 3
+#define URL_CELL 0
 
 @implementation EventSettingsViewController
 
@@ -268,7 +271,7 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return 3;
+	return 3; // set to 4 to enable the URL
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -282,6 +285,8 @@
         case DISPLAY:
             return 4;
             break;
+        case URL_SECT:
+            return 1;
         default:
             return 0;
             break;
@@ -294,7 +299,7 @@
 	static NSString *Value1CellIdentifier = @"Value1Cell";
     
     UITableViewCell *cell;
-	if ((indexPath.section == EVENT) || (indexPath.section == DATES && indexPath.row == TODAY_IS)) {
+	if ((indexPath.section == EVENT) || (indexPath.section == DATES && indexPath.row == TODAY_IS) || (indexPath.section == URL_SECT)) {
 		cell = [tableView dequeueReusableCellWithIdentifier:Value1CellIdentifier];
 		if (cell == nil) {
 			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:Value1CellIdentifier];
@@ -466,6 +471,14 @@
                 default:
                     break;
             }
+            break;
+        case URL_SECT:
+            switch (indexPath.row) {
+                case URL_CELL:
+                    return self.urlViewCell;
+                default:
+                    break;
+            }
         default:
             break;
     }
@@ -494,7 +507,7 @@
     /*
     switch (section) {
         case EVENT:
-            return NSLocalizedString(@"Give the event a title and\nset the start and end dates.", @"Label with basic instructions for the user");
+            return [NSString stringWithFormat:@"doing-time-app://?%@", [self.event[titleKey] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
             break;
         default:
             return nil;

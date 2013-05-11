@@ -94,11 +94,14 @@
     return YES;
 }
 
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    // get event index by name and display it
+    return YES;
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     [self applicationDidEnterBackground:application];
 }
-
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // force every event to redraw/recalculate when next drawn
