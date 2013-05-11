@@ -7,6 +7,7 @@
 //
 
 #import "AppStoreDelegate.h"
+#import "CargoBay.h"
 
 #if TARGET_IPHONE_SIMULATOR
     #define BYPASS_STORE 0 // 0 to see as without purchases 1 to see as with purchases
@@ -39,7 +40,7 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 		self.products = [NSMutableDictionary dictionaryWithCapacity:0];
 		self.openRequests = [NSMutableSet setWithCapacity:0];
 		self.validProducts = [NSMutableArray arrayWithCapacity:0];
-		[[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+		[[SKPaymentQueue defaultQueue] addTransactionObserver:[CargoBay sharedManager]];
 	}
 	return self;
 }
@@ -89,17 +90,25 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 }
 
 - (void)requestProductData:(NSString *)productIdentifier {
-	if (![self.openRequests containsObject:productIdentifier]) {
-		SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:productIdentifier]];
-		request.delegate = self;
-		// ensure product is in self.products so that self.products count can be compared to self.transactionStore count
-		if (![self.products objectForKey:productIdentifier]) {
-			[self.products setObject:[NSNull null] forKey:productIdentifier];
-		}
-		[request start];
-		[self.openRequests addObject:productIdentifier];
-	} else {
-	}
+    [[CargoBay sharedManager] productsWithIdentifiers:[NSSet setWithObject:productIdentifier]
+                                              success:^(NSArray *products, NSArray *invalidIdentifiers) {
+                                                  for (SKProduct *product in products) {
+                                                      [self.products setObject:product forKey:product.productIdentifier];
+                                                      if (![self.validProducts containsObject:product.productIdentifier]) {
+                                                          [self.validProducts addObject:product.productIdentifier];
+                                                      }
+                                                  }
+                                                  for (NSString *productIdentifier in invalidIdentifiers) {
+                                                      [self.validProducts removeObject:productIdentifier];
+                                                  }
+                                                  [[NSNotificationCenter defaultCenter] postNotificationName:AXAppStoreDidReceiveProductsList
+                                                                                                      object:self
+                                                                                                    userInfo:@{AXAppStoreProducts: self.validProducts}];
+                                                  
+                                              }
+                                              failure:^(NSError *error) {
+                                                  [self request:nil didFailWithError:error];
+                                              }];
 }
 
 - (void)requestProductData:(NSString *)productIdentifier ifHasTransaction:(BOOL)hasTransaction {
@@ -191,7 +200,7 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 - (void)queuePaymentForProduct:(SKProduct *)product withQuantity:(NSUInteger)quantity {
 	SKMutablePayment *payment = [SKMutablePayment paymentWithProduct:product];
 	payment.quantity = quantity;
-	[[SKPaymentQueue defaultQueue] addPayment:payment];	
+	[[SKPaymentQueue defaultQueue] addPayment:payment];
 }
 
 - (void)recordTransaction:(SKPaymentTransaction *)transaction {
