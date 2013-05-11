@@ -369,6 +369,10 @@
             }
 			break;
 		case 2:
+            return [NSString localizedStringWithFormat:NSLocalizedString(@"%@ version %@ (%@)", @"About view version footer"),
+                    [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
+                    [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"],
+                    [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]];
 			break;
 	}
 	return nil;
