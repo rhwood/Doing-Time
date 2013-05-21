@@ -162,7 +162,7 @@
 #pragma mark Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	if (![self.appDelegate.appStore hasTransactionsForAllProducts]) {
+	if (![self.appDelegate.appStore hasTransactionsForAllProducts] && self.appDelegate.appStore.canMakePayments) {
 		return 3;
 	}
 	return 2;
@@ -171,7 +171,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
 	if (section == 1 &&
-		[self.appDelegate.appStore hasTransactionsForAllProducts]) {
+		([self.appDelegate.appStore hasTransactionsForAllProducts] || !self.appDelegate.appStore.canMakePayments)) {
 		section++;
 	}
 	switch (section) {
@@ -203,7 +203,7 @@
 	static NSString *Value1CellIdentifier = @"Value1Cell";
 	NSUInteger section = indexPath.section;
 	if (indexPath.section == 1 &&
-		[self.appDelegate.appStore hasTransactionsForAllProducts]) {
+		([self.appDelegate.appStore hasTransactionsForAllProducts] || !self.appDelegate.appStore.canMakePayments)) {
 		section = indexPath.section + 1;
 	}
 	NSUInteger eventsCount = [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count];
@@ -294,7 +294,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	if (section == 1 &&
-		[self.appDelegate.appStore hasTransactionsForAllProducts]) {
+		([self.appDelegate.appStore hasTransactionsForAllProducts] || !self.appDelegate.appStore.canMakePayments)) {
 		section++;
 	}
 	switch (section) {
