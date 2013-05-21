@@ -22,7 +22,7 @@ extern NSString *const AXAppStoreTransactionFailed;
 extern NSString *const AXAppStoreTransactionShouldBeRecorded;
 extern NSString *const AXAppStoreTransactionStore;
 
-@interface AppStoreDelegate : NSObject <SKPaymentTransactionObserver, SKProductsRequestDelegate> {
+@interface AppStoreDelegate : NSObject {
 
 	NSMutableSet *_openRequests;
 	NSMutableArray *_validProducts;
@@ -45,7 +45,6 @@ extern NSString *const AXAppStoreTransactionStore;
 - (SKProduct *)productData:(NSString *)productIdentifier;
 - (void)requestProductData:(NSString *)productIdentifier;
 - (void)requestProductData:(NSString *)productIdentifier ifHasTransaction:(BOOL)hasTransaction;
-- (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response;
 - (void)request:(SKRequest *)request didFailWithError:(NSError *)error;
 
 #pragma mark -
@@ -55,7 +54,6 @@ extern NSString *const AXAppStoreTransactionStore;
 - (void)failedTransaction:(SKPaymentTransaction *)transaction;
 - (BOOL)hasTransactionsForAllProducts;
 - (BOOL)hasTransactionForProduct:(NSString *)productIdentifier;
-- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions;
 - (void)provideContent:(NSString *)productIdentifier;
 - (void)queuePaymentForProduct:(SKProduct *)product;
 - (void)queuePaymentForProduct:(SKProduct *)product withQuantity:(NSUInteger)quantity;

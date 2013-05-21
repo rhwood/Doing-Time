@@ -40,7 +40,35 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 		self.products = [NSMutableDictionary dictionaryWithCapacity:0];
 		self.openRequests = [NSMutableSet setWithCapacity:0];
 		self.validProducts = [NSMutableArray arrayWithCapacity:0];
-		[[SKPaymentQueue defaultQueue] addTransactionObserver:[CargoBay sharedManager]];
+        [[CargoBay sharedManager] setPaymentQueueUpdatedTransactionsBlock:^(SKPaymentQueue *queue, NSArray *transactions) {
+            for (SKPaymentTransaction *transaction in transactions) {
+                switch (transaction.transactionState) {
+                    case SKPaymentTransactionStatePurchased:
+                        [self completeTransaction:transaction];
+                        break;
+                    case SKPaymentTransactionStateFailed:
+                        [self failedTransaction:transaction];
+                        break;
+                    case SKPaymentTransactionStateRestored:
+                        [self restoreTransaction:transaction];
+                    default:
+                        break;
+                }
+            }
+        }];
+        [[CargoBay sharedManager] setPaymentQueueRestoreCompletedTransactionsWithSuccess:nil
+                                                                                 failure:^(SKPaymentQueue *queue, NSError *error) {
+                                                                                     if (error.code != SKErrorPaymentCancelled) {
+                                                                                         [[NSNotificationCenter defaultCenter] postNotificationName:AXAppStoreTransactionFailed
+                                                                                                                                             object:self
+                                                                                                                                           userInfo:@{AXAppStoreTransactionError: error}];
+                                                                                     } else {
+                                                                                         [[NSNotificationCenter defaultCenter] postNotificationName:AXAppStoreTransactionCancelled
+                                                                                                                                             object:self
+                                                                                                                                           userInfo:nil];
+                                                                                     }
+                                                                                 }];
+ 		[[SKPaymentQueue defaultQueue] addTransactionObserver:[CargoBay sharedManager]];
 	}
 	return self;
 }
@@ -62,23 +90,6 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 
 - (BOOL)hasProductData:(NSString *)productIdentifier {
 	return ([self productData:productIdentifier]) ? YES : NO;
-}
-
-- (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response {
-	for (SKProduct *product in response.products) {
-		[self.products setObject:product forKey:product.productIdentifier];
-		if (![self.validProducts containsObject:product.productIdentifier]) {
-			[self.validProducts addObject:product.productIdentifier];
-		}
-		[self.openRequests removeObject:product.productIdentifier];
-	}
-	for (NSString *productIdentifier in response.invalidProductIdentifiers) {
-		[self.openRequests removeObject:productIdentifier];
-		[self.validProducts removeObject:productIdentifier];
-	}
-	[[NSNotificationCenter defaultCenter] postNotificationName:AXAppStoreDidReceiveProductsList
-														object:self
-													  userInfo:@{AXAppStoreProducts: self.validProducts}];
 }
 
 - (SKProduct *)productData:(NSString *)productIdentifier {
@@ -123,37 +134,8 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 													  userInfo:@{AXAppStoreRequestError: error}];
 }
 
-- (void)paymentQueue:(SKPaymentQueue *)queue restoreCompletedTransactionsFailedWithError:(NSError *)error {
-	if (error.code != SKErrorPaymentCancelled) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:AXAppStoreTransactionFailed
-                                                            object:self
-                                                          userInfo:@{AXAppStoreTransactionError: error}];
-	} else {
-		[[NSNotificationCenter defaultCenter] postNotificationName:AXAppStoreTransactionCancelled
-															object:self
-														  userInfo:nil];
-	}
-}
-
 #pragma mark -
 #pragma mark Payment transaction handling
-
-- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions {
-	for (SKPaymentTransaction *transaction in transactions) {
-		switch (transaction.transactionState) {
-			case SKPaymentTransactionStatePurchased:
-				[self completeTransaction:transaction];
-				break;
-			case SKPaymentTransactionStateFailed:
-				[self failedTransaction:transaction];
-				break;
-			case SKPaymentTransactionStateRestored:
-				[self restoreTransaction:transaction];
-			default:
-				break;
-		}
-	}
-}
 
 - (void)completeTransaction:(SKPaymentTransaction *)transaction {
 	[self recordTransaction:transaction];
