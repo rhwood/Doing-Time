@@ -263,7 +263,7 @@
 }
 
 - (void)flipsideViewControllerDidFinish:(FlipsideViewController *)controller {
-	[self dismissModalViewControllerAnimated:YES];
+	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)showInfo:(id)sender {
@@ -272,7 +272,7 @@
 	UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
 	//controller.navigationController = navigationController;
 	controller.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-	[self presentModalViewController:navigationController animated:YES];
+	[self presentViewController:navigationController animated:YES completion:nil];
     if ([sender respondsToSelector:@selector(eventID)]) {
         [controller editEvent:[sender eventID]];
     }

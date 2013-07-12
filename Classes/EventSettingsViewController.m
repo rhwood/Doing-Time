@@ -124,7 +124,7 @@
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
 																						   target:self
                                                                                            action:@selector(done)];
-    self.view.backgroundColor = [UIColor viewFlipsideBackgroundColor];
+    self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
 	self.titleView.text = [self.event valueForKey:titleKey];
 	self.titleView.borderStyle = UITextBorderStyleNone;
 	[self clearDatePicker];

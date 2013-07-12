@@ -49,7 +49,7 @@
 	[self setEditButton];
 	
 	[self.navigationController setNavigationBarHidden:NO];
-    self.view.backgroundColor = [UIColor viewFlipsideBackgroundColor];
+    self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
 	self.showErrorAlert = YES;
 	self.endingTimeViewCellIndexPath = [NSIndexPath indexPathForRow:2 inSection:1];
 	// set the detailTextLabel.textColor since its not a built in color
@@ -441,7 +441,7 @@
                         [mailController setToRecipients:@[@"Support@AlexandriaSoftware.com"]];
                         [mailController setMessageBody:@"" isHTML:NO];
                         if (mailController) {
-                            [self presentModalViewController:mailController animated:YES];
+                            [self presentViewController:mailController animated:YES completion:nil];
                         }
                     }
 					break;
@@ -515,7 +515,7 @@
 - (void)mailComposeController:(MFMailComposeViewController*)controller  
           didFinishWithResult:(MFMailComposeResult)result 
                         error:(NSError*)error {
-	[self dismissModalViewControllerAnimated:YES];
+	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark -
