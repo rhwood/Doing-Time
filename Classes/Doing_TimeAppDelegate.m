@@ -56,10 +56,6 @@
         if ([[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] valueForKey:showPercentageKey]) {
             showPercentage = [[NSUserDefaults standardUserDefaults] boolForKey:showPercentageKey];
         }
-        NSInteger today = 0;
-        if ([[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] valueForKey:dayOverKey]) {
-            today = ([[NSUserDefaults standardUserDefaults] boolForKey:dayOverKey]) ? todayIsOver : todayIsRemaining;
-        }
         NSMutableArray *events = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey]];
         for (int i = 0; i < events.count; i++) {
             NSMutableDictionary *event = [events objectAtIndex:i];
