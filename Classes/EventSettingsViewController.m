@@ -132,8 +132,8 @@
 	self.startDateViewCellIndexPath = [NSIndexPath indexPathForRow:START_DATE inSection:EVENT];
 	self.endDateViewCellIndexPath = [NSIndexPath indexPathForRow:END_DATE inSection:EVENT];
     self.durationViewCellIndexPath = [NSIndexPath indexPathForRow:DURATION inSection:EVENT];
-	// set the detailTextLabel.textColor since its not a built in color
-	self.detailTextLabelColor = [UIColor colorWithRed:0.22 green:0.33 blue:0.53 alpha:1.0];
+	// set the detailTextLabel.textColor to ~ Brunswick Green (per Wikipedia)
+	self.detailTextLabelColor = [UIColor colorWithRed:0.105 green:0.301 blue:0.242 alpha:1.0];
 //	self.linkUnlinkedEventActionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Link to Event in Calendar", @"Action sheet title to link event to system calendar")
 //																	delegate:self
 //														   cancelButtonTitle:NSLocalizedString(@"Cancel", @"Button to not link event to calendar")

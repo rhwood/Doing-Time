@@ -23,7 +23,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                    <color key="tintColor" red="0.20784313725490194" green="0.36862745098039218" blue="0.23137254901960785" alpha="1" colorSpace="deviceRGB"/>
+                    <color key="tintColor" red="0.1058823529" green="0.30196078430000001" blue="0.24313725489999999" alpha="1" colorSpace="deviceRGB"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="68"/>
                         <outlet property="delegate" destination="-1" id="69"/>
@@ -48,8 +48,9 @@
                     <color key="backgroundColor" red="0.21960784310000001" green="0.3294117647" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
             </subviews>
-            <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
-            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
+            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+            <color key="tintColor" red="0.1058823529" green="0.30196078430000001" blue="0.24313725489999999" alpha="1" colorSpace="deviceRGB"/>
+            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
         </view>
     </objects>
 </document>
