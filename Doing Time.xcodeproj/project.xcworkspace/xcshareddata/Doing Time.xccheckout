@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>E18DB93B-AB2E-4BA8-BF6A-1043E4FC1C46</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Doing Time</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>8093E8C3-F9A9-4240-A5F8-02AF9CC8107A</key>
+		<string>git://github.com/mattt/CargoBay.git</string>
+		<key>8273E6CA-C340-4717-AFF3-91F9BCC96884</key>
+		<string>https://github.com/AFNetworking/AFNetworking.git</string>
+		<key>AF6449CE-587A-4C4F-95B0-5497F59B7A1C</key>
+		<string>https://github.com/rhwood/Doing-Time.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Doing Time.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>8093E8C3-F9A9-4240-A5F8-02AF9CC8107A</key>
+		<string>../../CargoBay</string>
+		<key>8273E6CA-C340-4717-AFF3-91F9BCC96884</key>
+		<string>../../CargoBay/AFNetworking</string>
+		<key>AF6449CE-587A-4C4F-95B0-5497F59B7A1C</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/rhwood/Doing-Time.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>AF6449CE-587A-4C4F-95B0-5497F59B7A1C</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>AF6449CE-587A-4C4F-95B0-5497F59B7A1C</string>
+			<key>IDESourceControlWCCName</key>
+			<string>git</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>8273E6CA-C340-4717-AFF3-91F9BCC96884</string>
+			<key>IDESourceControlWCCName</key>
+			<string>AFNetworking</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>8093E8C3-F9A9-4240-A5F8-02AF9CC8107A</string>
+			<key>IDESourceControlWCCName</key>
+			<string>CargoBay</string>
+		</dict>
+	</array>
+</dict>
+</plist>
