@@ -108,6 +108,8 @@
 		48AEFA8F153C31890064ED0D /* TFLoggingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TFLoggingManager.h; path = Classes/TFLoggingManager.h; sourceTree = "<group>"; };
 		48AEFA90153C31890064ED0D /* TFLoggingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TFLoggingManager.m; path = Classes/TFLoggingManager.m; sourceTree = "<group>"; };
 		48B38235134BA44A009B874B /* Default.png */ = {isa = PBXFileReference; explicitFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		48C3355D1806BDAB008D0C63 /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+AsyncLogging.h"; sourceTree = "<group>"; };
+		48C3355E1806BDAB008D0C63 /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+ManualSessions.h"; sourceTree = "<group>"; };
 		48CE82C11350CB7E00D94BA6 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		48D2F2F01537A194006FA78B /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
 		48D2F2F11537A194006FA78B /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
@@ -310,6 +312,8 @@
 				48D2F2F11537A194006FA78B /* README.md */,
 				48D2F2F21537A194006FA78B /* release_notes.md */,
 				48D2F2F31537A194006FA78B /* TestFlight.h */,
+				48C3355D1806BDAB008D0C63 /* TestFlight+AsyncLogging.h */,
+				48C3355E1806BDAB008D0C63 /* TestFlight+ManualSessions.h */,
 			);
 			path = TestFlightSDK;
 			sourceTree = "<group>";
