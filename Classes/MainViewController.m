@@ -8,6 +8,7 @@
 
 #import "MainViewController.h"
 #import "EventViewController.h"
+#import "EventSettingsViewController.h"
 #import "Doing_TimeAppDelegate.h"
 #import "AppStoreDelegate.h"
 #import "Constants.h"
@@ -267,14 +268,22 @@
 }
 
 - (IBAction)showInfo:(id)sender {
-	FlipsideViewController *controller = [[FlipsideViewController alloc] initWithNibName:@"FlipsideView" bundle:nil];
-	controller.delegate = self;
-	UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
-	//controller.navigationController = navigationController;
-	controller.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-	[self presentViewController:navigationController animated:YES completion:nil];
-    if ([sender respondsToSelector:@selector(eventID)]) {
-        [controller editEvent:[sender eventID]];
+    if ([self.appDelegate.appStore hasTransactionForProduct:multipleEventsProductIdentifier]) {
+        FlipsideViewController *controller = [[FlipsideViewController alloc] initWithNibName:@"FlipsideView" bundle:nil];
+        controller.delegate = self;
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
+        //controller.navigationController = navigationController;
+        controller.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+        [self presentViewController:navigationController animated:YES completion:nil];
+        if ([sender respondsToSelector:@selector(eventID)]) {
+            [controller editEvent:[sender eventID]];
+        }
+    } else {
+        EventSettingsViewController *controller = [[EventSettingsViewController alloc] initWithEventIndex:0];
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
+        //controller.navigationController = navigationController;
+        controller.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+        [self presentViewController:navigationController animated:YES completion:nil];
     }
 }
 
