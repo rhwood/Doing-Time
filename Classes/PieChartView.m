@@ -130,7 +130,7 @@
 	
 	int x = self.center.x;
 	int y = self.center.y;
-	int r = (self.bounds.size.width>self.bounds.size.height?self.bounds.size.height:self.bounds.size.width)/2 * 0.8;
+	int r = (self.bounds.size.width>self.bounds.size.height?self.bounds.size.height:self.bounds.size.width)/2 * 0.9;
 	
 	CGContextRef ctx = UIGraphicsGetCurrentContext();
 	CGContextSetRGBStrokeColor(ctx, 0.0, 0.0, 0.0, 0.4);
