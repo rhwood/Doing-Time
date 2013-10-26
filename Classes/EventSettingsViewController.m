@@ -10,6 +10,8 @@
 #import "TodaySettingsViewController.h"
 #import "MainViewController.h"
 #import "Doing_TimeAppDelegate.h"
+#import "AppStoreDelegate.h"
+#import "AboutViewController.h"
 #import "Constants.h"
 
 // Table Event section
@@ -32,6 +34,13 @@
 // Table URL section
 #define URL_SECT 3
 #define URL_CELL 0
+// Table App Store section
+#define APP_STORE 3
+#define STORE 0
+// Table About section
+#define SUPPORT 4
+#define FEEDBACK 0
+#define ABOUT 1
 
 @implementation EventSettingsViewController
 
@@ -58,6 +67,7 @@
 
 - (id)initWithEventIndex:(NSUInteger)index {
 	if ((self = [super initWithNibName:@"EventSettingsView" bundle:nil])) {
+        self.appDelegate = (Doing_TimeAppDelegate *)[UIApplication sharedApplication].delegate;
         self.calendar = [NSCalendar currentCalendar];
 		self.index = index;
 		if (self.index == [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count]) {
@@ -271,7 +281,11 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return 3; // set to 4 to enable the URL
+    if ([self.appDelegate.appStore hasTransactionForProduct:multipleEventsProductIdentifier]) {
+        return 3; // set to 4 to enable the URL
+    } else {
+        return 5;
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -285,8 +299,19 @@
         case DISPLAY:
             return 4;
             break;
-        case URL_SECT:
-            return 1;
+//        case URL_SECT:
+//            return 1;
+//            break;
+        case APP_STORE:
+            if (self.appDelegate.allowInAppPurchases) {
+                return self.appDelegate.appStore.validProducts.count + 1;
+            } else {
+                return 0;
+            }
+			break;
+        case SUPPORT:
+            return 2;
+            break;
         default:
             return 0;
             break;
@@ -294,6 +319,9 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	if (indexPath.section == APP_STORE && [self.appDelegate.appStore hasTransactionsForAllProducts]) {
+		indexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section + 1];
+	}
     //static NSString *DefaultCellIdentifier = @"DefaultCell";
 	static NSString *SubtitleCellIdentifier = @"SubtitleCell";
 	static NSString *Value1CellIdentifier = @"Value1Cell";
@@ -472,13 +500,51 @@
                     break;
             }
             break;
-        case URL_SECT:
-            switch (indexPath.row) {
-                case URL_CELL:
-                    return self.urlViewCell;
-                default:
-                    break;
-            }
+//        case URL_SECT:
+//            switch (indexPath.row) {
+//                case URL_CELL:
+//                    return self.urlViewCell;
+//                default:
+//                    break;
+//            }
+//            break;
+		case APP_STORE:
+			if (self.appDelegate.appStore.canMakePayments) {
+                if (indexPath.row < self.appDelegate.appStore.validProducts.count) {
+                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    SKProduct *product = [self.appDelegate.appStore.products objectForKey:[self.appDelegate.appStore.validProducts objectAtIndex:indexPath.row]];
+                    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+                    [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+                    [numberFormatter setLocale:product.priceLocale];
+                    cell.textLabel.text = product.localizedTitle;
+                    cell.detailTextLabel.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%@ for %@", @"String containing the description of an in-app purchase followed by the cost."),
+                                                 product.localizedDescription,
+                                                 [numberFormatter stringFromNumber:product.price]];
+                } else {
+                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    cell.textLabel.text = NSLocalizedString(@"Restore Purchases", @"Label for link to restore purchases");
+                }
+			}
+			break;
+		case SUPPORT:
+			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+			switch (indexPath.row) {
+				case 0:
+					cell.textLabel.text = NSLocalizedString(@"Send Feedback", @"Label for link to provide application feedback");
+					break;
+				case 1:
+					cell.textLabel.text = NSLocalizedString(@"About Doing Time", @"Label for link for information about the application");
+					break;
+				case 2:
+					cell.textLabel.text = NSLocalizedString(@"Tutorial", @"Label for link to help content.");
+					break;
+				case 3:
+					cell.textLabel.text = NSLocalizedString(@"Support", @"Label for link to support resources");
+					break;
+				default:
+					break;
+			}
+			break;
         default:
             break;
     }
@@ -486,6 +552,9 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+	if (section == APP_STORE && [self.appDelegate.appStore hasTransactionsForAllProducts]) {
+		section++;
+	}
     switch (section) {
         case EVENT:
             return nil;
@@ -496,6 +565,12 @@
         case DISPLAY:
 			return NSLocalizedString(@"Display", @"Heading for settings affecting the display of events");
             break;
+		case APP_STORE:
+			return NSLocalizedString(@"Available Upgrades", @"Heading for list of available in-app purchases");
+			break;
+		case SUPPORT:
+			return NSLocalizedString(@"About Doing Time", @"Heading for list of elements about the app (help, credits, feedback, etc)");
+			break;
         default:
             return nil;
             break;
@@ -503,6 +578,36 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+	if (section == APP_STORE && [self.appDelegate.appStore hasTransactionsForAllProducts]) {
+		section++;
+	}
+	switch (section) {
+		case APP_STORE:
+            if (self.appDelegate.allowInAppPurchases) {
+                if (!self.appDelegate.appStore.canMakePayments) {
+                    return [NSString localizedStringWithFormat:NSLocalizedString(@"In-App Purchases are disabled on this %@.", @"Notice that the user cannot purchase an available upgrade due to policy."),
+                            [UIDevice currentDevice].localizedModel];
+                } else if (![self.appDelegate.appStore hasTransactionsForAllProducts] &&
+                           ![self.appDelegate.appStore hasDataForAnyProducts]) {
+                    if ([self.appDelegate.appStore.openRequests count]) {
+                        return NSLocalizedString(@"Getting available upgrades...", @"Notice that the application is getting the list of available in-app purchases.");
+                    } else {
+                        return NSLocalizedString(@"Unable to get available upgrades.", @"Notice that the application cannot get the list of available in-app purchases.");
+                    }
+                }
+            } else {
+                return NSLocalizedString(@"In-App Purchases have been disabled due to threats of patent litigation.", @"Notice that In-App Purchases are disabled.");
+            }
+			break;
+		case SUPPORT:
+            return [NSString localizedStringWithFormat:NSLocalizedString(@"%@ version %@ (%@)", @"About view version footer"),
+                    [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
+                    [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"],
+                    [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]];
+			break;
+        default:
+            break;
+	}
     return nil;
     /*
     switch (section) {
@@ -644,6 +749,45 @@
                     break;
             }
              */
+		case APP_STORE: // Store
+			if (self.appDelegate.appStore.canMakePayments) {
+                if (indexPath.row < self.appDelegate.appStore.products.count) {
+                    SKProduct *product = [self.appDelegate.appStore.products objectForKey:[[self.appDelegate.appStore.products allKeys] objectAtIndex:indexPath.row]];
+                    self.activityLabel.text = [NSString localizedStringWithFormat:NSLocalizedString(@"Getting %@...", @"Label indicating that app is getting an in-app purchase (with %@ as the title)"), product.localizedTitle];
+                    [self hidePurchaseActivity:NO];
+                    [self.appDelegate.appStore queuePaymentForProduct:product];
+                } else {
+                    self.activityLabel.text = NSLocalizedString(@"Restoring purchases...", @"Label indicating that app is restoring purchases");
+                    [self hidePurchaseActivity:NO];
+                    [self.appDelegate.appStore restoreCompletedTransactions];
+                }
+			}
+			break;
+		case SUPPORT: // About
+			switch (indexPath.row) {
+				case 0:
+					if (YES) { // Why can't I allocate an object after following a path in a switch?
+                        MFMailComposeViewController* mailController;
+                        mailController = [[MFMailComposeViewController alloc] init];
+                        mailController.mailComposeDelegate = self;
+                        [mailController setSubject:[NSString localizedStringWithFormat:NSLocalizedString(@"Doing Time %@ (%@) Feedback", @"Email subject for application feedback"),
+                                                    [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"],
+                                                    [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]
+                                                    ]];
+                        [mailController setToRecipients:@[@"Support@AlexandriaSoftware.com"]];
+                        [mailController setMessageBody:@"" isHTML:NO];
+                        if (mailController) {
+                            [self presentViewController:mailController animated:YES completion:nil];
+                        }
+                    }
+					break;
+				case 1:
+					[self.navigationController pushViewController:[[AboutViewController alloc] initWithNibName:@"AboutView" bundle:nil] animated:YES];
+					break;
+				default:
+					break;
+			}
+			break;
         default:
             break;
     }
@@ -862,6 +1006,43 @@
     if ([textField isEqual:self.durationView]) {
         self.durationView.text = nil;
     }
+}
+
+#pragma mark - Purchases
+
+- (void)hidePurchaseActivity:(BOOL)hidden {
+	if (hidden != self.activityView.hidden) {
+		[UIView beginAnimations:@"animateDisplayPager" context:NULL];
+		if (!hidden) {
+			self.activityView.hidden = NO;
+			self.tableView.frame = CGRectMake(self.tableView.frame.origin.x,
+											  self.tableView.frame.origin.y,
+											  self.tableView.frame.size.width,
+											  self.tableView.frame.size.height - self.activityView.frame.size.height);
+			self.activityView.frame = CGRectOffset(self.activityView.frame,
+                                                   0,
+                                                   - self.activityView.frame.size.height);
+		} else {
+			self.tableView.frame = CGRectMake(self.tableView.frame.origin.x,
+											  self.tableView.frame.origin.y,
+											  self.tableView.frame.size.width,
+											  self.tableView.frame.size.height + self.activityView.frame.size.height);
+			self.activityView.frame = CGRectOffset(self.activityView.frame,
+                                                   0,
+                                                   + self.activityView.frame.size.height);
+		}
+		[UIView commitAnimations];
+		[self.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionNone animated:YES];
+		self.activityView.hidden = hidden;
+	}
+}
+
+#pragma mark - Mail composition delegate
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller
+          didFinishWithResult:(MFMailComposeResult)result
+                        error:(NSError*)error {
+	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark -

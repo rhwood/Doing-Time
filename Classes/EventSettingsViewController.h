@@ -6,11 +6,14 @@
 //  Copyright 2010 Alexandria Software. All rights reserved.
 //
 
+#import <MessageUI/MessageUI.h>
 #import "NSDate+Additions.h"
 //#import <EventKit/EventKit.h>
 //#import <EventKitUI/EventKitUI.h>
 
-@interface EventSettingsViewController : UIViewController <UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UIActionSheetDelegate> {
+@class Doing_TimeAppDelegate;
+
+@interface EventSettingsViewController : UIViewController <UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate> {
 	NSUInteger _index;
 	NSMutableDictionary* _event;
 	UITableView* _tableView;
@@ -28,6 +31,10 @@
 	__unsafe_unretained UITextField *_titleView;
 	UITableViewCell *_titleViewCell;
 	BOOL cancelling;
+
+	// In-App Purchases
+	BOOL appStoreRequestFailed;
+
 }
 
 - (id)initWithEventIndex:(NSUInteger)index;
@@ -96,5 +103,12 @@
 @property BOOL cancelling;
 @property NSUInteger duration;
 @property (nonatomic, strong) NSCalendar *calendar;
+
+@property (nonatomic, strong) Doing_TimeAppDelegate* appDelegate;
+
+// purchase support
+@property (nonatomic, strong) IBOutlet UIActivityIndicatorView* activityIndicator;
+@property (nonatomic, strong) IBOutlet UILabel* activityLabel;
+@property (nonatomic, strong) IBOutlet UIView* activityView;
 
 @end

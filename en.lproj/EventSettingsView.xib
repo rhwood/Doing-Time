@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4471.1" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="13A598" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment version="1296" defaultVersion="1792" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3697.3"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EventSettingsViewController">
             <connections>
+                <outlet property="activityIndicator" destination="wEs-6T-7Ce" id="1b4-Ic-QHx"/>
+                <outlet property="activityLabel" destination="uIw-Y6-z7P" id="laG-7x-dUZ"/>
+                <outlet property="activityView" destination="E8L-8t-imL" id="4Ri-G7-0Q3"/>
                 <outlet property="datePicker" destination="71" id="72"/>
                 <outlet property="durationView" destination="93" id="94"/>
                 <outlet property="durationViewCell" destination="91" id="95"/>
@@ -40,7 +43,7 @@
                     </date>
                     <locale key="locale" localeIdentifier="en_US"/>
                     <timeZone key="timeZone" name="America/Los_Angeles">
-                        <mutableData key="data">
+                        <data key="data">
 VFppZgAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAC5AAAABAAAABCepkign7sVkKCGKqChmveQ
 y4kaoNIj9HDSYSYQ1v50INiArZDa/tGg28CQENzes6DdqayQ3r6VoN+JjpDgnneg4WlwkOJ+WaDjSVKQ
 5F47oOUpNJDmR1gg5xJREOgnOiDo8jMQ6gccIOrSFRDr5v4g7LH3EO3G4CDukdkQ76/8oPBxuxDxj96g
@@ -58,9 +61,27 @@ f5gqkAABAAECAwEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
 AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
 AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
 AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
-</mutableData>
+</data>
                     </timeZone>
                 </datePicker>
+                <view hidden="YES" contentMode="scaleToFill" id="E8L-8t-imL">
+                    <rect key="frame" x="0.0" y="481" width="320" height="23"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <subviews>
+                        <activityIndicatorView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" animating="YES" style="white" id="wEs-6T-7Ce">
+                            <rect key="frame" x="280" y="1" width="20" height="20"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </activityIndicatorView>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Purchasing %@..." lineBreakMode="tailTruncation" minimumFontSize="10" id="uIw-Y6-z7P">
+                            <rect key="frame" x="20" y="1" width="252" height="22"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.21960784310000001" green="0.3294117647" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
+                </view>
             </subviews>
             <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
             <color key="tintColor" red="0.10588235294117647" green="0.30196078431372547" blue="0.24313725490196078" alpha="1" colorSpace="deviceRGB"/>
@@ -70,11 +91,11 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             <rect key="frame" x="0.0" y="0.0" width="320" height="45"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="82" id="Znn-Og-Ahq">
-                <rect key="frame" x="0.0" y="0.0" width="322" height="44"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Title" minimumFontSize="17" clearButtonMode="always" id="83">
-                        <rect key="frame" x="15" y="0.0" width="300" height="44"/>
+                        <rect key="frame" x="15" y="0.0" width="298" height="44"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="17"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
@@ -90,11 +111,11 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="91" id="eZJ-0R-8Se">
-                <rect key="frame" x="0.0" y="0.0" width="322" height="43"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Duration" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="92">
-                        <rect key="frame" x="15" y="0.0" width="140" height="43"/>
+                        <rect key="frame" x="15" y="0.0" width="138" height="43"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                         <accessibility key="accessibilityConfiguration">
                             <accessibilityTraits key="traits" none="YES" staticText="YES" notEnabled="YES"/>
@@ -104,7 +125,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </label>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" clearButtonMode="always" id="93">
-                        <rect key="frame" x="163" y="0.0" width="152" height="43"/>
+                        <rect key="frame" x="163" y="0.0" width="150" height="43"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                         <color key="textColor" red="0.1058823529" green="0.30196078430000001" blue="0.24313725489999999" alpha="1" colorSpace="deviceRGB"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
