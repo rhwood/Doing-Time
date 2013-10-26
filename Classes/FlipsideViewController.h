@@ -25,7 +25,6 @@
 	
 	// Purchases
 	BOOL appStoreRequestFailed;
-    BOOL allowInAppPurchases; // result of Lodsys patent threats
 	
 	// Activity
 	UIActivityIndicatorView* _activityIndicator;

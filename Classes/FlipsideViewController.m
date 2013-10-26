@@ -24,15 +24,12 @@
 @synthesize activityLabel = _activityLabel;
 @synthesize activityView = _activityView;
 @synthesize eventBeingUpdated;
-@synthesize allowInAppPurchases;
 
 #pragma mark -
 #pragma mark View lifecycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    self.allowInAppPurchases = YES; // set to NO until Lodsys patent litigation threat is lifted
     
 	self.eventBeingUpdated = INT_MAX;
 	
@@ -182,7 +179,7 @@
 			return [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count] + 1;
 			break;
 		case 1: // Store
-            if (self.allowInAppPurchases) {
+            if (self.appDelegate.allowInAppPurchases) {
                 return self.appDelegate.appStore.validProducts.count + 1;
             } else {
                 return 0;
@@ -359,7 +356,7 @@
 		case 0:
 			break;
 		case 1:
-            if (self.allowInAppPurchases) {
+            if (self.appDelegate.allowInAppPurchases) {
                 if (!self.appDelegate.appStore.canMakePayments) {
                     return [NSString localizedStringWithFormat:NSLocalizedString(@"In-App Purchases are disabled on this %@.", @"Notice that the user cannot purchase an available upgrade due to policy."), 
                             [UIDevice currentDevice].localizedModel];
