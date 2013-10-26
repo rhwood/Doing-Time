@@ -198,22 +198,22 @@
 	// (3) compositing the gradient onto the piechart
 	
 	// (0)
-	UIImage *maskImage = [self createCircleMaskUsingCenterPoint: CGPointMake(x, y) andRadius: r];
+//	UIImage *maskImage = [self createCircleMaskUsingCenterPoint: CGPointMake(x, y) andRadius: r];
 	
 	// (1)
-	UIImage *gradientImage = [self createGradientImageUsingRect: self.bounds];
+//	UIImage *gradientImage = [self createGradientImageUsingRect: self.bounds];
 	
 	// (2)
-	UIImage *fadeImage = [self maskImage:gradientImage withMask:maskImage];
+//	UIImage *fadeImage = [self maskImage:gradientImage withMask:maskImage];
 	
 	// (3)
-	CGContextDrawImage(ctx, self.bounds, fadeImage.CGImage);
+//	CGContextDrawImage(ctx, self.bounds, fadeImage.CGImage);
 	
 	// Finally set shadows
-	self.layer.shadowRadius = 10;
-	self.layer.shadowColor = [UIColor blackColor].CGColor;
-	self.layer.shadowOpacity = 0.6;
-	self.layer.shadowOffset = CGSizeMake(0.0, 5.0);
+//	self.layer.shadowRadius = 10;
+//	self.layer.shadowColor = [UIColor blackColor].CGColor;
+//	self.layer.shadowOpacity = 0.6;
+//	self.layer.shadowOffset = CGSizeMake(0.0, 5.0);
 }
 
 - (UIImage *)createCircleMaskUsingCenterPoint:(CGPoint)point andRadius:(float)radius
