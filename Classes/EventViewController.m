@@ -164,8 +164,8 @@
 	[_pieChart setGradientFillStart:0.0 andEnd:0.0];
 	[_pieChart setGradientFillColor:PieChartItemColorMake(0.0, 0.0, 0.0, 0.7)];
 	
-	[_pieChart addItemValue:(interval * completed) withColor:PieChartItemColorMake(0.0, 0.8, 0.0, 1.0)]; // days completed
-	[_pieChart addItemValue:(interval * left) withColor:PieChartItemColorMake(0.8, 0.0, 0.0, 1.0)]; // days left
+	[_pieChart addItemValue:(interval * completed) withColor:PieChartItemColorMake(0.0, 0.6, 0.0, 1.0)]; // days completed
+	[_pieChart addItemValue:(interval * left) withColor:PieChartItemColorMake(0.6, 0.0, 0.0, 1.0)]; // days left
 	
 	
 	NSString *days = NSLocalizedString(@"days", @"Plural for \"day\"");
