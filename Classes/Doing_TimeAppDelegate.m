@@ -72,6 +72,21 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
 	
+    // Migrate from version 3 settings to version 4 settings
+    if ([[NSUserDefaults standardUserDefaults] integerForKey:versionKey] < 4) {
+        UIColor *red = [UIColor colorWithRed:0.6 green:0.0 blue:0.0 alpha:1.0];
+        UIColor *green = [UIColor colorWithRed:0.0 green:0.6 blue:0.0 alpha:1.0];
+        NSMutableArray *events = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey]];
+        for (int i = 0; i < events.count; i++) {
+            NSMutableDictionary *event = [events objectAtIndex:i];
+            // need to archive colors - see http://stackoverflow.com/questions/1275662/saving-uicolor-to-and-loading-from-nsuserdefaults
+            [event setValue:[NSKeyedArchiver archivedDataWithRootObject:green] forKey:completedColorKey];
+            [event setValue:[NSKeyedArchiver archivedDataWithRootObject:red] forKey:remainingColorKey];
+        }
+        [[NSUserDefaults standardUserDefaults] setInteger:4 forKey:versionKey];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+
 	// Observe the store
 	self.appStore = [[AppStoreDelegate alloc] initWithDictionary:[[NSUserDefaults standardUserDefaults] dictionaryForKey:transactionsKey]];
 	[[NSNotificationCenter defaultCenter] addObserverForName:AXAppStoreTransactionShouldBeRecorded

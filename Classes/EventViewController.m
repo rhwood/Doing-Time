@@ -66,6 +66,8 @@
     BOOL showCompleted = [event[showCompletedDaysKey] boolValue];
     BOOL showTotals = [event[showTotalsKey] boolValue];
     BOOL showDateRange = [event[showEventDatesKey] boolValue];
+    UIColor *completedColor = [NSKeyedUnarchiver unarchiveObjectWithData:event[completedColorKey]];
+    UIColor *remainingColor = [NSKeyedUnarchiver unarchiveObjectWithData:event[remainingColorKey]];
     NSDate *startDate = event[startKey];
     NSDate *endDate = event[endKey];
     NSDate *calcEndDate = ([event[includeLastDayInCalcKey] boolValue]) ? [self.calendar dateByAddingComponents:oneDay toDate:endDate options:0] : endDate;
@@ -164,8 +166,19 @@
 	[_pieChart setGradientFillStart:0.0 andEnd:0.0];
 	[_pieChart setGradientFillColor:PieChartItemColorMake(0.0, 0.0, 0.0, 0.7)];
 	
-	[_pieChart addItemValue:(interval * completed) withColor:PieChartItemColorMake(0.0, 0.6, 0.0, 1.0)]; // days completed
-	[_pieChart addItemValue:(interval * left) withColor:PieChartItemColorMake(0.6, 0.0, 0.0, 1.0)]; // days left
+    CGFloat red = 0.0, green = 0.0, blue = 0.0, alpha = 0.0;
+    if ([completedColor getRed:&red green:&green blue:&blue alpha:&alpha]) {
+        NSLog(@"Completed Color: %f, %f, %f, %f", red, green, blue, alpha);
+    } else {
+        NSLog(@"Something went wrong with the completed color");
+    }
+	[_pieChart addItemValue:(interval * completed) withColor:PieChartItemColorMake(red, green, blue, alpha)]; // days completed
+    if ([remainingColor getRed:&red green:&green blue:&blue alpha:&alpha]) {
+        NSLog(@"Remaining Color: %f, %f, %f, %f", red, green, blue, alpha);
+    } else {
+        NSLog(@"Something went wrong with the remaining color");
+    }
+	[_pieChart addItemValue:(interval * left) withColor:PieChartItemColorMake(red, green, blue, alpha)]; // days left
 	
 	
 	NSString *days = NSLocalizedString(@"days", @"Plural for \"day\"");

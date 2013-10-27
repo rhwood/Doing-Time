@@ -24,6 +24,8 @@ NSString *const todayIsKey = @"todayIs";
 NSString *const transactionsKey = @"AppStoreTransactions";
 NSString *const showTotalsKey = @"showTotals";
 NSString *const versionKey = @"version";
+NSString *const completedColorKey = @"completedColor";
+NSString *const remainingColorKey = @"remainingColor";
 
 #pragma mark - Obsolete UserDefaults dictionary keys
 
