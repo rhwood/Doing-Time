@@ -12,6 +12,7 @@
 //#import <EventKitUI/EventKitUI.h>
 
 @class Doing_TimeAppDelegate;
+@class ColorPickerViewController;
 
 @interface EventSettingsViewController : UIViewController <UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate> {
 	NSUInteger _index;
@@ -110,5 +111,8 @@
 @property (nonatomic, strong) IBOutlet UIActivityIndicatorView* activityIndicator;
 @property (nonatomic, strong) IBOutlet UILabel* activityLabel;
 @property (nonatomic, strong) IBOutlet UIView* activityView;
+
+// Color picking
+@property (nonatomic, strong) ColorPickerViewController* colorPicker;
 
 @end

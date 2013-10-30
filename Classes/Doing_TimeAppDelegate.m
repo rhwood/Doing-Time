@@ -77,6 +77,7 @@
         UIColor *red = [UIColor colorWithRed:0.6 green:0.0 blue:0.0 alpha:1.0];
         UIColor *green = [UIColor colorWithRed:0.0 green:0.6 blue:0.0 alpha:1.0];
         UIColor *blue = [UIColor colorWithRed:0.0 green:0.0 blue:0.6 alpha:1.0];
+        UIColor *white = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
         NSMutableArray *events = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey]];
         for (int i = 0; i < events.count; i++) {
             NSMutableDictionary *event = [events objectAtIndex:i];
@@ -94,6 +95,7 @@
                     [event setValue:[NSKeyedArchiver archivedDataWithRootObject:green] forKey:remainingColorKey];
                     break;
             }
+            [event setValue:[NSKeyedArchiver archivedDataWithRootObject:white] forKey:backgroundColorKey];
         }
         [[NSUserDefaults standardUserDefaults] setInteger:4 forKey:versionKey];
         [[NSUserDefaults standardUserDefaults] synchronize];

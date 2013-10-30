@@ -26,6 +26,7 @@ NSString *const showTotalsKey = @"showTotals";
 NSString *const versionKey = @"version";
 NSString *const completedColorKey = @"completedColor";
 NSString *const remainingColorKey = @"remainingColor";
+NSString *const backgroundColorKey = @"backgroundColor";
 
 #pragma mark - Obsolete UserDefaults dictionary keys
 

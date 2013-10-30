@@ -27,6 +27,7 @@ extern NSString *const showTotalsKey;
 extern NSString *const versionKey;
 extern NSString *const completedColorKey;
 extern NSString *const remainingColorKey;
+extern NSString *const backgroundColorKey;
 
 #pragma mark - Obsolete UserDefaults dictionary keys
 

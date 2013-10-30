@@ -12,6 +12,8 @@
 #import "Doing_TimeAppDelegate.h"
 #import "AppStoreDelegate.h"
 #import "AboutViewController.h"
+#import "ColorSelectionView.h"
+#import "ColorPickerViewController.h"
 #import "Constants.h"
 
 // Table Event section
@@ -31,8 +33,11 @@
 #define SHOW_PERCENTS 1
 #define SHOW_TOTALS 2
 #define SHOW_COMPLETE 3
+#define COMPLETED_COLOR 4
+#define REMAINING_COLOR 5
+#define BACKGROUND_COLOR 6
 // Table URL section
-#define URL_SECT 3
+#define URL_SECT -1 // effectively disable
 #define URL_CELL 0
 // Table App Store section
 #define APP_STORE 3
@@ -119,6 +124,50 @@
             }
 		}
 	}
+	// App Store
+    if (![self.appDelegate.appStore hasTransactionForProduct:multipleEventsProductIdentifier]) {
+        [[NSNotificationCenter defaultCenter] addObserverForName:AXAppStoreDidReceiveProductsList
+                                                          object:self.appDelegate.appStore
+                                                           queue:nil
+                                                      usingBlock:^(NSNotification *notification) {
+                                                          [self.tableView reloadData];
+                                                      }];
+        [[NSNotificationCenter defaultCenter] addObserverForName:AXAppStoreNewContentShouldBeProvided
+                                                          object:self.appDelegate.appStore
+                                                           queue:nil
+                                                      usingBlock:^(NSNotification *notification) {
+                                                          [self hidePurchaseActivity:YES];
+                                                          [self.tableView reloadData];
+                                                      }];
+        [[NSNotificationCenter defaultCenter] addObserverForName:AXAppStoreTransactionFailed
+                                                          object:self.appDelegate.appStore
+                                                           queue:nil
+                                                      usingBlock:^(NSNotification *notification) {
+                                                          NSError *error = [[notification userInfo] objectForKey:AXAppStoreTransactionError];
+                                                          UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"App Store Error", @"Title for alert indicating that there was an error accessing the app store")
+                                                                                                          message:error.localizedDescription
+                                                                                                         delegate:nil
+                                                                                                cancelButtonTitle:NSLocalizedString(@"OK", @"")
+                                                                                                otherButtonTitles:nil];
+                                                          [alert show];
+                                                          [self hidePurchaseActivity:YES];
+                                                          [self.tableView reloadData];
+                                                      }];
+        [[NSNotificationCenter defaultCenter] addObserverForName:AXAppStoreTransactionCancelled
+                                                          object:self.appDelegate.appStore
+                                                           queue:nil
+                                                      usingBlock:^(NSNotification *notification) {
+                                                          [self hidePurchaseActivity:YES];
+                                                          [self.tableView reloadData];
+                                                      }];
+        [[NSNotificationCenter defaultCenter] addObserverForName:AXAppStoreRequestFailed
+                                                          object:self.appDelegate.appStore
+                                                           queue:nil
+                                                      usingBlock:^(NSNotification *notification) {
+                                                          [self.tableView reloadData];
+                                                      }];
+        [self.appDelegate.appStore requestProductData:multipleEventsProductIdentifier ifHasTransaction:NO];
+    }
 	return self;
 }
 
@@ -293,11 +342,14 @@
     if ([self.appDelegate.appStore hasTransactionForProduct:multipleEventsProductIdentifier]) {
         return 3; // set to 4 to enable the URL
     } else {
-        return 5;
+        return 5; // set to 6 to enable the URL
     }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+	if (section == APP_STORE && [self.appDelegate.appStore hasTransactionsForAllProducts]) {
+		section++;
+	}
     switch (section) {
         case EVENT:
             return 4;
@@ -306,7 +358,7 @@
             return 2; // no calendar linking yet
             break;
         case DISPLAY:
-            return 4;
+            return 7;
             break;
 //        case URL_SECT:
 //            return 1;
@@ -331,16 +383,24 @@
 	if (indexPath.section == APP_STORE && [self.appDelegate.appStore hasTransactionsForAllProducts]) {
 		indexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section + 1];
 	}
-    //static NSString *DefaultCellIdentifier = @"DefaultCell";
+    static NSString *DefaultCellIdentifier = @"DefaultCell";
 	static NSString *SubtitleCellIdentifier = @"SubtitleCell";
 	static NSString *Value1CellIdentifier = @"Value1Cell";
     
     UITableViewCell *cell;
-	if ((indexPath.section == EVENT) || (indexPath.section == DATES && indexPath.row == TODAY_IS) || (indexPath.section == URL_SECT)) {
+	if ((indexPath.section == EVENT)
+        || (indexPath.section == DATES && indexPath.row == TODAY_IS)
+        || (indexPath.section == URL_SECT)) {
 		cell = [tableView dequeueReusableCellWithIdentifier:Value1CellIdentifier];
 		if (cell == nil) {
 			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:Value1CellIdentifier];
 		}
+    } else if (((indexPath.section == DISPLAY) && (indexPath.row == COMPLETED_COLOR || indexPath.row == REMAINING_COLOR || indexPath.row == BACKGROUND_COLOR))
+               || (indexPath.section == SUPPORT)) {
+        cell = [tableView dequeueReusableCellWithIdentifier:DefaultCellIdentifier];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:DefaultCellIdentifier];
+        }
     } else {
 		cell = [tableView dequeueReusableCellWithIdentifier:SubtitleCellIdentifier];
 		if (cell == nil) {
@@ -504,6 +564,21 @@
                         [(UISwitch *)cell.accessoryView setOn:NO];
                         cell.detailTextLabel.text = NSLocalizedString(@"Completed days are shown", @"Explanitory label for \"Remaining Days Only\" if not checked");
                     }
+                    break;
+                case COMPLETED_COLOR:
+                    cell.textLabel.text = NSLocalizedString(@"Completed Days", @"Label for cell that shows completed days color");
+                    cell.accessoryView = [[ColorSelectionView alloc] initWithFrame:CGRectMake(0.0, 0.0, 55.0, cell.frame.size.height)];
+                    ((ColorSelectionView *)cell.accessoryView).selectedColor = [NSKeyedUnarchiver unarchiveObjectWithData:self.event[completedColorKey]];
+                    break;
+                case REMAINING_COLOR:
+                    cell.textLabel.text = NSLocalizedString(@"Remaining Days", @"Label for cell that shows remaining days color");
+                    cell.accessoryView = [[ColorSelectionView alloc] initWithFrame:CGRectMake(0.0, 0.0, 55.0, cell.frame.size.height)];
+                    ((ColorSelectionView *)cell.accessoryView).selectedColor = [NSKeyedUnarchiver unarchiveObjectWithData:self.event[remainingColorKey]];
+                    break;
+                case BACKGROUND_COLOR:
+                    cell.textLabel.text = NSLocalizedString(@"Background", @"Label for cell that shows background color");
+                    cell.accessoryView = [[ColorSelectionView alloc] initWithFrame:CGRectMake(0.0, 0.0, 55.0, cell.frame.size.height)];
+                    ((ColorSelectionView *)cell.accessoryView).selectedColor = [NSKeyedUnarchiver unarchiveObjectWithData:self.event[backgroundColorKey]];
                     break;
                 default:
                     break;
@@ -739,29 +814,66 @@
             break;
         case DISPLAY:
             [self clearDatePicker];
-            [tableView cellForRowAtIndexPath:indexPath].selectionStyle = UITableViewCellSelectionStyleNone;
-            /*
             switch (indexPath.row) {
+                case COMPLETED_COLOR: {
+                    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    ColorPickerViewController *controller = [[ColorPickerViewController alloc] initWithColor:((ColorSelectionView *)cell.accessoryView).selectedColor withTitle:cell.textLabel.text];
+                    [[NSNotificationCenter defaultCenter] addObserverForName:@"ColorSelectionDidChange"
+                                                                      object:controller
+                                                                       queue:[NSOperationQueue currentQueue]
+                                                                  usingBlock:^(NSNotification *note) {
+                                                                      ((ColorSelectionView *)cell.accessoryView).selectedColor = ((ColorPickerViewController *)note.object).selectedColor;
+                                                                      [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:((ColorPickerViewController *)note.object).selectedColor]
+                                                                                    forKey:completedColorKey];
+                                                                  }];
+                    [self.navigationController pushViewController:controller animated:YES];
+                }
+                    break;
+                case REMAINING_COLOR: {
+                    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    ColorPickerViewController *controller = [[ColorPickerViewController alloc] initWithColor:((ColorSelectionView *)cell.accessoryView).selectedColor withTitle:cell.textLabel.text];
+                    [[NSNotificationCenter defaultCenter] addObserverForName:@"ColorSelectionDidChange"
+                                                                      object:controller
+                                                                       queue:[NSOperationQueue currentQueue]
+                                                                  usingBlock:^(NSNotification *note) {
+                                                                      ((ColorSelectionView *)cell.accessoryView).selectedColor = ((ColorPickerViewController *)note.object).selectedColor;
+                                                                      [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:((ColorPickerViewController *)note.object).selectedColor]
+                                                                                    forKey:remainingColorKey];
+                                                                  }];
+                    [self.navigationController pushViewController:controller animated:YES];
+                }
+                    break;
+                case BACKGROUND_COLOR: {
+                    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    ColorPickerViewController *controller = [[ColorPickerViewController alloc] initWithColor:((ColorSelectionView *)cell.accessoryView).selectedColor withTitle:cell.textLabel.text];
+                    [[NSNotificationCenter defaultCenter] addObserverForName:@"ColorSelectionDidChange"
+                                                                      object:controller
+                                                                       queue:[NSOperationQueue currentQueue]
+                                                                  usingBlock:^(NSNotification *note) {
+                                                                      ((ColorSelectionView *)cell.accessoryView).selectedColor = ((ColorPickerViewController *)note.object).selectedColor;
+                                                                      [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:((ColorPickerViewController *)note.object).selectedColor]
+                                                                                    forKey:backgroundColorKey];
+                                                                  }];
+                    [self.navigationController pushViewController:controller animated:YES];
+                    }
+                    break;
                 case SHOW_DATES:
-                    // show event dates is handled by trapping the switch change
-                    [tableView cellForRowAtIndexPath:indexPath].selectionStyle = UITableViewCellSelectionStyleNone;
-                    break;
                 case SHOW_PERCENTS:
-                    // show percentages only is handled by trapping the switch change
-                    [tableView cellForRowAtIndexPath:indexPath].selectionStyle = UITableViewCellSelectionStyleNone;
-                    break;
+                case SHOW_TOTALS:
                 case SHOW_COMPLETE:
-                    // show only remaining days is handled by trapping the switch change
-                    [tableView cellForRowAtIndexPath:indexPath].selectionStyle = UITableViewCellSelectionStyleNone;
-                    break;
                 default:
+                    [tableView cellForRowAtIndexPath:indexPath].selectionStyle = UITableViewCellSelectionStyleNone;
                     break;
             }
-             */
+            break;
 		case APP_STORE: // Store
 			if (self.appDelegate.appStore.canMakePayments) {
-                if (indexPath.row < self.appDelegate.appStore.products.count) {
-                    SKProduct *product = [self.appDelegate.appStore.products objectForKey:[[self.appDelegate.appStore.products allKeys] objectAtIndex:indexPath.row]];
+                if (indexPath.row < self.appDelegate.appStore.validProducts.count) {
+                    NSLog(@"Have %i valid products: %@", self.appDelegate.appStore.validProducts.count, self.appDelegate.appStore.validProducts);
+                    SKProduct *product = [self.appDelegate.appStore.products objectForKey:[self.appDelegate.appStore.validProducts objectAtIndex:indexPath.row]];
                     self.activityLabel.text = [NSString localizedStringWithFormat:NSLocalizedString(@"Getting %@...", @"Label indicating that app is getting an in-app purchase (with %@ as the title)"), product.localizedTitle];
                     [self hidePurchaseActivity:NO];
                     [self.appDelegate.appStore queuePaymentForProduct:product];
