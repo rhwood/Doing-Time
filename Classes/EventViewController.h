@@ -39,6 +39,7 @@
 @property (nonatomic, strong) IBOutlet MainViewController *mainView;
 @property NSUInteger eventID;
 @property BOOL showingAlert;
+@property (nonatomic, strong) NSDictionary *event;
 @property (nonatomic, strong) NSDictionary *oldEvent;
 @property (nonatomic, strong) NSCalendar *calendar;
 

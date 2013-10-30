@@ -33,6 +33,7 @@
 - (id)initWithEvent:(NSUInteger)event {
 	if (self = [super initWithNibName:@"EventView" bundle:nil]) {
 		self.eventID = event;
+        self.event = [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] objectAtIndex:self.eventID];
         self.oldEvent = nil;
         self.calendar = [NSCalendar currentCalendar];
         self.showingAlert = NO;
@@ -61,16 +62,16 @@
 	}
 	NSInteger inFuture = 0;
 	NSInteger inPast = 0;
-	NSDictionary *event = [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] objectAtIndex:self.eventID];
-    BOOL showPercentage = [event[showPercentageKey] boolValue];
-    BOOL showCompleted = [event[showCompletedDaysKey] boolValue];
-    BOOL showTotals = [event[showTotalsKey] boolValue];
-    BOOL showDateRange = [event[showEventDatesKey] boolValue];
-    UIColor *completedColor = [NSKeyedUnarchiver unarchiveObjectWithData:event[completedColorKey]];
-    UIColor *remainingColor = [NSKeyedUnarchiver unarchiveObjectWithData:event[remainingColorKey]];
-    NSDate *startDate = event[startKey];
-    NSDate *endDate = event[endKey];
-    NSDate *calcEndDate = ([event[includeLastDayInCalcKey] boolValue]) ? [self.calendar dateByAddingComponents:oneDay toDate:endDate options:0] : endDate;
+	self.event = [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] objectAtIndex:self.eventID];
+    BOOL showPercentage = [self.event[showPercentageKey] boolValue];
+    BOOL showCompleted = [self.event[showCompletedDaysKey] boolValue];
+    BOOL showTotals = [self.event[showTotalsKey] boolValue];
+    BOOL showDateRange = [self.event[showEventDatesKey] boolValue];
+    UIColor *completedColor = [NSKeyedUnarchiver unarchiveObjectWithData:self.event[completedColorKey]];
+    UIColor *remainingColor = [NSKeyedUnarchiver unarchiveObjectWithData:self.event[remainingColorKey]];
+    NSDate *startDate = self.event[startKey];
+    NSDate *endDate = self.event[endKey];
+    NSDate *calcEndDate = ([self.event[includeLastDayInCalcKey] boolValue]) ? [self.calendar dateByAddingComponents:oneDay toDate:endDate options:0] : endDate;
 	NSDate *today = [NSDate midnightForDate:[NSDate date]];
 	NSLog(@"Start date:  %@", startDate);
 	NSLog(@"End date:    %@", endDate);
@@ -112,7 +113,7 @@
     }
     // only make adjustments for today if event is current
     if (left >= 0 && completed >= 0) {
-        switch ([event[todayIsKey] integerValue]) {
+        switch ([self.event[todayIsKey] integerValue]) {
             case todayIsNotCounted:
                 NSLog(@"today is not counted (left --)");
                 left--;
@@ -149,7 +150,7 @@
     }
     // calculations have created too long an event
     if ((completed + left) > duration) {
-        TFLog(@"Event (from %@ to %@) has duration (%d) != days complete (%d) + days left (%d)\n(today is %@, last day is counted %@)", startDate, endDate, duration, completed, left, event[todayIsKey], event[includeLastDayInCalcKey]);
+        TFLog(@"Event (from %@ to %@) has duration (%d) != days complete (%d) + days left (%d)\n(today is %@, last day is counted %@)", startDate, endDate, duration, completed, left, self.event[todayIsKey], self.event[includeLastDayInCalcKey]);
     }
     NSLog(@"--after adjustments--");
 	NSLog(@"%d days complete", completed);
@@ -159,7 +160,7 @@
     NSLog(@"%d days in past", inPast);
 	float interval = 1.0 / duration;
 	
-	_eventTitle.text = [event objectForKey:titleKey];
+	_eventTitle.text = [self.event objectForKey:titleKey];
 	
 	[_pieChart clearItems];
 	
@@ -271,8 +272,8 @@
                                                             timeStyle:NSDateFormatterNoStyle];
         }
     }
-	forceRedraw = ([self eventEqualsOldEvent:event]) ? forceRedraw : YES;
-    self.oldEvent = event;
+	forceRedraw = ([self eventEqualsOldEvent:self.event]) ? forceRedraw : YES;
+    self.oldEvent = self.event;
 
 	if ([self isViewLoaded] && forceRedraw) {
 		_pieChart.alpha = 0.0;

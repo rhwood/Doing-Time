@@ -150,6 +150,7 @@
 	if (event >= 0 && event < [self.events count]) {
 		EventViewController *controller = [self.events objectAtIndex:event];
 		[controller redrawEvent:forceRedraw];
+        [self redrawBackground];
 	}
 }
 
@@ -226,6 +227,11 @@
 	}
 }
 
+- (void)redrawBackground {
+    self.view.backgroundColor = [NSKeyedUnarchiver unarchiveObjectWithData:((EventViewController *)self.events[self.pager.currentPage]).event[backgroundColorKey]];
+    // set iOS status bar text light/dark as needed
+}
+
 #pragma mark -
 #pragma mark Flipside delegate
 
@@ -296,6 +302,7 @@
 	[self.scroller scrollRectToVisible:frame animated:YES];
 	
 	self.pagerDidScroll = YES;
+    [self redrawBackground];
 }
 
 #pragma mark -
@@ -308,6 +315,7 @@
 		self.pager.currentPage = page;
 	}
 	[self.pager updateCurrentPageDisplay];
+    [self redrawBackground];
 	[[NSUserDefaults standardUserDefaults] setInteger:self.pager.currentPage forKey:currentEventKey];
 }
 
