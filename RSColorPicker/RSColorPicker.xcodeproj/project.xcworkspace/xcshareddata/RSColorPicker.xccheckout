@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>814D334B-7D38-477A-9217-4EBE7766AE47</string>
+	<key>IDESourceControlProjectName</key>
+	<string>RSColorPicker</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>6EA3453E-260A-4071-8128-8916DABA363D</key>
+		<string>https://github.com/RSully/RSColorPicker.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>RSColorPicker.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>6EA3453E-260A-4071-8128-8916DABA363D</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/rhwood/Doing-Time.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>6EA3453E-260A-4071-8128-8916DABA363D</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>6EA3453E-260A-4071-8128-8916DABA363D</string>
+			<key>IDESourceControlWCCName</key>
+			<string>RSColorPicker</string>
+		</dict>
+	</array>
+</dict>
+</plist>
