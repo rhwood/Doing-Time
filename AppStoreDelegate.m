@@ -166,6 +166,7 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 - (BOOL)hasTransactionForProduct:(NSString *)productIdentifier {
 	// ensure product is in self.products so that self.products count can be compared to self.transactionStore count
 	[self productData:productIdentifier];
+    // TODO: Ensure that this logic cannot be fouled by moving BYPASS_STORE to a #if precompilation test
 	return ([self.transactionStore valueForKey:productIdentifier] || BYPASS_STORE) ? YES : NO;
 }
 
