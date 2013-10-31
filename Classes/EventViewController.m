@@ -169,15 +169,11 @@
 	[_pieChart setGradientFillColor:PieChartItemColorMake(0.0, 0.0, 0.0, 0.7)];
 	
     CGFloat red = 0.0, green = 0.0, blue = 0.0, alpha = 0.0;
-    if ([completedColor getRed:&red green:&green blue:&blue alpha:&alpha]) {
-        NSLog(@"Completed Color: %f, %f, %f, %f", red, green, blue, alpha);
-    } else {
+    if (![completedColor getRed:&red green:&green blue:&blue alpha:&alpha]) {
         NSLog(@"Something went wrong with the completed color");
     }
 	[_pieChart addItemValue:(interval * completed) withColor:PieChartItemColorMake(red, green, blue, alpha)]; // days completed
-    if ([remainingColor getRed:&red green:&green blue:&blue alpha:&alpha]) {
-        NSLog(@"Remaining Color: %f, %f, %f, %f", red, green, blue, alpha);
-    } else {
+    if (![remainingColor getRed:&red green:&green blue:&blue alpha:&alpha]) {
         NSLog(@"Something went wrong with the remaining color");
     }
 	[_pieChart addItemValue:(interval * left) withColor:PieChartItemColorMake(red, green, blue, alpha)]; // days left
@@ -335,9 +331,7 @@
     // brightness  =  sqrt( .299 R2 + .587 G2 + .114 B2 ) - http://alienryderflex.com/hsp.html
     CGFloat red = 0.0, green = 0.0, blue = 0.0, alpha = 0.0;
     if ([[NSKeyedUnarchiver unarchiveObjectWithData:self.event[backgroundColorKey]] getRed:&red green:&green blue:&blue alpha:&alpha]) {
-        NSLog(@"Background Color: %f, %f, %f, %f", red, green, blue, alpha);
         _backgroundBrightness = sqrt((red * red * .299) + (green * green * .587) + (blue * blue * .114));
-        NSLog(@"Background Brightness: %f (should be %f)", _backgroundBrightness, sqrt((red * red * .299) + (green * green * .587) + (blue * blue * .114)));
     }
 }
 
