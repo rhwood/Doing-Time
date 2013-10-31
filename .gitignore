@@ -1,14 +1,4 @@
 
 .DS_Store
-
-Doing Time.xcodeproj/project.xcworkspace/contents.xcworkspacedata
-
-Doing Time.xcodeproj/project.xcworkspace/xcuserdata/rhwood.xcuserdatad/UserInterfaceState.xcuserstate
-
-Doing Time.xcodeproj/xcuserdata/rhwood.xcuserdatad/xcschemes/Doing Time.xcscheme
-
-Doing Time.xcodeproj/xcuserdata/rhwood.xcuserdatad/xcschemes/xcschememanagement.plist
-
-Doing Time.xcodeproj/project.xcworkspace/xcuserdata/rhwood.xcuserdatad/WorkspaceSettings.xcsettings
-
-Doing Time.xcodeproj/xcuserdata/rhwood.xcuserdatad/xcdebugger/Breakpoints.xcbkptlist
+xcuserdata
+project.xcworkspace
