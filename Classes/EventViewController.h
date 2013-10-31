@@ -42,5 +42,6 @@
 @property (nonatomic, strong) NSDictionary *event;
 @property (nonatomic, strong) NSDictionary *oldEvent;
 @property (nonatomic, strong) NSCalendar *calendar;
+@property (readonly) float backgroundBrightness;
 
 @end

@@ -229,7 +229,13 @@
 
 - (void)redrawBackground {
     self.view.backgroundColor = [NSKeyedUnarchiver unarchiveObjectWithData:((EventViewController *)self.events[self.pager.currentPage]).event[backgroundColorKey]];
-    // set iOS status bar text light/dark as needed
+    if (((EventViewController *)self.events[self.pager.currentPage]).backgroundBrightness < .51) {
+        NSLog(@"Setting light status bar");
+        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    } else {
+        NSLog(@"Setting dark status bar");
+        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+    }
 }
 
 #pragma mark -

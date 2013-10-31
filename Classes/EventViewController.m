@@ -23,7 +23,6 @@
 @synthesize pieChart = _pieChart;
 @synthesize daysComplete = _daysComplete;
 @synthesize daysLeft = _daysLeft;
-@synthesize dateRange;
 @synthesize eventTitle = _eventTitle;
 @synthesize eventID = _eventID;
 @synthesize controls = _controls;
@@ -37,6 +36,7 @@
         self.oldEvent = nil;
         self.calendar = [NSCalendar currentCalendar];
         self.showingAlert = NO;
+        [self setBackgroundBrightness];
 	}
 	return self;
 }
@@ -63,6 +63,7 @@
 	NSInteger inFuture = 0;
 	NSInteger inPast = 0;
 	self.event = [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] objectAtIndex:self.eventID];
+    [self setBackgroundBrightness];
     BOOL showPercentage = [self.event[showPercentageKey] boolValue];
     BOOL showCompleted = [self.event[showCompletedDaysKey] boolValue];
     BOOL showTotals = [self.event[showTotalsKey] boolValue];
@@ -259,7 +260,7 @@
     self.dateRange.hidden = !showDateRange;
     if (showDateRange) {
         if (duration != 1) {
-            dateRange.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%@ to %@", @"The range from start to end"),
+            _dateRange.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%@ to %@", @"The range from start to end"),
                               [NSDateFormatter localizedStringFromDate:startDate
                                                              dateStyle:NSDateFormatterMediumStyle
                                                              timeStyle:NSDateFormatterNoStyle],
@@ -267,13 +268,24 @@
                                                              dateStyle:NSDateFormatterMediumStyle
                                                              timeStyle:NSDateFormatterNoStyle]];
         } else {
-            dateRange.text = [NSDateFormatter localizedStringFromDate:startDate
+            _dateRange.text = [NSDateFormatter localizedStringFromDate:startDate
                                                             dateStyle:NSDateFormatterMediumStyle
                                                             timeStyle:NSDateFormatterNoStyle];
         }
     }
 	forceRedraw = ([self eventEqualsOldEvent:self.event]) ? forceRedraw : YES;
     self.oldEvent = self.event;
+    if (self.backgroundBrightness < 0.51) {
+        _daysComplete.textColor = [UIColor whiteColor];
+        _daysLeft.textColor = [UIColor whiteColor];
+        _dateRange.textColor = [UIColor whiteColor];
+        _eventTitle.textColor = [UIColor whiteColor];
+    } else {
+        _daysComplete.textColor = [UIColor blackColor];
+        _daysLeft.textColor = [UIColor blackColor];
+        _dateRange.textColor = [UIColor blackColor];
+        _eventTitle.textColor = [UIColor blackColor];
+    }
 
 	if ([self isViewLoaded] && forceRedraw) {
 		_pieChart.alpha = 0.0;
@@ -290,9 +302,9 @@
             [_daysLeft setNeedsDisplay];
 		}
         if (showDateRange) {
-            dateRange.alpha = 0.0;
-            [dateRange setHidden:NO];
-            [dateRange setNeedsDisplay];
+            _dateRange.alpha = 0.0;
+            [_dateRange setHidden:NO];
+            [_dateRange setNeedsDisplay];
         }
 		_eventTitle.alpha = 0.0;
 		[_eventTitle setHidden:NO];
@@ -303,7 +315,7 @@
 		_pieChart.alpha = 1.0;
 		_daysComplete.alpha = 1.0;
 		_daysLeft.alpha = 1.0;
-        dateRange.alpha = 1.0;
+        _dateRange.alpha = 1.0;
 		_eventTitle.alpha = 1.0;
 		[UIView commitAnimations];
 	}
@@ -317,6 +329,16 @@
         }
     }
     return true;
+}
+
+- (void)setBackgroundBrightness {
+    // brightness  =  sqrt( .299 R2 + .587 G2 + .114 B2 ) - http://alienryderflex.com/hsp.html
+    CGFloat red = 0.0, green = 0.0, blue = 0.0, alpha = 0.0;
+    if ([[NSKeyedUnarchiver unarchiveObjectWithData:self.event[backgroundColorKey]] getRed:&red green:&green blue:&blue alpha:&alpha]) {
+        NSLog(@"Background Color: %f, %f, %f, %f", red, green, blue, alpha);
+        _backgroundBrightness = sqrt((red * red * .299) + (green * green * .587) + (blue * blue * .114));
+        NSLog(@"Background Brightness: %f (should be %f)", _backgroundBrightness, sqrt((red * red * .299) + (green * green * .587) + (blue * blue * .114)));
+    }
 }
 
 - (void)viewDidLoad {
