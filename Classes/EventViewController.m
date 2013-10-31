@@ -276,11 +276,13 @@
         _daysLeft.textColor = [UIColor whiteColor];
         _dateRange.textColor = [UIColor whiteColor];
         _eventTitle.textColor = [UIColor whiteColor];
+        _settings.imageView.image = [UIImage imageNamed:@"white-gear.png"];
     } else {
         _daysComplete.textColor = [UIColor blackColor];
         _daysLeft.textColor = [UIColor blackColor];
         _dateRange.textColor = [UIColor blackColor];
         _eventTitle.textColor = [UIColor blackColor];
+        _settings.imageView.image = [UIImage imageNamed:@"gray-gear.png"];
     }
 
 	if ([self isViewLoaded] && forceRedraw) {

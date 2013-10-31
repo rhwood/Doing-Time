@@ -14,6 +14,7 @@
                 <outlet property="eventTitle" destination="4" id="15"/>
                 <outlet property="pieChart" destination="11" id="16"/>
                 <outlet property="piePlate" destination="5" id="17"/>
+                <outlet property="settings" destination="8" id="is9-8H-eke"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
         </placeholder>
@@ -67,7 +68,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                             <accessibility key="accessibilityConfiguration" label="Settings"/>
                             <fontDescription key="fontDescription" type="boldSystem" size="button"/>
-                            <state key="normal" image="19-gear.png">
+                            <state key="normal" image="gray-gear.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <state key="highlighted">
@@ -85,6 +86,6 @@
         </view>
     </objects>
     <resources>
-        <image name="19-gear.png" width="26" height="26"/>
+        <image name="gray-gear.png" width="28" height="28"/>
     </resources>
 </document>

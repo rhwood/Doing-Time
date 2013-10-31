@@ -36,6 +36,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *eventTitle;
 @property (nonatomic, strong) IBOutlet UIView *controls;
 @property (nonatomic, strong) IBOutlet UIView *piePlate;
+@property (nonatomic, strong) IBOutlet UIButton *settings;
 @property (nonatomic, strong) IBOutlet MainViewController *mainView;
 @property NSUInteger eventID;
 @property BOOL showingAlert;
