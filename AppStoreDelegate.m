@@ -129,9 +129,14 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 }
 
 - (void)request:(SKRequest *)request didFailWithError:(NSError *)error {
-	[[NSNotificationCenter defaultCenter] postNotificationName:AXAppStoreRequestFailed
-														object:self
-													  userInfo:@{AXAppStoreRequestError: error}];
+    if (error) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:AXAppStoreRequestFailed
+                                                            object:self
+                                                          userInfo:@{AXAppStoreRequestError: error}];
+    } else {
+        [[NSNotificationCenter defaultCenter] postNotificationName:AXAppStoreRequestFailed
+                                                            object:self];
+    }
 }
 
 #pragma mark -
