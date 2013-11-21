@@ -232,9 +232,13 @@
     if (((EventViewController *)self.events[self.pager.currentPage]).backgroundBrightness < .51) {
         NSLog(@"Setting light status bar");
         [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+        self.pager.pageIndicatorTintColor = [UIColor lightGrayColor];
+        self.pager.currentPageIndicatorTintColor = [UIColor whiteColor];
     } else {
         NSLog(@"Setting dark status bar");
         [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+        self.pager.pageIndicatorTintColor = [UIColor darkGrayColor];
+        self.pager.currentPageIndicatorTintColor = [UIColor blackColor];
     }
 }
 
