@@ -75,18 +75,38 @@
         self.appDelegate = (Doing_TimeAppDelegate *)[UIApplication sharedApplication].delegate;
         self.calendar = [NSCalendar currentCalendar];
 		self.index = index;
+        UIColor *red = [UIColor colorWithRed:0.6 green:0.0 blue:0.0 alpha:1.0];
+        UIColor *green = [UIColor colorWithRed:0.0 green:0.6 blue:0.0 alpha:1.0];
+        UIColor *blue = [UIColor colorWithRed:0.0 green:0.0 blue:0.6 alpha:1.0];
+        UIColor *white = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
 		if (self.index == [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count]) {
 			self.newEvent = YES;
+            // TODO: does changing this from distantPast and distantFuture to today fix #51?
             self.event = [NSMutableDictionary dictionaryWithDictionary:@{
-                                                              titleKey:@"",
-                                                              startKey:[NSDate distantPast],
-                                                                endKey:[NSDate distantFuture],
-                                               includeLastDayInCalcKey:@(YES),
-                                                            todayIsKey:@(todayIsNotCounted),
-                                                     showEventDatesKey:@(YES),
-                                                     showPercentageKey:@(YES),
-                                                  showCompletedDaysKey:@(NO),
-                                                         showTotalsKey:@(YES)}];
+                                                                         titleKey:@"",
+                                                                         startKey:[NSDate distantPast],
+                                                                         endKey:[NSDate distantFuture],
+                                                                         includeLastDayInCalcKey:@(YES),
+                                                                         todayIsKey:@(todayIsNotCounted),
+                                                                         showEventDatesKey:@(YES),
+                                                                         showPercentageKey:@(YES),
+                                                                         showCompletedDaysKey:@(NO),
+                                                                         showTotalsKey:@(YES),
+                                                                         backgroundColorKey:[NSKeyedArchiver archivedDataWithRootObject:white]}];
+            switch (self.index % 3) {
+                case 0:
+                    [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:green] forKey:completedColorKey];
+                    [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:red] forKey:remainingColorKey];
+                    break;
+                case 1:
+                    [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:red] forKey:completedColorKey];
+                    [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:blue] forKey:remainingColorKey];
+                    break;
+                case 2:
+                    [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:blue] forKey:completedColorKey];
+                    [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:green] forKey:remainingColorKey];
+                    break;
+            }
 		} else {
 			self.event = [NSMutableDictionary dictionaryWithDictionary:[[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] objectAtIndex:index]];
 			self.newEvent = NO;
@@ -117,6 +137,27 @@
             }
             if (![[self.event allKeys] containsObject:showTotalsKey]) {
                 [self.event setValue:@(YES) forKey:showTotalsKey];
+                save = YES;
+            }
+            if (![self.event.allKeys containsObject:backgroundColorKey]) {
+                [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:white] forKey:backgroundColorKey];
+                save = YES;
+            }
+            if (![self.event.allKeys containsObject:completedColorKey]) {
+                switch (index % 3) {
+                    case 0:
+                        [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:green] forKey:completedColorKey];
+                        [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:red] forKey:remainingColorKey];
+                        break;
+                    case 1:
+                        [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:red] forKey:completedColorKey];
+                        [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:blue] forKey:remainingColorKey];
+                        break;
+                    case 2:
+                        [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:blue] forKey:completedColorKey];
+                        [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:green] forKey:remainingColorKey];
+                        break;
+                }
                 save = YES;
             }
             if (save) {
@@ -194,20 +235,20 @@
     self.durationViewCellIndexPath = [NSIndexPath indexPathForRow:DURATION inSection:EVENT];
 	// set the detailTextLabel.textColor to ~ Brunswick Green (per Wikipedia)
 	self.detailTextLabelColor = [UIColor colorWithRed:0.105 green:0.301 blue:0.242 alpha:1.0];
-//	self.linkUnlinkedEventActionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Link to Event in Calendar", @"Action sheet title to link event to system calendar")
-//																	delegate:self
-//														   cancelButtonTitle:NSLocalizedString(@"Cancel", @"Button to not link event to calendar")
-//													  destructiveButtonTitle:nil
-//														   otherButtonTitles:NSLocalizedString(@"Existing Event", @"Button to link to event already in calendar"),
-//										 NSLocalizedString(@"Create New Event", @"Button to create event in calendar"),
-//										 nil];
-//	self.changeLinkedEventActionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Link to Event in Calendar", @"")
-//																	delegate:self
-//														   cancelButtonTitle:NSLocalizedString(@"Cancel", @"")
-//													  destructiveButtonTitle:NSLocalizedString(@"Remove Link", @"Button to unlink an event from the system calendar")
-//														   otherButtonTitles:NSLocalizedString(@"Change Linked Event", @""),
-//										 NSLocalizedString(@"Create New Event", @""),
-//										 nil];
+    //	self.linkUnlinkedEventActionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Link to Event in Calendar", @"Action sheet title to link event to system calendar")
+    //																	delegate:self
+    //														   cancelButtonTitle:NSLocalizedString(@"Cancel", @"Button to not link event to calendar")
+    //													  destructiveButtonTitle:nil
+    //														   otherButtonTitles:NSLocalizedString(@"Existing Event", @"Button to link to event already in calendar"),
+    //										 NSLocalizedString(@"Create New Event", @"Button to create event in calendar"),
+    //										 nil];
+    //	self.changeLinkedEventActionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Link to Event in Calendar", @"")
+    //																	delegate:self
+    //														   cancelButtonTitle:NSLocalizedString(@"Cancel", @"")
+    //													  destructiveButtonTitle:NSLocalizedString(@"Remove Link", @"Button to unlink an event from the system calendar")
+    //														   otherButtonTitles:NSLocalizedString(@"Change Linked Event", @""),
+    //										 NSLocalizedString(@"Create New Event", @""),
+    //										 nil];
     // Add gesture recognized to handle taps between cells
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideInputs)];
     [self.tableView addGestureRecognizer:gestureRecognizer];
@@ -360,9 +401,9 @@
         case DISPLAY:
             return 7;
             break;
-//        case URL_SECT:
-//            return 1;
-//            break;
+            //        case URL_SECT:
+            //            return 1;
+            //            break;
         case APP_STORE:
             if (self.appDelegate.allowInAppPurchases) {
                 return self.appDelegate.appStore.validProducts.count + 1;
@@ -584,14 +625,14 @@
                     break;
             }
             break;
-//        case URL_SECT:
-//            switch (indexPath.row) {
-//                case URL_CELL:
-//                    return self.urlViewCell;
-//                default:
-//                    break;
-//            }
-//            break;
+            //        case URL_SECT:
+            //            switch (indexPath.row) {
+            //                case URL_CELL:
+            //                    return self.urlViewCell;
+            //                default:
+            //                    break;
+            //            }
+            //            break;
 		case APP_STORE:
 			if (self.appDelegate.appStore.canMakePayments) {
                 if (indexPath.row < self.appDelegate.appStore.validProducts.count) {
@@ -694,14 +735,14 @@
 	}
     return nil;
     /*
-    switch (section) {
-        case EVENT:
-            return [NSString stringWithFormat:@"doing-time-app://?%@", [self.event[titleKey] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-            break;
-        default:
-            return nil;
-            break;
-    }
+     switch (section) {
+     case EVENT:
+     return [NSString stringWithFormat:@"doing-time-app://?%@", [self.event[titleKey] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+     break;
+     default:
+     return nil;
+     break;
+     }
      */
 }
 
@@ -858,7 +899,7 @@
                                                                                     forKey:backgroundColorKey];
                                                                   }];
                     [self.navigationController pushViewController:controller animated:YES];
-                    }
+                }
                     break;
                 case SHOW_DATES:
                 case SHOW_PERCENTS:
