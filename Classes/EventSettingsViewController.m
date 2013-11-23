@@ -226,21 +226,20 @@
 
 - (void)cancel {
 	self.cancelling = YES;
-    if ([self.appDelegate.appStore hasTransactionForProduct:multipleEventsProductIdentifier]) {
-        [self.navigationController popViewControllerAnimated:YES];
-    } else {
+    if ([self.navigationController.viewControllers[0] isEqual:self]) {
         [self dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 
 - (void)done {
     if ([self verifyEvent]) {
         [self saveEvent];
-        if ([self.appDelegate.appStore hasTransactionForProduct:multipleEventsProductIdentifier]) {
-            [self.navigationController popViewControllerAnimated:YES];
-        } else {
-            [(MainViewController *)self.presentingViewController eventDidUpdate:0];
+        if ([self.navigationController.viewControllers[0] isEqual:self]) {
             [self dismissViewControllerAnimated:YES completion:nil];
+        } else {
+            [self.navigationController popViewControllerAnimated:YES];
         }
     }
 }
