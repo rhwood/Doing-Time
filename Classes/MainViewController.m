@@ -99,7 +99,13 @@
 	[self scheduleRedrawOnDayOver];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self redrawBackground];
+}
+
 - (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     if (![[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey].count) {
         // Set reasonable defaults for the first event here
         if (![[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey]) {
@@ -121,8 +127,8 @@
                                               otherButtonTitles:nil];
         [alert show];
         [self showInfo:self.events[0]];
-        [self redrawBackground];
     }
+    [self redrawBackground];
 }
 
 - (void)loadScrollerWithEvent:(NSUInteger)event {
