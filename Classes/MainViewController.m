@@ -241,13 +241,21 @@
 	}
 }
 
+- (IBAction)showInfo:(id)sender {
+    EventSettingsViewController *controller = [[EventSettingsViewController alloc] initWithEventIndex:self.pager.currentPage];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
+    controller.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    [self presentViewController:navigationController animated:YES completion:nil];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+}
+
 - (void)showList:(id)sender {
     FlipsideViewController *controller = [[FlipsideViewController alloc] initWithNibName:@"FlipsideView" bundle:nil];
     controller.delegate = self;
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
-    //controller.navigationController = navigationController;
     controller.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
     [self presentViewController:navigationController animated:YES completion:nil];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
     if ([sender respondsToSelector:@selector(eventID)]) {
         [controller editEvent:[sender eventID]];
     }
@@ -311,24 +319,18 @@
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (IBAction)showInfo:(id)sender {
-    EventSettingsViewController *controller = [[EventSettingsViewController alloc] initWithEventIndex:self.pager.currentPage];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
-    //controller.navigationController = navigationController;
-    controller.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-    [self presentViewController:navigationController animated:YES completion:nil];
-}
-
 - (IBAction)changePage:(id)sender {
 	NSInteger page = self.pager.currentPage;
 	
 	CGRect frame = self.scroller.frame;
 	frame.origin.x = frame.size.width * page;
 	frame.origin.y = 0;
-	[self.scroller scrollRectToVisible:frame animated:YES];
+    [UIView animateWithDuration:0.2 animations:^{
+        [self.scroller scrollRectToVisible:frame animated:NO];
+        [self redrawBackground];
+    }];
 	
 	self.pagerDidScroll = YES;
-    [self redrawBackground];
 }
 
 #pragma mark -
