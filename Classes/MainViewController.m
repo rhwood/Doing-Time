@@ -13,6 +13,12 @@
 #import "AppStoreDelegate.h"
 #import "Constants.h"
 
+@interface MainViewController (Private)
+
+- (void)redrawBackground;
+
+@end
+
 @implementation MainViewController
 
 @synthesize controls = _controls;
@@ -102,6 +108,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self redrawBackground];
+    [UIApplication sharedApplication].statusBarHidden = NO;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
