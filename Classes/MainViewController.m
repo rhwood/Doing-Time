@@ -121,6 +121,7 @@
                                               otherButtonTitles:nil];
         [alert show];
         [self showInfo:self.events[0]];
+        [self redrawBackground];
     }
 }
 
@@ -298,7 +299,7 @@
 }
 
 - (IBAction)showInfo:(id)sender {
-    EventSettingsViewController *controller = [[EventSettingsViewController alloc] initWithEventIndex:0];
+    EventSettingsViewController *controller = [[EventSettingsViewController alloc] initWithEventIndex:self.pager.currentPage];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
     //controller.navigationController = navigationController;
     controller.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
