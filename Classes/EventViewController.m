@@ -333,7 +333,6 @@
         _eventTitle.textColor = [UIColor whiteColor];
         _settings.imageView.image = [UIImage imageNamed:@"white-gear.png"];
         [_settings setImage:_settings.imageView.image forState:UIControlStateHighlighted];
-        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     } else {
         _daysComplete.textColor = [UIColor blackColor];
         _daysLeft.textColor = [UIColor blackColor];
@@ -341,7 +340,6 @@
         _eventTitle.textColor = [UIColor blackColor];
         _settings.imageView.image = [UIImage imageNamed:@"gray-gear.png"];
         [_settings setImage:_settings.imageView.image forState:UIControlStateHighlighted];
-        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
     }
 }
 
