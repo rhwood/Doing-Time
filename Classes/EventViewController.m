@@ -15,6 +15,7 @@
 @interface EventViewController (Private)
 
 - (Boolean)eventEqualsOldEvent:(NSDictionary *)newEvent;
+- (void)setColors;
 
 @end
 
@@ -271,20 +272,7 @@
     }
 	forceRedraw = ([self eventEqualsOldEvent:self.event]) ? forceRedraw : YES;
     self.oldEvent = self.event;
-    if (self.backgroundBrightness < 0.51) {
-        _daysComplete.textColor = [UIColor whiteColor];
-        _daysLeft.textColor = [UIColor whiteColor];
-        _dateRange.textColor = [UIColor whiteColor];
-        _eventTitle.textColor = [UIColor whiteColor];
-        _settings.imageView.image = [UIImage imageNamed:@"white-gear.png"];
-    } else {
-        _daysComplete.textColor = [UIColor blackColor];
-        _daysLeft.textColor = [UIColor blackColor];
-        _dateRange.textColor = [UIColor blackColor];
-        _eventTitle.textColor = [UIColor blackColor];
-        _settings.imageView.image = [UIImage imageNamed:@"gray-gear.png"];
-    }
-
+    [self setColors];
 	if ([self isViewLoaded] && forceRedraw) {
 		_pieChart.alpha = 0.0;
 		[_pieChart setHidden:NO];
@@ -337,9 +325,34 @@
     }
 }
 
+- (void)setColors {
+    if (self.backgroundBrightness < 0.51) {
+        _daysComplete.textColor = [UIColor whiteColor];
+        _daysLeft.textColor = [UIColor whiteColor];
+        _dateRange.textColor = [UIColor whiteColor];
+        _eventTitle.textColor = [UIColor whiteColor];
+        _settings.imageView.image = [UIImage imageNamed:@"white-gear.png"];
+        [_settings setImage:_settings.imageView.image forState:UIControlStateHighlighted];
+        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    } else {
+        _daysComplete.textColor = [UIColor blackColor];
+        _daysLeft.textColor = [UIColor blackColor];
+        _dateRange.textColor = [UIColor blackColor];
+        _eventTitle.textColor = [UIColor blackColor];
+        _settings.imageView.image = [UIImage imageNamed:@"gray-gear.png"];
+        [_settings setImage:_settings.imageView.image forState:UIControlStateHighlighted];
+        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 	[self setPieChartValues:YES];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self setColors];
 }
 
 - (IBAction)showInfo:(id)sender {
