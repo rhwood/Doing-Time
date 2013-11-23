@@ -47,6 +47,7 @@
 #pragma mark Settings Handling
 
 - (IBAction)showInfo:(id)sender;
+- (IBAction)showList:(id)sender;
 
 #pragma mark -
 #pragma mark iAd Delegate
@@ -58,6 +59,7 @@
 @property (nonatomic, strong) IBOutlet UIPageControl *pager;
 @property (nonatomic, strong) IBOutlet UIScrollView *scroller;
 @property (nonatomic, strong) IBOutlet NSMutableArray *events;
+@property (nonatomic, strong) IBOutlet UIButton *listButton;
 @property BOOL bannerIsVisible;
 @property BOOL pagerDidScroll;
 @property (nonatomic, strong) Doing_TimeAppDelegate *appDelegate;

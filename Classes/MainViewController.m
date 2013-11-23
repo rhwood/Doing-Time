@@ -227,18 +227,32 @@
 	}
 }
 
+- (void)showList:(id)sender {
+    FlipsideViewController *controller = [[FlipsideViewController alloc] initWithNibName:@"FlipsideView" bundle:nil];
+    controller.delegate = self;
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
+    //controller.navigationController = navigationController;
+    controller.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    [self presentViewController:navigationController animated:YES completion:nil];
+    if ([sender respondsToSelector:@selector(eventID)]) {
+        [controller editEvent:[sender eventID]];
+    }
+}
+
 - (void)redrawBackground {
     self.view.backgroundColor = [NSKeyedUnarchiver unarchiveObjectWithData:((EventViewController *)self.events[self.pager.currentPage]).event[backgroundColorKey]];
     if (((EventViewController *)self.events[self.pager.currentPage]).backgroundBrightness < .51) {
-        NSLog(@"Setting light status bar");
         [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
         self.pager.pageIndicatorTintColor = [UIColor lightGrayColor];
         self.pager.currentPageIndicatorTintColor = [UIColor whiteColor];
+        [self.listButton.imageView setImage:[UIImage imageNamed:@"white-list"]];
+        [((EventViewController *)self.events[self.pager.currentPage]).settings.imageView setImage:[UIImage imageNamed:@"white-gear"]];
     } else {
-        NSLog(@"Setting dark status bar");
         [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
         self.pager.pageIndicatorTintColor = [UIColor darkGrayColor];
         self.pager.currentPageIndicatorTintColor = [UIColor blackColor];
+        [self.listButton.imageView setImage:[UIImage imageNamed:@"gray-list"]];
+        [((EventViewController *)self.events[self.pager.currentPage]).settings.imageView setImage:[UIImage imageNamed:@"gray-gear"]];
     }
 }
 
@@ -284,23 +298,11 @@
 }
 
 - (IBAction)showInfo:(id)sender {
-    if ([self.appDelegate.appStore hasTransactionForProduct:multipleEventsProductIdentifier]) {
-        FlipsideViewController *controller = [[FlipsideViewController alloc] initWithNibName:@"FlipsideView" bundle:nil];
-        controller.delegate = self;
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
-        //controller.navigationController = navigationController;
-        controller.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-        [self presentViewController:navigationController animated:YES completion:nil];
-        if ([sender respondsToSelector:@selector(eventID)]) {
-            [controller editEvent:[sender eventID]];
-        }
-    } else {
-        EventSettingsViewController *controller = [[EventSettingsViewController alloc] initWithEventIndex:0];
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
-        //controller.navigationController = navigationController;
-        controller.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-        [self presentViewController:navigationController animated:YES completion:nil];
-    }
+    EventSettingsViewController *controller = [[EventSettingsViewController alloc] initWithEventIndex:0];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
+    //controller.navigationController = navigationController;
+    controller.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 - (IBAction)changePage:(id)sender {
