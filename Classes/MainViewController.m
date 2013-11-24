@@ -245,8 +245,8 @@
     EventSettingsViewController *controller = [[EventSettingsViewController alloc] initWithEventIndex:self.pager.currentPage];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
     controller.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-    [self presentViewController:navigationController animated:YES completion:nil];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 - (void)showList:(id)sender {
