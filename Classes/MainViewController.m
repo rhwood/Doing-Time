@@ -305,13 +305,13 @@
 - (void)eventWasRemoved:(NSUInteger)eventIdentifier {
 	if (eventIdentifier < [self.events count]) {
 		[self.events removeObjectAtIndex:eventIdentifier];
-		self.scroller.contentSize = CGSizeMake(self.scroller.frame.size.width * [self.events count], self.scroller.frame.size.height);
 		self.pager.numberOfPages = [self.events count];
-		[self redrawEvents:NO];
 		if (self.pager.currentPage >= self.pager.numberOfPages) {
 			self.pager.currentPage = 0;
 			[self changePage:nil];
 		}
+		self.scroller.contentSize = CGSizeMake(self.scroller.frame.size.width * [self.events count], self.scroller.frame.size.height);
+		[self redrawEvents:NO];
 	}
 }
 
