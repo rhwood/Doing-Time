@@ -43,7 +43,7 @@ static NSString *EventCellIdentifier = @"EventViewCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.tableView registerNib:[UINib nibWithNibName:EventCellIdentifier bundle:nil] forCellReuseIdentifier:EventCellIdentifier];
+    [self.tableView registerNib:[UINib nibWithNibName:EventCellIdentifier bundle:[NSBundle mainBundle]] forCellReuseIdentifier:EventCellIdentifier];
     NSLog(@"registered NIB");
     
 	self.eventBeingUpdated = INT_MAX;

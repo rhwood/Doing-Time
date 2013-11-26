@@ -29,6 +29,8 @@
 		485BAB5113498E31005EE6BE /* AppStoreDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 485BAB4F13498E31005EE6BE /* AppStoreDelegate.m */; };
 		485BD59816B14BF500424CC8 /* TodaySettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 485BD59A16B14BF500424CC8 /* TodaySettingsView.xib */; };
 		485BD59D16B14DC300424CC8 /* TodaySettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 485BD59C16B14DC300424CC8 /* TodaySettingsViewController.m */; };
+		48676E521842322900194D54 /* EventViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 48676E511842322900194D54 /* EventViewCell.m */; };
+		48676E551844B71100194D54 /* EventViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48676E571844B71100194D54 /* EventViewCell.xib */; };
 		487026B612D7CAE800E90108 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 487026B512D7CAE800E90108 /* iAd.framework */; };
 		4870279D12D80B3000E90108 /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4870279B12D80B3000E90108 /* NSDate+Additions.m */; };
 		487E29FF137D906B0004761D /* AboutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 487E29FE137D906B0004761D /* AboutView.xib */; };
@@ -128,6 +130,9 @@
 		485BD59916B14BF500424CC8 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TodaySettingsView.xib; sourceTree = "<group>"; };
 		485BD59B16B14DC300424CC8 /* TodaySettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TodaySettingsViewController.h; path = Classes/TodaySettingsViewController.h; sourceTree = "<group>"; };
 		485BD59C16B14DC300424CC8 /* TodaySettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TodaySettingsViewController.m; path = Classes/TodaySettingsViewController.m; sourceTree = "<group>"; };
+		48676E501842322900194D54 /* EventViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventViewCell.h; path = Classes/EventViewCell.h; sourceTree = "<group>"; };
+		48676E511842322900194D54 /* EventViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventViewCell.m; path = Classes/EventViewCell.m; sourceTree = "<group>"; };
+		48676E561844B71100194D54 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/EventViewCell.xib; sourceTree = "<group>"; };
 		487026B512D7CAE800E90108 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		4870279A12D80B3000E90108 /* NSDate+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = "NSDate+Additions.h"; path = "Classes/NSDate+Additions.h"; sourceTree = "<group>"; };
 		4870279B12D80B3000E90108 /* NSDate+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+Additions.m"; path = "Classes/NSDate+Additions.m"; sourceTree = "<group>"; };
@@ -280,8 +285,6 @@
 				4828129C135CA5C3003704EC /* AboutViewController.m */,
 				48924A17131D67DA002AC7F5 /* EventSettingsViewController.h */,
 				48924A18131D67DA002AC7F5 /* EventSettingsViewController.m */,
-				289233AC0DB2D0DB0083E9F9 /* FlipsideViewController.h */,
-				289233AD0DB2D0DB0083E9F9 /* FlipsideViewController.m */,
 				485BD59B16B14DC300424CC8 /* TodaySettingsViewController.h */,
 				485BD59C16B14DC300424CC8 /* TodaySettingsViewController.m */,
 				48E5647B181C5F320064AE1C /* ColorPickerViewController.h */,
@@ -309,6 +312,7 @@
 			isa = PBXGroup;
 			children = (
 				289233A00DB2D0730083E9F9 /* Main View */,
+				48676E4F184231E800194D54 /* Flipside View */,
 				281C6CD70DB2D82200F60ACC /* Settings Views */,
 				485BAB4B13498E02005EE6BE /* Supporting Classes */,
 				080E96DDFE201D6D7F000001 /* Application Delegate */,
@@ -367,6 +371,7 @@
 				4859316C12D9C6D9003BD7D6 /* Icon.png */,
 				4859316D12D9C6D9003BD7D6 /* Icon@2x.png */,
 				48CE82E71350D37B00D94BA6 /* Localizable.strings */,
+				48676E571844B71100194D54 /* EventViewCell.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -400,6 +405,17 @@
 				48AEFA90153C31890064ED0D /* TFLoggingManager.m */,
 			);
 			name = "Supporting Classes";
+			sourceTree = "<group>";
+		};
+		48676E4F184231E800194D54 /* Flipside View */ = {
+			isa = PBXGroup;
+			children = (
+				289233AC0DB2D0DB0083E9F9 /* FlipsideViewController.h */,
+				289233AD0DB2D0DB0083E9F9 /* FlipsideViewController.m */,
+				48676E501842322900194D54 /* EventViewCell.h */,
+				48676E511842322900194D54 /* EventViewCell.m */,
+			);
+			name = "Flipside View";
 			sourceTree = "<group>";
 		};
 		48D2F2EF1537A194006FA78B /* TestFlightSDK */ = {
@@ -595,6 +611,7 @@
 				481B4144183E2E88000FDE70 /* white-list.png in Resources */,
 				4859317012D9C6D9003BD7D6 /* Icon@2x.png in Resources */,
 				48964F42182302030019B5B0 /* gray-gear@2x.png in Resources */,
+				48676E551844B71100194D54 /* EventViewCell.xib in Resources */,
 				48CE82BC1350CAC700D94BA6 /* EventSettingsView.xib in Resources */,
 				48CE82B41350CAC600D94BA6 /* EventView.xib in Resources */,
 				48964F44182302030019B5B0 /* white-gear@2x.png in Resources */,
@@ -657,6 +674,7 @@
 				48E56471181C5D250064AE1C /* RSGenerateOperation.m in Sources */,
 				48E56469181C5D250064AE1C /* BitmapCropManipulator.m in Sources */,
 				48E56473181C5D250064AE1C /* RSSelectionView.m in Sources */,
+				48676E521842322900194D54 /* EventViewCell.m in Sources */,
 				48E56461181C5D250064AE1C /* ANImageBitmapRep.m in Sources */,
 				48AEFA91153C31890064ED0D /* TFLoggingManager.m in Sources */,
 				485BD59D16B14DC300424CC8 /* TodaySettingsViewController.m in Sources */,
@@ -692,6 +710,14 @@
 				485BD59916B14BF500424CC8 /* en */,
 			);
 			name = TodaySettingsView.xib;
+			sourceTree = "<group>";
+		};
+		48676E571844B71100194D54 /* EventViewCell.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				48676E561844B71100194D54 /* en */,
+			);
+			name = EventViewCell.xib;
 			sourceTree = "<group>";
 		};
 		487E29FE137D906B0004761D /* AboutView.xib */ = {
