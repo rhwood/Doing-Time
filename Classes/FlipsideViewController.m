@@ -7,12 +7,25 @@
 //
 
 #import "FlipsideViewController.h"
+#import "EventViewCell.h"
 #import "EventSettingsViewController.h"
 #import "AboutViewController.h"
 #import "Doing_TimeAppDelegate.h"
 #import "AppStoreDelegate.h"
 
+@interface FlipsideViewController (Private)
+
+#pragma mark - Table view data source
+- (BOOL)hasUsableAppStoreTableSection;
+
+@end
+
 @implementation FlipsideViewController
+
+static NSString *DefaultCellIdentifier = @"DefaultCell";
+static NSString *SubtitleCellIdentifier = @"SubtitleCell";
+static NSString *Value1CellIdentifier = @"Value1Cell";
+static NSString *EventCellIdentifier = @"EventViewCell";
 
 @synthesize delegate;
 @synthesize tableView = _tableView;
@@ -30,6 +43,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.tableView registerNib:[UINib nibWithNibName:EventCellIdentifier bundle:nil] forCellReuseIdentifier:EventCellIdentifier];
+    NSLog(@"registered NIB");
     
 	self.eventBeingUpdated = INT_MAX;
 	
@@ -159,7 +174,7 @@
 #pragma mark Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	if (![self.appDelegate.appStore hasTransactionsForAllProducts] && self.appDelegate.appStore.canMakePayments) {
+	if (self.hasUsableAppStoreTableSection) {
 		return 3;
 	}
 	return 2;
@@ -167,8 +182,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-	if (section == 1 &&
-		([self.appDelegate.appStore hasTransactionsForAllProducts] || !self.appDelegate.appStore.canMakePayments)) {
+	if (section == 1 && self.hasUsableAppStoreTableSection) {
 		section++;
 	}
 	switch (section) {
@@ -179,7 +193,7 @@
 			return [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count] + 1;
 			break;
 		case 1: // Store
-            if (self.appDelegate.allowInAppPurchases) {
+            if (self.appDelegate.allowInAppPurchases && self.appDelegate.appStore.validProducts.count > 0) {
                 return self.appDelegate.appStore.validProducts.count + 1;
             } else {
                 return 0;
@@ -195,12 +209,8 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *DefaultCellIdentifier = @"DefaultCell";
-	static NSString *SubtitleCellIdentifier = @"SubtitleCell";
-	static NSString *Value1CellIdentifier = @"Value1Cell";
 	NSUInteger section = indexPath.section;
-	if (indexPath.section == 1 &&
-		([self.appDelegate.appStore hasTransactionsForAllProducts] || !self.appDelegate.appStore.canMakePayments)) {
+	if (indexPath.section == 1 && self.hasUsableAppStoreTableSection) {
 		section = indexPath.section + 1;
 	}
 	NSUInteger eventsCount = [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count];
@@ -211,6 +221,10 @@
 		if (cell == nil) {
 			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:DefaultCellIdentifier];
 		}
+    } else if (section == 0) {
+        cell = [tableView dequeueReusableCellWithIdentifier:EventCellIdentifier];
+        if (cell == nil) {
+        }
 	} else if (section == 1 && indexPath.row == 2) {
 		cell = [tableView dequeueReusableCellWithIdentifier:Value1CellIdentifier];
 		if (cell == nil) {
@@ -228,7 +242,7 @@
 	
     switch (section) {
 		case 0: // Events
-			cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+			cell.accessoryType = UITableViewCellAccessoryDetailButton;
 			if (indexPath.row == eventsCount) {
 				if ([self.appDelegate.appStore hasTransactionForProduct:multipleEventsProductIdentifier]) {
 					cell.textLabel.text = NSLocalizedString(@"Add Event", @"Button to add another event to monitor. Button is in a table cell.");
@@ -290,8 +304,7 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	if (section == 1 &&
-		([self.appDelegate.appStore hasTransactionsForAllProducts] || !self.appDelegate.appStore.canMakePayments)) {
+	if (section == 1 && self.hasUsableAppStoreTableSection) {
 		section++;
 	}
 	switch (section) {
@@ -348,8 +361,7 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
-	if (section == 1 &&
-		[self.appDelegate.appStore hasTransactionsForAllProducts]) {
+	if (section == 1 && self.hasUsableAppStoreTableSection) {
 		section++;
 	}
 	switch (section) {
@@ -381,6 +393,13 @@
 	}
 	return nil;
 }
+
+- (BOOL)hasUsableAppStoreTableSection {
+    return ([self.appDelegate.appStore hasTransactionsForAllProducts] ||
+            !self.appDelegate.appStore.canMakePayments ||
+            self.appDelegate.appStore.validProducts.count == 0);
+}
+
 
 #pragma mark -
 #pragma mark Table view delegate
