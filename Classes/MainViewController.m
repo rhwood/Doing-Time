@@ -41,6 +41,32 @@
 	self.appDelegate = (Doing_TimeAppDelegate *)[UIApplication sharedApplication].delegate;
 //	self.eventStore = self.appDelegate.eventStore;
 
+    // Initial Event
+    if (![[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey].count) {
+        // Set reasonable defaults for the first event here
+        if (![[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey]) {
+            NSDate *today = [NSDate midnightForDate:[NSDate date]];
+            [[NSUserDefaults standardUserDefaults] setObject:@[@{
+                                                                   titleKey:NSLocalizedString(@"Doing Time", @"Application Name"),
+                                                                   startKey:today,
+                                                                   endKey:today,
+                                                                   includeLastDayInCalcKey:@(YES),
+                                                                   showCompletedDaysKey:@(YES),
+                                                                   showEventDatesKey:@(YES),
+                                                                   showPercentageKey:@(NO),
+                                                                   showTotalsKey:@(YES),
+                                                                   todayIsKey:@(todayIsNotCounted),
+                                                                   completedColorKey:[NSKeyedArchiver archivedDataWithRootObject:self.appDelegate.red],
+                                                                   remainingColorKey:[NSKeyedArchiver archivedDataWithRootObject:self.appDelegate.green],
+                                                                   backgroundColorKey:[NSKeyedArchiver archivedDataWithRootObject:self.appDelegate.white]}]
+                                                      forKey:eventsKey];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+        self.firstRun = YES;
+    } else {
+        self.firstRun = NO;
+    }
+
 	// Display Defaults
 	if ([self.appDelegate.appStore hasTransactionForProduct:multipleEventsProductIdentifier]) {
 		self.pager.numberOfPages = [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count];
@@ -113,20 +139,9 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    if (![[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey].count) {
-        // Set reasonable defaults for the first event here
-        if (![[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey]) {
-            NSDate *today = [NSDate midnightForDate:[NSDate date]];
-            [[NSUserDefaults standardUserDefaults] setObject:@[@{
-                                                    titleKey:NSLocalizedString(@"Doing Time", @"Application Name"),
-                                                    startKey:today,
-                                                      endKey:today,
-                                        showCompletedDaysKey:@(YES),
-                                           showPercentageKey:@(NO),
-                                                  todayIsKey:@(todayIsNotCounted)}]
-                                                      forKey:eventsKey];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-        }
+    [self redrawBackground];
+    if (self.firstRun) {
+        self.firstRun = NO;
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Welcome to Doing Time", @"Title for intro alert")
                                                         message:NSLocalizedString(@"Doing Time shows the progress towards completing a multi-day event.\n\nLet's configure our first event now.", @"Label for intro alert.")
                                                        delegate:self
@@ -135,7 +150,6 @@
         [alert show];
         [self showInfo:self.events[0]];
     }
-    [self redrawBackground];
 }
 
 - (void)loadScrollerWithEvent:(NSUInteger)event {
@@ -249,7 +263,7 @@
     [self presentViewController:navigationController animated:YES completion:nil];
 }
 
-- (void)showList:(id)sender {
+- (IBAction)showList:(id)sender {
     FlipsideViewController *controller = [[FlipsideViewController alloc] initWithNibName:@"FlipsideView" bundle:nil];
     controller.delegate = self;
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];

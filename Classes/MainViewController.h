@@ -66,4 +66,6 @@
 @property (nonatomic, strong) IBOutlet ADBannerView *adBanner;
 @property (nonatomic, strong) NSTimer *dayOverTimer;
 
+@property BOOL firstRun;
+
 @end
