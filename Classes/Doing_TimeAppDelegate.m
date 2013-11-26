@@ -28,6 +28,11 @@
     
     [TestFlight takeOff:@"8224ac7b-0bfa-4396-b5bc-3b2404fbc9f0"];
 
+    _red = [UIColor colorWithRed:0.6 green:0.0 blue:0.0 alpha:1.0];
+    _green = [UIColor colorWithRed:0.0 green:0.6 blue:0.0 alpha:1.0];
+    _blue = [UIColor colorWithRed:0.0 green:0.0 blue:0.6 alpha:1.0];
+    _white = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
+
 	//self.eventStore = [[EKEventStore alloc] init];
 	
 	// Migrate from version 1 settings to version 2 settings
@@ -74,28 +79,24 @@
 	
     // Migrate from version 3 settings to version 4 settings
     if ([[NSUserDefaults standardUserDefaults] integerForKey:versionKey] < 4) {
-        UIColor *red = [UIColor colorWithRed:0.6 green:0.0 blue:0.0 alpha:1.0];
-        UIColor *green = [UIColor colorWithRed:0.0 green:0.6 blue:0.0 alpha:1.0];
-        UIColor *blue = [UIColor colorWithRed:0.0 green:0.0 blue:0.6 alpha:1.0];
-        UIColor *white = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
         NSMutableArray *events = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey]];
         for (int i = 0; i < events.count; i++) {
             NSMutableDictionary *event = [events objectAtIndex:i];
             switch (i % 3) {
                 case 0:
-                    [event setValue:[NSKeyedArchiver archivedDataWithRootObject:green] forKey:completedColorKey];
-                    [event setValue:[NSKeyedArchiver archivedDataWithRootObject:red] forKey:remainingColorKey];
+                    [event setValue:[NSKeyedArchiver archivedDataWithRootObject:self.green] forKey:completedColorKey];
+                    [event setValue:[NSKeyedArchiver archivedDataWithRootObject:self.red] forKey:remainingColorKey];
                     break;
                 case 1:
-                    [event setValue:[NSKeyedArchiver archivedDataWithRootObject:red] forKey:completedColorKey];
-                    [event setValue:[NSKeyedArchiver archivedDataWithRootObject:blue] forKey:remainingColorKey];
+                    [event setValue:[NSKeyedArchiver archivedDataWithRootObject:self.red] forKey:completedColorKey];
+                    [event setValue:[NSKeyedArchiver archivedDataWithRootObject:self.blue] forKey:remainingColorKey];
                     break;
                 case 2:
-                    [event setValue:[NSKeyedArchiver archivedDataWithRootObject:blue] forKey:completedColorKey];
-                    [event setValue:[NSKeyedArchiver archivedDataWithRootObject:green] forKey:remainingColorKey];
+                    [event setValue:[NSKeyedArchiver archivedDataWithRootObject:self.blue] forKey:completedColorKey];
+                    [event setValue:[NSKeyedArchiver archivedDataWithRootObject:self.green] forKey:remainingColorKey];
                     break;
             }
-            [event setValue:[NSKeyedArchiver archivedDataWithRootObject:white] forKey:backgroundColorKey];
+            [event setValue:[NSKeyedArchiver archivedDataWithRootObject:self.white] forKey:backgroundColorKey];
         }
         [[NSUserDefaults standardUserDefaults] setInteger:4 forKey:versionKey];
         [[NSUserDefaults standardUserDefaults] synchronize];
