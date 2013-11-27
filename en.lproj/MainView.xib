@@ -8,6 +8,7 @@
             <connections>
                 <outlet property="adBanner" destination="55" id="73"/>
                 <outlet property="controls" destination="57" id="58"/>
+                <outlet property="infoButton" destination="MCe-dm-eEC" id="1d7-hK-Mvy"/>
                 <outlet property="listButton" destination="pn6-qq-7Fs" id="4ny-w1-con"/>
                 <outlet property="pager" destination="63" id="64"/>
                 <outlet property="scroller" destination="69" id="70"/>
@@ -45,12 +46,20 @@
                                 <action selector="changePage:" destination="-1" eventType="valueChanged" id="72"/>
                             </connections>
                         </pageControl>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="pn6-qq-7Fs">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="pn6-qq-7Fs" userLabel="Button - List">
                             <rect key="frame" x="277" y="9" width="29" height="32"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" image="gray-list.png"/>
                             <connections>
                                 <action selector="showList:" destination="-1" eventType="touchUpInside" id="g43-9z-bIx"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="MCe-dm-eEC" userLabel="Button - Info">
+                            <rect key="frame" x="15" y="9" width="29" height="32"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="gray-info.png"/>
+                            <connections>
+                                <action selector="showInfo:" destination="-1" eventType="touchUpInside" id="rVu-Pz-aae"/>
                             </connections>
                         </button>
                     </subviews>
@@ -63,6 +72,7 @@
         </view>
     </objects>
     <resources>
+        <image name="gray-info.png" width="28" height="28"/>
         <image name="gray-list.png" width="26" height="16"/>
     </resources>
 </document>

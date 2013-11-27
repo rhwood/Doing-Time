@@ -44,3 +44,7 @@ typedef enum {
 #pragma mark - App Store product identifiers
 
 extern NSString *const multipleEventsProductIdentifier;
+
+#pragma mark - Norifications
+
+extern NSString *const eventSavedNotification;

@@ -38,6 +38,14 @@
         self.calendar = [NSCalendar currentCalendar];
         self.showingAlert = NO;
         [self setBackgroundBrightness];
+        [[NSNotificationCenter defaultCenter] addObserverForName:eventSavedNotification
+                                                          object:nil
+                                                           queue:nil
+                                                      usingBlock:^(NSNotification *note) {
+                                                          if (((NSNumber *)note.userInfo[eventsKey]).integerValue == self.eventID) {
+                                                              [self redrawEvent:[self setPieChartValues:YES]];
+                                                          }
+                                                      }];
 	}
 	return self;
 }
@@ -333,6 +341,8 @@
         _eventTitle.textColor = [UIColor whiteColor];
         _settings.imageView.image = [UIImage imageNamed:@"white-gear.png"];
         [_settings setImage:_settings.imageView.image forState:UIControlStateHighlighted];
+        self.infoButton.imageView.image = [UIImage imageNamed:@"white-info.png"];
+        [self.infoButton setImage:self.infoButton.imageView.image forState:UIControlStateHighlighted];
     } else {
         _daysComplete.textColor = [UIColor blackColor];
         _daysLeft.textColor = [UIColor blackColor];
@@ -340,6 +350,8 @@
         _eventTitle.textColor = [UIColor blackColor];
         _settings.imageView.image = [UIImage imageNamed:@"gray-gear.png"];
         [_settings setImage:_settings.imageView.image forState:UIControlStateHighlighted];
+        self.infoButton.imageView.image = [UIImage imageNamed:@"gray-info.png"];
+        [self.infoButton setImage:self.infoButton.imageView.image forState:UIControlStateHighlighted];
     }
 }
 
@@ -355,6 +367,10 @@
 
 - (IBAction)showInfo:(id)sender {
 	[self.mainView showInfo:sender];
+}
+
+- (IBAction)showSettings:(id)sender {
+    [self.mainView showSettings:sender];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {

@@ -26,6 +26,7 @@
 
 - (id)initWithEvent:(NSUInteger)event;
 - (void)redrawEvent:(BOOL)forceRedraw;
+- (IBAction)showSettings:(id)sender;
 - (IBAction)showInfo:(id)sender;
 - (BOOL)setPieChartValues:(BOOL)forceRedraw;
 
@@ -37,6 +38,7 @@
 @property (nonatomic, strong) IBOutlet UIView *controls;
 @property (nonatomic, strong) IBOutlet UIView *piePlate;
 @property (nonatomic, strong) IBOutlet UIButton *settings;
+@property (strong) IBOutlet UIButton *infoButton;
 @property (nonatomic, strong) IBOutlet MainViewController *mainView;
 @property NSUInteger eventID;
 @property BOOL showingAlert;

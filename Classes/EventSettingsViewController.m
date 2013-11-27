@@ -309,6 +309,7 @@
 	}
 	[[NSUserDefaults standardUserDefaults] setObject:events forKey:eventsKey];
 	[[NSUserDefaults standardUserDefaults] synchronize];
+    [[NSNotificationCenter defaultCenter] postNotificationName:eventSavedNotification object:nil userInfo:@{eventsKey:[NSNumber numberWithInt:self.index]}];
 }
 
 #pragma mark - Duration

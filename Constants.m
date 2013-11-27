@@ -35,3 +35,7 @@ NSString *const dayOverKey = @"dayIsOverAt";
 #pragma mark - App Store product identifiers
 
 NSString *const multipleEventsProductIdentifier = @"com.alexandriasoftware.doingtime.multipleEvents";
+
+#pragma mark - Norifications
+
+NSString *const eventSavedNotification = @"eventSavedNotification";
