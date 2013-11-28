@@ -15,6 +15,7 @@
 		289233AE0DB2D0DB0083E9F9 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233A90DB2D0DB0083E9F9 /* MainViewController.m */; };
 		289233B00DB2D0DB0083E9F9 /* FlipsideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233AD0DB2D0DB0083E9F9 /* FlipsideViewController.m */; };
 		48110EC212C9804C00948558 /* PieChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 48110EC112C9804C00948558 /* PieChartView.m */; };
+		4816E5D91847746A0070E4AD /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4816E5D81847746A0070E4AD /* SettingsViewController.m */; };
 		481B4140183E2E58000FDE70 /* gray-list.png in Resources */ = {isa = PBXBuildFile; fileRef = 481B413E183E2E58000FDE70 /* gray-list.png */; };
 		481B4141183E2E58000FDE70 /* gray-list@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 481B413F183E2E58000FDE70 /* gray-list@2x.png */; };
 		481B4144183E2E88000FDE70 /* white-list.png in Resources */ = {isa = PBXBuildFile; fileRef = 481B4142183E2E88000FDE70 /* white-list.png */; };
@@ -31,7 +32,7 @@
 		485BD59D16B14DC300424CC8 /* TodaySettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 485BD59C16B14DC300424CC8 /* TodaySettingsViewController.m */; };
 		48676E521842322900194D54 /* EventViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 48676E511842322900194D54 /* EventViewCell.m */; };
 		48676E551844B71100194D54 /* EventViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48676E571844B71100194D54 /* EventViewCell.xib */; };
-		48676E5F1845865800194D54 /* Info.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48676E611845865800194D54 /* Info.storyboard */; };
+		48676E5F1845865800194D54 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48676E611845865800194D54 /* Settings.storyboard */; };
 		487026B612D7CAE800E90108 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 487026B512D7CAE800E90108 /* iAd.framework */; };
 		4870279D12D80B3000E90108 /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4870279B12D80B3000E90108 /* NSDate+Additions.m */; };
 		487E29FF137D906B0004761D /* AboutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 487E29FE137D906B0004761D /* AboutView.xib */; };
@@ -116,6 +117,8 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* Doing_Time_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Doing_Time_Prefix.pch; sourceTree = "<group>"; };
 		48110EC112C9804C00948558 /* PieChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PieChartView.m; path = Classes/PieChartView.m; sourceTree = "<group>"; };
+		4816E5D71847746A0070E4AD /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsViewController.h; path = Classes/SettingsViewController.h; sourceTree = "<group>"; };
+		4816E5D81847746A0070E4AD /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsViewController.m; path = Classes/SettingsViewController.m; sourceTree = "<group>"; };
 		481B413E183E2E58000FDE70 /* gray-list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gray-list.png"; sourceTree = "<group>"; };
 		481B413F183E2E58000FDE70 /* gray-list@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gray-list@2x.png"; sourceTree = "<group>"; };
 		481B4142183E2E88000FDE70 /* white-list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "white-list.png"; sourceTree = "<group>"; };
@@ -138,7 +141,7 @@
 		48676E501842322900194D54 /* EventViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventViewCell.h; path = Classes/EventViewCell.h; sourceTree = "<group>"; };
 		48676E511842322900194D54 /* EventViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventViewCell.m; path = Classes/EventViewCell.m; sourceTree = "<group>"; };
 		48676E561844B71100194D54 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/EventViewCell.xib; sourceTree = "<group>"; };
-		48676E601845865800194D54 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Info.storyboard; sourceTree = "<group>"; };
+		48676E601845865800194D54 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Settings.storyboard; sourceTree = "<group>"; };
 		487026B512D7CAE800E90108 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		4870279A12D80B3000E90108 /* NSDate+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = "NSDate+Additions.h"; path = "Classes/NSDate+Additions.h"; sourceTree = "<group>"; };
 		4870279B12D80B3000E90108 /* NSDate+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+Additions.m"; path = "Classes/NSDate+Additions.m"; sourceTree = "<group>"; };
@@ -288,7 +291,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		281C6CD70DB2D82200F60ACC /* Settings Views */ = {
+		281C6CD70DB2D82200F60ACC /* Event Settings Views */ = {
 			isa = PBXGroup;
 			children = (
 				4828129B135CA5C3003704EC /* AboutViewController.h */,
@@ -302,7 +305,7 @@
 				48964F37181F36100019B5B0 /* ColorSelectionView.h */,
 				48964F38181F36100019B5B0 /* ColorSelectionView.m */,
 			);
-			name = "Settings Views";
+			name = "Event Settings Views";
 			sourceTree = "<group>";
 		};
 		289233A00DB2D0730083E9F9 /* Main View */ = {
@@ -321,10 +324,10 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				48676E611845865800194D54 /* Info.storyboard */,
+				4816E5D6184772EC0070E4AD /* Settings Views */,
 				289233A00DB2D0730083E9F9 /* Main View */,
 				48676E4F184231E800194D54 /* List View */,
-				281C6CD70DB2D82200F60ACC /* Settings Views */,
+				281C6CD70DB2D82200F60ACC /* Event Settings Views */,
 				485BAB4B13498E02005EE6BE /* Supporting Classes */,
 				080E96DDFE201D6D7F000001 /* Application Delegate */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -363,6 +366,7 @@
 				48CE82BD1350CAC700D94BA6 /* FlipsideView.xib */,
 				48CE82BF1350CAC700D94BA6 /* MainView.xib */,
 				48CE82B51350CAC600D94BA6 /* MainWindow.xib */,
+				48676E611845865800194D54 /* Settings.storyboard */,
 				485BD59A16B14BF500424CC8 /* TodaySettingsView.xib */,
 				482812A4135CA6AC003704EC /* ASlogo1-64x192.png */,
 				489F72B215F2BCD200B5D0E7 /* ASlogo1-64x192@2x.png */,
@@ -393,6 +397,15 @@
 				48D2F2EF1537A194006FA78B /* TestFlightSDK */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4816E5D6184772EC0070E4AD /* Settings Views */ = {
+			isa = PBXGroup;
+			children = (
+				4816E5D71847746A0070E4AD /* SettingsViewController.h */,
+				4816E5D81847746A0070E4AD /* SettingsViewController.m */,
+			);
+			name = "Settings Views";
 			sourceTree = "<group>";
 		};
 		485BAB4B13498E02005EE6BE /* Supporting Classes */ = {
@@ -647,7 +660,7 @@
 				48E6BC941846144E00D92FCE /* gray-info@2x.png in Resources */,
 				48D8CFEF151DFC360017B6CB /* Icon-iPad@2x.png in Resources */,
 				481B4145183E2E88000FDE70 /* white-list@2x.png in Resources */,
-				48676E5F1845865800194D54 /* Info.storyboard in Resources */,
+				48676E5F1845865800194D54 /* Settings.storyboard in Resources */,
 				48E6BC931846144E00D92FCE /* gray-info.png in Resources */,
 				489F72B315F2BCD200B5D0E7 /* ASlogo1-64x192@2x.png in Resources */,
 				48E6BC971846149D00D92FCE /* white-info.png in Resources */,
@@ -693,6 +706,7 @@
 				4870279D12D80B3000E90108 /* NSDate+Additions.m in Sources */,
 				48924A1B131D67DA002AC7F5 /* EventSettingsViewController.m in Sources */,
 				48E56468181C5D250064AE1C /* BitmapContextManipulator.m in Sources */,
+				4816E5D91847746A0070E4AD /* SettingsViewController.m in Sources */,
 				48E61CDF131E9E210077DA8E /* EventViewController.m in Sources */,
 				48ADE0C41343B51E005E96EB /* Constants.m in Sources */,
 				48E56466181C5D250064AE1C /* CGContextCreator.m in Sources */,
@@ -748,12 +762,12 @@
 			name = EventViewCell.xib;
 			sourceTree = "<group>";
 		};
-		48676E611845865800194D54 /* Info.storyboard */ = {
+		48676E611845865800194D54 /* Settings.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				48676E601845865800194D54 /* en */,
 			);
-			name = Info.storyboard;
+			name = Settings.storyboard;
 			sourceTree = "<group>";
 		};
 		487E29FE137D906B0004761D /* AboutView.xib */ = {

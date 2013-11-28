@@ -9,6 +9,7 @@
 #import "MainViewController.h"
 #import "EventViewController.h"
 #import "EventSettingsViewController.h"
+#import "SettingsViewController.h"
 #import "Doing_TimeAppDelegate.h"
 #import "AppStoreDelegate.h"
 #import "Constants.h"
@@ -256,7 +257,6 @@
 }
 
 - (IBAction)showInfo:(id)sender {
-    // TODO: show Info storyboard controllers
     EventSettingsViewController *controller = [[EventSettingsViewController alloc] initWithEventIndex:self.pager.currentPage];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
     controller.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
@@ -277,11 +277,11 @@
 }
 
 - (IBAction)showSettings:(id)sender {
-    EventSettingsViewController *controller = [[EventSettingsViewController alloc] initWithEventIndex:self.pager.currentPage];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
+    UIStoryboard *infoStoryboard = [UIStoryboard storyboardWithName:@"Settings" bundle:nil];
+    SettingsViewController *controller = [infoStoryboard instantiateInitialViewController];
     controller.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
-    [self presentViewController:navigationController animated:YES completion:nil];
+    [self presentViewController:controller animated:YES completion:nil];
 }
 
 - (void)redrawBackground {
@@ -290,14 +290,14 @@
         [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
         self.pager.pageIndicatorTintColor = [UIColor lightGrayColor];
         self.pager.currentPageIndicatorTintColor = [UIColor whiteColor];
-        self.infoButton.imageView.image = [UIImage imageNamed:@"white-info"];
+        self.settingsButton.imageView.image = [UIImage imageNamed:@"white-gear"];
         self.listButton.imageView.image = [UIImage imageNamed:@"white-list"];
         [((EventViewController *)self.events[self.pager.currentPage]).settings.imageView setImage:[UIImage imageNamed:@"white-gear"]];
     } else {
         [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
         self.pager.pageIndicatorTintColor = [UIColor darkGrayColor];
         self.pager.currentPageIndicatorTintColor = [UIColor blackColor];
-        self.infoButton.imageView.image = [UIImage imageNamed:@"gray-info"];
+        self.settingsButton.imageView.image = [UIImage imageNamed:@"gray-gear"];
         self.listButton.imageView.image = [UIImage imageNamed:@"gray-list"];
         [((EventViewController *)self.events[self.pager.currentPage]).settings.imageView setImage:[UIImage imageNamed:@"gray-gear"]];
     }

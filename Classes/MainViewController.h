@@ -61,7 +61,7 @@
 @property (nonatomic, strong) IBOutlet UIScrollView *scroller;
 @property (nonatomic, strong) IBOutlet NSMutableArray *events;
 @property (nonatomic, strong) IBOutlet UIButton *listButton;
-@property (strong) IBOutlet UIButton *infoButton;
+@property (strong) IBOutlet UIButton *settingsButton;
 @property BOOL bannerIsVisible;
 @property BOOL pagerDidScroll;
 @property (nonatomic, strong) Doing_TimeAppDelegate *appDelegate;

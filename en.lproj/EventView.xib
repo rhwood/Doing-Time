@@ -12,10 +12,10 @@
                 <outlet property="daysComplete" destination="10" id="13"/>
                 <outlet property="daysLeft" destination="9" id="14"/>
                 <outlet property="eventTitle" destination="4" id="15"/>
-                <outlet property="infoButton" destination="HP4-4k-jfL" id="ybo-ZJ-UWh"/>
+                <outlet property="infoButton" destination="8" id="Pf2-Hn-p5T"/>
                 <outlet property="pieChart" destination="11" id="16"/>
                 <outlet property="piePlate" destination="5" id="17"/>
-                <outlet property="settings" destination="8" id="is9-8H-eke"/>
+                <outlet property="settings" destination="HP4-4k-jfL" id="0cU-2N-wmO"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
         </placeholder>
@@ -64,29 +64,29 @@
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </label>
-                        <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="8" userLabel="Button - Settings">
+                        <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="8" userLabel="Button - Info">
                             <rect key="frame" x="277" y="45" width="29" height="31"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                             <accessibility key="accessibilityConfiguration" label="Settings"/>
                             <fontDescription key="fontDescription" type="boldSystem" size="button"/>
-                            <state key="normal" image="gray-gear.png">
+                            <state key="normal" image="gray-info.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <state key="highlighted">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
-                                <action selector="showSettings:" destination="-1" eventType="touchUpInside" id="buX-j9-Mey"/>
+                                <action selector="showInfo:" destination="-1" eventType="touchUpInside" id="ttx-QP-d4I"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="HP4-4k-jfL" userLabel="Button - Info">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="HP4-4k-jfL" userLabel="Button - Settings">
                             <rect key="frame" x="16" y="47" width="28" height="28"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" image="gray-info.png">
+                            <state key="normal" image="gray-gear.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
-                                <action selector="showInfo:" destination="-1" eventType="touchUpInside" id="pfL-NB-Bw2"/>
+                                <action selector="showSettings:" destination="-1" eventType="touchUpInside" id="ozN-TG-aNw"/>
                             </connections>
                         </button>
                     </subviews>
