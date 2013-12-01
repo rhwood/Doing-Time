@@ -31,7 +31,7 @@
 - (Boolean)verifyEvent;
 - (void)saveEvent;
 - (BOOL)verifyNonemptyTitle;
-- (void)hideInputs;
+- (IBAction)hideInputs:(id)sender;
 
 - (IBAction)cancel:(id)sender;
 - (IBAction)done:(id)sender;

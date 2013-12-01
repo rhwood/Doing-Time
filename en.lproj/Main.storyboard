@@ -649,6 +649,7 @@
                         <connections>
                             <outlet property="dataSource" destination="V6q-4c-EZH" id="EiB-Lh-KXn"/>
                             <outlet property="delegate" destination="V6q-4c-EZH" id="4Ie-fI-PII"/>
+                            <outletCollection property="gestureRecognizers" destination="gSC-hm-vvD" appends="YES" id="zzx-aQ-A1I"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="mW7-Zj-L5d">
@@ -712,6 +713,11 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
 </mutableData>
                     </timeZone>
                 </datePicker>
+                <tapGestureRecognizer cancelsTouchesInView="NO" id="gSC-hm-vvD">
+                    <connections>
+                        <action selector="hideInputs:" destination="V6q-4c-EZH" id="xO5-eA-cJr"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="512" y="208"/>
         </scene>

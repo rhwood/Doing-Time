@@ -180,10 +180,6 @@
     //														   otherButtonTitles:NSLocalizedString(@"Change Linked Event", @""),
     //										 NSLocalizedString(@"Create New Event", @""),
     //										 nil];
-    // Add gesture recognized to handle taps between cells
-    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideInputs)];
-    [self.tableView addGestureRecognizer:gestureRecognizer];
-    gestureRecognizer.cancelsTouchesInView = NO;
     // Add duration cell, since it's accessory view is unique
     self.durationView.textColor = self.detailTextLabelColor;
 }
@@ -695,6 +691,7 @@
             break;
         case DISPLAY:
             [self clearDatePicker];
+            // every cell either performs a segue or has a switch
             [tableView cellForRowAtIndexPath:indexPath].selectionStyle = UITableViewCellSelectionStyleNone;
             break;
     }
@@ -730,7 +727,7 @@
     self.settingEndDate = NO;
 }
 
-- (void)hideInputs {
+- (void)hideInputs:(id)sender {
     [self hideDatePicker:YES];
     [self.view endEditing:NO];
     [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
