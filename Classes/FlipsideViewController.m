@@ -159,15 +159,9 @@ static NSString *EventCellIdentifier = @"EventViewCell";
 #pragma mark Events
 
 - (void)addEvent {
-	EventSettingsViewController *controller = [[EventSettingsViewController alloc] initWithEventIndex:[[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count]];
-	[self.navigationController pushViewController:controller animated:YES];
-	self.eventBeingUpdated = controller.index;
 }
 
 - (void)editEvent:(NSUInteger)eventID {
-    EventSettingsViewController *controller = [[EventSettingsViewController alloc] initWithEventIndex:eventID];
-    [self.navigationController pushViewController:controller animated:YES];
-    self.eventBeingUpdated = controller.index;
 }
 
 #pragma mark -

@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
 
-@interface SettingsViewController : UITableViewController
+@class Doing_TimeAppDelegate;
+
+@interface SettingsViewController : UITableViewController <MFMailComposeViewControllerDelegate>
+
+@property (strong) Doing_TimeAppDelegate *appDelegate;
 
 @end

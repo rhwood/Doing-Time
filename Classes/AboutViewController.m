@@ -25,6 +25,17 @@
     self.accessibilityLabel = self.title;
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    UITableViewHeaderFooterView *footer = [self.tableView footerViewForSection:(self.tableView.numberOfSections - 1)];
+    footer.detailTextLabel.text = nil;
+    footer.textLabel.text = [NSString localizedStringWithFormat:footer.textLabel.text,
+            [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
+            [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"],
+            [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]];
+}
+
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [self.tableView cellForRowAtIndexPath:self.tableView.indexPathForSelectedRow].selectionStyle = UITableViewCellSelectionStyleNone;
@@ -41,7 +52,6 @@
     // Return the number of sections.
     return 3;
 }
-
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
@@ -62,78 +72,17 @@
     return 0;
 }
 
-
-// Customize the appearance of table view cells.
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    static NSString *CellIdentifier = @"Cell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
-    }
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    cell.isAccessibilityElement = YES;
-	switch (indexPath.section) {
-		case 0:
-			return self.logoCell;
-			break;
-		case 1:
-			switch (indexPath.row) {
-				case 0:
-					cell.textLabel.text = NSLocalizedString(@"Web", @"Short term for World Wide Web");
-					cell.detailTextLabel.text = @"alexandriasoftware.com";
-                    cell.accessibilityLabel = NSLocalizedString(@"On the web at alexandriasoftware.com", @"AccessibilityLabel for Web");
-					break;
-				case 1:
-					cell.textLabel.text = NSLocalizedString(@"Twitter", @"Short term for Twitter");
-					cell.detailTextLabel.text = @"@alexandriasw";
-                    cell.accessibilityLabel = NSLocalizedString(@"On Twitter at alexandriasw", @"AccessibilityLabel for Twitter");
-					break;
-				case 2:
-					cell.textLabel.text = NSLocalizedString(@"Facebook", @"Short term for Facebook");
-					cell.detailTextLabel.text = NSLocalizedString(@"Like us!", @"Facebook \"Like us!\" tagline");
-                    cell.accessibilityLabel = NSLocalizedString(@"Like us on Facebook!", @"AccessibilityLabel for Facebook");
-					break;
-				case 3:
-					cell.textLabel.text = NSLocalizedString(@"Support", @"Short title for support resources");
-					cell.detailTextLabel.text = NSLocalizedString(@"Contact Us", @"Short invitation to send us a message");
-                    cell.accessibilityLabel = NSLocalizedString(@"Contact us via our website.", @"AccessibilityLabel for Contact Us");
-					break;
-				default:
-					break;
-			}
-			break;
-		case 2:
-			switch (indexPath.row) {
-				case 0:
-					cell.textLabel.text = @"Dain Kaplan";
-					cell.detailTextLabel.text = @"Chartreuse";
-                    cell.accessibilityLabel = NSLocalizedString(@"We thank Dain Kaplan for Chartreuse.", @"AccessibilityLabel for Chartreuse (thanks)");
-					break;
-                case 1:
-                    cell.textLabel.text = @"Glyphish";
-                    cell.detailTextLabel.text = NSLocalizedString(@"Icons", @"Icons");
-                    cell.accessibilityLabel = NSLocalizedString(@"We thank Glyphish for the icons in Doing Time.", @"AccessibilityLabel for Glyphish icons (thanks)");
-				default:
-					break;
-			}
-		default:
-			break;
-	}
-    return cell;
-}
-
+/*
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     if (section == ([self numberOfSectionsInTableView:tableView] - 1)) {
-        return [NSString localizedStringWithFormat:NSLocalizedString(@"%@ version %@ (%@)", @"About view version footer"),
+        return [NSString localizedStringWithFormat:NSLocalizedString(@"%@ version %@ (%@) - Should not see", @"About view version footer"),
                 [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"],
                 [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"],
                 [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]];
     }
     return nil;
 }
-
+*/
 #pragma mark -
 #pragma mark Table view delegate
 

@@ -36,12 +36,12 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
 	[super viewDidLoad];
-
+    
 	// Set Defaults
 	self.bannerIsVisible = NO;
 	self.appDelegate = (Doing_TimeAppDelegate *)[UIApplication sharedApplication].delegate;
-//	self.eventStore = self.appDelegate.eventStore;
-
+    //	self.eventStore = self.appDelegate.eventStore;
+    
     // Initial Event
     if (![[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey].count) {
         // Set reasonable defaults for the first event here
@@ -67,7 +67,7 @@
     } else {
         self.firstRun = NO;
     }
-
+    
 	// Display Defaults
 	if ([self.appDelegate.appStore hasTransactionForProduct:multipleEventsProductIdentifier]) {
 		self.pager.numberOfPages = [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count];
@@ -80,7 +80,7 @@
         self.bannerIsVisible = YES;
         [self hideAdBanner:YES animated:NO];
 	}
-
+    
 	// Recognize left/right swipes
 	UISwipeGestureRecognizer *recognizer;
 	recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeFrom:)];
@@ -136,6 +136,7 @@
     [super viewWillAppear:animated];
     [self redrawBackground];
     [UIApplication sharedApplication].statusBarHidden = NO;
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -150,6 +151,14 @@
                                               otherButtonTitles:nil];
         [alert show];
         [self showInfo:self.events[0]];
+    }
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    NSLog(@"Current page: %i", self.pager.currentPage);
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
+    if ([sender isEqual:((EventViewController *)self.events[self.pager.currentPage]).infoButton]) {
+        ((EventSettingsViewController *)segue.destinationViewController).index = self.pager.currentPage;
     }
 }
 
@@ -220,7 +229,7 @@
 - (void)unloadEvents {
     NSLog(@"Unloading events");
     for (UIView *view in [self.scroller subviews]) {
-        [view removeFromSuperview];   
+        [view removeFromSuperview];
     }
 }
 
@@ -257,11 +266,7 @@
 }
 
 - (IBAction)showInfo:(id)sender {
-    EventSettingsViewController *controller = [[EventSettingsViewController alloc] initWithEventIndex:self.pager.currentPage];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
-    controller.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
-    [self presentViewController:navigationController animated:YES completion:nil];
+    [self performSegueWithIdentifier:@"MainToEventSettingsSegue" sender:sender];
 }
 
 - (IBAction)showList:(id)sender {
@@ -277,11 +282,7 @@
 }
 
 - (IBAction)showSettings:(id)sender {
-    UIStoryboard *infoStoryboard = [UIStoryboard storyboardWithName:@"Settings" bundle:nil];
-    SettingsViewController *controller = [infoStoryboard instantiateInitialViewController];
-    controller.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
-    [self presentViewController:controller animated:YES completion:nil];
+    [self performSegueWithIdentifier:@"AppSettingsSegue" sender:sender];
 }
 
 - (void)redrawBackground {
@@ -405,13 +406,13 @@
 - (void)bannerViewDidLoadAd:(ADBannerView *)banner {
 	if ([self.adBanner superview] && !self.bannerIsVisible) {
 		[self hideAdBanner:NO animated:YES];
-    }	
+    }
 }
 
 - (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error	{
 	if ([self.adBanner superview] && self.bannerIsVisible) {
 		[self hideAdBanner:YES animated:YES];
-    }	
+    }
 }
 
 #pragma mark -

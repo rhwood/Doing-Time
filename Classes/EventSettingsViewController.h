@@ -11,13 +11,10 @@
 //#import <EventKit/EventKit.h>
 //#import <EventKitUI/EventKitUI.h>
 
-@class Doing_TimeAppDelegate;
 @class ColorPickerViewController;
 
-@interface EventSettingsViewController : UIViewController <UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate> {
-	NSUInteger _index;
+@interface EventSettingsViewController : UITableViewController <UITextFieldDelegate, UIAlertViewDelegate, UIActionSheetDelegate> {
 	NSMutableDictionary* _event;
-	UITableView* _tableView;
 	UIDatePicker* _datePicker;
 	BOOL settingStartDate;
 	BOOL settingEndDate;
@@ -30,7 +27,6 @@
 	UIActionSheet* _linkUnlinkedEventActionSheet;
 	UIActionSheet* _changeLinkedEventActionSheet;
 	__unsafe_unretained UITextField *_titleView;
-	UITableViewCell *_titleViewCell;
 	BOOL cancelling;
 
 	// In-App Purchases
@@ -38,13 +34,15 @@
 
 }
 
-- (id)initWithEventIndex:(NSUInteger)index;
 - (void)cancel;
 - (void)done;
 - (Boolean)verifyEvent;
 - (void)saveEvent;
 - (BOOL)verifyNonemptyTitle;
 - (void)hideInputs;
+
+- (IBAction)cancel:(id)sender;
+- (IBAction)done:(id)sender;
 
 #pragma mark - Duration
 
@@ -59,8 +57,25 @@
 - (IBAction)switchShowRemainingDays:(id)sender;
 - (IBAction)switchShowTotals:(id)sender;
 
-#pragma mark -
-#pragma mark Date pickers
+#pragma mark - Table cells
+
+@property (weak) IBOutlet UITableViewCell *titleCell;
+@property (weak) IBOutlet UITableViewCell *startDateCell;
+@property (weak) IBOutlet UITableViewCell *endDateCell;
+@property (weak) IBOutlet UITableViewCell *durationCell;
+
+@property (weak) IBOutlet UITableViewCell *includeEndDateCell;
+@property (weak) IBOutlet UITableViewCell *todayIsCell;
+
+@property (weak) IBOutlet UITableViewCell *showDatesCell;
+@property (weak) IBOutlet UITableViewCell *showPercentagesCell;
+@property (weak) IBOutlet UITableViewCell *showTotalsCell;
+@property (weak) IBOutlet UITableViewCell *showRemainingDaysOnlyCell;
+@property (weak) IBOutlet UITableViewCell *completedDaysColorCell;
+@property (weak) IBOutlet UITableViewCell *remainingDaysColorCell;
+@property (weak) IBOutlet UITableViewCell *backgroundColorCell;
+
+#pragma mark - Date pickers
 
 - (void)changeStartDate:(id)sender;
 - (void)changeEndDate:(id)sender;
@@ -82,7 +97,6 @@
 
 @property NSUInteger index;
 @property (nonatomic, strong) NSMutableDictionary* event;
-@property (nonatomic, strong) IBOutlet UITableView* tableView;
 @property (nonatomic, strong) IBOutlet UIDatePicker* datePicker;
 @property BOOL settingStartDate;
 @property BOOL settingEndDate;
@@ -96,7 +110,6 @@
 @property (nonatomic, strong) UIActionSheet* linkUnlinkedEventActionSheet;
 @property (nonatomic, strong) UIActionSheet* changeLinkedEventActionSheet;
 @property (nonatomic, assign) IBOutlet UITextField* titleView;
-@property (nonatomic, strong) IBOutlet UITableViewCell* titleViewCell;
 @property (nonatomic, strong) IBOutlet UITextField* durationView;
 @property (nonatomic, strong) IBOutlet UITableViewCell* durationViewCell;
 @property (nonatomic, strong) IBOutlet UITextView* urlView;
@@ -104,8 +117,6 @@
 @property BOOL cancelling;
 @property NSUInteger duration;
 @property (nonatomic, strong) NSCalendar *calendar;
-
-@property (nonatomic, strong) Doing_TimeAppDelegate* appDelegate;
 
 // purchase support
 @property (nonatomic, strong) IBOutlet UIActivityIndicatorView* activityIndicator;

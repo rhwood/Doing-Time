@@ -10,7 +10,7 @@
 #import <iAd/iAd.h>
 //#import <EventKit/EventKit.h>
 
-@interface MainViewController : UIViewController <UIApplicationDelegate, FlipsideViewControllerDelegate, ADBannerViewDelegate, UIScrollViewDelegate> {
+@interface MainViewController : UIViewController <FlipsideViewControllerDelegate, ADBannerViewDelegate, UIScrollViewDelegate> {
 	
 	UIView *_controls;
 //	EKEventStore *_eventStore;

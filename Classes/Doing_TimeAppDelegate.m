@@ -116,9 +116,9 @@
 
     // Add the main view controller's view to the window and display.
 
-    window.rootViewController = mainViewController;
-    [window makeKeyAndVisible];
-
+    UINavigationController *rootNavigationController = (UINavigationController *)self.window.rootViewController;
+    mainViewController = (MainViewController *)[rootNavigationController topViewController];
+    
     return YES;
 }
 

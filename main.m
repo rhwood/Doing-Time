@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Doing_TimeAppDelegate.h"
 
 int main(int argc, char *argv[]) {
     
-    int retVal = UIApplicationMain(argc, argv, nil, nil);
-    return retVal;
+    @autoreleasepool {
+        return UIApplicationMain(argc, argv, nil, NSStringFromClass([Doing_TimeAppDelegate class]));
+    }
 }

@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 //#import <EventKit/EventKit.h>
+#import "AppStoreDelegate.h"
 #import "Constants.h"
 
 @class MainViewController;
-@class AppStoreDelegate;
 
 @interface Doing_TimeAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;

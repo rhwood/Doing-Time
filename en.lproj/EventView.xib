@@ -69,7 +69,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                             <accessibility key="accessibilityConfiguration" label="Settings"/>
                             <fontDescription key="fontDescription" type="boldSystem" size="button"/>
-                            <state key="normal" image="gray-info.png">
+                            <state key="normal" image="gray-info">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <state key="highlighted">
@@ -82,7 +82,7 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="HP4-4k-jfL" userLabel="Button - Settings">
                             <rect key="frame" x="16" y="47" width="28" height="28"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" image="gray-gear.png">
+                            <state key="normal" image="gray-gear">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
@@ -97,7 +97,7 @@
         </view>
     </objects>
     <resources>
-        <image name="gray-gear.png" width="28" height="28"/>
-        <image name="gray-info.png" width="28" height="28"/>
+        <image name="gray-gear" width="28" height="28"/>
+        <image name="gray-info" width="28" height="28"/>
     </resources>
 </document>
