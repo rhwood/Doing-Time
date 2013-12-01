@@ -22,8 +22,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	// navigation items
     self.accessibilityLabel = self.navigationItem.title;
+}
+
+- (void)setSetting:(TodayIs)setting {
+    _setting = setting;
+    [self.tableView reloadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -44,7 +48,7 @@
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    self.setting = indexPath.row;
+    _setting = indexPath.row;
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [tableView reloadData];
 }

@@ -203,9 +203,19 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:self.tableView.indexPathForSelectedRow];
-    NSLog(@"Title should be %@", cell.textLabel.text);
     NSString *key = nil;
-    if ([segue.identifier isEqualToString:@"CompletedDaysColorSegue"]) {
+    if ([segue.identifier isEqualToString:@"EventToTodayIsSegue"]) {
+        TodaySettingsViewController *destination = segue.destinationViewController;
+        destination.setting = [[self.event valueForKey:todayIsKey] integerValue];
+        [[NSNotificationCenter defaultCenter] addObserverForName:todayIsKey
+                                                          object:destination
+                                                           queue:[NSOperationQueue currentQueue]
+                                                      usingBlock:^(NSNotification *note) {
+                                                          [self.event setValue:[note.userInfo valueForKey:todayIsKey] forKey:todayIsKey];
+                                                          [[NSNotificationCenter defaultCenter] removeObserver:self name:todayIsKey object:note.object];
+                                                          [self.tableView reloadData];
+                                                      }];
+    } else if ([segue.identifier isEqualToString:@"CompletedDaysColorSegue"]) {
         key = completedColorKey;
     } else if ([segue.identifier isEqualToString:@"RemainingDaysColorSegue"]) {
         key = remainingColorKey;
@@ -221,11 +231,9 @@
                                                            queue:[NSOperationQueue currentQueue]
                                                       usingBlock:^(NSNotification *note) {
                                                           ((ColorSelectionView *)cell.accessoryView).selectedColor = ((ColorPickerViewController *)note.object).selectedColor;
-                                                          [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:((ColorPickerViewController *)note.object).selectedColor]
-                                                                        forKey:key];
-                                                          [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                                                                          name:@"ColorSelectionDidChange"
-                                                                                                        object:note.object];
+                                                          [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:((ColorPickerViewController *)note.object).selectedColor] forKey:key];
+                                                          [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ColorSelectionDidChange" object:note.object];
+                                                          [self.tableView reloadData];
                                                       }];
         
     }
@@ -672,7 +680,7 @@
                     [tableView cellForRowAtIndexPath:indexPath].selectionStyle = UITableViewCellSelectionStyleNone;
                     break;
                 case TODAY_IS:
-                    [self performSegueWithIdentifier:@"EventToTodayIsSegue" sender:nil];
+                    // nothing to do
                     break;
                 case CALENDAR:
                     link = [self.event valueForKey:linkKey];
