@@ -42,20 +42,6 @@
 @implementation EventSettingsViewController
 
 @synthesize index = _index;
-@synthesize event = _event;
-@synthesize datePicker = _datePicker;
-@synthesize settingStartDate;
-@synthesize settingEndDate;
-@synthesize showErrorAlert;
-@synthesize newEvent;
-//@synthesize eventStore = _eventStore;
-@synthesize startDateViewCellIndexPath = _startDateViewCellIndexPath;
-@synthesize endDateViewCellIndexPath = _endDateViewCellIndexPath;
-@synthesize detailTextLabelColor = _detailTextLabelColor;
-@synthesize linkUnlinkedEventActionSheet = _linkUnlinkedEventActionSheet;
-@synthesize changeLinkedEventActionSheet = _changeLinkedEventActionSheet;
-@synthesize titleView = _titleView;
-@synthesize cancelling;
 
 #pragma mark -
 #pragma mark View lifecycle
@@ -215,8 +201,34 @@
                                        self.datePicker.frame.size.height);
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:self.tableView.indexPathForSelectedRow];
+    NSLog(@"Title should be %@", cell.textLabel.text);
+    NSString *key = nil;
+    if ([segue.identifier isEqualToString:@"CompletedDaysColorSegue"]) {
+        key = completedColorKey;
+    } else if ([segue.identifier isEqualToString:@"RemainingDaysColorSegue"]) {
+        key = remainingColorKey;
+    } else if ([segue.identifier isEqualToString:@"BackgroundColorSegue"]) {
+        key = backgroundColorKey;
+    }
+    if (key) {
+        ColorPickerViewController *destination = segue.destinationViewController;
+        destination.selectedColor = ((ColorSelectionView *)cell.accessoryView).selectedColor;
+        destination.navigationItem.title = cell.textLabel.text;
+        [[NSNotificationCenter defaultCenter] addObserverForName:@"ColorSelectionDidChange"
+                                                          object:destination
+                                                           queue:[NSOperationQueue currentQueue]
+                                                      usingBlock:^(NSNotification *note) {
+                                                          ((ColorSelectionView *)cell.accessoryView).selectedColor = ((ColorPickerViewController *)note.object).selectedColor;
+                                                          [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:((ColorPickerViewController *)note.object).selectedColor]
+                                                                        forKey:key];
+                                                          [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                                                                          name:@"ColorSelectionDidChange"
+                                                                                                        object:note.object];
+                                                      }];
+        
+    }
 }
 
 - (void)cancel:(id)sender {
@@ -521,17 +533,14 @@
                     }
                     break;
                 case COMPLETED_COLOR:
-                    cell.textLabel.text = NSLocalizedString(@"Completed Days", @"Label for cell that shows completed days color");
                     cell.accessoryView = [[ColorSelectionView alloc] initWithFrame:CGRectMake(0.0, 0.0, 55.0, cell.frame.size.height)];
                     ((ColorSelectionView *)cell.accessoryView).selectedColor = [NSKeyedUnarchiver unarchiveObjectWithData:self.event[completedColorKey]];
                     break;
                 case REMAINING_COLOR:
-                    cell.textLabel.text = NSLocalizedString(@"Remaining Days", @"Label for cell that shows remaining days color");
                     cell.accessoryView = [[ColorSelectionView alloc] initWithFrame:CGRectMake(0.0, 0.0, 55.0, cell.frame.size.height)];
                     ((ColorSelectionView *)cell.accessoryView).selectedColor = [NSKeyedUnarchiver unarchiveObjectWithData:self.event[remainingColorKey]];
                     break;
                 case BACKGROUND_COLOR:
-                    cell.textLabel.text = NSLocalizedString(@"Background", @"Label for cell that shows background color");
                     cell.accessoryView = [[ColorSelectionView alloc] initWithFrame:CGRectMake(0.0, 0.0, 55.0, cell.frame.size.height)];
                     ((ColorSelectionView *)cell.accessoryView).selectedColor = [NSKeyedUnarchiver unarchiveObjectWithData:self.event[backgroundColorKey]];
                     break;
@@ -678,79 +687,11 @@
             break;
         case DISPLAY:
             [self clearDatePicker];
-            switch (indexPath.row) {
-                case COMPLETED_COLOR: {
-                    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                    ColorPickerViewController *controller = [[ColorPickerViewController alloc] initWithColor:((ColorSelectionView *)cell.accessoryView).selectedColor withTitle:cell.textLabel.text];
-                    [[NSNotificationCenter defaultCenter] addObserverForName:@"ColorSelectionDidChange"
-                                                                      object:controller
-                                                                       queue:[NSOperationQueue currentQueue]
-                                                                  usingBlock:^(NSNotification *note) {
-                                                                      ((ColorSelectionView *)cell.accessoryView).selectedColor = ((ColorPickerViewController *)note.object).selectedColor;
-                                                                      [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:((ColorPickerViewController *)note.object).selectedColor]
-                                                                                    forKey:completedColorKey];
-                                                                  }];
-                    [self.navigationController pushViewController:controller animated:YES];
-                }
-                    break;
-                case REMAINING_COLOR: {
-                    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                    ColorPickerViewController *controller = [[ColorPickerViewController alloc] initWithColor:((ColorSelectionView *)cell.accessoryView).selectedColor withTitle:cell.textLabel.text];
-                    [[NSNotificationCenter defaultCenter] addObserverForName:@"ColorSelectionDidChange"
-                                                                      object:controller
-                                                                       queue:[NSOperationQueue currentQueue]
-                                                                  usingBlock:^(NSNotification *note) {
-                                                                      ((ColorSelectionView *)cell.accessoryView).selectedColor = ((ColorPickerViewController *)note.object).selectedColor;
-                                                                      [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:((ColorPickerViewController *)note.object).selectedColor]
-                                                                                    forKey:remainingColorKey];
-                                                                  }];
-                    [self.navigationController pushViewController:controller animated:YES];
-                }
-                    break;
-                case BACKGROUND_COLOR: {
-                    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                    ColorPickerViewController *controller = [[ColorPickerViewController alloc] initWithColor:((ColorSelectionView *)cell.accessoryView).selectedColor withTitle:cell.textLabel.text];
-                    [[NSNotificationCenter defaultCenter] addObserverForName:@"ColorSelectionDidChange"
-                                                                      object:controller
-                                                                       queue:[NSOperationQueue currentQueue]
-                                                                  usingBlock:^(NSNotification *note) {
-                                                                      ((ColorSelectionView *)cell.accessoryView).selectedColor = ((ColorPickerViewController *)note.object).selectedColor;
-                                                                      [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:((ColorPickerViewController *)note.object).selectedColor]
-                                                                                    forKey:backgroundColorKey];
-                                                                  }];
-                    [self.navigationController pushViewController:controller animated:YES];
-                }
-                    break;
-                case SHOW_DATES:
-                case SHOW_PERCENTS:
-                case SHOW_TOTALS:
-                case SHOW_COMPLETE:
-                default:
-                    [tableView cellForRowAtIndexPath:indexPath].selectionStyle = UITableViewCellSelectionStyleNone;
-                    break;
-            }
+            [tableView cellForRowAtIndexPath:indexPath].selectionStyle = UITableViewCellSelectionStyleNone;
             break;
     }
 }
 
-//- (NSIndexPath *)tableView:tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//	if (indexPath.row) {
-//		if (![self verifyNonemptyTitle]) {
-//			return [self.tableView indexPathForSelectedRow];
-//		}
-//	} else {
-//		if (![self verifyDateOrder]) {
-//			[self showDateErrorAlert];
-//			[self clearDatePicker];
-//			return nil;
-//		}
-//	}
-//	return indexPath;
-//}
-//
 #pragma mark -
 #pragma mark Date Pickers
 

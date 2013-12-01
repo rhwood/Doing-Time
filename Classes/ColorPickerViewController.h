@@ -15,7 +15,6 @@
     
 }
 
-- (id)initWithColor:(UIColor *)color withTitle:(NSString *)title;
 - (IBAction)resetColor:(id)sender;
 
 @property IBOutlet RSColorPickerView* colorPicker;

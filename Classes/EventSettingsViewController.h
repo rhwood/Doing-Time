@@ -16,10 +16,6 @@
 @interface EventSettingsViewController : UITableViewController <UITextFieldDelegate, UIAlertViewDelegate, UIActionSheetDelegate> {
 	NSMutableDictionary* _event;
 	UIDatePicker* _datePicker;
-	BOOL settingStartDate;
-	BOOL settingEndDate;
-	BOOL showErrorAlert;
-	BOOL newEvent;
 //	EKEventStore* _eventStore;
 	NSIndexPath* _startDateViewCellIndexPath;
 	NSIndexPath* _endDateViewCellIndexPath;
@@ -27,10 +23,6 @@
 	UIActionSheet* _linkUnlinkedEventActionSheet;
 	UIActionSheet* _changeLinkedEventActionSheet;
 	__unsafe_unretained UITextField *_titleView;
-	BOOL cancelling;
-
-	// In-App Purchases
-	BOOL appStoreRequestFailed;
 
 }
 

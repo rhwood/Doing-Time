@@ -10,21 +10,11 @@
 
 @interface ColorPickerViewController ()
 
-@property NSString* navigationItemTitle;
-
 @end
 
 @implementation ColorPickerViewController
 
 @synthesize selectedColor = _selectedColor;
-
-- (id)initWithColor:(UIColor *)color withTitle:(NSString *)title {
-    if ((self = [super initWithNibName:@"ColorPickerView" bundle:nil])) {
-        self.selectedColor = color;
-        self.navigationItemTitle = title;
-    }
-    return self;
-}
 
 - (void)setSelectedColor:(UIColor *)color {
     _selectedColor = color;
@@ -39,8 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.navigationItem.title = self.navigationItemTitle;
-    self.accessibilityLabel = self.navigationItemTitle;
+    self.accessibilityLabel = self.navigationItem.title;
     
     self.colorPicker.cropToCircle = YES;
     self.colorPicker.selectionColor = self.selectedColor;
@@ -53,11 +42,11 @@
     self.navigationController.navigationBar.translucent = NO;
 }
 
-//- (void)viewWillAppear:(BOOL)animated {
-//    [super viewWillAppear:animated];
-//    self.colorPicker.selectionColor = self.selectedColor;
-//    self.brightnessSlider.value = self.colorPicker.brightness;
-//}
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.colorPicker.selectionColor = self.selectedColor;
+    self.brightnessSlider.value = self.colorPicker.brightness;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

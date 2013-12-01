@@ -600,31 +600,11 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="XMA-2r-kWq" kind="push" id="McX-tg-ac3"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="sGx-6j-lSG" style="IBUITableViewCellStyleDefault" id="uOB-Bf-ZcG">
-                                        <rect key="frame" x="0.0" y="679" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uOB-Bf-ZcG" id="tIv-Od-6w4">
-                                            <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Remaining Days" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sGx-6j-lSG">
-                                                    <rect key="frame" x="15" y="0.0" width="270" height="43"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="XMA-2r-kWq" kind="push" id="DkP-jX-t1J"/>
+                                            <segue destination="XMA-2r-kWq" kind="push" identifier="CompletedDaysColorSegue" id="McX-tg-ac3"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="V4K-fa-tHg" style="IBUITableViewCellStyleDefault" id="7Zf-2w-i2o">
-                                        <rect key="frame" x="0.0" y="723" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="679" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7Zf-2w-i2o" id="Xd2-mr-9xL">
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
@@ -640,7 +620,27 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="XMA-2r-kWq" kind="push" id="oVe-bf-ddU"/>
+                                            <segue destination="XMA-2r-kWq" kind="push" identifier="RemainingDaysColorSegue" id="oVe-bf-ddU"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="sGx-6j-lSG" style="IBUITableViewCellStyleDefault" id="uOB-Bf-ZcG">
+                                        <rect key="frame" x="0.0" y="723" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uOB-Bf-ZcG" id="tIv-Od-6w4">
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Remaining Days" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sGx-6j-lSG">
+                                                    <rect key="frame" x="15" y="0.0" width="270" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="XMA-2r-kWq" kind="push" identifier="BackgroundColorSegue" id="DkP-jX-t1J"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -734,6 +734,9 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 <constraints>
                                     <constraint firstAttribute="height" constant="42" id="jO1-yt-D44" userLabel="Height - (42) - Color Selection View"/>
                                 </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="Kl4-wr-XC7" appends="YES" id="0Cl-Tc-Lqu"/>
+                                </connections>
                             </view>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q2w-Ou-lL5" userLabel="New Color Selection View" customClass="ColorSelectionView">
                                 <rect key="frame" x="160" y="0.0" width="160" height="42"/>
@@ -776,8 +779,20 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     </view>
                     <navigationItem key="navigationItem" id="TOm-oS-9vt"/>
+                    <connections>
+                        <outlet property="brightnessSlider" destination="SXk-lz-A7e" id="Njm-Ek-6Wp"/>
+                        <outlet property="colorPicker" destination="pQH-44-82u" id="jLX-ou-BSL"/>
+                        <outlet property="selectionView" destination="Q2w-Ou-lL5" id="FH8-tf-UwO"/>
+                        <outlet property="startingView" destination="5dd-Fz-gAm" id="mje-UP-dhz"/>
+                        <outlet property="view" destination="YFc-GQ-03S" id="WhC-03-zPh"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k9B-qB-0zi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="Kl4-wr-XC7">
+                    <connections>
+                        <action selector="resetColor:" destination="XMA-2r-kWq" id="HKt-y4-ivv"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1056" y="1014"/>
         </scene>
@@ -999,7 +1014,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="oVe-bf-ddU"/>
+        <segue reference="DkP-jX-t1J"/>
         <segue reference="ODB-dB-FxU"/>
     </inferredMetricsTieBreakers>
 </document>
