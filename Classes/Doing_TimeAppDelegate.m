@@ -116,6 +116,8 @@
 
     // Add the main view controller's view to the window and display.
 
+    self.window.backgroundColor = [UIColor clearColor];
+    self.window.opaque = NO;
     UINavigationController *rootNavigationController = (UINavigationController *)self.window.rootViewController;
     mainViewController = (MainViewController *)[rootNavigationController topViewController];
     
