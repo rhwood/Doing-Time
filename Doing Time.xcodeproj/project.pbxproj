@@ -19,17 +19,13 @@
 		482811A0135C9EA8003704EC /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4828119F135C9EA8003704EC /* MessageUI.framework */; };
 		4828129F135CA5C3003704EC /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4828129C135CA5C3003704EC /* AboutViewController.m */; };
 		485BAB5113498E31005EE6BE /* AppStoreDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 485BAB4F13498E31005EE6BE /* AppStoreDelegate.m */; };
-		485BD59816B14BF500424CC8 /* TodaySettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 485BD59A16B14BF500424CC8 /* TodaySettingsView.xib */; };
 		485BD59D16B14DC300424CC8 /* TodaySettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 485BD59C16B14DC300424CC8 /* TodaySettingsViewController.m */; };
 		48676E521842322900194D54 /* EventViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 48676E511842322900194D54 /* EventViewCell.m */; };
-		48676E551844B71100194D54 /* EventViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48676E571844B71100194D54 /* EventViewCell.xib */; };
 		48676E5F1845865800194D54 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48676E611845865800194D54 /* Main.storyboard */; };
 		487026B612D7CAE800E90108 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 487026B512D7CAE800E90108 /* iAd.framework */; };
 		4870279D12D80B3000E90108 /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4870279B12D80B3000E90108 /* NSDate+Additions.m */; };
-		487E29FF137D906B0004761D /* AboutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 487E29FE137D906B0004761D /* AboutView.xib */; };
 		48924A1B131D67DA002AC7F5 /* EventSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48924A18131D67DA002AC7F5 /* EventSettingsViewController.m */; };
 		48964F39181F36100019B5B0 /* ColorSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 48964F38181F36100019B5B0 /* ColorSelectionView.m */; };
-		48964F3A182123C00019B5B0 /* ColorPickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48964F3C182123C00019B5B0 /* ColorPickerView.xib */; };
 		489E2891130782DB00E40ACA /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 489E2890130782DB00E40ACA /* StoreKit.framework */; };
 		48ADE0C41343B51E005E96EB /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 48ADE0C31343B51E005E96EB /* Constants.m */; };
 		48AEFA91153C31890064ED0D /* TFLoggingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 48AEFA90153C31890064ED0D /* TFLoggingManager.m */; };
@@ -39,10 +35,6 @@
 		48C288CF184B59A900A648E2 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 48C288C8184B59A900A648E2 /* Icon.png */; };
 		48C288D0184B59A900A648E2 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 48C288C9184B59A900A648E2 /* Icon@2x.png */; };
 		48CE82B41350CAC600D94BA6 /* EventView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48CE82B31350CAC600D94BA6 /* EventView.xib */; };
-		48CE82B61350CAC600D94BA6 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48CE82B51350CAC600D94BA6 /* MainWindow.xib */; };
-		48CE82BC1350CAC700D94BA6 /* EventSettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48CE82BB1350CAC700D94BA6 /* EventSettingsView.xib */; };
-		48CE82BE1350CAC700D94BA6 /* FlipsideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48CE82BD1350CAC700D94BA6 /* FlipsideView.xib */; };
-		48CE82C01350CAC700D94BA6 /* MainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48CE82BF1350CAC700D94BA6 /* MainView.xib */; };
 		48CE82E81350D37B00D94BA6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 48CE82E71350D37B00D94BA6 /* Localizable.strings */; };
 		48D2F2F41537A194006FA78B /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 48D2F2F01537A194006FA78B /* libTestFlight.a */; };
 		48E56461181C5D250064AE1C /* ANImageBitmapRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E56439181C5D250064AE1C /* ANImageBitmapRep.m */; };
@@ -581,21 +573,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				48C288CF184B59A900A648E2 /* Icon.png in Resources */,
-				48CE82BE1350CAC700D94BA6 /* FlipsideView.xib in Resources */,
-				48CE82C01350CAC700D94BA6 /* MainView.xib in Resources */,
-				48964F3A182123C00019B5B0 /* ColorPickerView.xib in Resources */,
-				48CE82B61350CAC600D94BA6 /* MainWindow.xib in Resources */,
 				48C288CD184B59A900A648E2 /* Icon-iPad.png in Resources */,
 				48C288C2184B54F000A648E2 /* Icons.xcassets in Resources */,
-				48676E551844B71100194D54 /* EventViewCell.xib in Resources */,
-				48CE82BC1350CAC700D94BA6 /* EventSettingsView.xib in Resources */,
 				48CE82B41350CAC600D94BA6 /* EventView.xib in Resources */,
 				48CE82E81350D37B00D94BA6 /* Localizable.strings in Resources */,
 				48C288CE184B59A900A648E2 /* Icon-iPad@2x.png in Resources */,
-				487E29FF137D906B0004761D /* AboutView.xib in Resources */,
 				48C288D0184B59A900A648E2 /* Icon@2x.png in Resources */,
 				48676E5F1845865800194D54 /* Main.storyboard in Resources */,
-				485BD59816B14BF500424CC8 /* TodaySettingsView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
