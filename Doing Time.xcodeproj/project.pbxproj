@@ -29,6 +29,8 @@
 		489E2891130782DB00E40ACA /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 489E2890130782DB00E40ACA /* StoreKit.framework */; };
 		48ADE0C41343B51E005E96EB /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 48ADE0C31343B51E005E96EB /* Constants.m */; };
 		48AEFA91153C31890064ED0D /* TFLoggingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 48AEFA90153C31890064ED0D /* TFLoggingManager.m */; };
+		48AF93B618520C4300A8EFAF /* EventsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48AF93B518520C4300A8EFAF /* EventsListViewController.m */; };
+		48AF93B9185229F300A8EFAF /* ListFooterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 48AF93B8185229F300A8EFAF /* ListFooterCell.m */; };
 		48C288C2184B54F000A648E2 /* Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 48C288C1184B54F000A648E2 /* Icons.xcassets */; };
 		48C288CD184B59A900A648E2 /* Icon-iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 48C288C6184B59A900A648E2 /* Icon-iPad.png */; };
 		48C288CE184B59A900A648E2 /* Icon-iPad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 48C288C7184B59A900A648E2 /* Icon-iPad@2x.png */; };
@@ -123,6 +125,10 @@
 		48ADE0C31343B51E005E96EB /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		48AEFA8F153C31890064ED0D /* TFLoggingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TFLoggingManager.h; path = Classes/TFLoggingManager.h; sourceTree = "<group>"; };
 		48AEFA90153C31890064ED0D /* TFLoggingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TFLoggingManager.m; path = Classes/TFLoggingManager.m; sourceTree = "<group>"; };
+		48AF93B418520C4300A8EFAF /* EventsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventsListViewController.h; path = Classes/EventsListViewController.h; sourceTree = "<group>"; };
+		48AF93B518520C4300A8EFAF /* EventsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventsListViewController.m; path = Classes/EventsListViewController.m; sourceTree = "<group>"; };
+		48AF93B7185229F300A8EFAF /* ListFooterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ListFooterCell.h; path = Classes/ListFooterCell.h; sourceTree = "<group>"; };
+		48AF93B8185229F300A8EFAF /* ListFooterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ListFooterCell.m; path = Classes/ListFooterCell.m; sourceTree = "<group>"; };
 		48C288C1184B54F000A648E2 /* Icons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Icons.xcassets; sourceTree = "<group>"; };
 		48C288C6184B59A900A648E2 /* Icon-iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPad.png"; sourceTree = "<group>"; };
 		48C288C7184B59A900A648E2 /* Icon-iPad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPad@2x.png"; sourceTree = "<group>"; };
@@ -384,8 +390,12 @@
 			children = (
 				289233AC0DB2D0DB0083E9F9 /* FlipsideViewController.h */,
 				289233AD0DB2D0DB0083E9F9 /* FlipsideViewController.m */,
+				48AF93B418520C4300A8EFAF /* EventsListViewController.h */,
+				48AF93B518520C4300A8EFAF /* EventsListViewController.m */,
 				48676E501842322900194D54 /* EventViewCell.h */,
 				48676E511842322900194D54 /* EventViewCell.m */,
+				48AF93B7185229F300A8EFAF /* ListFooterCell.h */,
+				48AF93B8185229F300A8EFAF /* ListFooterCell.m */,
 			);
 			name = "List View";
 			sourceTree = "<group>";
@@ -626,7 +636,9 @@
 				4828129F135CA5C3003704EC /* AboutViewController.m in Sources */,
 				48E5646E181C5D250064AE1C /* RSBrightnessSlider.m in Sources */,
 				48E56471181C5D250064AE1C /* RSGenerateOperation.m in Sources */,
+				48AF93B618520C4300A8EFAF /* EventsListViewController.m in Sources */,
 				48E56469181C5D250064AE1C /* BitmapCropManipulator.m in Sources */,
+				48AF93B9185229F300A8EFAF /* ListFooterCell.m in Sources */,
 				48E56473181C5D250064AE1C /* RSSelectionView.m in Sources */,
 				48676E521842322900194D54 /* EventViewCell.m in Sources */,
 				48E56461181C5D250064AE1C /* ANImageBitmapRep.m in Sources */,
