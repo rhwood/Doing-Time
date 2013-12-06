@@ -326,11 +326,7 @@
 }
 
 - (void)setBackgroundBrightness {
-    // brightness  =  sqrt( .299 R2 + .587 G2 + .114 B2 ) - http://alienryderflex.com/hsp.html
-    CGFloat red = 0.0, green = 0.0, blue = 0.0, alpha = 0.0;
-    if ([[NSKeyedUnarchiver unarchiveObjectWithData:self.event[backgroundColorKey]] getRed:&red green:&green blue:&blue alpha:&alpha]) {
-        _backgroundBrightness = sqrt((red * red * .299) + (green * green * .587) + (blue * blue * .114));
-    }
+    _backgroundBrightness = [EventViewController brightnessForColor:[NSKeyedUnarchiver unarchiveObjectWithData:self.event[backgroundColorKey]]];
 }
 
 - (void)setColors {
@@ -392,6 +388,17 @@
 
 - (void)viewDidUnload {
     [super viewDidUnload];
+}
+
+#pragma mark - Utilities
+
++ (float)brightnessForColor:(UIColor *)color {
+    // brightness  =  sqrt( .299 R2 + .587 G2 + .114 B2 ) - http://alienryderflex.com/hsp.html
+    CGFloat red = 0.0, green = 0.0, blue = 0.0, alpha = 0.0;
+    if ([color getRed:&red green:&green blue:&blue alpha:&alpha]) {
+        return sqrt((red * red * .299) + (green * green * .587) + (blue * blue * .114));
+    }
+    return 0.0;
 }
 
 @end

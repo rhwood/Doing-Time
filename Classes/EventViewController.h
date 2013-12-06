@@ -24,6 +24,8 @@
 	NSUInteger _eventID;
 }
 
++ (float)brightnessForColor:(UIColor *)color;
+
 - (id)initWithEvent:(NSUInteger)event;
 - (void)redrawEvent:(BOOL)forceRedraw;
 - (IBAction)showSettings:(id)sender;
