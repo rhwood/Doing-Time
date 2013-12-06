@@ -39,6 +39,12 @@
 #define URL_SECT -1 // effectively disable
 #define URL_CELL 0
 
+@interface EventSettingsViewController ()
+
+- (void)colorSelectionDidChange:(NSNotification *)note forKey:(NSString *)key;
+
+@end
+
 @implementation EventSettingsViewController
 
 @synthesize index = _index;
@@ -221,18 +227,28 @@
     if (key) {
         ColorPickerViewController *destination = segue.destinationViewController;
         destination.selectedColor = ((ColorSelectionView *)cell.accessoryView).selectedColor;
+        destination.colorKey = key;
         destination.navigationItem.title = cell.textLabel.text;
-        [[NSNotificationCenter defaultCenter] addObserverForName:@"ColorSelectionDidChange"
+        [[NSNotificationCenter defaultCenter] addObserverForName:ColorDidChangeNotification
                                                           object:destination
                                                            queue:[NSOperationQueue currentQueue]
                                                       usingBlock:^(NSNotification *note) {
-                                                          ((ColorSelectionView *)cell.accessoryView).selectedColor = ((ColorPickerViewController *)note.object).selectedColor;
-                                                          [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:((ColorPickerViewController *)note.object).selectedColor] forKey:key];
-                                                          [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ColorSelectionDidChange" object:note.object];
+                                                          [[NSNotificationCenter defaultCenter] removeObserver:self name:ColorDidChangeNotification object:note.object];
+                                                          // not calling setValue:... forKey:key because observers do not always remove soon enough, and key can become wrong in that case
+                                                          if ([note.userInfo[ColorKey] isEqualToString:completedColorKey]) {
+                                                              [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:((ColorPickerViewController *)note.object).selectedColor] forKey:completedColorKey];
+                                                          } else if ([note.userInfo[ColorKey] isEqualToString:remainingColorKey]) {
+                                                              [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:((ColorPickerViewController *)note.object).selectedColor] forKey:remainingColorKey];
+                                                          } else if ([note.userInfo[ColorKey] isEqualToString:backgroundColorKey]) {
+                                                              [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:((ColorPickerViewController *)note.object).selectedColor] forKey:backgroundColorKey];
+                                                          }
                                                           [self.tableView reloadData];
                                                       }];
         
     }
+}
+
+- (void)colorSelectionDidChange:(NSNotification *)note forKey:(NSString *)key {
 }
 
 - (void)cancel:(id)sender {

@@ -11,6 +11,9 @@
 #import "RSBrightnessSlider.h"
 #import "ColorSelectionView.h"
 
+extern NSString *const ColorDidChangeNotification;
+extern NSString *const ColorKey;
+
 @interface ColorPickerViewController : UIViewController <RSColorPickerViewDelegate> {
     
 }
@@ -23,5 +26,6 @@
 @property IBOutlet ColorSelectionView* startingView;
 
 @property UIColor* selectedColor;
+@property NSString* colorKey;
 
 @end

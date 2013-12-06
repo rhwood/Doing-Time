@@ -8,6 +8,9 @@
 
 #import "ColorPickerViewController.h"
 
+NSString *const ColorDidChangeNotification = @"ColorDidChangeNotification";
+NSString *const ColorKey = @"ColorKey";
+
 @interface ColorPickerViewController ()
 
 @end
@@ -19,7 +22,6 @@
 - (void)setSelectedColor:(UIColor *)color {
     _selectedColor = color;
     self.selectionView.selectedColor = color;
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"ColorSelectionDidChange" object:self userInfo:nil];
 }
 
 - (UIColor *)selectedColor {
@@ -46,6 +48,11 @@
     [super viewWillAppear:animated];
     self.colorPicker.selectionColor = self.selectedColor;
     self.brightnessSlider.value = self.colorPicker.brightness;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] postNotificationName:ColorDidChangeNotification object:self userInfo:@{ColorKey: self.colorKey}];
 }
 
 - (void)didReceiveMemoryWarning {
