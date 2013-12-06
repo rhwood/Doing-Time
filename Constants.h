@@ -45,6 +45,6 @@ typedef enum {
 
 extern NSString *const multipleEventsProductIdentifier;
 
-#pragma mark - Norifications
+#pragma mark - Notifications
 
 extern NSString *const eventSavedNotification;
