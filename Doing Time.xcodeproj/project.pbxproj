@@ -84,9 +84,6 @@
 		1D3623250D0F684500981E51 /* Doing_TimeAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Doing_TimeAppDelegate.m; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* Doing Time.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Doing Time.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		280E754A0DD40C5E005A515E /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = en.lproj/FlipsideView.xib; sourceTree = "<group>"; };
-		280E754B0DD40C5E005A515E /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = en.lproj/MainView.xib; sourceTree = "<group>"; };
-		280E754C0DD40C5E005A515E /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
 		288765580DF743DE002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		289233A80DB2D0DB0083E9F9 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainViewController.h; path = Classes/MainViewController.h; sourceTree = "<group>"; };
 		289233A90DB2D0DB0083E9F9 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainViewController.m; path = Classes/MainViewController.m; sourceTree = "<group>"; };
@@ -100,26 +97,21 @@
 		4828119F135C9EA8003704EC /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		4828129B135CA5C3003704EC /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = AboutViewController.h; path = Classes/AboutViewController.h; sourceTree = "<group>"; };
 		4828129C135CA5C3003704EC /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AboutViewController.m; path = Classes/AboutViewController.m; sourceTree = "<group>"; };
-		4828129D135CA5C3003704EC /* AboutView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = AboutView.xib; path = en.lproj/AboutView.xib; sourceTree = "<group>"; };
 		4838E59812D0984B007AC0D8 /* PieChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = PieChartView.h; path = Classes/PieChartView.h; sourceTree = "<group>"; };
 		485BAB4E13498E31005EE6BE /* AppStoreDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AppStoreDelegate.h; sourceTree = "<group>"; };
 		485BAB4F13498E31005EE6BE /* AppStoreDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppStoreDelegate.m; sourceTree = "<group>"; };
-		485BD59916B14BF500424CC8 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TodaySettingsView.xib; sourceTree = "<group>"; };
 		485BD59B16B14DC300424CC8 /* TodaySettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TodaySettingsViewController.h; path = Classes/TodaySettingsViewController.h; sourceTree = "<group>"; };
 		485BD59C16B14DC300424CC8 /* TodaySettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TodaySettingsViewController.m; path = Classes/TodaySettingsViewController.m; sourceTree = "<group>"; };
 		48676E501842322900194D54 /* EventViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventViewCell.h; path = Classes/EventViewCell.h; sourceTree = "<group>"; };
 		48676E511842322900194D54 /* EventViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventViewCell.m; path = Classes/EventViewCell.m; sourceTree = "<group>"; };
-		48676E561844B71100194D54 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/EventViewCell.xib; sourceTree = "<group>"; };
 		48676E601845865800194D54 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Main.storyboard; sourceTree = "<group>"; };
 		487026B512D7CAE800E90108 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		4870279A12D80B3000E90108 /* NSDate+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = "NSDate+Additions.h"; path = "Classes/NSDate+Additions.h"; sourceTree = "<group>"; };
 		4870279B12D80B3000E90108 /* NSDate+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+Additions.m"; path = "Classes/NSDate+Additions.m"; sourceTree = "<group>"; };
 		48924A17131D67DA002AC7F5 /* EventSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = EventSettingsViewController.h; path = Classes/EventSettingsViewController.h; sourceTree = "<group>"; };
 		48924A18131D67DA002AC7F5 /* EventSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventSettingsViewController.m; path = Classes/EventSettingsViewController.m; sourceTree = "<group>"; };
-		48924A19131D67DA002AC7F5 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = en.lproj/EventSettingsView.xib; sourceTree = "<group>"; };
 		48964F37181F36100019B5B0 /* ColorSelectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ColorSelectionView.h; path = Classes/ColorSelectionView.h; sourceTree = "<group>"; };
 		48964F38181F36100019B5B0 /* ColorSelectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ColorSelectionView.m; path = Classes/ColorSelectionView.m; sourceTree = "<group>"; };
-		48964F3B182123C00019B5B0 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ColorPickerView.xib; sourceTree = "<group>"; };
 		489E2890130782DB00E40ACA /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		489F72B015F2B7EC00B5D0E7 /* Icon.acorn */ = {isa = PBXFileReference; lastKnownFileType = file; path = Icon.acorn; sourceTree = "<group>"; };
 		48ADE0C31343B51E005E96EB /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
@@ -327,16 +319,8 @@
 				48C288C9184B59A900A648E2 /* Icon@2x.png */,
 				48C288C1184B54F000A648E2 /* Icons.xcassets */,
 				489F72B015F2B7EC00B5D0E7 /* Icon.acorn */,
-				487E29FE137D906B0004761D /* AboutView.xib */,
-				48964F3C182123C00019B5B0 /* ColorPickerView.xib */,
-				48CE82BB1350CAC700D94BA6 /* EventSettingsView.xib */,
 				48CE82B31350CAC600D94BA6 /* EventView.xib */,
-				48676E571844B71100194D54 /* EventViewCell.xib */,
-				48CE82BD1350CAC700D94BA6 /* FlipsideView.xib */,
-				48CE82BF1350CAC700D94BA6 /* MainView.xib */,
-				48CE82B51350CAC600D94BA6 /* MainWindow.xib */,
 				48676E611845865800194D54 /* Main.storyboard */,
-				485BD59A16B14BF500424CC8 /* TodaySettingsView.xib */,
 				8D1107310486CEB800E47090 /* Doing_Time-Info.plist */,
 				48CE82E71350D37B00D94BA6 /* Localizable.strings */,
 			);
@@ -670,22 +654,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		485BD59A16B14BF500424CC8 /* TodaySettingsView.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				485BD59916B14BF500424CC8 /* en */,
-			);
-			name = TodaySettingsView.xib;
-			sourceTree = "<group>";
-		};
-		48676E571844B71100194D54 /* EventViewCell.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				48676E561844B71100194D54 /* en */,
-			);
-			name = EventViewCell.xib;
-			sourceTree = "<group>";
-		};
 		48676E611845865800194D54 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -694,61 +662,12 @@
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		487E29FE137D906B0004761D /* AboutView.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4828129D135CA5C3003704EC /* AboutView.xib */,
-			);
-			name = AboutView.xib;
-			sourceTree = "<group>";
-		};
-		48964F3C182123C00019B5B0 /* ColorPickerView.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				48964F3B182123C00019B5B0 /* en */,
-			);
-			name = ColorPickerView.xib;
-			path = Classes;
-			sourceTree = "<group>";
-		};
 		48CE82B31350CAC600D94BA6 /* EventView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				48E61CDD131E9E210077DA8E /* English */,
 			);
 			name = EventView.xib;
-			sourceTree = "<group>";
-		};
-		48CE82B51350CAC600D94BA6 /* MainWindow.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				280E754C0DD40C5E005A515E /* English */,
-			);
-			name = MainWindow.xib;
-			sourceTree = "<group>";
-		};
-		48CE82BB1350CAC700D94BA6 /* EventSettingsView.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				48924A19131D67DA002AC7F5 /* English */,
-			);
-			name = EventSettingsView.xib;
-			sourceTree = "<group>";
-		};
-		48CE82BD1350CAC700D94BA6 /* FlipsideView.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				280E754A0DD40C5E005A515E /* English */,
-			);
-			name = FlipsideView.xib;
-			sourceTree = "<group>";
-		};
-		48CE82BF1350CAC700D94BA6 /* MainView.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				280E754B0DD40C5E005A515E /* English */,
-			);
-			name = MainView.xib;
 			sourceTree = "<group>";
 		};
 		48CE82E71350D37B00D94BA6 /* Localizable.strings */ = {
