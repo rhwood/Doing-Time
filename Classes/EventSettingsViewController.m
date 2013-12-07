@@ -74,11 +74,10 @@
     UIColor *white = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
     if (index == [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count]) {
         self.newEvent = YES;
-        // TODO: does changing this from distantPast and distantFuture to today fix #51?
         self.event = [NSMutableDictionary dictionaryWithDictionary:@{
                                                                      titleKey:@"",
-                                                                     startKey:[NSDate distantPast],
-                                                                     endKey:[NSDate distantFuture],
+                                                                     startKey:[NSDate date],
+                                                                     endKey:[NSDate date],
                                                                      includeLastDayInCalcKey:@(YES),
                                                                      todayIsKey:@(todayIsNotCounted),
                                                                      showEventDatesKey:@(YES),
@@ -201,6 +200,12 @@
                                        self.view.window.frame.size.height,
                                        self.datePicker.frame.size.width,
                                        self.datePicker.frame.size.height);
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    if (!self.datePicker.hidden) {
+        [self hideDatePicker:YES];
+    }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -640,11 +645,7 @@
                     if (!self.settingStartDate) {
                         self.settingEndDate = NO;
                         [self hideDatePicker:NO];
-                        [self.datePicker setDate:[self.event valueForKey:startKey]
-                                        animated:YES];
-                        if ([[self.event valueForKey:startKey] isEqualToDate:[NSDate distantPast]]) {
-                            [self.datePicker setDate:[NSDate date] animated:YES];
-                        }
+                        [self.datePicker setDate:[self.event valueForKey:startKey] animated:YES];
                         [self.datePicker removeTarget:self
                                                action:@selector(changeEndDate:)
                                      forControlEvents:UIControlEventValueChanged];
@@ -661,11 +662,7 @@
                     if (!self.settingEndDate) {
                         self.settingStartDate = NO;
                         [self hideDatePicker:NO];
-                        [self.datePicker setDate:[self.event valueForKey:endKey]
-                                        animated:YES];
-                        if ([[self.event valueForKey:endKey] isEqualToDate:[NSDate distantFuture]]) {
-                            [self.datePicker setDate:[NSDate date] animated:YES];
-                        }
+                        [self.datePicker setDate:[self.event valueForKey:endKey] animated:YES];
                         [self.datePicker removeTarget:self
                                                action:@selector(changeStartDate:)
                                      forControlEvents:UIControlEventValueChanged];
@@ -713,8 +710,7 @@
     }
 }
 
-#pragma mark -
-#pragma mark Date Pickers
+#pragma mark - Date Pickers
 
 - (void)changeStartDate:(id)sender {
     [self.tableView cellForRowAtIndexPath:self.startDateViewCellIndexPath].detailTextLabel.textColor = self.detailTextLabelColor;
