@@ -44,7 +44,6 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    NSLog(@"Preparing to segue from list with %@", segue.identifier);
     if ([segue.identifier isEqualToString:@"ListToEventSettingsSegue"]) {
         ((EventSettingsViewController *)segue.destinationViewController).index = [self.tableView indexPathForSelectedRow].row;
     } else if ([segue.identifier isEqualToString:@"NewEventSettingsSegue"]) {
@@ -85,14 +84,8 @@
     cell.backgroundColor = [NSKeyedUnarchiver unarchiveObjectWithData:event[backgroundColorKey]];
     NSDate *startDate = event[startKey];
     NSDate *endDate = event[endKey];
-    NSLog(@"Calc end based on includeLastDayInCalcKey %@ and calendar %@", ([event[includeLastDayInCalcKey] boolValue]) ? @"YES" : @"NO", self.calendar);
     NSDate *calcEndDate = ([event[includeLastDayInCalcKey] boolValue]) ? [self.calendar dateByAddingComponents:oneDay toDate:endDate options:0] : endDate;
 	NSDate *today = [NSDate midnightForDate:[NSDate date]];
-	NSLog(@"Start date:  %@", startDate);
-	NSLog(@"End date:    %@", endDate);
-	NSLog(@"Today:       %@", today);
-    NSLog(@"Calc end:    %@", calcEndDate);
-	NSLog(@"Now:         %@", [NSDate date]);
     
     NSInteger completed = [[self.calendar components:NSDayCalendarUnit
                                             fromDate:startDate
@@ -109,19 +102,13 @@
                                              toDate:calcEndDate
                                             options:0]
 						  day];
-	NSLog(@"%d days complete", completed);
-	NSLog(@"%d days left", left);
-	NSLog(@"%d total days", duration);
-    NSLog(@"--adjusting--");
     // only make adjustments for today if event is current
     if (left >= 0 && completed >= 0) {
         switch ([event[todayIsKey] integerValue]) {
             case todayIsNotCounted:
-                NSLog(@"today is not counted (left --)");
                 left--;
                 break;
             case todayIsOver:
-                NSLog(@"today is over (complete ++ & left --)");
                 completed++;
                 left--;
                 break;
@@ -134,18 +121,15 @@
     }
     // event is over
     if (left <= 0) {
-        NSLog(@"event is over");
         completed = duration;
         inPast = left * -1;
         left = 0;
         if ([endDate isEqualToDate:calcEndDate]) {
-            NSLog(@"last day not in event");
             inPast++;
         }
     }
     // event has yet to begin
     if (completed < 0) {
-        NSLog(@"event is in future");
         left = duration;
         inFuture = completed * -1;
         completed = 0;
@@ -154,12 +138,6 @@
     if ((completed + left) > duration) {
         TFLog(@"Event (from %@ to %@) has duration (%d) != days complete (%d) + days left (%d)\n(today is %@, last day is counted %@)", startDate, endDate, duration, completed, left, event[todayIsKey], event[includeLastDayInCalcKey]);
     }
-    NSLog(@"--after adjustments--");
-	NSLog(@"%d days complete", completed);
-	NSLog(@"%d days left", left);
-	NSLog(@"%d total days", duration);
-    NSLog(@"%d days in future", inFuture);
-    NSLog(@"%d days in past", inPast);
 	float interval = 1.0 / duration;
 	
 	cell.title.text = [event objectForKey:titleKey];
@@ -173,23 +151,18 @@
     if (![completedColor getRed:&red green:&green blue:&blue alpha:&alpha]) {
         NSLog(@"Something went wrong with the completed color");
     }
-    NSLog(@"Interval: %f Completed: %i", interval, completed);
 	[cell.pieChart addItemValue:(interval * completed) withColor:PieChartItemColorMake(red, green, blue, alpha)]; // days completed
     if (![remainingColor getRed:&red green:&green blue:&blue alpha:&alpha]) {
         NSLog(@"Something went wrong with the remaining color");
     }
-    NSLog(@"Interval: %f Left: %i", interval, left);
 	[cell.pieChart addItemValue:(interval * left) withColor:PieChartItemColorMake(red, green, blue, alpha)]; // days left
 	
 	
 	NSString *days = NSLocalizedString(@"days", @"Plural for \"day\"");
-    NSLog((showTotals) ? @"Showing totals" : @"Hiding totals");
-    NSLog((showPercentage) ? @"Showing percentage" : @"Hiding percentage");
     if (showTotals && showPercentage) {
         showCompleted = NO; // set showCompleted off since both totals and percentages will not fit
     }
     if (showPercentage || showTotals) {
-        NSLog(@"Unhiding stats");
         cell.stats.hidden = NO;
         if (inFuture) {
             // event has yet to begin
@@ -260,9 +233,7 @@
                 cell.stats.text = [cell.stats.text stringByAppendingString:[NSString localizedStringWithFormat:NSLocalizedString(@"%d %@ (%2.4g%%) left", @"The number (%d) of days (%@) remaining with the percentage remaining in parenthesis"), left, days, interval * left * 100]];
             }
         }
-        NSLog(@"Stats are: %@", cell.stats.text);
     } else {
-        NSLog(@"Hiding stats");
         cell.stats.hidden = YES;
     }
     if (showDateRange && duration != 1) {
@@ -275,7 +246,6 @@
                                                           timeStyle:NSDateFormatterNoStyle]];
         cell.dates.hidden = YES;
     } else {
-        NSLog(@"Showing stats as dates");
         cell.dates.text = cell.stats.text;
         cell.dates.hidden = cell.stats.hidden;
         cell.stats.hidden = YES;
@@ -321,18 +291,14 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    return [tableView dequeueReusableCellWithIdentifier:@"ListFooterCell"];
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	return nil;
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ListFooterCell"];
+    UIView *view = [[UIView alloc] initWithFrame:[cell frame]];
+    [view addSubview:cell];
+    return view;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([self tableView:tableView numberOfRowsInSection:indexPath.section] > 1) {
-        return YES;
-    }
-    return NO;
+    return ([self tableView:tableView numberOfRowsInSection:indexPath.section] > 1);
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -345,11 +311,8 @@
 		[events removeObjectAtIndex:indexPath.row];
 		[[NSUserDefaults standardUserDefaults] setObject:events forKey:eventsKey];
 		[[NSUserDefaults standardUserDefaults] synchronize];
-		[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         [[NSNotificationCenter defaultCenter] postNotificationName:eventRemovedNotification object:nil userInfo:@{eventsKey: [NSNumber numberWithInteger:indexPath.row]}];
-//		[delegate eventWasRemoved:indexPath.row];
-	} else {
-//		[self addEvent];
+		[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 	}
 }
 
@@ -361,7 +324,6 @@
 	[[NSUserDefaults standardUserDefaults] setObject:events forKey:eventsKey];
 	[[NSUserDefaults standardUserDefaults] synchronize];
     [[NSNotificationCenter defaultCenter] postNotificationName:selectedEventChanged object:nil userInfo:@{eventsKey: [NSNumber numberWithInteger:destinationIndexPath.row]}];
-//	[self.delegate eventDidMove:sourceIndexPath.row to:destinationIndexPath.row];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
