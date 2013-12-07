@@ -11,6 +11,7 @@
 #import "MainViewController.h"
 #import "NSDate+Additions.h"
 #import "Constants.h"
+#import "Doing_TimeAppDelegate.h"
 
 @interface EventViewController (Private)
 
@@ -353,6 +354,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    BOOL hidden = [((Doing_TimeAppDelegate *)[UIApplication sharedApplication].delegate).appStore hasTransactionForProduct:multipleEventsProductIdentifier];
+    self.infoButton.hidden = hidden;
+    self.settings.hidden = hidden;
 	[self setPieChartValues:YES];
 }
 
