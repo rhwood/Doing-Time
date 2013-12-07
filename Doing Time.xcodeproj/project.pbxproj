@@ -18,6 +18,7 @@
 		4816E5D91847746A0070E4AD /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4816E5D81847746A0070E4AD /* SettingsViewController.m */; };
 		482811A0135C9EA8003704EC /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4828119F135C9EA8003704EC /* MessageUI.framework */; };
 		4828129F135CA5C3003704EC /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4828129C135CA5C3003704EC /* AboutViewController.m */; };
+		4848C4691853DBF000EB4C89 /* ATSDragToReorderTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4848C4681853DBF000EB4C89 /* ATSDragToReorderTableViewController.m */; };
 		485BAB5113498E31005EE6BE /* AppStoreDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 485BAB4F13498E31005EE6BE /* AppStoreDelegate.m */; };
 		485BD59D16B14DC300424CC8 /* TodaySettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 485BD59C16B14DC300424CC8 /* TodaySettingsViewController.m */; };
 		48676E521842322900194D54 /* EventViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 48676E511842322900194D54 /* EventViewCell.m */; };
@@ -98,6 +99,8 @@
 		4828129B135CA5C3003704EC /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = AboutViewController.h; path = Classes/AboutViewController.h; sourceTree = "<group>"; };
 		4828129C135CA5C3003704EC /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AboutViewController.m; path = Classes/AboutViewController.m; sourceTree = "<group>"; };
 		4838E59812D0984B007AC0D8 /* PieChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = PieChartView.h; path = Classes/PieChartView.h; sourceTree = "<group>"; };
+		4848C4671853DBF000EB4C89 /* ATSDragToReorderTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ATSDragToReorderTableViewController.h; path = ReorderingTableViewController/ATSDragToReorderTableViewController.h; sourceTree = "<group>"; };
+		4848C4681853DBF000EB4C89 /* ATSDragToReorderTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ATSDragToReorderTableViewController.m; path = ReorderingTableViewController/ATSDragToReorderTableViewController.m; sourceTree = "<group>"; };
 		485BAB4E13498E31005EE6BE /* AppStoreDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AppStoreDelegate.h; sourceTree = "<group>"; };
 		485BAB4F13498E31005EE6BE /* AppStoreDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppStoreDelegate.m; sourceTree = "<group>"; };
 		485BD59B16B14DC300424CC8 /* TodaySettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TodaySettingsViewController.h; path = Classes/TodaySettingsViewController.h; sourceTree = "<group>"; };
@@ -297,6 +300,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				4848C46A1853DC0100EB4C89 /* ReorderingTableViewController */,
 				48E56436181C5D250064AE1C /* RSColorPicker */,
 				48F2AFAF171962CC0020F3AF /* CargoBay */,
 				48F2AF92171962AB0020F3AF /* AFNetworking */,
@@ -356,6 +360,15 @@
 				4816E5D81847746A0070E4AD /* SettingsViewController.m */,
 			);
 			name = "Settings Views";
+			sourceTree = "<group>";
+		};
+		4848C46A1853DC0100EB4C89 /* ReorderingTableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4848C4671853DBF000EB4C89 /* ATSDragToReorderTableViewController.h */,
+				4848C4681853DBF000EB4C89 /* ATSDragToReorderTableViewController.m */,
+			);
+			name = ReorderingTableViewController;
 			sourceTree = "<group>";
 		};
 		485BAB4B13498E02005EE6BE /* Supporting Classes */ = {
@@ -608,6 +621,7 @@
 				48E56464181C5D250064AE1C /* OSCommonImage.m in Sources */,
 				289233B00DB2D0DB0083E9F9 /* FlipsideViewController.m in Sources */,
 				48110EC212C9804C00948558 /* PieChartView.m in Sources */,
+				4848C4691853DBF000EB4C89 /* ATSDragToReorderTableViewController.m in Sources */,
 				48E5646D181C5D250064AE1C /* BGRSLoupeLayer.m in Sources */,
 				4870279D12D80B3000E90108 /* NSDate+Additions.m in Sources */,
 				48924A1B131D67DA002AC7F5 /* EventSettingsViewController.m in Sources */,

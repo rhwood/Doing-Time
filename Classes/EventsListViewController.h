@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ATSDragToReorderTableViewController.h"
 
-@interface EventsListViewController : UITableViewController
+@interface EventsListViewController : ATSDragToReorderTableViewController
 
 @property (strong) NSCalendar *calendar;
 

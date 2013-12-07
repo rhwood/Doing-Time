@@ -4,3 +4,6 @@
 [submodule "RSColorPicker"]
 	path = RSColorPicker
 	url = https://github.com/RSully/RSColorPicker.git
+[submodule "ReorderingTableViewController"]
+	path = ReorderingTableViewController
+	url = https://github.com/shusta/ReorderingTableViewController.git
