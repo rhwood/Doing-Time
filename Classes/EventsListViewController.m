@@ -44,8 +44,18 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
+    // if sender is the Info button of one of the visible cells (it has to be, since it just got tapped), find it's cell and get the indexPath.
+    if ([sender isKindOfClass:[UIButton class]]) {
+        for (EventViewCell *cell in self.tableView.visibleCells) {
+            if ([cell.info isEqual:sender]) {
+                indexPath = [self.tableView indexPathForCell:cell];
+                break;
+            }
+        }
+    }
     if ([segue.identifier isEqualToString:@"ListToEventSettingsSegue"]) {
-        ((EventSettingsViewController *)segue.destinationViewController).index = [self.tableView indexPathForSelectedRow].row;
+        ((EventSettingsViewController *)segue.destinationViewController).index = indexPath.row;
     } else if ([segue.identifier isEqualToString:@"NewEventSettingsSegue"]) {
         ((EventSettingsViewController *)segue.destinationViewController).index = [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count];
     }
