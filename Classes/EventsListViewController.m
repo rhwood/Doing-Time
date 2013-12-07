@@ -9,6 +9,7 @@
 #import "EventsListViewController.h"
 #import "EventViewCell.h"
 #import "EventViewController.h"
+#import "ListFooterCell.h"
 #import "Constants.h"
 #import "NSDate+Additions.h"
 #import "PieChartView.h"
@@ -26,12 +27,22 @@
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     if (self.calendar == nil) {
         self.calendar = [NSCalendar currentCalendar];
     }
+    self.navigationController.navigationBarHidden = YES;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    self.navigationController.navigationBarHidden = YES;
+    [super viewWillAppear:animated];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    NSLog(@"Preparing to segue from list with %@", segue.identifier);
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
 }
 
 #pragma mark - Table view data source
@@ -45,7 +56,6 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"Calling for %@", indexPath.debugDescription);
 	EventViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EventViewCell"];
     
 	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -297,6 +307,10 @@
 		[UIView commitAnimations];
 	}
     return cell;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    return [tableView dequeueReusableCellWithIdentifier:@"ListFooterCell"];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {

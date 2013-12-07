@@ -229,6 +229,7 @@
                         [mailController setToRecipients:@[@"Support@AlexandriaSoftware.com"]];
                         [mailController setMessageBody:@"" isHTML:NO];
                         if (mailController) {
+                            mailController.navigationBar.tintColor = self.navigationController.navigationBar.tintColor;
                             [self presentViewController:mailController animated:YES completion:nil];
                         }
                     }
