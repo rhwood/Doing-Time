@@ -7,9 +7,11 @@
 //
 
 #import "EventsListViewController.h"
+#import "EventSettingsViewController.h"
 #import "EventViewCell.h"
 #import "EventViewController.h"
 #import "ListFooterCell.h"
+#import "MainViewController.h"
 #import "Constants.h"
 #import "NSDate+Additions.h"
 #import "PieChartView.h"
@@ -38,11 +40,20 @@
 - (void)viewWillAppear:(BOOL)animated {
     self.navigationController.navigationBarHidden = YES;
     [super viewWillAppear:animated];
+    [self.tableView reloadData];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     NSLog(@"Preparing to segue from list with %@", segue.identifier);
-    [self.navigationController setNavigationBarHidden:NO animated:NO];
+    if ([segue.identifier isEqualToString:@"ListToEventSettingsSegue"]) {
+        ((EventSettingsViewController *)segue.destinationViewController).index = [self.tableView indexPathForSelectedRow].row;
+    } else if ([segue.identifier isEqualToString:@"NewEventSettingsSegue"]) {
+        ((EventSettingsViewController *)segue.destinationViewController).index = [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count];
+    }
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+    if (segue) {
+        [self.navigationController setNavigationBarHidden:NO animated:NO];
+    }
 }
 
 #pragma mark - Table view data source
@@ -58,8 +69,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	EventViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EventViewCell"];
     
-	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-	
     NSDictionary* event = [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] objectAtIndex:indexPath.row];
     cell.stats.text = @"";
 
@@ -275,10 +284,12 @@
         cell.title.textColor = [UIColor whiteColor];
         cell.dates.textColor = [UIColor whiteColor];
         cell.stats.textColor = [UIColor whiteColor];
+        [cell.info.imageView setImage:[UIImage imageNamed:@"white-info"]];
     } else {
         cell.title.textColor = [UIColor blackColor];
         cell.dates.textColor = [UIColor blackColor];
         cell.stats.textColor = [UIColor blackColor];
+        [cell.info.imageView setImage:[UIImage imageNamed:@"gray-info"]];
     }
 	if ([self isViewLoaded]) {
 		cell.pieChart.alpha = 0.0;
@@ -318,7 +329,10 @@
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-	return YES;
+    if ([self tableView:tableView numberOfRowsInSection:indexPath.section] > 1) {
+        return YES;
+    }
+    return NO;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -332,6 +346,7 @@
 		[[NSUserDefaults standardUserDefaults] setObject:events forKey:eventsKey];
 		[[NSUserDefaults standardUserDefaults] synchronize];
 		[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [[NSNotificationCenter defaultCenter] postNotificationName:eventRemovedNotification object:nil userInfo:@{eventsKey: [NSNumber numberWithInteger:indexPath.row]}];
 //		[delegate eventWasRemoved:indexPath.row];
 	} else {
 //		[self addEvent];
@@ -345,6 +360,7 @@
 	[events insertObject:event atIndex:destinationIndexPath.row];
 	[[NSUserDefaults standardUserDefaults] setObject:events forKey:eventsKey];
 	[[NSUserDefaults standardUserDefaults] synchronize];
+    [[NSNotificationCenter defaultCenter] postNotificationName:selectedEventChanged object:nil userInfo:@{eventsKey: [NSNumber numberWithInteger:destinationIndexPath.row]}];
 //	[self.delegate eventDidMove:sourceIndexPath.row to:destinationIndexPath.row];
 }
 
@@ -352,16 +368,11 @@
 	return nil;
 }
 
-/*
-#pragma mark - Navigation
+#pragma mark - Table view delegate
 
-// In a story board-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [[NSNotificationCenter defaultCenter] postNotificationName:selectedEventChanged object:nil userInfo:@{eventsKey: [NSNumber numberWithInteger:indexPath.row]}];
+    [self.navigationController popViewControllerAnimated:YES];
 }
-
- */
 
 @end

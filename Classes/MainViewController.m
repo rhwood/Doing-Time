@@ -129,6 +129,25 @@
 													  }
                                                       [self unloadEvents];
                                                   }];
+    [[NSNotificationCenter defaultCenter] addObserverForName:selectedEventChanged
+                                                      object:nil
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification *note) {
+                                                      [self changePage:note];
+                                                  }];
+    [[NSNotificationCenter defaultCenter] addObserverForName:eventRemovedNotification
+                                                      object:nil
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification *note) {
+                                                      [self eventWasRemoved:[[note.userInfo objectForKey:eventsKey] integerValue]];
+                                                      [self redrawEvents:YES];
+                                                  }];
+    [[NSNotificationCenter defaultCenter] addObserverForName:eventSavedNotification
+                                                      object:nil
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification *note) {
+                                                      [self eventDidUpdate:[[note.userInfo objectForKey:eventsKey] integerValue]];
+                                                  }];
 	[self scheduleRedrawOnDayOver];
 }
 
@@ -156,7 +175,9 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     NSLog(@"Current page: %i", self.pager.currentPage);
-    [self.navigationController setNavigationBarHidden:NO animated:NO];
+    if (![segue.identifier isEqualToString:@"EventsListSegue"]) {
+        [self.navigationController setNavigationBarHidden:NO animated:NO];
+    }
     if ([sender isEqual:((EventViewController *)self.events[self.pager.currentPage]).infoButton]) {
         ((EventSettingsViewController *)segue.destinationViewController).index = self.pager.currentPage;
     }
@@ -346,12 +367,17 @@
 }
 
 - (IBAction)changePage:(id)sender {
+    float duration = 0.2;
+    if ([sender isKindOfClass:[NSNotification class]]) {
+        duration = 0.0;
+        self.pager.currentPage = [[((NSNotification *)sender).userInfo objectForKey:eventsKey] integerValue];
+    }
 	NSInteger page = self.pager.currentPage;
 	
 	CGRect frame = self.scroller.frame;
 	frame.origin.x = frame.size.width * page;
 	frame.origin.y = 0;
-    [UIView animateWithDuration:0.2 animations:^{
+    [UIView animateWithDuration:duration animations:^{
         [self.scroller scrollRectToVisible:frame animated:NO];
         [self redrawBackground];
     }];

@@ -48,3 +48,5 @@ extern NSString *const multipleEventsProductIdentifier;
 #pragma mark - Notifications
 
 extern NSString *const eventSavedNotification;
+extern NSString *const eventRemovedNotification;
+extern NSString *const selectedEventChanged;

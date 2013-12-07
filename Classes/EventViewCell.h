@@ -16,5 +16,6 @@
 @property (weak) IBOutlet UILabel *dates;
 @property (weak) IBOutlet UILabel *stats;
 @property (weak) IBOutlet PieChartView *pieChart;
+@property (weak) IBOutlet UIButton *info;
 
 @end
