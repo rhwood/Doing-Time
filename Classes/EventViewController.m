@@ -84,11 +84,11 @@
     NSDate *endDate = self.event[endKey];
     NSDate *calcEndDate = ([self.event[includeLastDayInCalcKey] boolValue]) ? [self.calendar dateByAddingComponents:oneDay toDate:endDate options:0] : endDate;
 	NSDate *today = [NSDate midnightForDate:[NSDate date]];
-	NSLog(@"Start date:  %@", startDate);
-	NSLog(@"End date:    %@", endDate);
-	NSLog(@"Today:       %@", today);
-    NSLog(@"Calc end:    %@", calcEndDate);
-	NSLog(@"Now:         %@", [NSDate date]);
+//	NSLog(@"Start date:  %@", startDate);
+//	NSLog(@"End date:    %@", endDate);
+//	NSLog(@"Today:       %@", today);
+//    NSLog(@"Calc end:    %@", calcEndDate);
+//	NSLog(@"Now:         %@", [NSDate date]);
 
     NSInteger completed = [[self.calendar components:NSDayCalendarUnit
                                             fromDate:startDate
@@ -105,10 +105,10 @@
                                              toDate:calcEndDate
                                             options:0]
 						  day];
-	NSLog(@"%d days complete", completed);
-	NSLog(@"%d days left", left);
-	NSLog(@"%d total days", duration);
-    NSLog(@"--adjusting--");
+//	NSLog(@"%d days complete", completed);
+//	NSLog(@"%d days left", left);
+//	NSLog(@"%d total days", duration);
+//    NSLog(@"--adjusting--");
     if (!duration) {
         if (!self.showingAlert) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Cannot Display Event", @"Title for error displaying event")
@@ -126,11 +126,11 @@
     if (left >= 0 && completed >= 0) {
         switch ([self.event[todayIsKey] integerValue]) {
             case todayIsNotCounted:
-                NSLog(@"today is not counted (left --)");
+//                NSLog(@"today is not counted (left --)");
                 left--;
                 break;
             case todayIsOver:
-                NSLog(@"today is over (complete ++ & left --)");
+//                NSLog(@"today is over (complete ++ & left --)");
                 completed++;
                 left--;
                 break;
@@ -143,18 +143,18 @@
     }
     // event is over
     if (left <= 0) {
-        NSLog(@"event is over");
+//        NSLog(@"event is over");
         completed = duration;
         inPast = left * -1;
         left = 0;
         if ([endDate isEqualToDate:calcEndDate]) {
-            NSLog(@"last day not in event");
+//            NSLog(@"last day not in event");
             inPast++;
         }
     }
     // event has yet to begin
     if (completed < 0) {
-        NSLog(@"event is in future");
+//        NSLog(@"event is in future");
         left = duration;
         inFuture = completed * -1;
         completed = 0;
@@ -163,12 +163,12 @@
     if ((completed + left) > duration) {
         TFLog(@"Event (from %@ to %@) has duration (%d) != days complete (%d) + days left (%d)\n(today is %@, last day is counted %@)", startDate, endDate, duration, completed, left, self.event[todayIsKey], self.event[includeLastDayInCalcKey]);
     }
-    NSLog(@"--after adjustments--");
-	NSLog(@"%d days complete", completed);
-	NSLog(@"%d days left", left);
-	NSLog(@"%d total days", duration);
-    NSLog(@"%d days in future", inFuture);
-    NSLog(@"%d days in past", inPast);
+//    NSLog(@"--after adjustments--");
+//	NSLog(@"%d days complete", completed);
+//	NSLog(@"%d days left", left);
+//	NSLog(@"%d total days", duration);
+//    NSLog(@"%d days in future", inFuture);
+//    NSLog(@"%d days in past", inPast);
 	float interval = 1.0 / duration;
 	
 	_eventTitle.text = [self.event objectForKey:titleKey];
@@ -190,8 +190,8 @@
 	
 	
 	NSString *days = NSLocalizedString(@"days", @"Plural for \"day\"");
-    NSLog((showTotals) ? @"Showing totals" : @"Hiding totals");
-    NSLog((showPercentage) ? @"Showing percentage" : @"Hiding percentage");
+//    NSLog((showTotals) ? @"Showing totals" : @"Hiding totals");
+//    NSLog((showPercentage) ? @"Showing percentage" : @"Hiding percentage");
     if (showPercentage || showTotals) {
         _daysComplete.hidden = !showCompleted;
         _daysLeft.hidden = NO;
