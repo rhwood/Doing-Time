@@ -13,7 +13,7 @@
 
 @class ColorPickerViewController;
 
-@interface EventSettingsViewController : UITableViewController <UITextFieldDelegate, UIAlertViewDelegate, UIActionSheetDelegate> {
+@interface EventSettingsViewController : UITableViewController <UIGestureRecognizerDelegate, UITextFieldDelegate, UIAlertViewDelegate, UIActionSheetDelegate> {
 	NSMutableDictionary* _event;
 	UIDatePicker* _datePicker;
 //	EKEventStore* _eventStore;

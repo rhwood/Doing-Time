@@ -756,6 +756,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                 <tapGestureRecognizer cancelsTouchesInView="NO" id="gSC-hm-vvD">
                     <connections>
                         <action selector="hideInputs:" destination="V6q-4c-EZH" id="xO5-eA-cJr"/>
+                        <outlet property="delegate" destination="V6q-4c-EZH" id="8v7-hi-aeV"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>

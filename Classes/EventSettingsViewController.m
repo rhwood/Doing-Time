@@ -43,6 +43,8 @@
 
 - (void)colorSelectionDidChange:(NSNotification *)note forKey:(NSString *)key;
 
+- (void)clearDatePickerAndSelection;
+
 @end
 
 @implementation EventSettingsViewController
@@ -347,32 +349,32 @@
 #pragma mark - Display Settings
 
 - (void)switchIncludeLastDayInCalc:(id)sender {
-    [self clearDatePicker];
+    [self clearDatePickerAndSelection];
     [self.event setValue:@([(UISwitch *)sender isOn]) forKey:includeLastDayInCalcKey];
     [self showDuration];
 }
 
 - (void)switchShowEventDates:(id)sender {
-    [self clearDatePicker];
+    [self clearDatePickerAndSelection];
     [self.event setValue:@([(UISwitch *)sender isOn]) forKey:showEventDatesKey];
     [self.tableView reloadData];
 }
 
 - (void)switchShowPercentages:(id)sender {
-    [self clearDatePicker];
+    [self clearDatePickerAndSelection];
     [self.event setValue:@([(UISwitch *)sender isOn]) forKey:showPercentageKey];
     [self.tableView reloadData];
 }
 
 - (void)switchShowRemainingDays:(id)sender {
     // inverse of switch since setting is displayed using opposite language
-    [self clearDatePicker];
+    [self clearDatePickerAndSelection];
     [self.event setValue:@(![(UISwitch *)sender isOn]) forKey:showCompletedDaysKey];
     [self.tableView reloadData];
 }
 
 - (void)switchShowTotals:(id)sender {
-    [self clearDatePicker];
+    [self clearDatePickerAndSelection];
     [self.event setValue:@([(UISwitch *)sender isOn]) forKey:showTotalsKey];
     [self.tableView reloadData];
 }
@@ -624,6 +626,7 @@
 #pragma mark Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"selected %@", indexPath.debugDescription);
     NSString *link;
     self.showErrorAlert = YES;
     [self verifyDateOrder];
@@ -739,12 +742,14 @@
     self.settingEndDate = NO;
 }
 
-- (void)hideInputs:(id)sender {
-    [self hideDatePicker:YES];
-    [self.view endEditing:NO];
+- (void)clearDatePickerAndSelection {
+    [self clearDatePicker];
     [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
-    self.settingEndDate = NO;
-    self.settingStartDate = NO;
+}
+
+- (void)hideInputs:(id)sender {
+    [self.view endEditing:NO];
+    [self clearDatePickerAndSelection];
 }
 
 - (void)hideDatePicker:(BOOL)hidden {
@@ -909,6 +914,17 @@
     if ([textField isEqual:self.durationView]) {
         self.durationView.text = nil;
     }
+}
+
+#pragma mark - Gesture recognizer delegate
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    // prevent the gesture recognizer from hiding the date picker
+    if ([touch.view isDescendantOfView:[self.tableView cellForRowAtIndexPath:self.startDateViewCellIndexPath]] ||
+        [touch.view isDescendantOfView:[self.tableView cellForRowAtIndexPath:self.endDateViewCellIndexPath]]) {
+        return NO;
+    }
+    return YES;
 }
 
 #pragma mark - Mail composition delegate
