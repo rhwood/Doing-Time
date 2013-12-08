@@ -6,11 +6,13 @@
 //  Copyright 2010 Alexandria Software. All rights reserved.
 //
 
-#import "FlipsideViewController.h"
-#import <iAd/iAd.h>
+#import <UIKit/UIKit.h>
 //#import <EventKit/EventKit.h>
+#import <iAd/iAd.h>
 
-@interface MainViewController : UIViewController <FlipsideViewControllerDelegate, ADBannerViewDelegate, UIScrollViewDelegate> {
+@class Doing_TimeAppDelegate;
+
+@interface MainViewController : UIViewController <ADBannerViewDelegate, UIScrollViewDelegate> {
 	
 	UIView *_controls;
 //	EKEventStore *_eventStore;
@@ -25,15 +27,13 @@
 	
 }
 
-#pragma mark -
-#pragma mark Swipe Handling
+#pragma mark - Swipe handling
 
 - (void)handleSwipeFrom:(UIGestureRecognizer *)gestureRecognizer;
 - (void)showPager;
 - (IBAction)changePage:(id)sender;
 
-#pragma mark -
-#pragma mark Events Handling
+#pragma mark - Events handling
 
 - (void)loadScrollerWithEvent:(NSUInteger)event;
 - (void)redrawEvent:(NSInteger)event forceRedraw:(BOOL)forceRedraw;
@@ -43,15 +43,12 @@
 - (void)reloadEvents;
 - (void)unloadEvents;
 
-#pragma mark -
-#pragma mark Settings Handling
+#pragma mark - Settings handling
 
 - (IBAction)showInfo:(id)sender;
-- (IBAction)showList:(id)sender;
 - (IBAction)showSettings:(id)sender;
 
-#pragma mark -
-#pragma mark iAd Delegate
+#pragma mark - iAd Delegate
 
 - (void)hideAdBanner:(BOOL)hide animated:(BOOL)animated;
 

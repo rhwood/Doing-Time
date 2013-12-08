@@ -287,18 +287,6 @@
     [self performSegueWithIdentifier:@"MainToEventSettingsSegue" sender:sender];
 }
 
-- (IBAction)showList:(id)sender {
-    FlipsideViewController *controller = [[FlipsideViewController alloc] initWithNibName:@"FlipsideView" bundle:nil];
-    controller.delegate = self;
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:controller];
-    controller.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-    [self presentViewController:navigationController animated:YES completion:nil];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
-    if ([sender respondsToSelector:@selector(eventID)]) {
-        [controller editEvent:[sender eventID]];
-    }
-}
-
 - (IBAction)showSettings:(id)sender {
     [self performSegueWithIdentifier:@"AppSettingsSegue" sender:sender];
 }
@@ -357,10 +345,6 @@
 		self.scroller.contentSize = CGSizeMake(self.scroller.frame.size.width * [self.events count], self.scroller.frame.size.height);
 		[self redrawEvents:NO];
 	}
-}
-
-- (void)flipsideViewControllerDidFinish:(FlipsideViewController *)controller {
-	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)changePage:(id)sender {
