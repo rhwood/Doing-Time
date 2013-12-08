@@ -77,15 +77,13 @@
 - (void)showDurationErrorAlert;
 - (BOOL)verifyDateOrder;
 
-//#pragma mark -
-//#pragma mark Calendar Events
+//#pragma mark - Calendar Events
 //
 //- (void)createCalendarEvent;
 //- (void)editCalendarEvent:(NSString *)identifier;
 //- (void)selectCalendarEvent;
 
-#pragma mark -
-#pragma mark Properties
+#pragma mark - Properties
 
 @property NSUInteger index;
 @property (nonatomic, strong) NSMutableDictionary* event;

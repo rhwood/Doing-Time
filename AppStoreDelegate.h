@@ -33,8 +33,7 @@ extern NSString *const AXAppStoreTransactionStore;
 
 - (id)initWithDictionary:(NSDictionary *)transactionStore;
 
-#pragma mark -
-#pragma mark Store handling
+#pragma mark - Store handling
 
 @property (readonly) BOOL canMakePayments;
 @property (nonatomic, strong) NSMutableSet *openRequests;
@@ -47,8 +46,7 @@ extern NSString *const AXAppStoreTransactionStore;
 - (void)requestProductData:(NSString *)productIdentifier ifHasTransaction:(BOOL)hasTransaction;
 - (void)request:(SKRequest *)request didFailWithError:(NSError *)error;
 
-#pragma mark -
-#pragma mark Payment transaction handling
+#pragma mark - Payment transaction handling
 
 - (void)completeTransaction:(SKPaymentTransaction *)transaction;
 - (void)failedTransaction:(SKPaymentTransaction *)transaction;

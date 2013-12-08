@@ -73,8 +73,7 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 	return self;
 }
 
-#pragma mark -
-#pragma mark Store handling
+#pragma mark - Store handling
 
 - (BOOL)canMakePayments {
 	return [SKPaymentQueue canMakePayments];
@@ -139,8 +138,7 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
     }
 }
 
-#pragma mark -
-#pragma mark Payment transaction handling
+#pragma mark - Payment transaction handling
 
 - (void)completeTransaction:(SKPaymentTransaction *)transaction {
 	[self recordTransaction:transaction];

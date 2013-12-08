@@ -51,8 +51,7 @@
 
 @synthesize index = _index;
 
-#pragma mark -
-#pragma mark View lifecycle
+#pragma mark - View lifecycle
 
 - (id)initWithStyle:(UITableViewStyle)style {
 	if ((self = [super initWithStyle:style])) {
@@ -624,8 +623,7 @@
     return NO;
 }
 
-#pragma mark -
-#pragma mark Table view delegate
+#pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *link;
@@ -841,8 +839,7 @@
     return inOrder;
 }
 
-//#pragma mark -
-//#pragma mark Calendar Events
+//#pragma mark - Calendar Events
 //
 //- (void)createCalendarEvent {
 //	EKEventEditViewController* controller = [[EKEventEditViewController alloc] init];
@@ -871,8 +868,7 @@
 //
 //}
 //
-#pragma mark -
-#pragma mark Text field delegate
+#pragma mark - Text field delegate
 
 - (BOOL)verifyNonemptyTitle {
     if (!self.cancelling) {
@@ -935,8 +931,7 @@
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark -
-#pragma mark Action sheet view delegate
+#pragma mark - Action sheet view delegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     //	if (actionSheet == self.linkUnlinkedEventActionSheet) {

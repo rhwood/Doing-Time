@@ -316,8 +316,7 @@
     }
 }
 
-#pragma mark -
-#pragma mark Flipside delegate
+#pragma mark - Flipside delegate
 
 - (void)dayOverTimeUpdated {
 	[self redrawEventsOnTimer:nil];
@@ -373,8 +372,7 @@
 	self.pagerDidScroll = YES;
 }
 
-#pragma mark -
-#pragma mark Scroll view delegate
+#pragma mark - Scroll view delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
 	if (!self.pagerDidScroll) {
@@ -403,8 +401,7 @@
     [self showInfo:nil];
 }
 
-#pragma mark -
-#pragma mark iAd delegate
+#pragma mark - iAd delegate
 
 - (void)hideAdBanner:(BOOL)hide animated:(BOOL)animated {
 	if (hide != self.bannerIsVisible) {
@@ -437,8 +434,7 @@
     }
 }
 
-#pragma mark -
-#pragma mark Memory management
+#pragma mark - Memory management
 
 - (void)didReceiveMemoryWarning {
 	// Releases the view if it doesn't have a superview.
