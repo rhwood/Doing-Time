@@ -49,13 +49,13 @@
             NSDate *today = [NSDate midnightForDate:[NSDate date]];
             [[NSUserDefaults standardUserDefaults] setObject:@[@{
                                                                    titleKey:NSLocalizedString(@"Doing Time", @"Application Name"),
-                                                                   startKey:today,
-                                                                   endKey:today,
+                                                                   startKey:[today dateByAddingTimeInterval:60 * 60 * 24 * -60],
+                                                                   endKey:[today dateByAddingTimeInterval:60 * 60 * 24 * 30],
                                                                    includeLastDayInCalcKey:@(YES),
-                                                                   showCompletedDaysKey:@(YES),
-                                                                   showEventDatesKey:@(YES),
+                                                                   showCompletedDaysKey:@(NO),
+                                                                   showEventDatesKey:@(NO),
                                                                    showPercentageKey:@(NO),
-                                                                   showTotalsKey:@(YES),
+                                                                   showTotalsKey:@(NO),
                                                                    todayIsKey:@(todayIsNotCounted),
                                                                    completedColorKey:[NSKeyedArchiver archivedDataWithRootObject:self.appDelegate.red],
                                                                    remainingColorKey:[NSKeyedArchiver archivedDataWithRootObject:self.appDelegate.green],
@@ -140,7 +140,6 @@
                                                        queue:nil
                                                   usingBlock:^(NSNotification *note) {
                                                       [self eventWasRemoved:[[note.userInfo objectForKey:eventsKey] integerValue]];
-                                                      [self redrawEvents:YES];
                                                   }];
     [[NSNotificationCenter defaultCenter] addObserverForName:eventSavedNotification
                                                       object:nil
@@ -169,16 +168,14 @@
                                               cancelButtonTitle:NSLocalizedString(@"OK", @"Label indicating the user acknowledges the issue")
                                               otherButtonTitles:nil];
         [alert show];
-        [self showInfo:self.events[0]];
     }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    NSLog(@"Current page: %i", self.pager.currentPage);
     if (![segue.identifier isEqualToString:@"EventsListSegue"]) {
         [self.navigationController setNavigationBarHidden:NO animated:NO];
     }
-    if ([sender isEqual:((EventViewController *)self.events[self.pager.currentPage]).infoButton]) {
+    if ([segue.identifier isEqualToString:@"MainToEventSettingsSegue"]) {
         ((EventSettingsViewController *)segue.destinationViewController).index = self.pager.currentPage;
     }
 }
@@ -405,6 +402,14 @@
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
 	self.pagerDidScroll = NO;
+}
+
+#pragma mark - Alert view delegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:eventsKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [self showInfo:nil];
 }
 
 #pragma mark -

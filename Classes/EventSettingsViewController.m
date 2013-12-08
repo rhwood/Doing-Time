@@ -74,7 +74,7 @@
     UIColor *green = [UIColor colorWithRed:0.0 green:0.6 blue:0.0 alpha:1.0];
     UIColor *blue = [UIColor colorWithRed:0.0 green:0.0 blue:0.6 alpha:1.0];
     UIColor *white = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
-    if (index == [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count]) {
+    if (index == [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count] || ![[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] objectAtIndex:index]) {
         self.newEvent = YES;
         self.event = [NSMutableDictionary dictionaryWithDictionary:@{
                                                                      titleKey:@"",
@@ -202,6 +202,9 @@
                                        self.view.window.frame.size.height,
                                        self.datePicker.frame.size.width,
                                        self.datePicker.frame.size.height);
+    if (self.newEvent) {
+        [self.titleView becomeFirstResponder];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
