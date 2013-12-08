@@ -259,6 +259,7 @@
         cell.dates.text = cell.stats.text;
         cell.dates.hidden = cell.stats.hidden;
         cell.stats.hidden = YES;
+        showDateRange = NO;
     }
     if ([EventViewController brightnessForColor:cell.backgroundColor] < 0.51) {
         cell.title.textColor = [UIColor whiteColor];
