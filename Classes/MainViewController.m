@@ -135,6 +135,12 @@
                                                   usingBlock:^(NSNotification *note) {
                                                       [self changePage:note];
                                                   }];
+    [[NSNotificationCenter defaultCenter] addObserverForName:eventMovedNotification
+                                                      object:nil
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification *note) {
+                                                      [self eventDidMove:[note.userInfo[startKey] integerValue] to:[note.userInfo[endKey] integerValue]];
+                                                  }];
     [[NSNotificationCenter defaultCenter] addObserverForName:eventRemovedNotification
                                                       object:nil
                                                        queue:nil

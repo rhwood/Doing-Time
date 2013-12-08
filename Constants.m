@@ -38,6 +38,7 @@ NSString *const multipleEventsProductIdentifier = @"com.alexandriasoftware.doing
 
 #pragma mark - Norifications
 
-NSString *const eventSavedNotification = @"eventSavedNotification";
+NSString *const eventMovedNotification = @"eventMovedNotification";
 NSString *const eventRemovedNotification = @"eventRemovedNotification";
+NSString *const eventSavedNotification = @"eventSavedNotification";
 NSString *const selectedEventChanged = @"selectedEventChanged";

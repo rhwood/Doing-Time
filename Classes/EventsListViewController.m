@@ -321,8 +321,8 @@
 		[events removeObjectAtIndex:indexPath.row];
 		[[NSUserDefaults standardUserDefaults] setObject:events forKey:eventsKey];
 		[[NSUserDefaults standardUserDefaults] synchronize];
-        [[NSNotificationCenter defaultCenter] postNotificationName:eventRemovedNotification object:nil userInfo:@{eventsKey: [NSNumber numberWithInteger:indexPath.row]}];
 		[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [[NSNotificationCenter defaultCenter] postNotificationName:eventRemovedNotification object:nil userInfo:@{eventsKey: [NSNumber numberWithInteger:indexPath.row]}];
 	}
 }
 
@@ -333,6 +333,10 @@
 	[events insertObject:event atIndex:destinationIndexPath.row];
 	[[NSUserDefaults standardUserDefaults] setObject:events forKey:eventsKey];
 	[[NSUserDefaults standardUserDefaults] synchronize];
+    [[NSNotificationCenter defaultCenter] postNotificationName:eventMovedNotification
+                                                        object:nil
+                                                      userInfo:@{startKey: [NSNumber numberWithInteger:sourceIndexPath.row],
+                                                                 endKey: [NSNumber numberWithInteger:destinationIndexPath.row]}];
     [[NSNotificationCenter defaultCenter] postNotificationName:selectedEventChanged object:nil userInfo:@{eventsKey: [NSNumber numberWithInteger:destinationIndexPath.row]}];
 }
 
