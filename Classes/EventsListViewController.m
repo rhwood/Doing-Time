@@ -337,7 +337,6 @@
                                                         object:nil
                                                       userInfo:@{startKey: [NSNumber numberWithInteger:sourceIndexPath.row],
                                                                  endKey: [NSNumber numberWithInteger:destinationIndexPath.row]}];
-    [[NSNotificationCenter defaultCenter] postNotificationName:selectedEventChanged object:nil userInfo:@{eventsKey: [NSNumber numberWithInteger:destinationIndexPath.row]}];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
