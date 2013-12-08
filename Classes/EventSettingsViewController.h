@@ -108,7 +108,6 @@
 @property (nonatomic, strong) IBOutlet UITableViewCell* urlViewCell;
 @property BOOL cancelling;
 @property NSUInteger duration;
-@property (nonatomic, strong) NSCalendar *calendar;
 
 // purchase support
 @property (nonatomic, strong) IBOutlet UIActivityIndicatorView* activityIndicator;

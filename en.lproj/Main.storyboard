@@ -464,6 +464,9 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="V6q-4c-EZH" id="p8A-Rf-pHI"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -710,7 +713,7 @@
                         <outlet property="completedDaysColorCell" destination="g8e-l4-5do" id="Nal-bU-yJn"/>
                         <outlet property="datePicker" destination="IX0-ED-kgY" id="fcJ-ra-qL5"/>
                         <outlet property="durationCell" destination="JE5-4k-5e1" id="PKP-cc-zZN"/>
-                        <outlet property="durationView" destination="mBj-y6-BNI" id="T81-N3-jft"/>
+                        <outlet property="durationView" destination="mBj-y6-BNI" id="Dan-E9-xnx"/>
                         <outlet property="endDateCell" destination="IRH-Jk-HBt" id="N74-zG-LD0"/>
                         <outlet property="includeEndDateCell" destination="Shy-1O-y7b" id="L4R-nR-Hiw"/>
                         <outlet property="remainingDaysColorCell" destination="uOB-Bf-ZcG" id="bGW-Ld-vZ7"/>

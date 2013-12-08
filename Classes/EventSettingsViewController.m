@@ -56,7 +56,6 @@
 
 - (id)initWithStyle:(UITableViewStyle)style {
 	if ((self = [super initWithStyle:style])) {
-        //self.calendar = [NSCalendar currentCalendar];
 		self.index = 0;
         self.settingEndDate = NO;
         self.settingStartDate = NO;
@@ -321,10 +320,10 @@
 - (void)calculateDuration {
     switch ([self.event[startKey] compare:self.event[endKey]]) {
         case NSOrderedAscending:
-            self.duration = [[self.calendar components:NSDayCalendarUnit
-                                              fromDate:self.event[startKey]
-                                                toDate:self.event[endKey]
-                                               options:0]
+            self.duration = [[[NSCalendar currentCalendar] components:NSDayCalendarUnit
+                                                             fromDate:self.event[startKey]
+                                                               toDate:self.event[endKey]
+                                                              options:0]
                              day];
             break;
         case NSOrderedSame:
@@ -629,7 +628,6 @@
 #pragma mark Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"selected %@", indexPath.debugDescription);
     NSString *link;
     self.showErrorAlert = YES;
     [self verifyDateOrder];
@@ -682,6 +680,8 @@
                     self.settingEndDate = !self.settingEndDate;
                     break;
                 case DURATION:
+                    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+                    [self.durationView becomeFirstResponder];
                     break;
                 default:
                     break;
@@ -902,8 +902,8 @@
         if (!self.event[includeLastDayInCalcKey]) {
             offsetComponents.day = offsetComponents.day + 1;
         }
-        self.event[endKey] = [self.calendar dateByAddingComponents:offsetComponents toDate:self.event[startKey] options:0];
-        [self.tableView reloadRowsAtIndexPaths:@[self.endDateViewCellIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        self.event[endKey] = [[NSCalendar currentCalendar] dateByAddingComponents:offsetComponents toDate:self.event[startKey] options:0];
+        [self.tableView reloadRowsAtIndexPaths:@[self.endDateViewCellIndexPath] withRowAnimation:UITableViewRowAnimationNone];
     } else {
         [self showDuration];
     }
@@ -914,9 +914,6 @@
     [self hideDatePicker:YES];
     self.settingStartDate = NO;
     self.settingEndDate = NO;
-    if ([textField isEqual:self.durationView]) {
-        self.durationView.text = nil;
-    }
 }
 
 #pragma mark - Gesture recognizer delegate
