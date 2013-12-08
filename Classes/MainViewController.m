@@ -348,7 +348,8 @@
 			self.pager.currentPage = 0;
 			[self changePage:nil];
 		}
-		self.scroller.contentSize = CGSizeMake(self.scroller.frame.size.width * [self.events count], self.scroller.frame.size.height);
+        [self unloadEvents];
+        [self reloadEvents];
 		[self redrawEvents:NO];
 	}
 }
