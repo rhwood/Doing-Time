@@ -65,7 +65,7 @@
                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </label>
                         <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="8" userLabel="Button - Info">
-                            <rect key="frame" x="277" y="45" width="29" height="31"/>
+                            <rect key="frame" x="272" y="43" width="48" height="38"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                             <accessibility key="accessibilityConfiguration" label="Settings"/>
                             <fontDescription key="fontDescription" type="boldSystem" size="button"/>
@@ -80,7 +80,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="HP4-4k-jfL" userLabel="Button - Settings">
-                            <rect key="frame" x="16" y="47" width="28" height="28"/>
+                            <rect key="frame" x="0.0" y="43" width="48" height="38"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" image="gray-gear">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
