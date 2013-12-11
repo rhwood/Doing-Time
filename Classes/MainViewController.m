@@ -72,7 +72,8 @@
 	if ([self.appDelegate.appStore hasTransactionForProduct:multipleEventsProductIdentifier]) {
 		self.pager.numberOfPages = [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count];
 		self.pager.currentPage = [[NSUserDefaults standardUserDefaults] integerForKey:currentEventKey];
-		[self.adBanner removeFromSuperview];
+        self.adBanner.opaque = NO;
+        self.adBanner.alpha = 0.0;
 	} else {
 		self.pager.numberOfPages = 1;
 		self.pager.currentPage = 0;

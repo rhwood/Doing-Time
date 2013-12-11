@@ -33,7 +33,7 @@
 
 - (id)initWithEvent:(NSUInteger)event {
 	if (self = [super initWithNibName:@"EventView" bundle:nil]) {
-		self.eventID = event;
+        self.eventID = event;
         self.event = [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] objectAtIndex:self.eventID];
         self.oldEvent = nil;
         self.calendar = [NSCalendar currentCalendar];
