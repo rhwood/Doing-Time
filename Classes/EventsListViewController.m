@@ -39,6 +39,11 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     self.navigationController.navigationBarHidden = YES;
+    if ([EventViewController brightnessForColor:self.tableView.backgroundColor] < 0.51) {
+        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    } else {
+        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+    }
     [super viewWillAppear:animated];
     [self.tableView reloadData];
 }
