@@ -181,6 +181,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if (![segue.identifier isEqualToString:@"EventsListSegue"]) {
         [self.navigationController setNavigationBarHidden:NO animated:NO];
+        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
     }
     if ([segue.identifier isEqualToString:@"MainToEventSettingsSegue"]) {
         ((EventSettingsViewController *)segue.destinationViewController).index = self.pager.currentPage;
@@ -307,6 +308,7 @@
         self.settingsButton.imageView.image = [UIImage imageNamed:@"white-gear"];
         self.listButton.imageView.image = [UIImage imageNamed:@"white-list"];
         [((EventViewController *)self.events[self.pager.currentPage]).settings.imageView setImage:[UIImage imageNamed:@"white-gear"]];
+        [((EventViewController *)self.events[self.pager.currentPage]).infoButton.imageView setImage:[UIImage imageNamed:@"white-info"]];
     } else {
         [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
         self.pager.pageIndicatorTintColor = [UIColor darkGrayColor];
@@ -314,6 +316,7 @@
         self.settingsButton.imageView.image = [UIImage imageNamed:@"gray-gear"];
         self.listButton.imageView.image = [UIImage imageNamed:@"gray-list"];
         [((EventViewController *)self.events[self.pager.currentPage]).settings.imageView setImage:[UIImage imageNamed:@"gray-gear"]];
+        [((EventViewController *)self.events[self.pager.currentPage]).infoButton.imageView setImage:[UIImage imageNamed:@"gray-info"]];
     }
 }
 
