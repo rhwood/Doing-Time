@@ -57,8 +57,8 @@
                                                                    showPercentageKey:@(NO),
                                                                    showTotalsKey:@(NO),
                                                                    todayIsKey:@(todayIsNotCounted),
-                                                                   completedColorKey:[NSKeyedArchiver archivedDataWithRootObject:self.appDelegate.red],
-                                                                   remainingColorKey:[NSKeyedArchiver archivedDataWithRootObject:self.appDelegate.green],
+                                                                   completedColorKey:[NSKeyedArchiver archivedDataWithRootObject:self.appDelegate.green],
+                                                                   remainingColorKey:[NSKeyedArchiver archivedDataWithRootObject:self.appDelegate.red],
                                                                    backgroundColorKey:[NSKeyedArchiver archivedDataWithRootObject:self.appDelegate.white]}]
                                                       forKey:eventsKey];
             [[NSUserDefaults standardUserDefaults] synchronize];
