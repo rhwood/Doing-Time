@@ -37,6 +37,12 @@
     self.clearsSelectionOnViewWillAppear = NO;
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    NSLog(@"%i IAP products available", self.appDelegate.appStore.validProducts.count);
+    NSLog(@"%@ to make purchases", self.appDelegate.appStore.canMakePayments ? @"Allowed " : @"Not allowed ");
+    NSLog(@"%@ transactions for all products", [self.appDelegate.appStore hasTransactionsForAllProducts] ? @"Has " : @"Does not have ");
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
