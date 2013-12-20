@@ -76,6 +76,7 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 #pragma mark - Store handling
 
 - (BOOL)canMakePayments {
+    NSLog(@"SKPaymentQueue canMakePayments:%i", [SKPaymentQueue canMakePayments]);
 	return [SKPaymentQueue canMakePayments];
 }
 
@@ -191,9 +192,9 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 
 - (void)recordTransaction:(SKPaymentTransaction *)transaction {
 	if (transaction.transactionState == SKPaymentTransactionStateRestored) {
-		[self.transactionStore setValue:transaction.transactionReceipt forKey:transaction.originalTransaction.payment.productIdentifier];
+		[self.transactionStore setValue:transaction.transactionIdentifier forKey:transaction.originalTransaction.payment.productIdentifier];
 	} else {
-		[self.transactionStore setValue:transaction.transactionReceipt forKey:transaction.payment.productIdentifier];
+		[self.transactionStore setValue:transaction.transactionIdentifier forKey:transaction.payment.productIdentifier];
 	}
 	[[NSNotificationCenter defaultCenter] postNotificationName:AXAppStoreTransactionShouldBeRecorded
 														object:self
