@@ -56,7 +56,7 @@
 	}
 	switch (section) {
 		case IAPSection:
-            if (self.appDelegate.allowInAppPurchases && self.appDelegate.appStore.validProducts.count > 0) {
+            if (self.appDelegate.appStore.validProducts.count > 0) {
                 return self.appDelegate.appStore.validProducts.count + 1;
             } else {
                 return 0;
@@ -151,20 +151,16 @@
 	}
 	switch (section) {
 		case IAPSection:
-            if (self.appDelegate.allowInAppPurchases) {
-                if (!self.appDelegate.appStore.canMakePayments) {
-                    return [NSString localizedStringWithFormat:NSLocalizedString(@"In-App Purchases are disabled on this %@.", @"Notice that the user cannot purchase an available upgrade due to policy."),
-                            [UIDevice currentDevice].localizedModel];
-                } else if (![self.appDelegate.appStore hasTransactionsForAllProducts] &&
-                           ![self.appDelegate.appStore hasDataForAnyProducts]) {
-                    if ([self.appDelegate.appStore.openRequests count]) {
-                        return NSLocalizedString(@"Getting available upgrades...", @"Notice that the application is getting the list of available in-app purchases.");
-                    } else {
-                        return NSLocalizedString(@"Unable to get available upgrades.", @"Notice that the application cannot get the list of available in-app purchases.");
-                    }
+            if (!self.appDelegate.appStore.canMakePayments) {
+                return [NSString localizedStringWithFormat:NSLocalizedString(@"In-App Purchases are disabled on this %@.", @"Notice that the user cannot purchase an available upgrade due to policy."),
+                        [UIDevice currentDevice].localizedModel];
+            } else if (![self.appDelegate.appStore hasTransactionsForAllProducts] &&
+                       ![self.appDelegate.appStore hasDataForAnyProducts]) {
+                if ([self.appDelegate.appStore.openRequests count]) {
+                    return NSLocalizedString(@"Getting available upgrades...", @"Notice that the application is getting the list of available in-app purchases.");
+                } else {
+                    return NSLocalizedString(@"Unable to get available upgrades.", @"Notice that the application cannot get the list of available in-app purchases.");
                 }
-            } else {
-                return NSLocalizedString(@"In-App Purchases have been disabled due to threats of patent litigation.", @"Notice that In-App Purchases are disabled.");
             }
 			break;
 		case SupportSection:

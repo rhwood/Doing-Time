@@ -25,7 +25,6 @@
 //@property (nonatomic, strong) IBOutlet EKEventStore *eventStore;
 
 @property (nonatomic, strong) IBOutlet AppStoreDelegate *appStore;
-@property BOOL allowInAppPurchases;
 @property (readonly) UIColor *red;
 @property (readonly) UIColor *blue;
 @property (readonly) UIColor *green;

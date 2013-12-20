@@ -23,8 +23,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     
-    self.allowInAppPurchases = YES; // set to NO until Lodsys patent litigation threat is lifted
-    
     [TestFlight takeOff:@"8224ac7b-0bfa-4396-b5bc-3b2404fbc9f0"];
 
     _red = [UIColor colorWithRed:0.6 green:0.0 blue:0.0 alpha:1.0];
