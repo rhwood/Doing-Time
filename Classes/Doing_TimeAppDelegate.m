@@ -109,7 +109,8 @@
 																								forKey:transactionsKey];
 													  [[NSUserDefaults standardUserDefaults] synchronize];
 												  }];
-	[self.appStore requestProductData:multipleEventsProductIdentifier ifHasTransaction:NO];
+    //disable to able to reuse identifier for other reasons
+	//[self.appStore requestProductData:multipleEventsProductIdentifier ifHasTransaction:NO];
 
     // Add the main view controller's view to the window and display.
 

@@ -354,7 +354,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    BOOL hidden = [((Doing_TimeAppDelegate *)[UIApplication sharedApplication].delegate).appStore hasTransactionForProduct:multipleEventsProductIdentifier];
+    // Disable multiple events checks, since multiple events is now part of product.
+    BOOL hidden = YES;
     self.infoButton.hidden = hidden;
     self.settings.hidden = hidden;
 	[self setPieChartValues:YES];

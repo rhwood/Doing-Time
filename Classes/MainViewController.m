@@ -69,18 +69,19 @@
     }
     
 	// Display Defaults
-	if ([self.appDelegate.appStore hasTransactionForProduct:multipleEventsProductIdentifier]) {
-		self.pager.numberOfPages = [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count];
-		self.pager.currentPage = [[NSUserDefaults standardUserDefaults] integerForKey:currentEventKey];
-        self.adBanner.opaque = NO;
-        self.adBanner.alpha = 0.0;
-	} else {
-		self.pager.numberOfPages = 1;
-		self.pager.currentPage = 0;
-        self.controls.hidden = YES;
-        self.bannerIsVisible = YES;
-        [self hideAdBanner:YES animated:NO];
-	}
+    // temporaryly disabling ads, so also disable multiple events test
+//	if ([self.appDelegate.appStore hasTransactionForProduct:multipleEventsProductIdentifier]) {
+    self.pager.numberOfPages = [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count];
+    self.pager.currentPage = [[NSUserDefaults standardUserDefaults] integerForKey:currentEventKey];
+    self.adBanner.opaque = NO;
+    self.adBanner.alpha = 0.0;
+//	} else {
+//		self.pager.numberOfPages = 1;
+//		self.pager.currentPage = 0;
+//        self.controls.hidden = YES;
+//        self.bannerIsVisible = YES;
+//        [self hideAdBanner:YES animated:NO];
+//	}
     
 	// Recognize left/right swipes
 	UISwipeGestureRecognizer *recognizer;
@@ -103,16 +104,16 @@
 	[self changePage:nil];
 	
 	// Register for Notifications
-	[[NSNotificationCenter defaultCenter] addObserverForName:AXAppStoreNewContentShouldBeProvided
-													  object:self.appDelegate.appStore
-													   queue:nil
-												  usingBlock:^(NSNotification *notification) {
-													  if ([[[notification userInfo] objectForKey:AXAppStoreProductIdentifier] isEqualToString:multipleEventsProductIdentifier]) {
-														  [self hideAdBanner:YES animated:NO];
-														  [self.adBanner removeFromSuperview];
-														  [self showPager];
-													  }
-												  }];
+//	[[NSNotificationCenter defaultCenter] addObserverForName:AXAppStoreNewContentShouldBeProvided
+//													  object:self.appDelegate.appStore
+//													   queue:nil
+//												  usingBlock:^(NSNotification *notification) {
+//													  if ([[[notification userInfo] objectForKey:AXAppStoreProductIdentifier] isEqualToString:multipleEventsProductIdentifier]) {
+//														  [self hideAdBanner:YES animated:NO];
+//														  [self.adBanner removeFromSuperview];
+//														  [self showPager];
+//													  }
+//												  }];
 	[[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
 													  object:[UIApplication sharedApplication]
 													   queue:nil
@@ -284,11 +285,9 @@
 }
 
 - (void)showPager {
-	if ([self.appDelegate.appStore hasTransactionForProduct:multipleEventsProductIdentifier]) {
-		[UIView beginAnimations:@"animateDisplayPager" context:NULL];
-		self.pager.superview.hidden = NO;
-		[UIView commitAnimations];
-	}
+    [UIView beginAnimations:@"animateDisplayPager" context:NULL];
+    self.pager.superview.hidden = NO;
+    [UIView commitAnimations];
 }
 
 - (IBAction)showInfo:(id)sender {

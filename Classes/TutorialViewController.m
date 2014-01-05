@@ -25,9 +25,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSURL *url = [[NSBundle mainBundle] URLForResource:@"Tutorial" withExtension:@"html"];
-    if ([((Doing_TimeAppDelegate *)[UIApplication sharedApplication].delegate).appStore hasTransactionForProduct:multipleEventsProductIdentifier]) {
-        url = [[NSBundle mainBundle] URLForResource:@"MultipeEventsTutorial" withExtension:@"html"];
-    }
     [self.view loadRequest:[NSURLRequest requestWithURL:url]];
 }
 

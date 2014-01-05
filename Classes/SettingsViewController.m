@@ -39,8 +39,8 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     NSLog(@"%i IAP products available", self.appDelegate.appStore.validProducts.count);
-    NSLog(@"%@ to make purchases", self.appDelegate.appStore.canMakePayments ? @"Allowed " : @"Not allowed ");
-    NSLog(@"%@ transactions for all products", [self.appDelegate.appStore hasTransactionsForAllProducts] ? @"Has " : @"Does not have ");
+    NSLog(@"%@ to make purchases", self.appDelegate.appStore.canMakePayments ? @"Allowed" : @"Not allowed");
+    NSLog(@"%@ transactions for all products", [self.appDelegate.appStore hasTransactionsForAllProducts] ? @"Has" : @"Does not have");
 }
 
 - (void)didReceiveMemoryWarning {
@@ -180,11 +180,12 @@
 }
 
 - (BOOL)hasUsableAppStoreTableSection {
-#warning logic is still potentially wrong
+    // since IAP is disabled in 2.0, this should always be NO
+    return NO;
     // should be true if products are available to purchase && IAP is allowed && can get non-empty list of products
-    return (![self.appDelegate.appStore hasTransactionsForAllProducts] &&
-            (self.appDelegate.appStore.canMakePayments &&
-            self.appDelegate.appStore.validProducts.count != 0));
+//    return (![self.appDelegate.appStore hasTransactionsForAllProducts] &&
+//            (self.appDelegate.appStore.canMakePayments &&
+//            self.appDelegate.appStore.validProducts.count != 0));
 }
 
 #pragma mark - Table view delegate
@@ -211,7 +212,7 @@
                     //[self hidePurchaseActivity:NO];
                     [self.appDelegate.appStore queuePaymentForProduct:product];
                 } else {
-#warning add an activity indicator
+                    //TODO: add an activity indicator
                     //self.activityLabel.text = NSLocalizedString(@"Restoring purchases...", @"Label indicating that app is restoring purchases");
                     //[self hidePurchaseActivity:NO];
                     [self.appDelegate.appStore restoreCompletedTransactions];
