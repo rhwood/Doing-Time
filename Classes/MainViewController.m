@@ -304,18 +304,18 @@
         [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
         self.pager.pageIndicatorTintColor = [UIColor lightGrayColor];
         self.pager.currentPageIndicatorTintColor = [UIColor whiteColor];
-        self.settingsButton.imageView.image = [UIImage imageNamed:@"white-gear"];
+        self.settingsButton.imageView.image = [UIImage imageNamed:@"white-info"];
         self.listButton.imageView.image = [UIImage imageNamed:@"white-list"];
-        [((EventViewController *)self.events[self.pager.currentPage]).settings.imageView setImage:[UIImage imageNamed:@"white-gear"]];
-        [((EventViewController *)self.events[self.pager.currentPage]).infoButton.imageView setImage:[UIImage imageNamed:@"white-info"]];
+        [((EventViewController *)self.events[self.pager.currentPage]).settings.imageView setImage:[UIImage imageNamed:@"white-info"]];
+        [((EventViewController *)self.events[self.pager.currentPage]).infoButton.imageView setImage:[UIImage imageNamed:@"white-gear"]]; // gear
     } else {
         [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
         self.pager.pageIndicatorTintColor = [UIColor darkGrayColor];
         self.pager.currentPageIndicatorTintColor = [UIColor blackColor];
-        self.settingsButton.imageView.image = [UIImage imageNamed:@"gray-gear"];
+        self.settingsButton.imageView.image = [UIImage imageNamed:@"gray-info"];
         self.listButton.imageView.image = [UIImage imageNamed:@"gray-list"];
-        [((EventViewController *)self.events[self.pager.currentPage]).settings.imageView setImage:[UIImage imageNamed:@"gray-gear"]];
-        [((EventViewController *)self.events[self.pager.currentPage]).infoButton.imageView setImage:[UIImage imageNamed:@"gray-info"]];
+        [((EventViewController *)self.events[self.pager.currentPage]).settings.imageView setImage:[UIImage imageNamed:@"gray-info"]];
+        [((EventViewController *)self.events[self.pager.currentPage]).infoButton.imageView setImage:[UIImage imageNamed:@"gray-gear"]]; // gear
     }
 }
 

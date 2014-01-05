@@ -271,12 +271,12 @@
         cell.title.textColor = [UIColor whiteColor];
         cell.dates.textColor = [UIColor whiteColor];
         cell.stats.textColor = [UIColor whiteColor];
-        [cell.info.imageView setImage:[UIImage imageNamed:@"white-info"]];
+        [cell.info.imageView setImage:[UIImage imageNamed:@"white-gear"]]; // gear
     } else {
         cell.title.textColor = [UIColor blackColor];
         cell.dates.textColor = [UIColor blackColor];
         cell.stats.textColor = [UIColor blackColor];
-        [cell.info.imageView setImage:[UIImage imageNamed:@"gray-info"]];
+        [cell.info.imageView setImage:[UIImage imageNamed:@"gray-gear"]]; // gear
     }
 	if ([self isViewLoaded]) {
 		cell.pieChart.alpha = 0.0;

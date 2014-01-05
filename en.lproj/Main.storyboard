@@ -45,7 +45,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aqC-dI-Odf" userLabel="Button - Settings">
                                         <rect key="frame" x="0.0" y="6" width="48" height="38"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" image="gray-gear"/>
+                                        <state key="normal" image="gray-info"/>
                                         <connections>
                                             <segue destination="Kf9-93-RgZ" kind="push" identifier="AppSettingsSegue" id="glm-IL-chg"/>
                                         </connections>
@@ -136,7 +136,7 @@
                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lVu-Xl-XyR">
                                             <rect key="frame" x="272" y="13" width="48" height="38"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <state key="normal" image="white-info">
+                                            <state key="normal" image="white-gear">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
@@ -171,7 +171,7 @@
                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RWg-9E-gSz" userLabel="Settings">
                                             <rect key="frame" x="0.0" y="3" width="48" height="38"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <state key="normal" image="white-gear">
+                                            <state key="normal" image="white-info">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
@@ -1095,7 +1095,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
     </scenes>
     <resources>
         <image name="ASlogo1-64x192" width="192" height="64"/>
-        <image name="gray-gear" width="28" height="28"/>
+        <image name="gray-info" width="28" height="28"/>
         <image name="gray-list" width="26" height="16"/>
         <image name="white-gear" width="28" height="28"/>
         <image name="white-info" width="28" height="28"/>
@@ -1108,8 +1108,8 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="25Q-Rt-d9A"/>
-        <segue reference="c0i-0e-dFV"/>
+        <segue reference="glm-IL-chg"/>
+        <segue reference="ODB-dB-FxU"/>
         <segue reference="McX-tg-ac3"/>
     </inferredMetricsTieBreakers>
 </document>
