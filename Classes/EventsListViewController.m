@@ -67,6 +67,7 @@
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
     if (segue) {
         [self.navigationController setNavigationBarHidden:NO animated:NO];
+        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
     }
 }
 
