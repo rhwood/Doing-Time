@@ -18,6 +18,8 @@
 
 @interface EventsListViewController ()
 
+- (void)setStatusBarStyle;
+
 @end
 
 @implementation EventsListViewController
@@ -39,13 +41,19 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     self.navigationController.navigationBarHidden = YES;
-    if ([EventViewController brightnessForColor:self.tableView.backgroundColor] < 0.51) {
-        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-    } else {
-        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
-    }
+    [self setStatusBarStyle];
     [super viewWillAppear:animated];
     [self.tableView reloadData];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(setStatusBarStyle)
+                                                 name:UIApplicationWillEnterForegroundNotification
+                                               object:[UIApplication sharedApplication]];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIApplicationWillEnterForegroundNotification
+                                                  object:[UIApplication sharedApplication]];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -355,6 +363,16 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [[NSNotificationCenter defaultCenter] postNotificationName:selectedEventChanged object:nil userInfo:@{eventsKey: [NSNumber numberWithInteger:indexPath.row]}];
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - Private
+
+- (void)setStatusBarStyle {
+    if ([EventViewController brightnessForColor:self.tableView.backgroundColor] < 0.51) {
+        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    } else {
+        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+    }
 }
 
 @end
