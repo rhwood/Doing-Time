@@ -40,6 +40,8 @@
 		48AEFA91153C31890064ED0D /* TFLoggingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 48AEFA90153C31890064ED0D /* TFLoggingManager.m */; };
 		48AF93B618520C4300A8EFAF /* EventsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48AF93B518520C4300A8EFAF /* EventsListViewController.m */; };
 		48AF93B9185229F300A8EFAF /* ListFooterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 48AF93B8185229F300A8EFAF /* ListFooterCell.m */; };
+		48B3BFC318D4CCB500C4E315 /* RSSelectionLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 48B3BFC218D4CCB500C4E315 /* RSSelectionLayer.m */; };
+		48B3BFC718D4D37300C4E315 /* RSColorPickerState.m in Sources */ = {isa = PBXBuildFile; fileRef = 48B3BFC618D4D37300C4E315 /* RSColorPickerState.m */; };
 		48C288C2184B54F000A648E2 /* Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 48C288C1184B54F000A648E2 /* Icons.xcassets */; };
 		48CE82B41350CAC600D94BA6 /* EventView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48CE82B31350CAC600D94BA6 /* EventView.xib */; };
 		48CE82E81350D37B00D94BA6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 48CE82E71350D37B00D94BA6 /* Localizable.strings */; };
@@ -62,7 +64,6 @@
 		48E56470181C5D250064AE1C /* RSColorPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E5645A181C5D250064AE1C /* RSColorPickerView.m */; };
 		48E56471181C5D250064AE1C /* RSGenerateOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E5645C181C5D250064AE1C /* RSGenerateOperation.m */; };
 		48E56472181C5D250064AE1C /* RSOpacitySlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E5645E181C5D250064AE1C /* RSOpacitySlider.m */; };
-		48E56473181C5D250064AE1C /* RSSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E56460181C5D250064AE1C /* RSSelectionView.m */; };
 		48E56475181C5D840064AE1C /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48E56474181C5D840064AE1C /* Accelerate.framework */; };
 		48E56477181C5D9B0064AE1C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48E56476181C5D9B0064AE1C /* QuartzCore.framework */; };
 		48E5647E181C5F330064AE1C /* ColorPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E5647C181C5F320064AE1C /* ColorPickerViewController.m */; };
@@ -125,7 +126,7 @@
 		489007BB1859DA5C00B43E84 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = en; path = en.lproj/Tutorial.html; sourceTree = "<group>"; };
 		48924A17131D67DA002AC7F5 /* EventSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = EventSettingsViewController.h; path = Classes/EventSettingsViewController.h; sourceTree = "<group>"; };
 		48924A18131D67DA002AC7F5 /* EventSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventSettingsViewController.m; path = Classes/EventSettingsViewController.m; sourceTree = "<group>"; };
-		48964F37181F36100019B5B0 /* ColorSelectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ColorSelectionView.h; path = Classes/ColorSelectionView.h; sourceTree = "<group>"; };
+		48964F37181F36100019B5B0 /* RSSelectionLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSelectionLayer.h; sourceTree = "<group>"; };
 		48964F38181F36100019B5B0 /* ColorSelectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ColorSelectionView.m; path = Classes/ColorSelectionView.m; sourceTree = "<group>"; };
 		489E2890130782DB00E40ACA /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		48ADE0C31343B51E005E96EB /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
@@ -135,6 +136,10 @@
 		48AF93B518520C4300A8EFAF /* EventsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventsListViewController.m; path = Classes/EventsListViewController.m; sourceTree = "<group>"; };
 		48AF93B7185229F300A8EFAF /* ListFooterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ListFooterCell.h; path = Classes/ListFooterCell.h; sourceTree = "<group>"; };
 		48AF93B8185229F300A8EFAF /* ListFooterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ListFooterCell.m; path = Classes/ListFooterCell.m; sourceTree = "<group>"; };
+		48B3BFC218D4CCB500C4E315 /* RSSelectionLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSelectionLayer.m; sourceTree = "<group>"; };
+		48B3BFC418D4CD6900C4E315 /* ColorSelectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ColorSelectionView.h; path = Classes/ColorSelectionView.h; sourceTree = "<group>"; };
+		48B3BFC518D4D37300C4E315 /* RSColorPickerState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSColorPickerState.h; sourceTree = "<group>"; };
+		48B3BFC618D4D37300C4E315 /* RSColorPickerState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSColorPickerState.m; sourceTree = "<group>"; };
 		48C288C1184B54F000A648E2 /* Icons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Icons.xcassets; sourceTree = "<group>"; };
 		48C3355D1806BDAB008D0C63 /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+AsyncLogging.h"; sourceTree = "<group>"; };
 		48C3355E1806BDAB008D0C63 /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+ManualSessions.h"; sourceTree = "<group>"; };
@@ -170,18 +175,16 @@
 		48E56452181C5D250064AE1C /* BitmapScaleManipulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BitmapScaleManipulator.m; sourceTree = "<group>"; };
 		48E56453181C5D250064AE1C /* BGRSLoupeLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BGRSLoupeLayer.h; sourceTree = "<group>"; };
 		48E56454181C5D250064AE1C /* BGRSLoupeLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BGRSLoupeLayer.m; sourceTree = "<group>"; };
-		48E56455181C5D250064AE1C /* RSBrightnessSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSBrightnessSlider.h; sourceTree = "<group>"; };
-		48E56456181C5D250064AE1C /* RSBrightnessSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSBrightnessSlider.m; sourceTree = "<group>"; };
+		48E56455181C5D250064AE1C /* RSBrightnessSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RSBrightnessSlider.h; path = ../RSBrightnessSlider.h; sourceTree = "<group>"; };
+		48E56456181C5D250064AE1C /* RSBrightnessSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RSBrightnessSlider.m; path = ../RSBrightnessSlider.m; sourceTree = "<group>"; };
 		48E56457181C5D250064AE1C /* RSColorFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSColorFunctions.h; sourceTree = "<group>"; };
 		48E56458181C5D250064AE1C /* RSColorFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSColorFunctions.m; sourceTree = "<group>"; };
 		48E56459181C5D250064AE1C /* RSColorPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSColorPickerView.h; sourceTree = "<group>"; };
 		48E5645A181C5D250064AE1C /* RSColorPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSColorPickerView.m; sourceTree = "<group>"; };
 		48E5645B181C5D250064AE1C /* RSGenerateOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSGenerateOperation.h; sourceTree = "<group>"; };
 		48E5645C181C5D250064AE1C /* RSGenerateOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSGenerateOperation.m; sourceTree = "<group>"; };
-		48E5645D181C5D250064AE1C /* RSOpacitySlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSOpacitySlider.h; sourceTree = "<group>"; };
-		48E5645E181C5D250064AE1C /* RSOpacitySlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSOpacitySlider.m; sourceTree = "<group>"; };
-		48E5645F181C5D250064AE1C /* RSSelectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSelectionView.h; sourceTree = "<group>"; };
-		48E56460181C5D250064AE1C /* RSSelectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSelectionView.m; sourceTree = "<group>"; };
+		48E5645D181C5D250064AE1C /* RSOpacitySlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RSOpacitySlider.h; path = ../RSOpacitySlider.h; sourceTree = "<group>"; };
+		48E5645E181C5D250064AE1C /* RSOpacitySlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RSOpacitySlider.m; path = ../RSOpacitySlider.m; sourceTree = "<group>"; };
 		48E56474181C5D840064AE1C /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		48E56476181C5D9B0064AE1C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		48E5647B181C5F320064AE1C /* ColorPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ColorPickerViewController.h; path = Classes/ColorPickerViewController.h; sourceTree = "<group>"; };
@@ -254,7 +257,7 @@
 				485BD59C16B14DC300424CC8 /* TodaySettingsViewController.m */,
 				48E5647B181C5F320064AE1C /* ColorPickerViewController.h */,
 				48E5647C181C5F320064AE1C /* ColorPickerViewController.m */,
-				48964F37181F36100019B5B0 /* ColorSelectionView.h */,
+				48B3BFC418D4CD6900C4E315 /* ColorSelectionView.h */,
 				48964F38181F36100019B5B0 /* ColorSelectionView.m */,
 			);
 			name = "Event Settings Views";
@@ -411,6 +414,8 @@
 			isa = PBXGroup;
 			children = (
 				48E56437181C5D250064AE1C /* ANImageBitmapRep */,
+				48B3BFC518D4D37300C4E315 /* RSColorPickerState.h */,
+				48B3BFC618D4D37300C4E315 /* RSColorPickerState.m */,
 				48E56453181C5D250064AE1C /* BGRSLoupeLayer.h */,
 				48E56454181C5D250064AE1C /* BGRSLoupeLayer.m */,
 				48E56455181C5D250064AE1C /* RSBrightnessSlider.h */,
@@ -423,8 +428,8 @@
 				48E5645C181C5D250064AE1C /* RSGenerateOperation.m */,
 				48E5645D181C5D250064AE1C /* RSOpacitySlider.h */,
 				48E5645E181C5D250064AE1C /* RSOpacitySlider.m */,
-				48E5645F181C5D250064AE1C /* RSSelectionView.h */,
-				48E56460181C5D250064AE1C /* RSSelectionView.m */,
+				48964F37181F36100019B5B0 /* RSSelectionLayer.h */,
+				48B3BFC218D4CCB500C4E315 /* RSSelectionLayer.m */,
 			);
 			name = RSColorPicker;
 			path = RSColorPicker/RSColorPicker/ColorPickerClasses;
@@ -637,7 +642,7 @@
 				48AF93B618520C4300A8EFAF /* EventsListViewController.m in Sources */,
 				48E56469181C5D250064AE1C /* BitmapCropManipulator.m in Sources */,
 				48AF93B9185229F300A8EFAF /* ListFooterCell.m in Sources */,
-				48E56473181C5D250064AE1C /* RSSelectionView.m in Sources */,
+				48B3BFC318D4CCB500C4E315 /* RSSelectionLayer.m in Sources */,
 				48676E521842322900194D54 /* EventViewCell.m in Sources */,
 				48E56461181C5D250064AE1C /* ANImageBitmapRep.m in Sources */,
 				4827E9FC1864DE1E0079026D /* AFHTTPSessionManager.m in Sources */,
@@ -646,6 +651,7 @@
 				4827E9FF1864DE1E0079026D /* AFURLRequestSerialization.m in Sources */,
 				489006F01859CCEA00B43E84 /* TutorialViewController.m in Sources */,
 				48E56467181C5D250064AE1C /* CGImageContainer.m in Sources */,
+				48B3BFC718D4D37300C4E315 /* RSColorPickerState.m in Sources */,
 				48E5646F181C5D250064AE1C /* RSColorFunctions.m in Sources */,
 				48E56463181C5D250064AE1C /* NSImage+ANImageBitmapRep.m in Sources */,
 				48F2AFA7171962AC0020F3AF /* AFHTTPRequestOperation.m in Sources */,
@@ -783,7 +789,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_RESOURCE_RULES_PATH = "";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -826,7 +832,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_RESOURCE_RULES_PATH = "";
 				COPY_PHASE_STRIP = YES;

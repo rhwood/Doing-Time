@@ -19,9 +19,10 @@ extern NSString *const ColorKey;
 }
 
 - (IBAction)resetColor:(id)sender;
+- (IBAction)brightnessChanged:(id)sender;
 
 @property IBOutlet RSColorPickerView* colorPicker;
-@property IBOutlet RSBrightnessSlider* brightnessSlider;
+@property IBOutlet UISlider* brightnessSlider;
 @property IBOutlet ColorSelectionView* selectionView;
 @property IBOutlet ColorSelectionView* startingView;
 

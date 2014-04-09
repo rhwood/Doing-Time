@@ -7,6 +7,7 @@
 //
 
 #import "ColorPickerViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 NSString *const ColorDidChangeNotification = @"ColorDidChangeNotification";
 NSString *const ColorKey = @"ColorKey";
@@ -35,11 +36,20 @@ NSString *const ColorKey = @"ColorKey";
     
     self.colorPicker.cropToCircle = YES;
     self.colorPicker.selectionColor = self.selectedColor;
-    self.brightnessSlider.colorPicker = self.colorPicker;
     self.brightnessSlider.value = self.colorPicker.brightness;
     self.selectionView.selectedColor = self.selectedColor;
     self.startingView.selectedColor = self.selectedColor;
     self.colorPicker.delegate = self;
+    
+    UIImage *clearImage = [[UIImage alloc] init];
+    [self.brightnessSlider setMinimumTrackImage:clearImage forState:UIControlStateNormal];
+    [self.brightnessSlider setMaximumTrackImage:clearImage forState:UIControlStateNormal];
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = self.brightnessSlider.bounds;
+    gradient.startPoint = CGPointMake(0.0, 0.5);
+    gradient.endPoint = CGPointMake(1.0, 0.5);
+    gradient.colors = [NSArray arrayWithObjects:(id)[UIColor blackColor].CGColor, (id)[UIColor whiteColor].CGColor, nil];
+    [self.brightnessSlider.layer insertSublayer:gradient atIndex:0];
     
     self.navigationController.navigationBar.translucent = NO;
 }
@@ -63,6 +73,10 @@ NSString *const ColorKey = @"ColorKey";
 - (void)resetColor:(id)sender {
     self.colorPicker.selectionColor = self.startingView.selectedColor;
     self.brightnessSlider.value = self.colorPicker.brightness;
+}
+
+- (void)brightnessChanged:(id)sender {
+    self.colorPicker.brightness = self.brightnessSlider.value;
 }
 
 #pragma - RSColorPickerView delegate

@@ -6,8 +6,10 @@
 //
 //
 
-#import "RSSelectionView.h"
+#import "RSSelectionLayer.h"
 
-@interface ColorSelectionView : RSSelectionView
+@interface ColorSelectionView : UIView
+
+@property (nonatomic) UIColor *selectedColor;
 
 @end

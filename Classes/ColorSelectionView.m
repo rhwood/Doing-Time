@@ -20,10 +20,17 @@
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        self.opaque = NO;
+        self.exclusiveTouch = YES;
         _outerRingColor = [UIColor colorWithWhite:0.7 alpha:1.0];
 		_innerRingColor = [UIColor colorWithWhite:0.7 alpha:1.0];
     }
     return self;
+}
+
+- (void)setSelectedColor:(UIColor *)selectedColor {
+    _selectedColor = selectedColor;
+    [self setNeedsDisplay];
 }
 
 // Only override drawRect: if you perform custom drawing.
