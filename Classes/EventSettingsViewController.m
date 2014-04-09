@@ -85,20 +85,8 @@
                                                                      showCompletedDaysKey:@(NO),
                                                                      showTotalsKey:@(YES),
                                                                      backgroundColorKey:[NSKeyedArchiver archivedDataWithRootObject:white]}];
-        switch (self.index % 3) {
-            case 0:
-                [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:green] forKey:completedColorKey];
-                [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:red] forKey:remainingColorKey];
-                break;
-            case 1:
-                [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:red] forKey:completedColorKey];
-                [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:blue] forKey:remainingColorKey];
-                break;
-            case 2:
-                [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:blue] forKey:completedColorKey];
-                [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:green] forKey:remainingColorKey];
-                break;
-        }
+        [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:green] forKey:completedColorKey];
+        [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:red] forKey:remainingColorKey];
     } else {
         self.event = [NSMutableDictionary dictionaryWithDictionary:[[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] objectAtIndex:index]];
         self.newEvent = NO;
