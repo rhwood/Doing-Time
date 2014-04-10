@@ -35,11 +35,11 @@ extern NSString *const dayOverKey;
 
 #pragma mark - Today constants
 
-typedef enum {
+typedef NS_ENUM(NSInteger, TodayIs) {
     todayIsOver,
     todayIsNotCounted,
     todayIsRemaining
-} TodayIs;
+};
 
 #pragma mark - App Store product identifiers
 
