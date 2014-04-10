@@ -40,14 +40,18 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
     [self setStatusBarStyle];
-    [super viewWillAppear:animated];
     [self.tableView reloadData];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(setStatusBarStyle)
                                                  name:UIApplicationWillEnterForegroundNotification
                                                object:[UIApplication sharedApplication]];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [self setStatusBarStyle];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
