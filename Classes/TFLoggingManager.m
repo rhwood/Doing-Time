@@ -63,7 +63,7 @@ typedef enum {
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    NSLog(@"Alert button %d (with title: %@) tapped.", buttonIndex, [alertView buttonTitleAtIndex:buttonIndex]);
+    NSLog(@"Alert button %ld (with title: %@) tapped.", (long)buttonIndex, [alertView buttonTitleAtIndex:buttonIndex]);
     switch (buttonIndex) {
         case 0:
             [[NSUserDefaults standardUserDefaults] setInteger:TFLoggingNeverAuthorized forKey:self.userDefaultsKey];

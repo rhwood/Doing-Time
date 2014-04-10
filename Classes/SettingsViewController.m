@@ -38,7 +38,7 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    NSLog(@"%i IAP products available", self.appDelegate.appStore.validProducts.count);
+    NSLog(@"%lu IAP products available", (unsigned long)self.appDelegate.appStore.validProducts.count);
     NSLog(@"%@ to make purchases", self.appDelegate.appStore.canMakePayments ? @"Allowed" : @"Not allowed");
     NSLog(@"%@ transactions for all products", [self.appDelegate.appStore hasTransactionsForAllProducts] ? @"Has" : @"Does not have");
 }
@@ -200,7 +200,7 @@
 	if (!self.hasUsableAppStoreTableSection) {
 		section = indexPath.section + 1;
 	}
-    NSLog(@"Showing section %i", section);
+    NSLog(@"Showing section %lu", (unsigned long)section);
 	self.showErrorAlert = YES;
 	[self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:YES];
 	switch (section) {

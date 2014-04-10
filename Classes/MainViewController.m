@@ -264,7 +264,7 @@
     NSLog(@"Reloading events");
     for (NSUInteger i = 0; i < self.pager.numberOfPages; i++) {
 		[self loadScrollerWithEvent:i];
-        NSLog(@"Reloaded event #%i", i);
+        NSLog(@"Reloaded event #%lu", (unsigned long)i);
 	}
     [self changePage:nil];
 }
