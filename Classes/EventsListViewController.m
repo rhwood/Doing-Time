@@ -46,7 +46,11 @@
     [self.tableView reloadData];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(setStatusBarStyle)
-                                                 name:UIApplicationWillEnterForegroundNotification
+                                                 name:UIApplicationDidChangeStatusBarFrameNotification
+                                               object:[UIApplication sharedApplication]];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(setStatusBarStyle)
+                                                 name:UIApplicationDidBecomeActiveNotification
                                                object:[UIApplication sharedApplication]];
 }
 
@@ -56,7 +60,10 @@
 
 - (void)viewDidDisappear:(BOOL)animated {
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIApplicationWillEnterForegroundNotification
+                                                    name:UIApplicationDidChangeStatusBarFrameNotification
+                                                  object:[UIApplication sharedApplication]];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIApplicationDidBecomeActiveNotification
                                                   object:[UIApplication sharedApplication]];
 }
 
