@@ -73,6 +73,7 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     [self setStatusBarStyle];
 }
 
@@ -83,6 +84,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIApplicationDidBecomeActiveNotification
                                                   object:[UIApplication sharedApplication]];
+    [super viewDidDisappear:animated];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -140,17 +142,17 @@
     NSDate *calcEndDate = ([event[includeLastDayInCalcKey] boolValue]) ? [self.calendar dateByAddingComponents:oneDay toDate:endDate options:0] : endDate;
 	NSDate *today = [NSDate midnightForDate:[NSDate date]];
     
-    NSInteger completed = [[self.calendar components:NSDayCalendarUnit
+    NSInteger completed = [[self.calendar components:NSCalendarUnitDay
                                             fromDate:startDate
                                               toDate:today
                                              options:0]
 						   day];
-	NSInteger left = [[self.calendar components:NSDayCalendarUnit
+	NSInteger left = [[self.calendar components:NSCalendarUnitDay
                                        fromDate:today
                                          toDate:calcEndDate
                                         options:0]
 					  day];
-	NSInteger duration = [[self.calendar components:NSDayCalendarUnit
+	NSInteger duration = [[self.calendar components:NSCalendarUnitDay
                                            fromDate:startDate
                                              toDate:calcEndDate
                                             options:0]

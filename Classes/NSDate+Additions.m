@@ -31,7 +31,7 @@
 
 + (NSDate *)midnightForDate:(NSDate *)date {
 	NSCalendar *calendar = [NSCalendar currentCalendar];
-	NSUInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit;
+	NSUInteger unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay;
 	NSDateComponents *components = [calendar components:unitFlags fromDate:date];
 	components.hour = 0;
 	components.minute = 0;

@@ -108,17 +108,17 @@
 //    NSLog(@"Calc end:    %@", calcEndDate);
 //	NSLog(@"Now:         %@", [NSDate date]);
 
-    NSInteger completed = [[self.calendar components:NSDayCalendarUnit
+    NSInteger completed = [[self.calendar components:NSCalendarUnitDay
                                             fromDate:startDate
                                               toDate:today
                                              options:0]
 						   day];
-	NSInteger left = [[self.calendar components:NSDayCalendarUnit
+	NSInteger left = [[self.calendar components:NSCalendarUnitDay
                                        fromDate:today
                                          toDate:calcEndDate
                                         options:0]
 					  day];
-	NSInteger duration = [[self.calendar components:NSDayCalendarUnit
+	NSInteger duration = [[self.calendar components:NSCalendarUnitDay
                                            fromDate:startDate
                                              toDate:calcEndDate
                                             options:0]

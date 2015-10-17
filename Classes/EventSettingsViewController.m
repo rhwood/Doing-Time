@@ -215,6 +215,7 @@
     if (!self.datePicker.hidden) {
         [self hideDatePicker:YES];
     }
+    [super viewWillDisappear:animated];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -325,7 +326,7 @@
 - (void)calculateDuration {
     switch ([self.event[startKey] compare:self.event[endKey]]) {
         case NSOrderedAscending:
-            self.duration = [[[NSCalendar currentCalendar] components:NSDayCalendarUnit
+            self.duration = [[[NSCalendar currentCalendar] components:NSCalendarUnitDay
                                                              fromDate:self.event[startKey]
                                                                toDate:self.event[endKey]
                                                               options:0]

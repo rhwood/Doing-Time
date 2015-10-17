@@ -50,6 +50,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [[NSNotificationCenter defaultCenter] postNotificationName:todayIsKey object:self userInfo:@{todayIsKey: @(self.setting)}];
+    [super viewWillDisappear:animated];
 }
 
 #pragma mark - Table view data source

@@ -56,6 +56,7 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     NSLog(@"%lu IAP products available", (unsigned long)self.appDelegate.appStore.validProducts.count);
     NSLog(@"%@ to make purchases", self.appDelegate.appStore.canMakePayments ? @"Allowed" : @"Not allowed");
     NSLog(@"%@ transactions for all products", [self.appDelegate.appStore hasTransactionsForAllProducts] ? @"Has" : @"Does not have");
