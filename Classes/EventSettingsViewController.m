@@ -762,28 +762,28 @@
 
 - (void)hideDatePicker:(BOOL)hidden {
     if (hidden != self.datePicker.hidden) {
-        [UIView animateWithDuration:0.3 animations:^{
-            if (!hidden) {
-                self.datePicker.hidden = NO;
-                self.tableView.frame = CGRectMake(self.tableView.frame.origin.x,
-                                                  self.tableView.frame.origin.y,
-                                                  self.tableView.frame.size.width,
-                                                  self.tableView.frame.size.height - self.datePicker.frame.size.height);
-                self.datePicker.frame = CGRectMake(self.datePicker.frame.origin.x,
-                                                   self.view.window.frame.size.height - self.datePicker.frame.size.height,
-                                                   self.datePicker.frame.size.width,
-                                                   self.datePicker.frame.size.height);
-            } else {
-                self.datePicker.frame = CGRectMake(self.datePicker.frame.origin.x,
-                                                   self.view.window.frame.size.height,
-                                                   self.datePicker.frame.size.width,
-                                                   self.datePicker.frame.size.height);
-                self.tableView.frame = CGRectMake(self.tableView.frame.origin.x,
-                                                  self.tableView.frame.origin.y,
-                                                  self.tableView.frame.size.width,
-                                                  self.tableView.frame.size.height + self.datePicker.frame.size.height);
-            }
-        }];
+//        [UIView animateWithDuration:0.3 animations:^{
+//            if (!hidden) {
+//                self.datePicker.hidden = NO;
+//                self.tableView.frame = CGRectMake(self.tableView.frame.origin.x,
+//                                                  self.tableView.frame.origin.y,
+//                                                  self.tableView.frame.size.width,
+//                                                  self.tableView.frame.size.height - self.datePicker.frame.size.height);
+//                self.datePicker.frame = CGRectMake(self.datePicker.frame.origin.x,
+//                                                   self.view.window.frame.size.height - self.datePicker.frame.size.height,
+//                                                   self.datePicker.frame.size.width,
+//                                                   self.datePicker.frame.size.height);
+//            } else {
+//                self.datePicker.frame = CGRectMake(self.datePicker.frame.origin.x,
+//                                                   self.view.window.frame.size.height,
+//                                                   self.datePicker.frame.size.width,
+//                                                   self.datePicker.frame.size.height);
+//                self.tableView.frame = CGRectMake(self.tableView.frame.origin.x,
+//                                                  self.tableView.frame.origin.y,
+//                                                  self.tableView.frame.size.width,
+//                                                  self.tableView.frame.size.height + self.datePicker.frame.size.height);
+//            }
+//        }];
         self.datePicker.hidden = hidden;
     }
 }

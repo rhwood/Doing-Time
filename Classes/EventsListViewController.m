@@ -191,7 +191,7 @@
     }
     // calculations have created too long an event
     if ((completed + left) > duration) {
-        TFLog(@"Event (from %@ to %@) has duration (%ld) != days complete (%ld) + days left (%ld)\n(today is %@, last day is counted %@)", startDate, endDate, (long)duration, (long)completed, (long)left, event[todayIsKey], event[includeLastDayInCalcKey]);
+        NSLog(@"Event (from %@ to %@) has duration (%ld) != days complete (%ld) + days left (%ld)\n(today is %@, last day is counted %@)", startDate, endDate, (long)duration, (long)completed, (long)left, event[todayIsKey], event[includeLastDayInCalcKey]);
     }
 	float interval = 1.0 / duration;
 	

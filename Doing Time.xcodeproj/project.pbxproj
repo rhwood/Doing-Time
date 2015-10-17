@@ -32,7 +32,6 @@
 		48924A1B131D67DA002AC7F5 /* EventSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48924A18131D67DA002AC7F5 /* EventSettingsViewController.m */; };
 		48964F39181F36100019B5B0 /* ColorSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 48964F38181F36100019B5B0 /* ColorSelectionView.m */; };
 		48ADE0C41343B51E005E96EB /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 48ADE0C31343B51E005E96EB /* Constants.m */; };
-		48AEFA91153C31890064ED0D /* TFLoggingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 48AEFA90153C31890064ED0D /* TFLoggingManager.m */; };
 		48AF93B618520C4300A8EFAF /* EventsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48AF93B518520C4300A8EFAF /* EventsListViewController.m */; };
 		48AF93B9185229F300A8EFAF /* ListFooterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 48AF93B8185229F300A8EFAF /* ListFooterCell.m */; };
 		48B3BFC318D4CCB500C4E315 /* RSSelectionLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 48B3BFC218D4CCB500C4E315 /* RSSelectionLayer.m */; };
@@ -40,7 +39,6 @@
 		48C288C2184B54F000A648E2 /* Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 48C288C1184B54F000A648E2 /* Icons.xcassets */; };
 		48CE82B41350CAC600D94BA6 /* EventView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48CE82B31350CAC600D94BA6 /* EventView.xib */; };
 		48CE82E81350D37B00D94BA6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 48CE82E71350D37B00D94BA6 /* Localizable.strings */; };
-		48D2F2F41537A194006FA78B /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 48D2F2F01537A194006FA78B /* libTestFlight.a */; };
 		48E56461181C5D250064AE1C /* ANImageBitmapRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E56439181C5D250064AE1C /* ANImageBitmapRep.m */; };
 		48E56462181C5D250064AE1C /* BitmapContextRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E5643B181C5D250064AE1C /* BitmapContextRep.m */; };
 		48E56463181C5D250064AE1C /* NSImage+ANImageBitmapRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E5643E181C5D250064AE1C /* NSImage+ANImageBitmapRep.m */; };
@@ -61,7 +59,6 @@
 		48E56472181C5D250064AE1C /* RSOpacitySlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E5645E181C5D250064AE1C /* RSOpacitySlider.m */; };
 		48E5647E181C5F330064AE1C /* ColorPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E5647C181C5F320064AE1C /* ColorPickerViewController.m */; };
 		48E61CDF131E9E210077DA8E /* EventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E61CDC131E9E210077DA8E /* EventViewController.m */; };
-		48F02F2D1506D6E200E20A3F /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 48F02F2C1506D6E200E20A3F /* libz.dylib */; };
 		48F2AFA7171962AC0020F3AF /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 48F2AF96171962AB0020F3AF /* AFHTTPRequestOperation.m */; };
 		48F2AFAC171962AC0020F3AF /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 48F2AFA1171962AB0020F3AF /* AFURLConnectionOperation.m */; };
 		48F2AFB2171962CC0020F3AF /* CargoBay.m in Sources */ = {isa = PBXBuildFile; fileRef = 48F2AFB1171962CC0020F3AF /* CargoBay.m */; };
@@ -115,8 +112,6 @@
 		48964F37181F36100019B5B0 /* RSSelectionLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSelectionLayer.h; sourceTree = "<group>"; };
 		48964F38181F36100019B5B0 /* ColorSelectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ColorSelectionView.m; path = Classes/ColorSelectionView.m; sourceTree = "<group>"; };
 		48ADE0C31343B51E005E96EB /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
-		48AEFA8F153C31890064ED0D /* TFLoggingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TFLoggingManager.h; path = Classes/TFLoggingManager.h; sourceTree = "<group>"; };
-		48AEFA90153C31890064ED0D /* TFLoggingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TFLoggingManager.m; path = Classes/TFLoggingManager.m; sourceTree = "<group>"; };
 		48AF93B418520C4300A8EFAF /* EventsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventsListViewController.h; path = Classes/EventsListViewController.h; sourceTree = "<group>"; };
 		48AF93B518520C4300A8EFAF /* EventsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventsListViewController.m; path = Classes/EventsListViewController.m; sourceTree = "<group>"; };
 		48AF93B7185229F300A8EFAF /* ListFooterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ListFooterCell.h; path = Classes/ListFooterCell.h; sourceTree = "<group>"; };
@@ -126,13 +121,7 @@
 		48B3BFC518D4D37300C4E315 /* RSColorPickerState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSColorPickerState.h; sourceTree = "<group>"; };
 		48B3BFC618D4D37300C4E315 /* RSColorPickerState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSColorPickerState.m; sourceTree = "<group>"; };
 		48C288C1184B54F000A648E2 /* Icons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Icons.xcassets; sourceTree = "<group>"; };
-		48C3355D1806BDAB008D0C63 /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+AsyncLogging.h"; sourceTree = "<group>"; };
-		48C3355E1806BDAB008D0C63 /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+ManualSessions.h"; sourceTree = "<group>"; };
 		48CE82C11350CB7E00D94BA6 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		48D2F2F01537A194006FA78B /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
-		48D2F2F11537A194006FA78B /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
-		48D2F2F21537A194006FA78B /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
-		48D2F2F31537A194006FA78B /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		48D477681322B647003256D5 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = Constants.h; sourceTree = "<group>"; };
 		48E56438181C5D250064AE1C /* ANImageBitmapRep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANImageBitmapRep.h; sourceTree = "<group>"; };
 		48E56439181C5D250064AE1C /* ANImageBitmapRep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANImageBitmapRep.m; sourceTree = "<group>"; };
@@ -175,7 +164,6 @@
 		48E61CDB131E9E210077DA8E /* EventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = EventViewController.h; path = Classes/EventViewController.h; sourceTree = "<group>"; };
 		48E61CDC131E9E210077DA8E /* EventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventViewController.m; path = Classes/EventViewController.m; sourceTree = "<group>"; };
 		48E61CDD131E9E210077DA8E /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = en.lproj/EventView.xib; sourceTree = "<group>"; };
-		48F02F2C1506D6E200E20A3F /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		48F2AF95171962AB0020F3AF /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
 		48F2AF96171962AB0020F3AF /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
 		48F2AF9D171962AB0020F3AF /* AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworking.h; sourceTree = "<group>"; };
@@ -192,8 +180,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				483BB35718FD3D0800501B7D /* iAd.framework in Frameworks */,
-				48D2F2F41537A194006FA78B /* libTestFlight.a in Frameworks */,
-				48F02F2D1506D6E200E20A3F /* libz.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,8 +283,6 @@
 			isa = PBXGroup;
 			children = (
 				483BB35618FD3D0800501B7D /* iAd.framework */,
-				48F02F2C1506D6E200E20A3F /* libz.dylib */,
-				48D2F2EF1537A194006FA78B /* TestFlightSDK */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -330,8 +314,6 @@
 			children = (
 				485BAB4E13498E31005EE6BE /* AppStoreDelegate.h */,
 				485BAB4F13498E31005EE6BE /* AppStoreDelegate.m */,
-				48AEFA8F153C31890064ED0D /* TFLoggingManager.h */,
-				48AEFA90153C31890064ED0D /* TFLoggingManager.m */,
 			);
 			name = "Supporting Classes";
 			sourceTree = "<group>";
@@ -355,19 +337,6 @@
 				489007BA1859DA5C00B43E84 /* Tutorial.html */,
 			);
 			name = Tutorials;
-			sourceTree = "<group>";
-		};
-		48D2F2EF1537A194006FA78B /* TestFlightSDK */ = {
-			isa = PBXGroup;
-			children = (
-				48D2F2F01537A194006FA78B /* libTestFlight.a */,
-				48D2F2F11537A194006FA78B /* README.md */,
-				48D2F2F21537A194006FA78B /* release_notes.md */,
-				48D2F2F31537A194006FA78B /* TestFlight.h */,
-				48C3355D1806BDAB008D0C63 /* TestFlight+AsyncLogging.h */,
-				48C3355E1806BDAB008D0C63 /* TestFlight+ManualSessions.h */,
-			);
-			path = TestFlightSDK;
 			sourceTree = "<group>";
 		};
 		48E56436181C5D250064AE1C /* RSColorPicker */ = {
@@ -606,7 +575,6 @@
 				48676E521842322900194D54 /* EventViewCell.m in Sources */,
 				48E56461181C5D250064AE1C /* ANImageBitmapRep.m in Sources */,
 				4827E9FC1864DE1E0079026D /* AFHTTPSessionManager.m in Sources */,
-				48AEFA91153C31890064ED0D /* TFLoggingManager.m in Sources */,
 				485BD59D16B14DC300424CC8 /* TodaySettingsViewController.m in Sources */,
 				4827E9FF1864DE1E0079026D /* AFURLRequestSerialization.m in Sources */,
 				489006F01859CCEA00B43E84 /* TutorialViewController.m in Sources */,

@@ -13,8 +13,6 @@
     #import <UIKit/UIKit.h>
     #import <MobileCoreServices/MobileCoreServices.h>
     #import <SystemConfiguration/SystemConfiguration.h>
-    #import "TestFlightSDK/TestFlight.h"
-    #import "TFLoggingManager.h"
 #endif
 
 #ifdef DISTRIBUTION

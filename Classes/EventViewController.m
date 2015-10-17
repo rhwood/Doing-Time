@@ -179,7 +179,7 @@
     }
     // calculations have created too long an event
     if ((completed + left) > duration) {
-        TFLog(@"Event (from %@ to %@) has duration (%ld) != days complete (%ld) + days left (%ld)\n(today is %@, last day is counted %@)", startDate, endDate, (long)duration, (long)completed, (long)left, self.event[todayIsKey], self.event[includeLastDayInCalcKey]);
+        NSLog(@"Event (from %@ to %@) has duration (%ld) != days complete (%ld) + days left (%ld)\n(today is %@, last day is counted %@)", startDate, endDate, (long)duration, (long)completed, (long)left, self.event[todayIsKey], self.event[includeLastDayInCalcKey]);
     }
 //    NSLog(@"--after adjustments--");
 //	NSLog(@"%d days complete", completed);

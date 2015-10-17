@@ -41,8 +41,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     
-    [TestFlight takeOff:@"8224ac7b-0bfa-4396-b5bc-3b2404fbc9f0"];
-
     _red = [UIColor colorWithRed:0.6 green:0.0 blue:0.0 alpha:1.0];
     _green = [UIColor colorWithRed:0.0 green:0.6 blue:0.0 alpha:1.0];
     _blue = [UIColor colorWithRed:0.0 green:0.0 blue:0.6 alpha:1.0];
