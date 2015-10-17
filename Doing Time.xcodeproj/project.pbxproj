@@ -514,7 +514,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0700;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
 						DevelopmentTeam = K2672N7845;
@@ -690,6 +690,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/TestFlightSDK\"",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.alexandriasoftware.doingtime;
 				PRODUCT_NAME = "Doing Time";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -717,6 +718,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/TestFlightSDK\"",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.alexandriasoftware.doingtime;
 				PRODUCT_NAME = "Doing Time";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -762,6 +764,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/TestFlightSDK\"",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.alexandriasoftware.doingtime;
 				PRODUCT_NAME = "Doing Time";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -808,6 +811,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/TestFlightSDK\"",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.alexandriasoftware.doingtime;
 				PRODUCT_NAME = "Doing Time";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
@@ -821,6 +825,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
