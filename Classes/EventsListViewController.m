@@ -75,6 +75,13 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self setStatusBarStyle];
+    for (EventViewCell *cell in self.tableView.visibleCells) {
+        if ([EventViewController brightnessForColor:cell.backgroundColor] < 0.51) {
+            [cell.info.imageView setImage:[UIImage imageNamed:@"white-gear"]]; // gear
+        } else {
+            [cell.info.imageView setImage:[UIImage imageNamed:@"gray-gear"]]; // gear
+        }
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
