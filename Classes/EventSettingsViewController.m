@@ -37,8 +37,10 @@
 #define EVENT 0
 #define TITLE 0
 #define START_DATE 1
-#define END_DATE 2
-#define DURATION 3
+#define START_DATE_PICKER 2
+#define END_DATE 3
+#define END_DATE_PICKER 4
+#define DURATION 5
 // Table Dates section
 #define DATES 1
 #define INCLUDE_END 0
@@ -170,7 +172,6 @@
     self.titleView.text = [self.event valueForKey:titleKey];
     self.titleView.borderStyle = UITextBorderStyleNone;
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
-    [self clearDatePicker];
     self.showErrorAlert = YES;
     self.startDateViewCellIndexPath = [NSIndexPath indexPathForRow:START_DATE inSection:EVENT];
     self.endDateViewCellIndexPath = [NSIndexPath indexPathForRow:END_DATE inSection:EVENT];
@@ -198,24 +199,9 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self showDuration];
-    // initial datePicker settings
-    [self.view.superview addSubview:self.datePicker];
-    self.view.superview.backgroundColor = [UIColor whiteColor];
-    self.datePicker.backgroundColor = [UIColor whiteColor];
-    self.datePicker.frame = CGRectMake(0,
-                                       self.view.window.frame.size.height,
-                                       self.datePicker.frame.size.width,
-                                       self.datePicker.frame.size.height);
     if (self.newEvent) {
         [self.titleView becomeFirstResponder];
     }
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    if (!self.datePicker.hidden) {
-        [self hideDatePicker:YES];
-    }
-    [super viewWillDisappear:animated];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -396,7 +382,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section) {
         case EVENT:
-            return 4;
+            return 6;
             break;
         case DATES:
             return 2; // no calendar linking yet
@@ -638,7 +624,6 @@
     [self verifyDateOrder];
     [self calculateDuration];
     [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:YES];
-    self.datePicker.datePickerMode = UIDatePickerModeDate;
     if (indexPath.row || indexPath.section) {
         [self.titleView resignFirstResponder];
     }
@@ -653,16 +638,8 @@
                 case START_DATE:
                     if (!self.settingStartDate) {
                         self.settingEndDate = NO;
-                        [self hideDatePicker:NO];
-                        [self.datePicker setDate:[self.event valueForKey:startKey] animated:YES];
-                        [self.datePicker removeTarget:self
-                                               action:@selector(changeEndDate:)
-                                     forControlEvents:UIControlEventValueChanged];
-                        [self.datePicker addTarget:self
-                                            action:@selector(changeStartDate:)
-                                  forControlEvents:UIControlEventValueChanged];
+                        [self.startDatePicker setDate:[self.event valueForKey:startKey] animated:YES];
                     } else {
-                        [self hideDatePicker:YES];
                         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
                     }
                     self.settingStartDate = !self.settingStartDate;
@@ -670,16 +647,8 @@
                 case END_DATE:
                     if (!self.settingEndDate) {
                         self.settingStartDate = NO;
-                        [self hideDatePicker:NO];
-                        [self.datePicker setDate:[self.event valueForKey:endKey] animated:YES];
-                        [self.datePicker removeTarget:self
-                                               action:@selector(changeStartDate:)
-                                     forControlEvents:UIControlEventValueChanged];
-                        [self.datePicker addTarget:self
-                                            action:@selector(changeEndDate:)
-                                  forControlEvents:UIControlEventValueChanged];
+                        [self.endDatePicker setDate:[self.event valueForKey:endKey] animated:YES];
                     } else {
-                        [self hideDatePicker:YES];
                         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
                     }
                     self.settingEndDate = !self.settingEndDate;
@@ -693,7 +662,6 @@
             }
             break;
         case DATES:
-            [self clearDatePicker];
             switch (indexPath.row) {
                 case INCLUDE_END:
                     // include last day in calc is handled by trapping the switch change
@@ -714,7 +682,6 @@
             }
             break;
         case DISPLAY:
-            [self clearDatePicker];
             // every cell either performs a segue or has a switch
             [tableView cellForRowAtIndexPath:indexPath].selectionStyle = UITableViewCellSelectionStyleNone;
             break;
@@ -725,8 +692,8 @@
 
 - (void)changeStartDate:(id)sender {
     [self.tableView cellForRowAtIndexPath:self.startDateViewCellIndexPath].detailTextLabel.textColor = self.detailTextLabelColor;
-    [self.event setValue:[NSDate midnightForDate:self.datePicker.date] forKey:startKey];
-    [self.tableView cellForRowAtIndexPath:self.startDateViewCellIndexPath].detailTextLabel.text = [NSDateFormatter localizedStringFromDate:self.datePicker.date
+    [self.event setValue:[NSDate midnightForDate:self.startDatePicker.date] forKey:startKey];
+    [self.tableView cellForRowAtIndexPath:self.startDateViewCellIndexPath].detailTextLabel.text = [NSDateFormatter localizedStringFromDate:self.startDatePicker.date
                                                                                                                                  dateStyle:NSDateFormatterLongStyle
                                                                                                                                  timeStyle:NSDateFormatterNoStyle];
     [self verifyDateOrder];
@@ -735,57 +702,21 @@
 
 - (void)changeEndDate:(id)sender {
     [self.tableView cellForRowAtIndexPath:self.endDateViewCellIndexPath].detailTextLabel.textColor = self.detailTextLabelColor;
-    [self.event setValue:[NSDate midnightForDate:self.datePicker.date] forKey:endKey];
-    [self.tableView cellForRowAtIndexPath:self.endDateViewCellIndexPath].detailTextLabel.text = [NSDateFormatter localizedStringFromDate:self.datePicker.date
+    [self.event setValue:[NSDate midnightForDate:self.endDatePicker.date] forKey:endKey];
+    [self.tableView cellForRowAtIndexPath:self.endDateViewCellIndexPath].detailTextLabel.text = [NSDateFormatter localizedStringFromDate:self.endDatePicker.date
                                                                                                                                dateStyle:NSDateFormatterLongStyle
                                                                                                                                timeStyle:NSDateFormatterNoStyle];
     [self verifyDateOrder];
     [self showDuration];
 }
 
-- (void)clearDatePicker {
-    [self hideDatePicker:YES];
-    [self.datePicker setDate:[NSDate date] animated:NO];
-    self.settingStartDate = NO;
-    self.settingEndDate = NO;
-}
-
 - (void)clearDatePickerAndSelection {
-    [self clearDatePicker];
     [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
 }
 
 - (void)hideInputs:(id)sender {
     [self.view endEditing:NO];
     [self clearDatePickerAndSelection];
-}
-
-- (void)hideDatePicker:(BOOL)hidden {
-    if (hidden != self.datePicker.hidden) {
-//        [UIView animateWithDuration:0.3 animations:^{
-//            if (!hidden) {
-//                self.datePicker.hidden = NO;
-//                self.tableView.frame = CGRectMake(self.tableView.frame.origin.x,
-//                                                  self.tableView.frame.origin.y,
-//                                                  self.tableView.frame.size.width,
-//                                                  self.tableView.frame.size.height - self.datePicker.frame.size.height);
-//                self.datePicker.frame = CGRectMake(self.datePicker.frame.origin.x,
-//                                                   self.view.window.frame.size.height - self.datePicker.frame.size.height,
-//                                                   self.datePicker.frame.size.width,
-//                                                   self.datePicker.frame.size.height);
-//            } else {
-//                self.datePicker.frame = CGRectMake(self.datePicker.frame.origin.x,
-//                                                   self.view.window.frame.size.height,
-//                                                   self.datePicker.frame.size.width,
-//                                                   self.datePicker.frame.size.height);
-//                self.tableView.frame = CGRectMake(self.tableView.frame.origin.x,
-//                                                  self.tableView.frame.origin.y,
-//                                                  self.tableView.frame.size.width,
-//                                                  self.tableView.frame.size.height + self.datePicker.frame.size.height);
-//            }
-//        }];
-        self.datePicker.hidden = hidden;
-    }
 }
 
 - (void)showDateErrorAlert {
@@ -914,7 +845,6 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
-    [self hideDatePicker:YES];
     self.settingStartDate = NO;
     self.settingEndDate = NO;
 }

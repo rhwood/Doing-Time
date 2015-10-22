@@ -33,7 +33,7 @@
 
 @interface EventSettingsViewController : UITableViewController <UIGestureRecognizerDelegate, UITextFieldDelegate, UIAlertViewDelegate, UIActionSheetDelegate> {
 	NSMutableDictionary* _event;
-	UIDatePicker* _datePicker;
+//	UIDatePicker* _datePicker;
 //	EKEventStore* _eventStore;
 	NSIndexPath* _startDateViewCellIndexPath;
 	NSIndexPath* _endDateViewCellIndexPath;
@@ -84,13 +84,13 @@
 @property (weak) IBOutlet UITableViewCell *completedDaysColorCell;
 @property (weak) IBOutlet UITableViewCell *remainingDaysColorCell;
 @property (weak) IBOutlet UITableViewCell *backgroundColorCell;
+@property (weak) IBOutlet UIDatePicker *startDatePicker;
+@property (weak) IBOutlet UIDatePicker *endDatePicker;
 
 #pragma mark - Date pickers
 
-- (void)changeStartDate:(id)sender;
-- (void)changeEndDate:(id)sender;
-- (void)clearDatePicker;
-- (void)hideDatePicker:(BOOL)hidden;
+- (IBAction)changeStartDate:(id)sender;
+- (IBAction)changeEndDate:(id)sender;
 - (void)showDateErrorAlert;
 - (void)showDurationErrorAlert;
 - (BOOL)verifyDateOrder;
@@ -105,7 +105,6 @@
 
 @property NSUInteger index;
 @property (nonatomic, strong) NSMutableDictionary* event;
-@property (nonatomic, strong) IBOutlet UIDatePicker* datePicker;
 @property BOOL settingStartDate;
 @property BOOL settingEndDate;
 @property BOOL showErrorAlert;
