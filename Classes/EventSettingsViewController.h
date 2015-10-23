@@ -121,6 +121,8 @@
 @property (nonatomic, strong) IBOutlet UITableViewCell* durationViewCell;
 @property (nonatomic, strong) IBOutlet UITextView* urlView;
 @property (nonatomic, strong) IBOutlet UITableViewCell* urlViewCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* startDatePickerViewCell;
+@property (nonatomic, strong) IBOutlet UITableViewCell* endDatePickerViewCell;
 @property BOOL cancelling;
 @property NSUInteger duration;
 

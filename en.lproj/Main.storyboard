@@ -865,6 +865,7 @@
                         <outlet property="durationViewCell" destination="JE5-4k-5e1" id="Kz1-qR-ZG0"/>
                         <outlet property="endDateCell" destination="IRH-Jk-HBt" id="N74-zG-LD0"/>
                         <outlet property="endDatePicker" destination="7Jy-Gy-Uwd" id="qKA-Mt-wLE"/>
+                        <outlet property="endDatePickerViewCell" destination="y3F-kw-cEW" id="1US-K4-a4p"/>
                         <outlet property="includeEndDateCell" destination="Shy-1O-y7b" id="L4R-nR-Hiw"/>
                         <outlet property="remainingDaysColorCell" destination="uOB-Bf-ZcG" id="bGW-Ld-vZ7"/>
                         <outlet property="showDatesCell" destination="Tcm-D5-oeN" id="iHa-Mc-MR8"/>
@@ -873,6 +874,7 @@
                         <outlet property="showTotalsCell" destination="j2f-gB-2z7" id="EX9-nu-TLk"/>
                         <outlet property="startDateCell" destination="AHH-CC-NNP" id="wGj-2x-7qy"/>
                         <outlet property="startDatePicker" destination="sJq-Wm-40A" id="ule-TR-b3P"/>
+                        <outlet property="startDatePickerViewCell" destination="Xol-A8-TyX" id="I2E-Ru-Sub"/>
                         <outlet property="titleCell" destination="jmd-ds-WKn" id="SZZ-ME-HQP"/>
                         <outlet property="titleView" destination="yZ6-9I-4xL" id="pKK-dC-h5F"/>
                         <outlet property="todayIsCell" destination="TJd-SU-uhG" id="5fe-72-XBN"/>
