@@ -628,10 +628,10 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == EVENT) {
         if (indexPath.row == START_DATE_PICKER) {
-            return (self.settingStartDate) ? self.startDatePicker.bounds.size.height : 0;
+            return (self.settingStartDate) ? self.startDatePicker.bounds.size.height : 0.0;
         }
         if (indexPath.row == END_DATE_PICKER) {
-            return (self.settingEndDate) ? self.endDatePicker.bounds.size.height : 0;
+            return (self.settingEndDate) ? self.endDatePicker.bounds.size.height : 0.0;
         }
     }
     return tableView.rowHeight;
@@ -667,7 +667,9 @@
                     }
                     self.settingStartDate = !self.settingStartDate;
                     self.settingEndDate = NO;
-                    [tableView reloadRowsAtIndexPaths:@[self.startDatePickerViewCellIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    // why doesn't next line work?
+                    // [tableView reloadRowsAtIndexPaths:@[self.startDatePickerViewCellIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    [tableView reloadData];
                     break;
                 case END_DATE:
                     if (!self.settingEndDate) {
@@ -676,7 +678,9 @@
                     }
                     self.settingStartDate = NO;
                     self.settingEndDate = !self.settingEndDate;
-                    [tableView reloadRowsAtIndexPaths:@[self.startDatePickerViewCellIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    // why doesn't next line work?
+                    // [tableView reloadRowsAtIndexPaths:@[self.endDatePickerViewCellIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    [tableView reloadData];
                     break;
                 case DURATION:
                     self.settingStartDate = NO;
