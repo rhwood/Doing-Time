@@ -168,13 +168,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.cancelling = NO;
     self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
     self.titleView.text = [self.event valueForKey:titleKey];
     self.titleView.borderStyle = UITextBorderStyleNone;
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
     self.showErrorAlert = YES;
     self.startDateViewCellIndexPath = [NSIndexPath indexPathForRow:START_DATE inSection:EVENT];
+    self.startDatePickerViewCellIndexPath = [NSIndexPath indexPathForRow:START_DATE_PICKER inSection:EVENT];
     self.endDateViewCellIndexPath = [NSIndexPath indexPathForRow:END_DATE inSection:EVENT];
+    self.endDatePickerViewCellIndexPath = [NSIndexPath indexPathForRow:END_DATE_PICKER inSection:EVENT];
     self.durationViewCellIndexPath = [NSIndexPath indexPathForRow:DURATION inSection:EVENT];
     // set the detailTextLabel.textColor to ~ Brunswick Green (per Wikipedia)
     self.detailTextLabelColor = [UIColor colorWithRed:0.105 green:0.301 blue:0.242 alpha:1.0];
@@ -422,6 +425,9 @@
                         cell.detailTextLabel.textColor = [UIColor whiteColor];
                     }
                     break;
+                case START_DATE_PICKER:
+                    // nothing to do
+                    break;
                 case END_DATE:
                     cell.detailTextLabel.textColor = self.detailTextLabelColor;
                     if (![[self.event valueForKey:endKey] isEqualToDate:[NSDate distantFuture]]) {
@@ -437,6 +443,9 @@
                                                                                    timeStyle:NSDateFormatterNoStyle];
                         cell.detailTextLabel.textColor = [UIColor whiteColor];
                     }
+                    break;
+                case END_DATE_PICKER:
+                    // nothing to do
                     break;
                 case DURATION:
                     // nothing to do
@@ -616,14 +625,26 @@
     return NO;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == EVENT) {
+        if (indexPath.row == START_DATE_PICKER) {
+            return (self.settingStartDate) ? self.startDatePicker.bounds.size.height : 0;
+        }
+        if (indexPath.row == END_DATE_PICKER) {
+            return (self.settingEndDate) ? self.endDatePicker.bounds.size.height : 0;
+        }
+    }
+    return tableView.rowHeight;
+}
+
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:YES];
     NSString *link;
     self.showErrorAlert = YES;
     [self verifyDateOrder];
     [self calculateDuration];
-    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:YES];
     if (indexPath.row || indexPath.section) {
         [self.titleView resignFirstResponder];
     }
@@ -632,29 +653,34 @@
     }
     switch (indexPath.section) {
         case EVENT:
+            [tableView deselectRowAtIndexPath:indexPath animated:NO];
             switch (indexPath.row) {
                 case TITLE:
+                    self.settingStartDate = NO;
+                    self.settingEndDate = NO;
+                    [self.titleView becomeFirstResponder];
                     break;
                 case START_DATE:
                     if (!self.settingStartDate) {
                         self.settingEndDate = NO;
                         [self.startDatePicker setDate:[self.event valueForKey:startKey] animated:YES];
-                    } else {
-                        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
                     }
                     self.settingStartDate = !self.settingStartDate;
+                    self.settingEndDate = NO;
+                    [tableView reloadRowsAtIndexPaths:@[self.startDatePickerViewCellIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                     break;
                 case END_DATE:
                     if (!self.settingEndDate) {
                         self.settingStartDate = NO;
                         [self.endDatePicker setDate:[self.event valueForKey:endKey] animated:YES];
-                    } else {
-                        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
                     }
+                    self.settingStartDate = NO;
                     self.settingEndDate = !self.settingEndDate;
+                    [tableView reloadRowsAtIndexPaths:@[self.startDatePickerViewCellIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                     break;
                 case DURATION:
-                    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+                    self.settingStartDate = NO;
+                    self.settingEndDate = NO;
                     [self.durationView becomeFirstResponder];
                     break;
                 default:
@@ -827,9 +853,9 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     if ([textField isEqual:self.titleView]) {
-        if (![self verifyNonemptyTitle]) {
-            [self.titleView becomeFirstResponder];
-        }
+//        if (![self verifyNonemptyTitle]) {
+//            [self.titleView becomeFirstResponder];
+//        }
     } else if (self.durationView.text.length && ![self.event[startKey] isEqualToDate:[NSDate distantPast]]) {
         NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
         offsetComponents.day = [self.durationView.text integerValue];
@@ -844,9 +870,10 @@
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
     self.settingStartDate = NO;
     self.settingEndDate = NO;
+    [self.tableView reloadRowsAtIndexPaths:@[self.startDatePickerViewCellIndexPath, self.endDatePickerViewCellIndexPath]
+                          withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark - Gesture recognizer delegate

@@ -111,7 +111,9 @@
 @property BOOL newEvent;
 //@property (nonatomic, strong) IBOutlet EKEventStore* eventStore;
 @property (nonatomic, strong) NSIndexPath* startDateViewCellIndexPath;
+@property (nonatomic, strong) NSIndexPath* startDatePickerViewCellIndexPath;
 @property (nonatomic, strong) NSIndexPath* endDateViewCellIndexPath;
+@property (nonatomic, strong) NSIndexPath* endDatePickerViewCellIndexPath;
 @property (nonatomic, strong) NSIndexPath* durationViewCellIndexPath;
 @property (nonatomic, strong) UIColor* detailTextLabelColor;
 @property (nonatomic, strong) UIActionSheet* linkUnlinkedEventActionSheet;
