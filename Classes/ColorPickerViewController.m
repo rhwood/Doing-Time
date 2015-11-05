@@ -52,7 +52,6 @@ NSString *const ColorKey = @"ColorKey";
 
     self.accessibilityLabel = self.navigationItem.title;
     
-    self.colorPicker.cropToCircle = YES;
     self.colorPicker.selectionColor = self.selectedColor;
     self.brightnessSlider.value = self.colorPicker.brightness;
     self.selectionView.selectedColor = self.selectedColor;
@@ -74,6 +73,14 @@ NSString *const ColorKey = @"ColorKey";
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    CGFloat edge = ((self.view.bounds.size.width < self.view.bounds.size.height) ? self.view.bounds.size.width : self.view.bounds.size.height)
+    - (2 * (self.view.layoutMargins.left + self.view.layoutMargins.right));
+    [self.colorPicker setFrame:CGRectMake(self.view.layoutMargins.left, self.colorPicker.frame.origin.y, edge, edge)];
+    [self.brightnessSlider setFrame:CGRectMake(self.view.layoutMargins.left, self.brightnessSlider.frame.origin.y, edge, self.brightnessSlider.frame.size.height)];
+    for (CALayer* sublayer in self.brightnessSlider.layer.sublayers) {
+        sublayer.frame = self.brightnessSlider.bounds;
+    }
+    [self.brightnessSlider.layer layoutSublayers];
     self.colorPicker.selectionColor = self.selectedColor;
     self.brightnessSlider.value = self.colorPicker.brightness;
 }

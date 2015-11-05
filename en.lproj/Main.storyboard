@@ -3,6 +3,8 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Main View-->
@@ -901,12 +903,12 @@
                         <viewControllerLayoutGuide type="top" id="2XL-Q0-zVN"/>
                         <viewControllerLayoutGuide type="bottom" id="xUD-2z-gFS"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="YFc-GQ-03S">
+                    <view key="view" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" id="YFc-GQ-03S">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5dd-Fz-gAm" userLabel="Old Color Selection View" customClass="ColorSelectionView">
-                                <rect key="frame" x="0.0" y="0.0" width="160" height="42"/>
+                                <rect key="frame" x="0.0" y="0.0" width="300" height="42"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <constraints>
@@ -917,44 +919,54 @@
                                 </connections>
                             </view>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q2w-Ou-lL5" userLabel="New Color Selection View" customClass="ColorSelectionView">
-                                <rect key="frame" x="160" y="0.0" width="440" height="42"/>
+                                <rect key="frame" x="300" y="0.0" width="300" height="42"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="42" id="omE-7N-EHZ" userLabel="Height - (42) - Color Selection View"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pQH-44-82u" customClass="RSColorPickerView">
-                                <rect key="frame" x="20" y="50" width="560" height="280"/>
-                                <animations/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="280" id="4IU-2z-Uas"/>
-                                </constraints>
-                            </view>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="SXk-lz-A7e">
-                                <rect key="frame" x="18" y="338" width="564" height="31"/>
+                                <rect key="frame" x="18" y="618" width="564" height="31"/>
                                 <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="uP6-bR-SaZ"/>
+                                </constraints>
+                                <color key="minimumTrackTintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="maximumTrackTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <action selector="brightnessChanged:" destination="XMA-2r-kWq" eventType="valueChanged" id="Mor-Pb-W7I"/>
                                 </connections>
                             </slider>
+                            <view contentMode="scaleAspectFit" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="pQH-44-82u" customClass="RSColorPickerView">
+                                <rect key="frame" x="20" y="50" width="560" height="560"/>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="pQH-44-82u" secondAttribute="height" multiplier="1:1" id="0gT-UO-XQV"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="cropToCircle" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="5dd-Fz-gAm" firstAttribute="leading" secondItem="YFc-GQ-03S" secondAttribute="leading" id="3Xk-mG-xFa"/>
-                            <constraint firstItem="Q2w-Ou-lL5" firstAttribute="leading" secondItem="5dd-Fz-gAm" secondAttribute="trailing" id="AZn-73-4To"/>
-                            <constraint firstItem="pQH-44-82u" firstAttribute="leading" secondItem="YFc-GQ-03S" secondAttribute="leading" constant="20" symbolic="YES" id="JjA-pY-rdF"/>
-                            <constraint firstItem="SXk-lz-A7e" firstAttribute="top" secondItem="pQH-44-82u" secondAttribute="bottom" constant="8" symbolic="YES" id="QgR-r4-elt"/>
-                            <constraint firstAttribute="trailing" secondItem="pQH-44-82u" secondAttribute="trailing" constant="20" symbolic="YES" id="RX4-aA-MNb"/>
-                            <constraint firstItem="Q2w-Ou-lL5" firstAttribute="top" secondItem="YFc-GQ-03S" secondAttribute="top" id="WMc-GD-2MY"/>
-                            <constraint firstItem="pQH-44-82u" firstAttribute="centerX" secondItem="Q2w-Ou-lL5" secondAttribute="centerX" constant="-80" id="eCl-OI-aRB"/>
-                            <constraint firstItem="pQH-44-82u" firstAttribute="trailing" secondItem="SXk-lz-A7e" secondAttribute="trailing" id="iPg-wS-Ux0"/>
-                            <constraint firstItem="pQH-44-82u" firstAttribute="leading" secondItem="SXk-lz-A7e" secondAttribute="leading" id="lxH-Wd-DgI"/>
-                            <constraint firstItem="Q2w-Ou-lL5" firstAttribute="leading" secondItem="YFc-GQ-03S" secondAttribute="leading" constant="160" id="woV-m1-PMB"/>
-                            <constraint firstItem="pQH-44-82u" firstAttribute="top" secondItem="Q2w-Ou-lL5" secondAttribute="bottom" constant="8" symbolic="YES" id="woW-2N-qVa"/>
-                            <constraint firstItem="pQH-44-82u" firstAttribute="top" secondItem="5dd-Fz-gAm" secondAttribute="bottom" constant="8" id="yrg-mC-Box"/>
+                            <constraint firstItem="pQH-44-82u" firstAttribute="top" secondItem="Q2w-Ou-lL5" secondAttribute="bottom" constant="8" id="78p-tj-HZQ"/>
+                            <constraint firstItem="Q2w-Ou-lL5" firstAttribute="top" secondItem="YFc-GQ-03S" secondAttribute="topMargin" id="839-0T-cLR"/>
+                            <constraint firstItem="Q2w-Ou-lL5" firstAttribute="width" secondItem="5dd-Fz-gAm" secondAttribute="width" id="Aaa-7c-mJW"/>
+                            <constraint firstItem="SXk-lz-A7e" firstAttribute="trailing" secondItem="YFc-GQ-03S" secondAttribute="trailingMargin" id="DRC-nj-RuY"/>
+                            <constraint firstItem="SXk-lz-A7e" firstAttribute="top" secondItem="pQH-44-82u" secondAttribute="bottom" constant="8" id="NF6-pA-LTn"/>
+                            <constraint firstItem="SXk-lz-A7e" firstAttribute="leading" secondItem="YFc-GQ-03S" secondAttribute="leadingMargin" id="Uie-pr-dv8"/>
+                            <constraint firstItem="5dd-Fz-gAm" firstAttribute="leading" secondItem="YFc-GQ-03S" secondAttribute="leading" id="WSV-9E-x4t"/>
+                            <constraint firstItem="5dd-Fz-gAm" firstAttribute="top" secondItem="YFc-GQ-03S" secondAttribute="topMargin" id="Y6L-bM-2uM"/>
+                            <constraint firstItem="Q2w-Ou-lL5" firstAttribute="leading" secondItem="5dd-Fz-gAm" secondAttribute="trailing" id="dZK-e6-vFD"/>
+                            <constraint firstItem="pQH-44-82u" firstAttribute="top" secondItem="5dd-Fz-gAm" secondAttribute="bottom" constant="8" id="laZ-VO-Vo1"/>
+                            <constraint firstItem="pQH-44-82u" firstAttribute="leading" secondItem="YFc-GQ-03S" secondAttribute="leadingMargin" id="lpT-xe-YPf"/>
+                            <constraint firstAttribute="trailing" secondItem="Q2w-Ou-lL5" secondAttribute="trailing" id="sPQ-YH-3sN"/>
+                            <constraint firstItem="pQH-44-82u" firstAttribute="trailing" secondItem="YFc-GQ-03S" secondAttribute="trailingMargin" id="tGP-HO-yf5"/>
+                            <constraint firstItem="Q2w-Ou-lL5" firstAttribute="leading" secondItem="5dd-Fz-gAm" secondAttribute="trailing" id="tqd-WS-Hzh"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="TOm-oS-9vt"/>
@@ -1243,8 +1255,8 @@
         <image name="white-plus-circle" width="28" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="c0i-0e-dFV"/>
-        <segue reference="25Q-Rt-d9A"/>
+        <segue reference="glm-IL-chg"/>
+        <segue reference="ODB-dB-FxU"/>
         <segue reference="oVe-bf-ddU"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.1058823529" green="0.30196078430000001" blue="0.24313725489999999" alpha="1" colorSpace="deviceRGB"/>
