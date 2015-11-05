@@ -390,6 +390,7 @@
                                                         object:nil
                                                       userInfo:@{startKey: [NSNumber numberWithInteger:sourceIndexPath.row],
                                                                  endKey: [NSNumber numberWithInteger:destinationIndexPath.row]}];
+    [tableView reloadData];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
