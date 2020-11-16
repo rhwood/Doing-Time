@@ -42,7 +42,6 @@
 @synthesize events = _events;
 @synthesize pagerDidScroll = _pagerDidScroll;
 @synthesize appDelegate = _appDelegate;
-@synthesize adBanner = _adBanner;
 @synthesize dayOverTimer = _dayOverTimer;
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -85,8 +84,6 @@
 //	if ([self.appDelegate.appStore hasTransactionForProduct:multipleEventsProductIdentifier]) {
     self.pager.numberOfPages = [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count];
     self.pager.currentPage = [[NSUserDefaults standardUserDefaults] integerForKey:currentEventKey];
-    self.adBanner.opaque = NO;
-    self.adBanner.alpha = 0.0;
 //	} else {
 //		self.pager.numberOfPages = 1;
 //		self.pager.currentPage = 0;
@@ -426,27 +423,9 @@
 		[UIView beginAnimations:@"animateAdBanner" context:NULL];
 	}
     self.bannerIsVisible = !hide;
-    self.adBanner.hidden = hide;
 	if (animated) {
 		[UIView commitAnimations];
 	}
-}
-
-- (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave {
-	// there is nothing to stop for this
-	return YES;
-}
-
-- (void)bannerViewDidLoadAd:(ADBannerView *)banner {
-	if ([self.adBanner superview] && !self.bannerIsVisible) {
-		[self hideAdBanner:NO animated:YES];
-    }
-}
-
-- (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error	{
-	if ([self.adBanner superview] && self.bannerIsVisible) {
-		[self hideAdBanner:YES animated:YES];
-    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
