@@ -227,8 +227,8 @@
                 if (inFuture == 1) {
                     cell.stats.text = NSLocalizedString(@"Begins tomorrow", @"The message displayed when the event will start tomorrow");
                 } else {
-                    cell.stats.text = [NSString localizedStringWithFormat:NSLocalizedString(@"Begins in %d days", @"The message displayed when the event will start %d days in the future"),
-                                       inFuture];
+                    cell.stats.text = [NSString localizedStringWithFormat:NSLocalizedString(@"Begins in %ld days", @"The message displayed when the event will start %d days in the future"),
+                                       (long)inFuture];
                 }
             } else {
                 // be vague
@@ -241,8 +241,8 @@
                 if (inPast == 1) {
                     cell.stats.text = NSLocalizedString(@"Ended yesterday", @"Message displayed to indicate the event ended the day prior.");
                 } else {
-                    cell.stats.text = [NSString localizedStringWithFormat:NSLocalizedString(@"Ended %d days ago", @"Message indicating the event ended some days in the past"),
-                                       inPast];
+                    cell.stats.text = [NSString localizedStringWithFormat:NSLocalizedString(@"Ended %ld days ago", @"Message indicating the event ended some days in the past"),
+                                       (long)inPast];
                 }
             } else {
                 // be vague
@@ -260,7 +260,7 @@
                     if (completed == 1 && !inPast) {
                         cell.stats.text = [NSString localizedStringWithFormat:NSLocalizedString(@"Started yesterday", @"Started yesterday, but no percentages displayed")];
                     } else {
-                        cell.stats.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%d %@ complete", @"The number (%d) of days (%@) complete"), completed, days];
+                        cell.stats.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%ld %@ complete", @"The number (%d) of days (%@) complete"), (long)completed, days];
                     }
                 } else if (!showTotals && showPercentage) {
                     cell.stats.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%2.4g%% complete", @"The percentage of days complete"), interval * completed * 100];
@@ -268,7 +268,7 @@
                     if (completed == 1 && !inPast) {
                         cell.stats.text = [NSString localizedStringWithFormat:NSLocalizedString(@"Started yesterday (%2.4g%% complete)", @"Started yesterday, with percentage complete"), interval * completed * 100];
                     } else {
-                        cell.stats.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%d %@ (%2.4g%%) complete", @"The number (%d) of days (%@) complete with the percent of days past in parenthesis"), completed, days, interval * completed * 100];
+                        cell.stats.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%ld %@ (%2.4g%%) complete", @"The number (%d) of days (%@) complete with the percent of days past in parenthesis"), (long)completed, days, interval * completed * 100];
                     }
                 }
                 cell.stats.text = [cell.stats.text stringByAppendingString:@"  |  "];
@@ -282,11 +282,11 @@
             if (left == 0) {
                 cell.stats.text = [cell.stats.text stringByAppendingString:NSLocalizedString(@"Ends today", @"The message displayed on the last day of an event")];
             } else if (!showPercentage && showTotals) {
-                cell.stats.text = [cell.stats.text stringByAppendingString:[NSString localizedStringWithFormat:NSLocalizedString(@"%d %@ left", @"The number (%d) of days (%@) remaining"), left, days]];
+                cell.stats.text = [cell.stats.text stringByAppendingString:[NSString localizedStringWithFormat:NSLocalizedString(@"%ld %@ left", @"The number (%d) of days (%@) remaining"), (long)left, days]];
             } else if (!showTotals && showPercentage) {
                 cell.stats.text = [cell.stats.text stringByAppendingString:[NSString localizedStringWithFormat:NSLocalizedString(@"%2.4g%% left", @"The percentage of days complete"), interval * left * 100]];
             } else {
-                cell.stats.text = [cell.stats.text stringByAppendingString:[NSString localizedStringWithFormat:NSLocalizedString(@"%d %@ (%2.4g%%) left", @"The number (%d) of days (%@) remaining with the percentage remaining in parenthesis"), left, days, interval * left * 100]];
+                cell.stats.text = [cell.stats.text stringByAppendingString:[NSString localizedStringWithFormat:NSLocalizedString(@"%ld %@ (%2.4g%%) left", @"The number (%d) of days (%@) remaining with the percentage remaining in parenthesis"), (long)left, days, interval * left * 100]];
             }
         }
     } else {
