@@ -368,9 +368,6 @@
                     <navigationItem key="navigationItem" title="Settings" id="3Ko-bW-WLY">
                         <barButtonItem key="backBarButtonItem" title="Settings" id="HOU-MG-WaO"/>
                     </navigationItem>
-                    <connections>
-                        <segue destination="Y8p-Df-owI" kind="show" identifier="AppSettingsToAssistanceSegue" id="Lx0-cp-9rq"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QSE-Xy-vJ8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -878,29 +875,6 @@
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-1057" y="1095"/>
-        </scene>
-        <!--Tutotial View Controller-->
-        <scene sceneID="TrH-Lk-iQz">
-            <objects>
-                <viewController id="Y8p-Df-owI" userLabel="Tutotial View Controller" customClass="TutorialViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="4kF-NP-pDm"/>
-                        <viewControllerLayoutGuide type="bottom" id="EzT-yu-g1z"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="heL-WY-sbc" customClass="UIWebView">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <connections>
-                            <outlet property="delegate" destination="Y8p-Df-owI" id="t8T-VP-cGY"/>
-                        </connections>
-                    </view>
-                    <extendedEdge key="edgesForExtendedLayout"/>
-                    <navigationItem key="navigationItem" title="Guide" id="8tO-H0-ysd"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Y2D-7V-2ER" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="56" y="-624"/>
         </scene>
         <!--About View Controller-->
         <scene sceneID="RIh-2R-hod">

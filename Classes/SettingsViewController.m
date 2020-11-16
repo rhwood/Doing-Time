@@ -136,9 +136,6 @@
 					cell.textLabel.text = NSLocalizedString(@"About Doing Time", @"Label for link for information about the application");
 					break;
 				case 2:
-					cell.textLabel.text = NSLocalizedString(@"Tutorial", @"Label for link to help content.");
-					break;
-				case 3:
 					cell.textLabel.text = NSLocalizedString(@"Support", @"Label for link to support resources");
 					break;
 				default:
