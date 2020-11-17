@@ -392,7 +392,6 @@
 		int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
 		self.pager.currentPage = page;
 	}
-	[self.pager updateCurrentPageDisplay];
     [self redrawBackground];
 	[[NSUserDefaults standardUserDefaults] setInteger:self.pager.currentPage forKey:currentEventKey];
 }

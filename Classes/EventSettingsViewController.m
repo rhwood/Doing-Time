@@ -515,7 +515,7 @@
                     }
                     break;
                 case COMPLETED_COLOR:
-                    well = [[UIColorWell alloc] initWithFrame:CGRectMake(0.0, 0.0, 55.0, cell.frame.size.height)];
+                    well = [[UIColorWell alloc] initWithFrame:CGRectMake(0.0, 0.0, 55.0, 0.0)];
                     cell.accessoryView = well;
                     well.selectedColor = [NSKeyedUnarchiver unarchiveObjectWithData:self.event[completedColorKey]];
                     [well addTarget:self action:@selector(setCompletedColor:) forControlEvents:UIControlEventValueChanged];
@@ -847,31 +847,6 @@
           didFinishWithResult:(MFMailComposeResult)result
                         error:(NSError*)error {
 	[self dismissViewControllerAnimated:YES completion:nil];
-}
-
-#pragma mark - Action sheet view delegate
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    //	if (actionSheet == self.linkUnlinkedEventActionSheet) {
-    //		if (buttonIndex == actionSheet.cancelButtonIndex) {
-    //			// do nothing
-    //		} else if (buttonIndex == actionSheet.firstOtherButtonIndex) {
-    //			[self selectCalendarEvent];
-    //		} else {
-    //			[self createCalendarEvent];
-    //		}
-    //	} else if (actionSheet == self.changeLinkedEventActionSheet) {
-    //		if (buttonIndex == actionSheet.cancelButtonIndex) {
-    //			// do nothing
-    //		} else if (buttonIndex == actionSheet.destructiveButtonIndex) {
-    //			[self.event setValue:nil forKey:linkKey];
-    //		} else if (buttonIndex == actionSheet.firstOtherButtonIndex) {
-    //			[self selectCalendarEvent];
-    //		} else {
-    //			[self createCalendarEvent];
-    //		}
-    //	}
-    //	[self.tableView reloadData];
 }
 
 #pragma mark - Action targets
