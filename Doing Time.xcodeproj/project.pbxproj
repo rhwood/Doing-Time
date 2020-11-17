@@ -13,7 +13,6 @@
 		48110EC212C9804C00948558 /* PieChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 48110EC112C9804C00948558 /* PieChartView.m */; };
 		4816E5D91847746A0070E4AD /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4816E5D81847746A0070E4AD /* SettingsViewController.m */; };
 		4828129F135CA5C3003704EC /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4828129C135CA5C3003704EC /* AboutViewController.m */; };
-		485BAB5113498E31005EE6BE /* AppStoreDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 485BAB4F13498E31005EE6BE /* AppStoreDelegate.m */; };
 		485BD59D16B14DC300424CC8 /* TodaySettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 485BD59C16B14DC300424CC8 /* TodaySettingsViewController.m */; };
 		48676E521842322900194D54 /* EventViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 48676E511842322900194D54 /* EventViewCell.m */; };
 		48676E5F1845865800194D54 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48676E611845865800194D54 /* Main.storyboard */; };
@@ -42,8 +41,6 @@
 		4828129B135CA5C3003704EC /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = AboutViewController.h; path = Classes/AboutViewController.h; sourceTree = "<group>"; };
 		4828129C135CA5C3003704EC /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AboutViewController.m; path = Classes/AboutViewController.m; sourceTree = "<group>"; };
 		4838E59812D0984B007AC0D8 /* PieChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = PieChartView.h; path = Classes/PieChartView.h; sourceTree = "<group>"; };
-		485BAB4E13498E31005EE6BE /* AppStoreDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = AppStoreDelegate.h; sourceTree = "<group>"; };
-		485BAB4F13498E31005EE6BE /* AppStoreDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppStoreDelegate.m; sourceTree = "<group>"; };
 		485BD59B16B14DC300424CC8 /* TodaySettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TodaySettingsViewController.h; path = Classes/TodaySettingsViewController.h; sourceTree = "<group>"; };
 		485BD59C16B14DC300424CC8 /* TodaySettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TodaySettingsViewController.m; path = Classes/TodaySettingsViewController.m; sourceTree = "<group>"; };
 		48676E501842322900194D54 /* EventViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventViewCell.h; path = Classes/EventViewCell.h; sourceTree = "<group>"; };
@@ -127,7 +124,6 @@
 				289233A00DB2D0730083E9F9 /* Main View */,
 				48676E4F184231E800194D54 /* List View */,
 				281C6CD70DB2D82200F60ACC /* Event Settings Views */,
-				485BAB4B13498E02005EE6BE /* Supporting Classes */,
 				080E96DDFE201D6D7F000001 /* Application Delegate */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -178,15 +174,6 @@
 				4816E5D81847746A0070E4AD /* SettingsViewController.m */,
 			);
 			name = "Settings Views";
-			sourceTree = "<group>";
-		};
-		485BAB4B13498E02005EE6BE /* Supporting Classes */ = {
-			isa = PBXGroup;
-			children = (
-				485BAB4E13498E31005EE6BE /* AppStoreDelegate.h */,
-				485BAB4F13498E31005EE6BE /* AppStoreDelegate.m */,
-			);
-			name = "Supporting Classes";
 			sourceTree = "<group>";
 		};
 		48676E4F184231E800194D54 /* List View */ = {
@@ -300,7 +287,6 @@
 				4816E5D91847746A0070E4AD /* SettingsViewController.m in Sources */,
 				48E61CDF131E9E210077DA8E /* EventViewController.m in Sources */,
 				48ADE0C41343B51E005E96EB /* Constants.m in Sources */,
-				485BAB5113498E31005EE6BE /* AppStoreDelegate.m in Sources */,
 				4828129F135CA5C3003704EC /* AboutViewController.m in Sources */,
 				48AF93B618520C4300A8EFAF /* EventsListViewController.m in Sources */,
 				48AF93B9185229F300A8EFAF /* ListFooterCell.m in Sources */,
