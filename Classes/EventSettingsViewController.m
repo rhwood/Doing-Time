@@ -23,8 +23,6 @@
 #import "MainViewController.h"
 #import "AppStoreDelegate.h"
 #import "AboutViewController.h"
-#import "ColorSelectionView.h"
-#import "ColorPickerViewController.h"
 #import "Constants.h"
 
 // Table Event section
@@ -39,7 +37,6 @@
 #define DATES 1
 #define INCLUDE_END 0
 #define TODAY_IS 1
-#define CALENDAR 2
 // Table Stats section
 #define DISPLAY 2
 #define SHOW_DATES 0
@@ -163,7 +160,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.cancelling = NO;
-    self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    self.view.backgroundColor = [UIColor systemGroupedBackgroundColor];
     self.titleView.text = [self.event valueForKey:titleKey];
     self.titleView.borderStyle = UITextBorderStyleNone;
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
@@ -202,8 +199,6 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:self.tableView.indexPathForSelectedRow];
-    NSString *key = nil;
     if ([segue.identifier isEqualToString:@"EventToTodayIsSegue"]) {
         TodaySettingsViewController *destination = segue.destinationViewController;
         destination.setting = [[self.event valueForKey:todayIsKey] integerValue];
@@ -215,34 +210,6 @@
                                                           [[NSNotificationCenter defaultCenter] removeObserver:self name:todayIsKey object:note.object];
                                                           [self.tableView reloadData];
                                                       }];
-    } else if ([segue.identifier isEqualToString:@"CompletedDaysColorSegue"]) {
-        key = completedColorKey;
-    } else if ([segue.identifier isEqualToString:@"RemainingDaysColorSegue"]) {
-        key = remainingColorKey;
-    } else if ([segue.identifier isEqualToString:@"BackgroundColorSegue"]) {
-        key = backgroundColorKey;
-    }
-    if (key) {
-        ColorPickerViewController *destination = segue.destinationViewController;
-        destination.selectedColor = ((ColorSelectionView *)cell.accessoryView).selectedColor;
-        destination.colorKey = key;
-        destination.navigationItem.title = cell.textLabel.text;
-        [[NSNotificationCenter defaultCenter] addObserverForName:ColorDidChangeNotification
-                                                          object:destination
-                                                           queue:[NSOperationQueue currentQueue]
-                                                      usingBlock:^(NSNotification *note) {
-                                                          [[NSNotificationCenter defaultCenter] removeObserver:self name:ColorDidChangeNotification object:note.object];
-                                                          // not calling setValue:... forKey:key because observers do not always remove soon enough, and key can become wrong in that case
-                                                          if ([note.userInfo[ColorKey] isEqualToString:completedColorKey]) {
-                                                              [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:((ColorPickerViewController *)note.object).selectedColor] forKey:completedColorKey];
-                                                          } else if ([note.userInfo[ColorKey] isEqualToString:remainingColorKey]) {
-                                                              [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:((ColorPickerViewController *)note.object).selectedColor] forKey:remainingColorKey];
-                                                          } else if ([note.userInfo[ColorKey] isEqualToString:backgroundColorKey]) {
-                                                              [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:((ColorPickerViewController *)note.object).selectedColor] forKey:backgroundColorKey];
-                                                          }
-                                                          [self.tableView reloadData];
-                                                      }];
-        
     }
 }
 
@@ -396,6 +363,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+    UIColorWell *well = nil;
     cell.accessoryType = UITableViewCellAccessoryNone;
     switch (indexPath.section) {
         case EVENT:
@@ -480,16 +448,6 @@
                             break;
                     }
                     break;
-                case CALENDAR: // link to calendar
-                    //                    cell.textLabel.text = NSLocalizedString(@"Link to Event", @"Label or button link event to the system calendar");
-                    //                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                    //                    if ([self.event valueForKey:linkKey]) {
-                    //                        EKEvent *event = [self.eventStore eventWithIdentifier:[self.event valueForKey:linkKey]];
-                    //                        cell.detailTextLabel.text = event.title; //event title
-                    //                    } else {
-                    //                        cell.detailTextLabel.text = NSLocalizedString(@"None", @"Label to indicate that event is not linked to the system calendar");
-                    //                    }
-                    break;
                 default:
                     break;
             }
@@ -557,16 +515,22 @@
                     }
                     break;
                 case COMPLETED_COLOR:
-                    cell.accessoryView = [[ColorSelectionView alloc] initWithFrame:CGRectMake(0.0, 0.0, 55.0, cell.frame.size.height)];
-                    ((ColorSelectionView *)cell.accessoryView).selectedColor = [NSKeyedUnarchiver unarchiveObjectWithData:self.event[completedColorKey]];
+                    well = [[UIColorWell alloc] initWithFrame:CGRectMake(0.0, 0.0, 55.0, cell.frame.size.height)];
+                    cell.accessoryView = well;
+                    well.selectedColor = [NSKeyedUnarchiver unarchiveObjectWithData:self.event[completedColorKey]];
+                    [well addTarget:self action:@selector(setCompletedColor:) forControlEvents:UIControlEventValueChanged];
                     break;
                 case REMAINING_COLOR:
-                    cell.accessoryView = [[ColorSelectionView alloc] initWithFrame:CGRectMake(0.0, 0.0, 55.0, cell.frame.size.height)];
-                    ((ColorSelectionView *)cell.accessoryView).selectedColor = [NSKeyedUnarchiver unarchiveObjectWithData:self.event[remainingColorKey]];
+                    well = [[UIColorWell alloc] initWithFrame:CGRectMake(0.0, 0.0, 55.0, cell.frame.size.height)];
+                    cell.accessoryView = well;
+                    well.selectedColor = [NSKeyedUnarchiver unarchiveObjectWithData:self.event[remainingColorKey]];
+                    [well addTarget:self action:@selector(setRemainingColor:) forControlEvents:UIControlEventValueChanged];
                     break;
                 case BACKGROUND_COLOR:
-                    cell.accessoryView = [[ColorSelectionView alloc] initWithFrame:CGRectMake(0.0, 0.0, 55.0, cell.frame.size.height)];
-                    ((ColorSelectionView *)cell.accessoryView).selectedColor = [NSKeyedUnarchiver unarchiveObjectWithData:self.event[backgroundColorKey]];
+                    well = [[UIColorWell alloc] initWithFrame:CGRectMake(0.0, 0.0, 55.0, cell.frame.size.height)];
+                    cell.accessoryView = well;
+                    well.selectedColor = [NSKeyedUnarchiver unarchiveObjectWithData:self.event[backgroundColorKey]];
+                    [well addTarget:self action:@selector(setBackgroundColor:) forControlEvents:UIControlEventValueChanged];
                     break;
                 default:
                     break;
@@ -635,7 +599,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:YES];
-    NSString *link;
     self.showErrorAlert = YES;
     [self verifyDateOrder];
     [self calculateDuration];
@@ -694,13 +657,6 @@
                 case TODAY_IS:
                     // nothing to do
                     break;
-                case CALENDAR:
-                    link = [self.event valueForKey:linkKey];
-                    if (link) {
-                        [self.changeLinkedEventActionSheet showInView:self.view];
-                    } else {
-                        [self.linkUnlinkedEventActionSheet showInView:self.view];
-                    }
                 default:
                     break;
             }
@@ -916,6 +872,20 @@
     //		}
     //	}
     //	[self.tableView reloadData];
+}
+
+#pragma mark - Action targets
+
+- (IBAction)setCompletedColor:(id)sender {
+    [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:((UIColorWell *)sender).selectedColor] forKey:completedColorKey];
+}
+
+- (IBAction)setRemainingColor:(id)sender {
+    [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:((UIColorWell *)sender).selectedColor] forKey:remainingColorKey];
+}
+
+- (IBAction)setBackgroundColor:(id)sender {
+    [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:((UIColorWell *)sender).selectedColor] forKey:backgroundColorKey];
 }
 
 @end

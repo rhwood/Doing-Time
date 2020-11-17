@@ -690,9 +690,6 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="XMA-2r-kWq" kind="show" identifier="CompletedDaysColorSegue" id="McX-tg-ac3"/>
-                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="sGx-6j-lSG" style="IBUITableViewCellStyleDefault" id="uOB-Bf-ZcG">
                                         <rect key="frame" x="0.0" y="1022" width="375" height="44"/>
@@ -710,9 +707,6 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="XMA-2r-kWq" kind="show" identifier="RemainingDaysColorSegue" id="DkP-jX-t1J"/>
-                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="V4K-fa-tHg" style="IBUITableViewCellStyleDefault" id="7Zf-2w-i2o">
                                         <rect key="frame" x="0.0" y="1066" width="375" height="44"/>
@@ -730,9 +724,6 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="XMA-2r-kWq" kind="show" identifier="BackgroundColorSegue" id="oVe-bf-ddU"/>
-                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -788,93 +779,6 @@
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-1057" y="219"/>
-        </scene>
-        <!--Color Picker Controller-->
-        <scene sceneID="Nv0-U9-WYR">
-            <objects>
-                <viewController storyboardIdentifier="ColorPickerViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="XMA-2r-kWq" userLabel="Color Picker Controller" customClass="ColorPickerViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="2XL-Q0-zVN"/>
-                        <viewControllerLayoutGuide type="bottom" id="xUD-2z-gFS"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" id="YFc-GQ-03S">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5dd-Fz-gAm" userLabel="Old Color Selection View" customClass="ColorSelectionView">
-                                <rect key="frame" x="0.0" y="44" width="187.5" height="42"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="42" id="jO1-yt-D44" userLabel="Height - (42) - Color Selection View"/>
-                                </constraints>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="Kl4-wr-XC7" appends="YES" id="0Cl-Tc-Lqu"/>
-                                </connections>
-                            </view>
-                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q2w-Ou-lL5" userLabel="New Color Selection View" customClass="ColorSelectionView">
-                                <rect key="frame" x="187.5" y="44" width="187.5" height="42"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="42" id="omE-7N-EHZ" userLabel="Height - (42) - Color Selection View"/>
-                                </constraints>
-                            </view>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="SXk-lz-A7e">
-                                <rect key="frame" x="14" y="445" width="347" height="31"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="uP6-bR-SaZ"/>
-                                </constraints>
-                                <color key="minimumTrackTintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="maximumTrackTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <connections>
-                                    <action selector="brightnessChanged:" destination="XMA-2r-kWq" eventType="valueChanged" id="Mor-Pb-W7I"/>
-                                </connections>
-                            </slider>
-                            <view contentMode="scaleAspectFit" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="pQH-44-82u" customClass="RSColorPickerView">
-                                <rect key="frame" x="16" y="94" width="343" height="343"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="pQH-44-82u" secondAttribute="height" multiplier="1:1" id="0gT-UO-XQV"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="cropToCircle" value="YES"/>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="pQH-44-82u" firstAttribute="top" secondItem="Q2w-Ou-lL5" secondAttribute="bottom" constant="8" id="78p-tj-HZQ"/>
-                            <constraint firstItem="Q2w-Ou-lL5" firstAttribute="top" secondItem="YFc-GQ-03S" secondAttribute="topMargin" id="839-0T-cLR"/>
-                            <constraint firstItem="Q2w-Ou-lL5" firstAttribute="width" secondItem="5dd-Fz-gAm" secondAttribute="width" id="Aaa-7c-mJW"/>
-                            <constraint firstItem="SXk-lz-A7e" firstAttribute="trailing" secondItem="YFc-GQ-03S" secondAttribute="trailingMargin" id="DRC-nj-RuY"/>
-                            <constraint firstItem="SXk-lz-A7e" firstAttribute="top" secondItem="pQH-44-82u" secondAttribute="bottom" constant="8" id="NF6-pA-LTn"/>
-                            <constraint firstItem="SXk-lz-A7e" firstAttribute="leading" secondItem="YFc-GQ-03S" secondAttribute="leadingMargin" id="Uie-pr-dv8"/>
-                            <constraint firstItem="5dd-Fz-gAm" firstAttribute="leading" secondItem="YFc-GQ-03S" secondAttribute="leading" id="WSV-9E-x4t"/>
-                            <constraint firstItem="5dd-Fz-gAm" firstAttribute="top" secondItem="YFc-GQ-03S" secondAttribute="topMargin" id="Y6L-bM-2uM"/>
-                            <constraint firstItem="Q2w-Ou-lL5" firstAttribute="leading" secondItem="5dd-Fz-gAm" secondAttribute="trailing" id="dZK-e6-vFD"/>
-                            <constraint firstItem="pQH-44-82u" firstAttribute="top" secondItem="5dd-Fz-gAm" secondAttribute="bottom" constant="8" id="laZ-VO-Vo1"/>
-                            <constraint firstItem="pQH-44-82u" firstAttribute="leading" secondItem="YFc-GQ-03S" secondAttribute="leadingMargin" id="lpT-xe-YPf"/>
-                            <constraint firstAttribute="trailing" secondItem="Q2w-Ou-lL5" secondAttribute="trailing" id="sPQ-YH-3sN"/>
-                            <constraint firstItem="pQH-44-82u" firstAttribute="trailing" secondItem="YFc-GQ-03S" secondAttribute="trailingMargin" id="tGP-HO-yf5"/>
-                            <constraint firstItem="Q2w-Ou-lL5" firstAttribute="leading" secondItem="5dd-Fz-gAm" secondAttribute="trailing" id="tqd-WS-Hzh"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="TOm-oS-9vt"/>
-                    <connections>
-                        <outlet property="brightnessSlider" destination="SXk-lz-A7e" id="Njm-Ek-6Wp"/>
-                        <outlet property="colorPicker" destination="pQH-44-82u" id="jLX-ou-BSL"/>
-                        <outlet property="selectionView" destination="Q2w-Ou-lL5" id="FH8-tf-UwO"/>
-                        <outlet property="startingView" destination="5dd-Fz-gAm" id="mje-UP-dhz"/>
-                        <outlet property="view" destination="YFc-GQ-03S" id="WhC-03-zPh"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="k9B-qB-0zi" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="Kl4-wr-XC7">
-                    <connections>
-                        <action selector="resetColor:" destination="XMA-2r-kWq" id="HKt-y4-ivv"/>
-                    </connections>
-                </tapGestureRecognizer>
-            </objects>
-            <point key="canvasLocation" x="-1057" y="1095"/>
         </scene>
         <!--About View Controller-->
         <scene sceneID="RIh-2R-hod">
@@ -1085,7 +989,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="McX-tg-ac3"/>
         <segue reference="bi3-Zh-F2Z"/>
         <segue reference="glm-IL-chg"/>
     </inferredMetricsTieBreakers>

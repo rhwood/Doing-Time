@@ -52,10 +52,6 @@
     [self.tableView cellForRowAtIndexPath:self.tableView.indexPathForSelectedRow].selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return UIInterfaceOrientationIsPortrait(interfaceOrientation);
-}
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -100,7 +96,7 @@
 		case 0:
 			switch (indexPath.row) {
 				case 0: // AXSW site from Logo
-					[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://axsw.co/fufMuq"]];
+                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://axsw.co/fufMuq"] options:@{} completionHandler:nil];
 					break;
 				default:
 					break;
@@ -109,16 +105,16 @@
 		case 1:
 			switch (indexPath.row) {
 				case 0: // AXSW site from Text
-					[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://axsw.co/icgDcu"]];
+                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://axsw.co/icgDcu"] options:@{} completionHandler:nil];
 					break;
 				case 1: // Twitter
-					[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://axsw.co/f4dzGc"]];
+					[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://axsw.co/f4dzGc"] options:@{} completionHandler:nil];
 					break;
 				case 2: // Facebook like
-					[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://axsw.co/eaDeKF"]];
+					[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://axsw.co/eaDeKF"] options:@{} completionHandler:nil];
 					break;
 				case 3: // Contact Site
-					[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://axsw.co/fO5256"]];
+					[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://axsw.co/fO5256"] options:@{} completionHandler:nil];
 					break;
 				default:
 					break;
@@ -127,10 +123,10 @@
 		case 2:
 			switch (indexPath.row) {
 				case 0: // Chartreuse site
-					[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://axsw.co/fuCJn9"]];
+					[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://axsw.co/fuCJn9"] options:@{} completionHandler:nil];
 					break;
                 case 1: // Glyphish site
-                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://axsw.co/11IOfOC"]];
+                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://axsw.co/11IOfOC"] options:@{} completionHandler:nil];
                     break;
 				default:
 					break;

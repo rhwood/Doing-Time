@@ -20,20 +20,14 @@
 
 #import <MessageUI/MessageUI.h>
 #import "NSDate+Additions.h"
-//#import <EventKit/EventKit.h>
-//#import <EventKitUI/EventKitUI.h>
 
 @class ColorPickerViewController;
 
 @interface EventSettingsViewController : UITableViewController <UIGestureRecognizerDelegate, UITextFieldDelegate, UIAlertViewDelegate, UIActionSheetDelegate> {
 	NSMutableDictionary* _event;
-//	UIDatePicker* _datePicker;
-//	EKEventStore* _eventStore;
 	NSIndexPath* _startDateViewCellIndexPath;
 	NSIndexPath* _endDateViewCellIndexPath;
 	UIColor* _detailTextLabelColor;
-	UIActionSheet* _linkUnlinkedEventActionSheet;
-	UIActionSheet* _changeLinkedEventActionSheet;
 	__unsafe_unretained UITextField *_titleView;
 
 }
@@ -89,12 +83,6 @@
 - (void)showDurationErrorAlert;
 - (BOOL)verifyDateOrder;
 
-//#pragma mark - Calendar Events
-//
-//- (void)createCalendarEvent;
-//- (void)editCalendarEvent:(NSString *)identifier;
-//- (void)selectCalendarEvent;
-
 #pragma mark - Properties
 
 @property NSUInteger index;
@@ -103,15 +91,12 @@
 @property BOOL settingEndDate;
 @property BOOL showErrorAlert;
 @property BOOL newEvent;
-//@property (nonatomic, strong) IBOutlet EKEventStore* eventStore;
 @property (nonatomic, strong) NSIndexPath* startDateViewCellIndexPath;
 @property (nonatomic, strong) NSIndexPath* startDatePickerViewCellIndexPath;
 @property (nonatomic, strong) NSIndexPath* endDateViewCellIndexPath;
 @property (nonatomic, strong) NSIndexPath* endDatePickerViewCellIndexPath;
 @property (nonatomic, strong) NSIndexPath* durationViewCellIndexPath;
 @property (nonatomic, strong) UIColor* detailTextLabelColor;
-@property (nonatomic, strong) UIActionSheet* linkUnlinkedEventActionSheet;
-@property (nonatomic, strong) UIActionSheet* changeLinkedEventActionSheet;
 @property (nonatomic, assign) IBOutlet UITextField* titleView;
 @property (nonatomic, strong) IBOutlet UITextField* durationView;
 @property (nonatomic, strong) IBOutlet UITableViewCell* durationViewCell;
