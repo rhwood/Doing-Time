@@ -90,8 +90,8 @@
     BOOL showCompleted = [self.event[showCompletedDaysKey] boolValue];
     BOOL showTotals = [self.event[showTotalsKey] boolValue];
     BOOL showDateRange = [self.event[showEventDatesKey] boolValue];
-    UIColor *completedColor = [NSKeyedUnarchiver unarchiveObjectWithData:self.event[completedColorKey]];
-    UIColor *remainingColor = [NSKeyedUnarchiver unarchiveObjectWithData:self.event[remainingColorKey]];
+    UIColor *completedColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[UIColor class] fromData:self.event[completedColorKey] error:nil];
+    UIColor *remainingColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[UIColor class] fromData:self.event[remainingColorKey] error:nil];
     NSDate *startDate = self.event[startKey];
     NSDate *endDate = self.event[endKey];
     NSDate *calcEndDate = ([self.event[includeLastDayInCalcKey] boolValue]) ? [self.calendar dateByAddingComponents:oneDay toDate:endDate options:0] : endDate;
@@ -339,7 +339,7 @@
 }
 
 - (void)setBackgroundBrightness {
-    _backgroundBrightness = [EventViewController brightnessForColor:[NSKeyedUnarchiver unarchiveObjectWithData:self.event[backgroundColorKey]]];
+    _backgroundBrightness = [EventViewController brightnessForColor:[NSKeyedUnarchiver unarchivedObjectOfClass:[UIColor class] fromData:self.event[backgroundColorKey] error:nil]];
 }
 
 - (void)setColors {

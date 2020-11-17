@@ -94,9 +94,9 @@
                                                                      showPercentageKey:@(YES),
                                                                      showCompletedDaysKey:@(NO),
                                                                      showTotalsKey:@(YES),
-                                                                     backgroundColorKey:[NSKeyedArchiver archivedDataWithRootObject:white]}];
-        [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:green] forKey:completedColorKey];
-        [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:red] forKey:remainingColorKey];
+                                                                     backgroundColorKey:[NSKeyedArchiver archivedDataWithRootObject:white requiringSecureCoding:true error:nil]}];
+        [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:green requiringSecureCoding:true error:nil] forKey:completedColorKey];
+        [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:red requiringSecureCoding:true error:nil] forKey:remainingColorKey];
     } else {
         self.event = [NSMutableDictionary dictionaryWithDictionary:[[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] objectAtIndex:index]];
         self.newEvent = NO;
@@ -130,22 +130,22 @@
             save = YES;
         }
         if (![self.event.allKeys containsObject:backgroundColorKey]) {
-            [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:white] forKey:backgroundColorKey];
+            [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:white requiringSecureCoding:true error:nil] forKey:backgroundColorKey];
             save = YES;
         }
         if (![self.event.allKeys containsObject:completedColorKey]) {
             switch (index % 3) {
                 case 0:
-                    [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:green] forKey:completedColorKey];
-                    [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:red] forKey:remainingColorKey];
+                    [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:green requiringSecureCoding:true error:nil] forKey:completedColorKey];
+                    [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:red requiringSecureCoding:true error:nil] forKey:remainingColorKey];
                     break;
                 case 1:
-                    [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:red] forKey:completedColorKey];
-                    [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:blue] forKey:remainingColorKey];
+                    [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:red requiringSecureCoding:true error:nil] forKey:completedColorKey];
+                    [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:blue requiringSecureCoding:true error:nil] forKey:remainingColorKey];
                     break;
                 case 2:
-                    [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:blue] forKey:completedColorKey];
-                    [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:green] forKey:remainingColorKey];
+                    [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:blue requiringSecureCoding:true error:nil] forKey:completedColorKey];
+                    [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:green requiringSecureCoding:true error:nil] forKey:remainingColorKey];
                     break;
             }
             save = YES;
@@ -516,19 +516,19 @@
                 case COMPLETED_COLOR:
                     well = [[UIColorWell alloc] initWithFrame:CGRectMake(0.0, 0.0, 55.0, 0.0)];
                     cell.accessoryView = well;
-                    well.selectedColor = [NSKeyedUnarchiver unarchiveObjectWithData:self.event[completedColorKey]];
+                    well.selectedColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[UIColor class] fromData:self.event[completedColorKey] error:nil];
                     [well addTarget:self action:@selector(setCompletedColor:) forControlEvents:UIControlEventValueChanged];
                     break;
                 case REMAINING_COLOR:
                     well = [[UIColorWell alloc] initWithFrame:CGRectMake(0.0, 0.0, 55.0, cell.frame.size.height)];
                     cell.accessoryView = well;
-                    well.selectedColor = [NSKeyedUnarchiver unarchiveObjectWithData:self.event[remainingColorKey]];
+                    well.selectedColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[UIColor class] fromData:self.event[remainingColorKey] error:nil];
                     [well addTarget:self action:@selector(setRemainingColor:) forControlEvents:UIControlEventValueChanged];
                     break;
                 case BACKGROUND_COLOR:
                     well = [[UIColorWell alloc] initWithFrame:CGRectMake(0.0, 0.0, 55.0, cell.frame.size.height)];
                     cell.accessoryView = well;
-                    well.selectedColor = [NSKeyedUnarchiver unarchiveObjectWithData:self.event[backgroundColorKey]];
+                    well.selectedColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[UIColor class] fromData:self.event[backgroundColorKey] error:nil];
                     [well addTarget:self action:@selector(setBackgroundColor:) forControlEvents:UIControlEventValueChanged];
                     break;
                 default:
@@ -700,24 +700,29 @@
 
 - (void)showDateErrorAlert {
     if (self.showErrorAlert) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Cannot Save Event", @"Title for error saving event")
-                                                        message:NSLocalizedString(@"The start date must be before the end date.", @"Label indicating that the start day is not before the end day")
-                                                       delegate:nil
-                                              cancelButtonTitle:NSLocalizedString(@"OK", @"Label indicating the user acknowledges the issue")
-                                              otherButtonTitles:nil];
-        [alert show];
+        UIAlertController *alert = [UIAlertController
+                                    alertControllerWithTitle:NSLocalizedString(@"Cannot Save Event", @"Title for error saving event")
+                                    message:NSLocalizedString(@"The start date must be before the end date.", @"Label indicating that the start day is not before the end day")
+                                    preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction
+                          actionWithTitle:NSLocalizedString(@"OK", @"Label indicating the user acknowledges the issue")
+                          style:UIAlertActionStyleCancel
+                          handler:nil]];
+        [self presentViewController:alert animated:YES completion:nil];
         self.showErrorAlert = NO;
     }
 }
 
 - (void)showDurationErrorAlert {
     if (self.showErrorAlert) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Cannot Save Event", @"Title for error saving event")
-                                                        message:NSLocalizedString(@"Event must be 1 or more days long.\n\nInclude the end date in the event\nor change the end date.", @"Label indicating that event has zero days duration")
-                                                       delegate:nil
-                                              cancelButtonTitle:NSLocalizedString(@"OK", @"Label indicating the user acknowledges the issue")
-                                              otherButtonTitles:nil];
-        [alert show];
+        UIAlertController *alert = [UIAlertController
+                                    alertControllerWithTitle:NSLocalizedString(@"Cannot Save Event", @"Title for error saving event")
+                                    message:NSLocalizedString(@"Event must be 1 or more days long.\n\nInclude the end date in the event\nor change the end date.", @"Label indicating that event has zero days duration")
+                                    preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"Label indicating the user acknowledges the issue")
+                                                  style:UIAlertActionStyleCancel
+                                                handler:nil]];
+        [self presentViewController:alert animated:YES completion:nil];
         self.showErrorAlert = NO;
     }
 }
@@ -756,35 +761,6 @@
     return inOrder;
 }
 
-//#pragma mark - Calendar Events
-//
-//- (void)createCalendarEvent {
-//	EKEventEditViewController* controller = [[EKEventEditViewController alloc] init];
-//    controller.eventStore = self.eventStore;
-//    controller.editViewDelegate = self;
-//    [self presentModalViewController: controller animated:YES];
-//}
-//
-//- (void)editCalendarEvent:(NSString *)identifier {
-//
-//}
-//
-//- (void)eventEditViewController:(EKEventEditViewController *)controller didCompleteWithAction:(EKEventEditViewAction)action {
-//	if (action == EKEventEditViewActionSaved) {
-//		EKEvent* event = controller.event;
-//		[[NSUserDefaults standardUserDefaults] setObject:event.title forKey:titleKey];
-//		[[NSUserDefaults standardUserDefaults] setObject:event.startDate forKey:startKey];
-//		[[NSUserDefaults standardUserDefaults] setObject:event.endDate forKey:endKey];
-//		[[NSUserDefaults standardUserDefaults] setObject:event.eventIdentifier forKey:linkKey];
-//		[self.tableView reloadData];
-//	}
-//    [self dismissModalViewControllerAnimated:YES];
-//}
-//
-//- (void)selectCalendarEvent {
-//
-//}
-//
 #pragma mark - Text field delegate
 
 - (BOOL)verifyNonemptyTitle {
@@ -792,12 +768,12 @@
         if ([self.titleView.text length]) {
             [self.event setValue:self.titleView.text forKey:titleKey];
         } else {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Cannot Save Title", @"Title for message indicating an error with the title of the event")
-                                                            message:NSLocalizedString(@"The title cannot be blank.", @"Message with the cause of the error saving the title")
-                                                           delegate:nil
-                                                  cancelButtonTitle:NSLocalizedString(@"OK", @"")
-                                                  otherButtonTitles:nil];
-            [alert show];
+            UIAlertController *alert = [UIAlertController
+                                        alertControllerWithTitle:NSLocalizedString(@"Cannot Save Title", @"Title for message indicating an error with the title of the event")
+                                        message:NSLocalizedString(@"The title cannot be blank.", @"Message with the cause of the error saving the title")
+                                        preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"") style:UIAlertActionStyleCancel handler:nil]];
+            [self presentViewController:alert animated:YES completion:nil];
             return NO;
         }
     }
@@ -851,15 +827,15 @@
 #pragma mark - Action targets
 
 - (IBAction)setCompletedColor:(id)sender {
-    [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:((UIColorWell *)sender).selectedColor] forKey:completedColorKey];
+    [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:((UIColorWell *)sender).selectedColor requiringSecureCoding:true error:nil] forKey:completedColorKey];
 }
 
 - (IBAction)setRemainingColor:(id)sender {
-    [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:((UIColorWell *)sender).selectedColor] forKey:remainingColorKey];
+    [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:((UIColorWell *)sender).selectedColor requiringSecureCoding:true error:nil] forKey:remainingColorKey];
 }
 
 - (IBAction)setBackgroundColor:(id)sender {
-    [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:((UIColorWell *)sender).selectedColor] forKey:backgroundColorKey];
+    [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:((UIColorWell *)sender).selectedColor requiringSecureCoding:true error:nil] forKey:backgroundColorKey];
 }
 
 @end
