@@ -19,9 +19,8 @@
 //  limitations under the License.
 
 #import <UIKit/UIKit.h>
-#import "ATSDragToReorderTableViewController.h"
 
-@interface EventsListViewController : ATSDragToReorderTableViewController
+@interface EventsListViewController : UITableViewController
 
 @property (strong) NSCalendar *calendar;
 
