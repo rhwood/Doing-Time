@@ -25,8 +25,6 @@
 @interface MainViewController : UIViewController <UIScrollViewDelegate> {
 	
 	UIView *_controls;
-//	EKEventStore *_eventStore;
-	BOOL _bannerIsVisible;
 	UIPageControl *_pager;
 	UIScrollView *_scroller;
 	NSMutableArray *_events;
@@ -57,10 +55,6 @@
 - (IBAction)showInfo:(id)sender;
 - (IBAction)showSettings:(id)sender;
 
-#pragma mark - iAd Delegate
-
-- (void)hideAdBanner:(BOOL)hide animated:(BOOL)animated;
-
 @property (nonatomic, strong) IBOutlet UIView *controls;
 //@property (nonatomic, strong) IBOutlet EKEventStore *eventStore;
 @property (nonatomic, strong) IBOutlet UIPageControl *pager;
@@ -68,7 +62,6 @@
 @property (nonatomic, strong) IBOutlet NSMutableArray *events;
 @property (nonatomic, strong) IBOutlet UIButton *listButton;
 @property (strong) IBOutlet UIButton *settingsButton;
-@property BOOL bannerIsVisible;
 @property BOOL pagerDidScroll;
 @property (nonatomic, strong) Doing_TimeAppDelegate *appDelegate;
 @property (nonatomic, strong) NSTimer *dayOverTimer;

@@ -34,8 +34,6 @@
 @implementation MainViewController
 
 @synthesize controls = _controls;
-@synthesize bannerIsVisible = _bannerIsVisible;
-//@synthesize eventStore = _eventStore;
 @synthesize pager = _pager;
 @synthesize scroller = _scroller;
 @synthesize events = _events;
@@ -48,9 +46,7 @@
 	[super viewDidLoad];
     
 	// Set Defaults
-	self.bannerIsVisible = NO;
 	self.appDelegate = (Doing_TimeAppDelegate *)[UIApplication sharedApplication].delegate;
-    //	self.eventStore = self.appDelegate.eventStore;
     
     // Initial Event
     if (![[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey].count) {
@@ -169,7 +165,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self redrawBackground];
-    [UIApplication sharedApplication].statusBarHidden = NO;
     [self.navigationController setNavigationBarHidden:YES animated:animated];
 }
 
@@ -178,19 +173,22 @@
     [self redrawBackground];
     if (self.firstRun) {
         self.firstRun = NO;
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Welcome to Doing Time", @"Title for intro alert")
-                                                        message:NSLocalizedString(@"Doing Time shows the progress towards completing a multi-day event.\n\nLet's configure our first event now.", @"Label for intro alert.")
-                                                       delegate:self
-                                              cancelButtonTitle:NSLocalizedString(@"OK", @"Label indicating the user acknowledges the issue")
-                                              otherButtonTitles:nil];
-        [alert show];
+        UIAlertController *alert = [UIAlertController
+                                    alertControllerWithTitle:NSLocalizedString(@"Welcome to Doing Time", @"Title for intro alert")
+                                    message:NSLocalizedString(@"Doing Time shows the progress towards completing a multi-day event.\n\nLet's configure our first event now.", @"Label for intro alert.")
+                                    preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"Label indicating the user acknowledges the issue") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:eventsKey];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            [self showInfo:nil];
+        }]];
+        [self presentViewController:alert animated:YES completion:nil];
     }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if (![segue.identifier isEqualToString:@"EventsListSegue"]) {
         [self.navigationController setNavigationBarHidden:NO animated:NO];
-        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
     }
     if ([segue.identifier isEqualToString:@"MainToEventSettingsSegue"]) {
         ((EventSettingsViewController *)segue.destinationViewController).index = self.pager.currentPage;
@@ -293,9 +291,7 @@
 }
 
 - (void)showPager {
-    [UIView beginAnimations:@"animateDisplayPager" context:NULL];
     self.pager.superview.hidden = NO;
-    [UIView commitAnimations];
 }
 
 - (IBAction)showInfo:(id)sender {
@@ -309,7 +305,6 @@
 - (void)redrawBackground {
     self.view.backgroundColor = [NSKeyedUnarchiver unarchivedObjectOfClass:[UIColor class] fromData:((EventViewController *)self.events[self.pager.currentPage]).event[backgroundColorKey] error:nil];
     if (((EventViewController *)self.events[self.pager.currentPage]).backgroundBrightness < .51) {
-        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
         self.pager.pageIndicatorTintColor = [UIColor lightGrayColor];
         self.pager.currentPageIndicatorTintColor = [UIColor whiteColor];
         self.settingsButton.imageView.image = [UIImage imageNamed:@"white-info"];
@@ -317,7 +312,6 @@
         [((EventViewController *)self.events[self.pager.currentPage]).settings.imageView setImage:[UIImage imageNamed:@"white-info"]];
         [((EventViewController *)self.events[self.pager.currentPage]).infoButton.imageView setImage:[UIImage imageNamed:@"white-gear"]]; // gear
     } else {
-        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
         self.pager.pageIndicatorTintColor = [UIColor darkGrayColor];
         self.pager.currentPageIndicatorTintColor = [UIColor blackColor];
         self.settingsButton.imageView.image = [UIImage imageNamed:@"gray-info"];
@@ -401,29 +395,6 @@
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
 	self.pagerDidScroll = NO;
-}
-
-#pragma mark - Alert view delegate
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:eventsKey];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    [self showInfo:nil];
-}
-
-#pragma mark - iAd delegate
-
-- (void)hideAdBanner:(BOOL)hide animated:(BOOL)animated {
-	if (hide != self.bannerIsVisible) {
-		return;
-	}
-	if (animated) {
-		[UIView beginAnimations:@"animateAdBanner" context:NULL];
-	}
-    self.bannerIsVisible = !hide;
-	if (animated) {
-		[UIView commitAnimations];
-	}
 }
 
 @end

@@ -28,12 +28,6 @@
 #import "NSDate+Additions.h"
 #import "PieChartView.h"
 
-@interface EventsListViewController ()
-
-- (void)setStatusBarStyle;
-
-@end
-
 @implementation EventsListViewController
 
 - (id)initWithStyle:(UITableViewStyle)style {
@@ -54,21 +48,11 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
-    [self setStatusBarStyle];
     [self.tableView reloadData];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(setStatusBarStyle)
-                                                 name:UIApplicationDidChangeStatusBarFrameNotification
-                                               object:[UIApplication sharedApplication]];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(setStatusBarStyle)
-                                                 name:UIApplicationDidBecomeActiveNotification
-                                               object:[UIApplication sharedApplication]];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self setStatusBarStyle];
     for (EventViewCell *cell in self.tableView.visibleCells) {
         if ([EventViewController brightnessForColor:cell.backgroundColor] < 0.51) {
             [cell.info.imageView setImage:[UIImage imageNamed:@"white-gear"]]; // gear
@@ -79,12 +63,6 @@
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIApplicationDidChangeStatusBarFrameNotification
-                                                  object:[UIApplication sharedApplication]];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIApplicationDidBecomeActiveNotification
-                                                  object:[UIApplication sharedApplication]];
     [super viewDidDisappear:animated];
 }
 
@@ -107,7 +85,6 @@
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
     if (segue) {
         [self.navigationController setNavigationBarHidden:NO animated:NO];
-        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
     }
 }
 
@@ -336,13 +313,12 @@
         cell.title.hidden = NO;
 		[cell.title setNeedsDisplay];
 		// Animate the fade-in
-		[UIView beginAnimations:nil context:NULL];
-		[UIView setAnimationDuration:0.5];
-		cell.pieChart.alpha = 1.0;
-		cell.stats.alpha = 1.0;
-        cell.dates.alpha = 1.0;
-		cell.title.alpha = 1.0;
-		[UIView commitAnimations];
+        [UIView animateWithDuration:0.5 animations:^{
+            cell.pieChart.alpha = 1.0;
+            cell.stats.alpha = 1.0;
+            cell.dates.alpha = 1.0;
+            cell.title.alpha = 1.0;
+        }];
 	}
     return cell;
 }
@@ -396,16 +372,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [[NSNotificationCenter defaultCenter] postNotificationName:selectedEventChanged object:nil userInfo:@{eventsKey: [NSNumber numberWithInteger:indexPath.row]}];
     [self.navigationController popViewControllerAnimated:YES];
-}
-
-#pragma mark - Private
-
-- (void)setStatusBarStyle {
-    if ([EventViewController brightnessForColor:self.tableView.backgroundColor] < 0.51) {
-        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-    } else {
-        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
-    }
 }
 
 @end

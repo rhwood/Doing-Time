@@ -123,13 +123,19 @@
 //    NSLog(@"--adjusting--");
     if (!duration) {
         if (!self.showingAlert) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Cannot Display Event", @"Title for error displaying event")
-                                                            message:NSLocalizedString(@"Event must be 1 or more days long.\n\nInclude the end date in the event\nor change the end date.", @"Label indicating that event has zero days duration")
-                                                           delegate:self
-                                                  cancelButtonTitle:NSLocalizedString(@"OK", @"Label indicating the user acknowledges the issue")
-                                                  otherButtonTitles:nil];
+            UIAlertController *alert = [UIAlertController
+                                        alertControllerWithTitle:NSLocalizedString(@"Cannot Display Event", @"Title for error displaying event")
+                                        message:NSLocalizedString(@"Event must be 1 or more days long.\n\nInclude the end date in the event\nor change the end date.", @"Label indicating that event has zero days duration")
+                                        preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction
+                              actionWithTitle:NSLocalizedString(@"OK", @"Label indicating the user acknowledges the issue")
+                              style:UIAlertActionStyleCancel
+                              handler:^(UIAlertAction * _Nonnull action) {
+                self.showingAlert = NO;
+                [self showInfo:self];
+            }]];
             self.showingAlert = YES;
-            [alert show];
+            [self presentViewController:alert animated:YES completion:nil];
         } else {
             return NO;
         }
@@ -317,14 +323,13 @@
 		[_eventTitle setHidden:NO];
 		[_eventTitle setNeedsDisplay];
 		// Animate the fade-in
-		[UIView beginAnimations:nil context:NULL];
-		[UIView setAnimationDuration:0.5];
-		_pieChart.alpha = 1.0;
-		_daysComplete.alpha = 1.0;
-		_daysLeft.alpha = 1.0;
-        _dateRange.alpha = 1.0;
-		_eventTitle.alpha = 1.0;
-		[UIView commitAnimations];
+        [UIView animateWithDuration:0.5 animations:^{
+            self->_pieChart.alpha = 1.0;
+            self->_daysComplete.alpha = 1.0;
+            self->_daysLeft.alpha = 1.0;
+            self->_dateRange.alpha = 1.0;
+            self->_eventTitle.alpha = 1.0;
+        }];
 	}
 	return forceRedraw;
 }
@@ -384,13 +389,6 @@
 
 - (IBAction)showSettings:(id)sender {
     [self.mainView showSettings:sender];
-}
-
-#pragma mark - UIAlertView delegate
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    self.showingAlert = NO;
-    [self showInfo:self];
 }
 
 #pragma mark - Memory management

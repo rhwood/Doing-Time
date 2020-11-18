@@ -162,7 +162,6 @@
     self.view.backgroundColor = [UIColor systemGroupedBackgroundColor];
     self.titleView.text = [self.event valueForKey:titleKey];
     self.titleView.borderStyle = UITextBorderStyleNone;
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
     self.showErrorAlert = YES;
     self.startDateViewCellIndexPath = [NSIndexPath indexPathForRow:START_DATE inSection:EVENT];
     self.startDatePickerViewCellIndexPath = [NSIndexPath indexPathForRow:START_DATE_PICKER inSection:EVENT];
