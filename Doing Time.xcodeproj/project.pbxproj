@@ -12,7 +12,6 @@
 		289233AE0DB2D0DB0083E9F9 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233A90DB2D0DB0083E9F9 /* MainViewController.m */; };
 		48110EC212C9804C00948558 /* PieChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 48110EC112C9804C00948558 /* PieChartView.m */; };
 		4816E5D91847746A0070E4AD /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4816E5D81847746A0070E4AD /* SettingsViewController.m */; };
-		4828129F135CA5C3003704EC /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4828129C135CA5C3003704EC /* AboutViewController.m */; };
 		485BD59D16B14DC300424CC8 /* TodaySettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 485BD59C16B14DC300424CC8 /* TodaySettingsViewController.m */; };
 		48676E521842322900194D54 /* EventViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 48676E511842322900194D54 /* EventViewCell.m */; };
 		48676E5F1845865800194D54 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48676E611845865800194D54 /* Main.storyboard */; };
@@ -24,8 +23,10 @@
 		48C288C2184B54F000A648E2 /* Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 48C288C1184B54F000A648E2 /* Icons.xcassets */; };
 		48CE82B41350CAC600D94BA6 /* EventView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48CE82B31350CAC600D94BA6 /* EventView.xib */; };
 		48CE82E81350D37B00D94BA6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 48CE82E71350D37B00D94BA6 /* Localizable.strings */; };
+		48CF8F202566932900049D38 /* AboutViewHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CF8F1F2566932900049D38 /* AboutViewHostingController.swift */; };
 		48E0E6FA2564B68900DF7954 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48E0E6F82564B68900DF7954 /* Launch Screen.storyboard */; };
 		48E61CDF131E9E210077DA8E /* EventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E61CDC131E9E210077DA8E /* EventViewController.m */; };
+		48ECD7712565ED35009CFD2C /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48ECD7702565ED35009CFD2C /* AboutView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,8 +40,6 @@
 		48110EC112C9804C00948558 /* PieChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PieChartView.m; path = Classes/PieChartView.m; sourceTree = "<group>"; };
 		4816E5D71847746A0070E4AD /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsViewController.h; path = Classes/SettingsViewController.h; sourceTree = "<group>"; };
 		4816E5D81847746A0070E4AD /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsViewController.m; path = Classes/SettingsViewController.m; sourceTree = "<group>"; };
-		4828129B135CA5C3003704EC /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = AboutViewController.h; path = Classes/AboutViewController.h; sourceTree = "<group>"; };
-		4828129C135CA5C3003704EC /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AboutViewController.m; path = Classes/AboutViewController.m; sourceTree = "<group>"; };
 		4838E59812D0984B007AC0D8 /* PieChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = PieChartView.h; path = Classes/PieChartView.h; sourceTree = "<group>"; };
 		485BD59B16B14DC300424CC8 /* TodaySettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TodaySettingsViewController.h; path = Classes/TodaySettingsViewController.h; sourceTree = "<group>"; };
 		485BD59C16B14DC300424CC8 /* TodaySettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TodaySettingsViewController.m; path = Classes/TodaySettingsViewController.m; sourceTree = "<group>"; };
@@ -59,10 +58,13 @@
 		48C6F271255FEE0C005D72AE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/EventView.xib; sourceTree = "<group>"; };
 		48C6F272255FEE0C005D72AE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		48CE82C11350CB7E00D94BA6 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		48CF8F1F2566932900049D38 /* AboutViewHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AboutViewHostingController.swift; path = Classes/AboutViewHostingController.swift; sourceTree = "<group>"; };
 		48D477681322B647003256D5 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = Constants.h; sourceTree = "<group>"; };
 		48E0E6F92564B68900DF7954 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/Launch Screen.storyboard"; sourceTree = "<group>"; };
 		48E61CDB131E9E210077DA8E /* EventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = EventViewController.h; path = Classes/EventViewController.h; sourceTree = "<group>"; };
 		48E61CDC131E9E210077DA8E /* EventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventViewController.m; path = Classes/EventViewController.m; sourceTree = "<group>"; };
+		48ECD7662565E87A009CFD2C /* Doing Time-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Doing Time-Bridging-Header.h"; sourceTree = "<group>"; };
+		48ECD7702565ED35009CFD2C /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AboutView.swift; path = Classes/AboutView.swift; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Doing_Time-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Doing_Time-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -138,6 +140,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				48ECD7662565E87A009CFD2C /* Doing Time-Bridging-Header.h */,
 				4870279A12D80B3000E90108 /* NSDate+Additions.h */,
 				4870279B12D80B3000E90108 /* NSDate+Additions.m */,
 				32CA4F630368D1EE00C91783 /* Doing_Time_Prefix.pch */,
@@ -171,10 +174,10 @@
 		4816E5D6184772EC0070E4AD /* Settings Views */ = {
 			isa = PBXGroup;
 			children = (
-				4828129B135CA5C3003704EC /* AboutViewController.h */,
-				4828129C135CA5C3003704EC /* AboutViewController.m */,
 				4816E5D71847746A0070E4AD /* SettingsViewController.h */,
 				4816E5D81847746A0070E4AD /* SettingsViewController.m */,
+				48ECD7702565ED35009CFD2C /* AboutView.swift */,
+				48CF8F1F2566932900049D38 /* AboutViewHostingController.swift */,
 			);
 			name = "Settings Views";
 			sourceTree = "<group>";
@@ -223,6 +226,7 @@
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
 						DevelopmentTeam = K2672N7845;
+						LastSwiftMigration = 1220;
 					};
 				};
 			};
@@ -284,14 +288,15 @@
 			files = (
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* Doing_TimeAppDelegate.m in Sources */,
+				48CF8F202566932900049D38 /* AboutViewHostingController.swift in Sources */,
 				289233AE0DB2D0DB0083E9F9 /* MainViewController.m in Sources */,
 				48110EC212C9804C00948558 /* PieChartView.m in Sources */,
+				48ECD7712565ED35009CFD2C /* AboutView.swift in Sources */,
 				4870279D12D80B3000E90108 /* NSDate+Additions.m in Sources */,
 				48924A1B131D67DA002AC7F5 /* EventSettingsViewController.m in Sources */,
 				4816E5D91847746A0070E4AD /* SettingsViewController.m in Sources */,
 				48E61CDF131E9E210077DA8E /* EventViewController.m in Sources */,
 				48ADE0C41343B51E005E96EB /* Constants.m in Sources */,
-				4828129F135CA5C3003704EC /* AboutViewController.m in Sources */,
 				48AF93B618520C4300A8EFAF /* EventsListViewController.m in Sources */,
 				48AF93B9185229F300A8EFAF /* ListFooterCell.m in Sources */,
 				48676E521842322900194D54 /* EventViewCell.m in Sources */,
@@ -344,6 +349,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_RESOURCE_RULES_PATH = "";
@@ -356,11 +362,15 @@
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "Doing_Time-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.alexandriasoftware.doingtime;
 				PRODUCT_NAME = "Doing Time";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "Doing Time-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -372,6 +382,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_RESOURCE_RULES_PATH = "";
@@ -382,11 +393,14 @@
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "Doing_Time-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.alexandriasoftware.doingtime;
 				PRODUCT_NAME = "Doing Time";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "Doing Time-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -441,6 +455,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_RESOURCE_RULES_PATH = "";
@@ -451,11 +466,14 @@
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "Doing_Time-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.alexandriasoftware.doingtime;
 				PRODUCT_NAME = "Doing Time";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "Doing Time-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -509,6 +527,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
@@ -521,12 +540,15 @@
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "Doing_Time-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.alexandriasoftware.doingtime;
 				PRODUCT_NAME = "Doing Time";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "Doing Time-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 			};

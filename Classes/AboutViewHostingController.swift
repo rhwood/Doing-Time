@@ -1,10 +1,10 @@
 //
-//  AboutViewController.h
+//  AboutViewHostingController.swift
 //  Doing Time
 //
-//  Created by Randall Wood on 18/4/2011.
+//  Created by Randall Wood on 2020-11-19.
 //
-//  Copyright 2011-2014, 2020 Randall Wood DBA Alexandria Software
+//  Copyright 2020 Randall Wood DBA Alexandria Software
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -18,14 +18,13 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import <UIKit/UIKit.h>
+import Foundation
+import SwiftUI
 
+class AboutViewHostingController: UIHostingController<AboutView> {
 
-@interface AboutViewController : UITableViewController {
-
-	UITableViewCell* _logoCell;
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder, rootView: AboutView())
+    }
 
 }
-
-@property (nonatomic, strong) IBOutlet UITableViewCell* logoCell;
-@end
