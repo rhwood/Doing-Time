@@ -808,10 +808,10 @@
             </objects>
             <point key="canvasLocation" x="-1058.4000000000001" y="218.1409295352324"/>
         </scene>
-        <!--Hosting Controller-->
+        <!--About View Hosting Controller-->
         <scene sceneID="OY6-cf-c9O">
             <objects>
-                <hostingController useStoryboardIdentifierAsRestorationIdentifier="YES" id="ZsV-57-Ffw" sceneMemberID="viewController">
+                <hostingController useStoryboardIdentifierAsRestorationIdentifier="YES" id="ZsV-57-Ffw" customClass="AboutViewHostingController" customModule="Doing_Time" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="FiA-ed-PhB"/>
                 </hostingController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kBS-KF-VaN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
