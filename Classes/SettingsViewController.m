@@ -21,13 +21,9 @@
 #import "SettingsViewController.h"
 #import "Doing_TimeAppDelegate.h"
 
-#define IAPSection 0
-#define SupportSection 1
+#define SupportSection 0
 
 @interface SettingsViewController ()
-
-#pragma mark - Table view data source
-- (BOOL)hasUsableAppStoreTableSection;
 
 @property BOOL showErrorAlert;
 
@@ -60,16 +56,10 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	if (self.hasUsableAppStoreTableSection) {
-		return 2;
-	}
 	return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (section == IAPSection && !self.hasUsableAppStoreTableSection) {
-		section++;
-	}
 	switch (section) {
 		case SupportSection:
 			return 2;
@@ -79,17 +69,9 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	NSUInteger section = indexPath.section;
-	if (indexPath.section == IAPSection && !self.hasUsableAppStoreTableSection) {
-		section = indexPath.section + 1;
-	}
-	NSUInteger eventsCount = [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count];
-    
 	UITableViewCell *cell;
-	if (section == SupportSection || (indexPath.section != section) || (indexPath.section == IAPSection && indexPath.row == eventsCount + 1)) {
+	if (indexPath.section == SupportSection) {
 		cell = [tableView dequeueReusableCellWithIdentifier:@"BasicDisclosureCell"];
-	} else if (section == IAPSection && indexPath.row == 2) {
-		cell = [tableView dequeueReusableCellWithIdentifier:@"RightDetailCell"];
     } else {
 		cell = [tableView dequeueReusableCellWithIdentifier:@"SubtitleCell"];
 	}
@@ -97,7 +79,7 @@
 	cell.accessoryType = UITableViewCellAccessoryNone;
     cell.accessoryView = nil;
 	
-    switch (section) {
+    switch (indexPath.section) {
 		case SupportSection:
 			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 			switch (indexPath.row) {
@@ -119,13 +101,7 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	if (section == IAPSection && !self.hasUsableAppStoreTableSection) {
-		section++;
-	}
 	switch (section) {
-		case IAPSection:
-			return NSLocalizedString(@"Available Upgrades", @"Heading for list of available in-app purchases");
-			break;
 		case SupportSection:
 			return NSLocalizedString(@"About Doing Time", @"Heading for list of elements about the app (help, credits, feedback, etc)");
 			break;
@@ -134,9 +110,6 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
-	if (section == IAPSection && !self.hasUsableAppStoreTableSection) {
-		section++;
-	}
 	switch (section) {
 		case SupportSection:
             return [NSString localizedStringWithFormat:NSLocalizedString(@"%@ version %@ (%@)", @"About view version footer"),
@@ -148,15 +121,6 @@
 	return nil;
 }
 
-- (BOOL)hasUsableAppStoreTableSection {
-    // since IAP is disabled in 2.0, this should always be NO
-    return NO;
-    // should be true if products are available to purchase && IAP is allowed && can get non-empty list of products
-//    return (![self.appDelegate.appStore hasTransactionsForAllProducts] &&
-//            (self.appDelegate.appStore.canMakePayments &&
-//            self.appDelegate.appStore.validProducts.count != 0));
-}
-
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
@@ -166,10 +130,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     MFMailComposeViewController* mailController;
 	NSUInteger section = indexPath.section;
-	if (!self.hasUsableAppStoreTableSection) {
-		section = indexPath.section + 1;
-	}
-    NSLog(@"Showing section %lu", (unsigned long)section);
 	self.showErrorAlert = YES;
 	[self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:YES];
 	switch (section) {
@@ -213,13 +173,7 @@
     }
     NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
     NSInteger section = indexPath.section;
-    if (!self.hasUsableAppStoreTableSection) {
-        section++;
-    }
     switch (section) {
-        case IAPSection:
-            return NO;
-            break;
         case SupportSection:
             switch (indexPath.row) {
                 case 0:

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="i9b-zX-J2A">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="i9b-zX-J2A">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -10,10 +11,6 @@
         <scene sceneID="sUS-2F-k6q">
             <objects>
                 <viewController storyboardIdentifier="MainViewController" definesPresentationContext="YES" id="N6F-tF-ZyT" userLabel="Main View" customClass="MainViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="o0v-EE-JEt"/>
-                        <viewControllerLayoutGuide type="bottom" id="6PX-Vk-GVs"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="GW4-Fe-ocf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -54,12 +51,13 @@
                                 </connections>
                             </scrollView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="7yP-B9-kcT"/>
                         <constraints>
                             <constraint firstItem="Nyy-QI-evV" firstAttribute="leading" secondItem="wHX-2u-16k" secondAttribute="leading" id="7WN-xg-DBS"/>
-                            <constraint firstItem="Nyy-QI-evV" firstAttribute="leading" secondItem="GW4-Fe-ocf" secondAttribute="leading" id="Kwl-Zb-9xL"/>
+                            <constraint firstItem="Nyy-QI-evV" firstAttribute="leading" secondItem="7yP-B9-kcT" secondAttribute="leading" id="Kwl-Zb-9xL"/>
                             <constraint firstItem="wHX-2u-16k" firstAttribute="bottom" secondItem="GW4-Fe-ocf" secondAttribute="bottomMargin" id="MU1-qm-5LE"/>
                             <constraint firstItem="wHX-2u-16k" firstAttribute="top" secondItem="Nyy-QI-evV" secondAttribute="bottom" id="MdD-Df-W8i"/>
-                            <constraint firstAttribute="trailing" secondItem="Nyy-QI-evV" secondAttribute="trailing" id="hAU-qo-Dwo"/>
+                            <constraint firstItem="7yP-B9-kcT" firstAttribute="trailing" secondItem="Nyy-QI-evV" secondAttribute="trailing" id="hAU-qo-Dwo"/>
                             <constraint firstItem="Nyy-QI-evV" firstAttribute="top" secondItem="GW4-Fe-ocf" secondAttribute="top" constant="20" symbolic="YES" id="lea-v3-vSv"/>
                             <constraint firstAttribute="bottom" secondItem="Nyy-QI-evV" secondAttribute="bottom" constant="50" id="sJn-xq-NsL"/>
                             <constraint firstItem="Nyy-QI-evV" firstAttribute="trailing" secondItem="wHX-2u-16k" secondAttribute="trailing" id="zOZ-Wa-PV6"/>
