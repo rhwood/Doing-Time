@@ -21,7 +21,6 @@
 #import "MainViewController.h"
 #import "EventViewController.h"
 #import "EventSettingsViewController.h"
-#import "SettingsViewController.h"
 #import "Doing_TimeAppDelegate.h"
 #import "Constants.h"
 

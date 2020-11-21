@@ -11,11 +11,13 @@
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		289233AE0DB2D0DB0083E9F9 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233A90DB2D0DB0083E9F9 /* MainViewController.m */; };
 		48110EC212C9804C00948558 /* PieChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 48110EC112C9804C00948558 /* PieChartView.m */; };
-		4816E5D91847746A0070E4AD /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4816E5D81847746A0070E4AD /* SettingsViewController.m */; };
 		485BD59D16B14DC300424CC8 /* TodaySettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 485BD59C16B14DC300424CC8 /* TodaySettingsViewController.m */; };
 		48676E521842322900194D54 /* EventViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 48676E511842322900194D54 /* EventViewCell.m */; };
 		48676E5F1845865800194D54 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48676E611845865800194D54 /* Main.storyboard */; };
 		4870279D12D80B3000E90108 /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4870279B12D80B3000E90108 /* NSDate+Additions.m */; };
+		487213262567D67600E91283 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487213252567D67600E91283 /* SettingsView.swift */; };
+		487213292567D9A300E91283 /* SettingsViewHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487213282567D9A300E91283 /* SettingsViewHostingController.swift */; };
+		4872133325687E9E00E91283 /* MailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4872133225687E9E00E91283 /* MailView.swift */; };
 		48924A1B131D67DA002AC7F5 /* EventSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48924A18131D67DA002AC7F5 /* EventSettingsViewController.m */; };
 		48ADE0C41343B51E005E96EB /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 48ADE0C31343B51E005E96EB /* Constants.m */; };
 		48AF93B618520C4300A8EFAF /* EventsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48AF93B518520C4300A8EFAF /* EventsListViewController.m */; };
@@ -23,7 +25,6 @@
 		48C288C2184B54F000A648E2 /* Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 48C288C1184B54F000A648E2 /* Icons.xcassets */; };
 		48CE82B41350CAC600D94BA6 /* EventView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48CE82B31350CAC600D94BA6 /* EventView.xib */; };
 		48CE82E81350D37B00D94BA6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 48CE82E71350D37B00D94BA6 /* Localizable.strings */; };
-		48CF8F202566932900049D38 /* AboutViewHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CF8F1F2566932900049D38 /* AboutViewHostingController.swift */; };
 		48E0E6FA2564B68900DF7954 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48E0E6F82564B68900DF7954 /* Launch Screen.storyboard */; };
 		48E61CDF131E9E210077DA8E /* EventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E61CDC131E9E210077DA8E /* EventViewController.m */; };
 		48ECD7712565ED35009CFD2C /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48ECD7702565ED35009CFD2C /* AboutView.swift */; };
@@ -38,8 +39,6 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* Doing_Time_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Doing_Time_Prefix.pch; sourceTree = "<group>"; };
 		48110EC112C9804C00948558 /* PieChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PieChartView.m; path = Classes/PieChartView.m; sourceTree = "<group>"; };
-		4816E5D71847746A0070E4AD /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsViewController.h; path = Classes/SettingsViewController.h; sourceTree = "<group>"; };
-		4816E5D81847746A0070E4AD /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsViewController.m; path = Classes/SettingsViewController.m; sourceTree = "<group>"; };
 		4838E59812D0984B007AC0D8 /* PieChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = PieChartView.h; path = Classes/PieChartView.h; sourceTree = "<group>"; };
 		485BD59B16B14DC300424CC8 /* TodaySettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TodaySettingsViewController.h; path = Classes/TodaySettingsViewController.h; sourceTree = "<group>"; };
 		485BD59C16B14DC300424CC8 /* TodaySettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TodaySettingsViewController.m; path = Classes/TodaySettingsViewController.m; sourceTree = "<group>"; };
@@ -47,6 +46,9 @@
 		48676E511842322900194D54 /* EventViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventViewCell.m; path = Classes/EventViewCell.m; sourceTree = "<group>"; };
 		4870279A12D80B3000E90108 /* NSDate+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = "NSDate+Additions.h"; path = "Classes/NSDate+Additions.h"; sourceTree = "<group>"; };
 		4870279B12D80B3000E90108 /* NSDate+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+Additions.m"; path = "Classes/NSDate+Additions.m"; sourceTree = "<group>"; };
+		487213252567D67600E91283 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsView.swift; path = Classes/SettingsView.swift; sourceTree = "<group>"; };
+		487213282567D9A300E91283 /* SettingsViewHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsViewHostingController.swift; path = Classes/SettingsViewHostingController.swift; sourceTree = "<group>"; };
+		4872133225687E9E00E91283 /* MailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MailView.swift; path = Classes/MailView.swift; sourceTree = "<group>"; };
 		48924A17131D67DA002AC7F5 /* EventSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = EventSettingsViewController.h; path = Classes/EventSettingsViewController.h; sourceTree = "<group>"; };
 		48924A18131D67DA002AC7F5 /* EventSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventSettingsViewController.m; path = Classes/EventSettingsViewController.m; sourceTree = "<group>"; };
 		48ADE0C31343B51E005E96EB /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
@@ -58,7 +60,6 @@
 		48C6F271255FEE0C005D72AE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/EventView.xib; sourceTree = "<group>"; };
 		48C6F272255FEE0C005D72AE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		48CE82C11350CB7E00D94BA6 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		48CF8F1F2566932900049D38 /* AboutViewHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AboutViewHostingController.swift; path = Classes/AboutViewHostingController.swift; sourceTree = "<group>"; };
 		48D477681322B647003256D5 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; path = Constants.h; sourceTree = "<group>"; };
 		48E0E6F92564B68900DF7954 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/Launch Screen.storyboard"; sourceTree = "<group>"; };
 		48E61CDB131E9E210077DA8E /* EventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = EventViewController.h; path = Classes/EventViewController.h; sourceTree = "<group>"; };
@@ -174,10 +175,10 @@
 		4816E5D6184772EC0070E4AD /* Settings Views */ = {
 			isa = PBXGroup;
 			children = (
-				4816E5D71847746A0070E4AD /* SettingsViewController.h */,
-				4816E5D81847746A0070E4AD /* SettingsViewController.m */,
 				48ECD7702565ED35009CFD2C /* AboutView.swift */,
-				48CF8F1F2566932900049D38 /* AboutViewHostingController.swift */,
+				487213252567D67600E91283 /* SettingsView.swift */,
+				487213282567D9A300E91283 /* SettingsViewHostingController.swift */,
+				4872133225687E9E00E91283 /* MailView.swift */,
 			);
 			name = "Settings Views";
 			sourceTree = "<group>";
@@ -288,13 +289,14 @@
 			files = (
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* Doing_TimeAppDelegate.m in Sources */,
-				48CF8F202566932900049D38 /* AboutViewHostingController.swift in Sources */,
 				289233AE0DB2D0DB0083E9F9 /* MainViewController.m in Sources */,
 				48110EC212C9804C00948558 /* PieChartView.m in Sources */,
 				48ECD7712565ED35009CFD2C /* AboutView.swift in Sources */,
+				487213292567D9A300E91283 /* SettingsViewHostingController.swift in Sources */,
+				4872133325687E9E00E91283 /* MailView.swift in Sources */,
 				4870279D12D80B3000E90108 /* NSDate+Additions.m in Sources */,
 				48924A1B131D67DA002AC7F5 /* EventSettingsViewController.m in Sources */,
-				4816E5D91847746A0070E4AD /* SettingsViewController.m in Sources */,
+				487213262567D67600E91283 /* SettingsView.swift in Sources */,
 				48E61CDF131E9E210077DA8E /* EventViewController.m in Sources */,
 				48ADE0C41343B51E005E96EB /* Constants.m in Sources */,
 				48AF93B618520C4300A8EFAF /* EventsListViewController.m in Sources */,

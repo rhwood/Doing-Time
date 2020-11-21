@@ -21,72 +21,53 @@
 import SwiftUI
 
 struct AboutView: View {
-    
+
     let product = Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as! String
     let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
     let build = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
     
     var body: some View {
-        NavigationView {
-            List {
-                Section {
-                    Link(destination: URL(string: "http://axsw.co/fufMuq")!) {
-                        HStack {
-                            Spacer()
-                            Image("ASlogo1-64x192")
-                            Spacer()
-                        }
+        List {
+            Section {
+                Link(destination: URL(string: "http://axsw.co/fufMuq")!) {
+                    HStack {
+                        Spacer()
+                        Image("ASlogo1-64x192")
+                        Spacer()
                     }
                 }
-                Section(footer: Text("\(product) version \(version) (\(build))")) {
-                    Link(destination: URL(string: "http://axsw.co/icgDcu")!) {
-                        HStack {
-                            Text("Web").foregroundColor(.primary)
-                            Spacer()
-                            Text("alexandriasoftware.com")
-                        }
-                    }
-                    Link(destination: URL(string: "http://axsw.co/f4dzGc")!) {
-                        HStack {
-                            Text("Twitter").foregroundColor(.primary)
-                            Spacer()
-                            Text("@alexandriasw")
-                        }
-                    }
-                    Link(destination: URL(string: "http://axsw.co/eaDeKF")!) {
-                        HStack {
-                            Text("Facebook").foregroundColor(.primary)
-                            Spacer()
-                            Text("Like Us!")
-                        }
-                    }
-                    Link(destination: URL(string: "http://axsw.co/fO5256")!) {
-                        HStack {
-                            Text("Support").foregroundColor(.primary)
-                            Spacer()
-                            Text("Contact Us")
-                        }
+            }
+            Section(footer: Text("\(product) version \(version) (\(build))")) {
+                Link(destination: URL(string: "http://axsw.co/icgDcu")!) {
+                    HStack {
+                        Text("Web").foregroundColor(.primary)
+                        Spacer()
+                        Text("alexandriasoftware.com")
                     }
                 }
-                Section {
-                    Link(destination: URL(string: "http://axsw.co/fuCJn9")!) {
-                        HStack {
-                            Text("Dain Kaplan").foregroundColor(.primary)
-                            Spacer()
-                            Text("Chartreuse")
-                        }
-                    }
-                    Link(destination: URL(string: "http://axsw.co/11IOfOC")!) {
-                        HStack {
-                            Text("Glyphish").foregroundColor(.primary)
-                            Spacer()
-                            Text("Icons")
-                        }
+                Link(destination: URL(string: "http://axsw.co/f4dzGc")!) {
+                    HStack {
+                        Text("Twitter").foregroundColor(.primary)
+                        Spacer()
+                        Text("@alexandriasw")
                     }
                 }
-            }.listStyle(GroupedListStyle())
-        }
-        .navigationBarTitle("About Doing Time")
+                Link(destination: URL(string: "http://axsw.co/eaDeKF")!) {
+                    HStack {
+                        Text("Facebook").foregroundColor(.primary)
+                        Spacer()
+                        Text("Like Us!")
+                    }
+                }
+                Link(destination: URL(string: "http://axsw.co/fO5256")!) {
+                    HStack {
+                        Text("Support").foregroundColor(.primary)
+                        Spacer()
+                        Text("Contact Us")
+                    }
+                }
+            }
+        }.listStyle(GroupedListStyle())
     }
 }
 
