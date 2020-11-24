@@ -36,17 +36,34 @@ struct EventView: View {
         return format(Float(100) * event.remainingPercentage)
     }
 
+    @ViewBuilder
     var body: some View {
         VStack {
             Text(event.title)
-            Text("\(startDate) to \(endDate)")
+            if event.showDates {
+                Text("\(startDate) to \(endDate)")
+            }
             PieChart(slices: [
                 PieChartSlice(start: 0.0, end: event.completedPercentage, color: event.completedColor),
                 PieChartSlice(start: event.completedPercentage, end: event.todayPercentage, color: event.backgroundColor),
                 PieChartSlice(start: event.completedPercentage + event.todayPercentage, end: 1.0, color: event.remainingColor)
             ])
-            Text("\(event.completedDuration) days (\(percentComplete)%) complete")
-            Text("\(event.remainingDuration) days (\(percentRemaining)%) left")
+            if !event.showRemainingDaysOnly {
+                if event.showTotals && event.showPercentages {
+                    Text(event.completedDuration > 1 ? "\(event.completedDuration) days (\(percentComplete)%) complete" : "\(event.completedDuration) day (\(percentComplete)%) complete")
+                } else if event.showTotals {
+                    Text(event.completedDuration > 1 ? "\(event.completedDuration) days complete" : "\(event.completedDuration) day complete")
+                } else if event.showPercentages {
+                    Text("\(percentComplete)% complete")
+                }
+            }
+            if event.showTotals && event.showPercentages {
+                Text(event.remainingDuration > 1 ? "\(event.remainingDuration) days (\(percentRemaining)%) left" : "\(event.remainingDuration) day (\(percentRemaining)%) left")
+            } else if event.showTotals {
+                Text(event.remainingDuration > 1 ? "\(event.remainingDuration) days left" : "\(event.remainingDuration) day left")
+            } else if event.showPercentages {
+                Text("\(percentRemaining)% left")
+            }
         }
     }
 
