@@ -20,12 +20,12 @@ PieChartItemColorMake(float r, float g, float b, float a)
 	PieChartItemColor c; c.red = r; c.green = g; c.blue = b; c.alpha = a; return c;
 }
 
-@interface PieChartView : UIView {	
+@interface PieChartView : UIView {
 	NSMutableArray *_pieItems;
 	float _sum;
 	PieChartItemColor _noDataFillColor;
 	PieChartItemColor _gradientFillColor;
-	
+
 	float _gradientStart;
 	float _gradientEnd;
 }
@@ -37,7 +37,7 @@ PieChartItemColorMake(float r, float g, float b, float a)
 - (void)setGradientFillColorRed:(float)r green:(float)g blue:(float)b;
 - (void)setGradientFillColor:(PieChartItemColor)color;
 
-// Values ranging from 0.0-1.0 specifying where to begin/end the fills. 
+// Values ranging from 0.0-1.0 specifying where to begin/end the fills.
 // E.g. A start of 0.0 starts at the top of the piechart, and 0.3 starts a third of the way from the top.
 - (void)setGradientFillStart:(float)start andEnd:(float)end;
 
