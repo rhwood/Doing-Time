@@ -20,9 +20,9 @@
 
 import SwiftUI
 
-class SettingsViewHostingController: UIHostingController<SettingsView> {
+class SettingsViewHostingController: UIHostingController<AppSettingsView> {
 
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder, rootView: SettingsView())
+        super.init(coder: aDecoder, rootView: AppSettingsView())
     }
 }

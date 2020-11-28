@@ -18,7 +18,7 @@
 		48676E521842322900194D54 /* EventViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 48676E511842322900194D54 /* EventViewCell.m */; };
 		48676E5F1845865800194D54 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48676E611845865800194D54 /* Main.storyboard */; };
 		4870279D12D80B3000E90108 /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4870279B12D80B3000E90108 /* NSDate+Additions.m */; };
-		487213262567D67600E91283 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487213252567D67600E91283 /* SettingsView.swift */; };
+		487213262567D67600E91283 /* AppSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487213252567D67600E91283 /* AppSettingsView.swift */; };
 		487213292567D9A300E91283 /* SettingsViewHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487213282567D9A300E91283 /* SettingsViewHostingController.swift */; };
 		4872133325687E9E00E91283 /* MailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4872133225687E9E00E91283 /* MailView.swift */; };
 		4872133925694A9D00E91283 /* EventSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4872133825694A9D00E91283 /* EventSettingsView.swift */; };
@@ -67,7 +67,7 @@
 		48676E511842322900194D54 /* EventViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventViewCell.m; path = Classes/EventViewCell.m; sourceTree = "<group>"; };
 		4870279A12D80B3000E90108 /* NSDate+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = "NSDate+Additions.h"; path = "Classes/NSDate+Additions.h"; sourceTree = "<group>"; };
 		4870279B12D80B3000E90108 /* NSDate+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+Additions.m"; path = "Classes/NSDate+Additions.m"; sourceTree = "<group>"; };
-		487213252567D67600E91283 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsView.swift; path = Classes/SettingsView.swift; sourceTree = "<group>"; };
+		487213252567D67600E91283 /* AppSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppSettingsView.swift; path = Classes/AppSettingsView.swift; sourceTree = "<group>"; };
 		487213282567D9A300E91283 /* SettingsViewHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsViewHostingController.swift; path = Classes/SettingsViewHostingController.swift; sourceTree = "<group>"; };
 		4872133225687E9E00E91283 /* MailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MailView.swift; path = Classes/MailView.swift; sourceTree = "<group>"; };
 		4872133825694A9D00E91283 /* EventSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSettingsView.swift; sourceTree = "<group>"; };
@@ -211,7 +211,7 @@
 			isa = PBXGroup;
 			children = (
 				48ECD7702565ED35009CFD2C /* AboutView.swift */,
-				487213252567D67600E91283 /* SettingsView.swift */,
+				487213252567D67600E91283 /* AppSettingsView.swift */,
 				487213282567D9A300E91283 /* SettingsViewHostingController.swift */,
 				4872133225687E9E00E91283 /* MailView.swift */,
 			);
@@ -388,7 +388,7 @@
 				4872133925694A9D00E91283 /* EventSettingsView.swift in Sources */,
 				48C41AD7256980CC00C72F04 /* PieChart.swift in Sources */,
 				4872133C25694BC600E91283 /* Event.swift in Sources */,
-				487213262567D67600E91283 /* SettingsView.swift in Sources */,
+				487213262567D67600E91283 /* AppSettingsView.swift in Sources */,
 				48E61CDF131E9E210077DA8E /* EventViewController.m in Sources */,
 				48ADE0C41343B51E005E96EB /* Constants.m in Sources */,
 				48AF93B618520C4300A8EFAF /* EventsListViewController.m in Sources */,

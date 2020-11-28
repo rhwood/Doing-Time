@@ -1,5 +1,5 @@
 //
-//  SettingsView.swift
+//  AppSettingsView.swift
 //  Doing Time
 //
 //  Created by Randall Wood on 2020-11-20.
@@ -21,7 +21,7 @@
 import SwiftUI
 import MessageUI
 
-struct SettingsView: View {
+struct AppSettingsView: View {
     
     @State var result: Result<MFMailComposeResult, Error>? = nil
     @State var isShowingMailView = false
@@ -65,6 +65,6 @@ struct SettingsView: View {
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView()
+        AppSettingsView()
     }
 }
