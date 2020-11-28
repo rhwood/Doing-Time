@@ -31,10 +31,5 @@
 @property (nonatomic, strong) IBOutlet UIWindow *window;
 @property (nonatomic, strong) IBOutlet MainViewController *mainViewController;
 
-@property (readonly) UIColor *red;
-@property (readonly) UIColor *blue;
-@property (readonly) UIColor *green;
-@property (readonly) UIColor *white;
-
 @end
 

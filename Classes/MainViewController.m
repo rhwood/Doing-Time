@@ -62,9 +62,9 @@
                                                                    showPercentageKey:@(NO),
                                                                    showTotalsKey:@(NO),
                                                                    todayIsKey:@(todayIsNotCounted),
-                                                                   completedColorKey:[NSKeyedArchiver archivedDataWithRootObject:self.appDelegate.green requiringSecureCoding:true error:nil],
-                                                                   remainingColorKey:[NSKeyedArchiver archivedDataWithRootObject:self.appDelegate.red requiringSecureCoding:true error:nil],
-                                                                   backgroundColorKey:[NSKeyedArchiver archivedDataWithRootObject:self.appDelegate.white requiringSecureCoding:true error:nil]}]
+                                                                   completedColorKey:[NSKeyedArchiver archivedDataWithRootObject:UIColor.greenColor requiringSecureCoding:true error:nil],
+                                                                   remainingColorKey:[NSKeyedArchiver archivedDataWithRootObject:UIColor.redColor requiringSecureCoding:true error:nil],
+                                                                   backgroundColorKey:[NSKeyedArchiver archivedDataWithRootObject:UIColor.whiteColor requiringSecureCoding:true error:nil]}]
                                                       forKey:eventsKey];
             [[NSUserDefaults standardUserDefaults] synchronize];
         }

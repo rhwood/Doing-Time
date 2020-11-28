@@ -31,13 +31,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     
-    _red = [UIColor colorWithRed:0.6 green:0.0 blue:0.0 alpha:1.0];
-    _green = [UIColor colorWithRed:0.0 green:0.6 blue:0.0 alpha:1.0];
-    _blue = [UIColor colorWithRed:0.0 green:0.0 blue:0.6 alpha:1.0];
-    _white = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
-
-	//self.eventStore = [[EKEventStore alloc] init];
-	
 	// Migrate from version 1 settings to version 2 settings
 	if ([[NSUserDefaults standardUserDefaults] stringForKey:@"Title"]) {
         NSMutableDictionary *activity = [NSMutableDictionary dictionaryWithDictionary:@{
@@ -87,19 +80,19 @@
             NSMutableDictionary *event = [events objectAtIndex:i];
             switch (i % 3) {
                 case 0:
-                    [event setValue:[NSKeyedArchiver archivedDataWithRootObject:self.green requiringSecureCoding:true error:nil] forKey:completedColorKey];
-                    [event setValue:[NSKeyedArchiver archivedDataWithRootObject:self.red requiringSecureCoding:true error:nil] forKey:remainingColorKey];
+                    [event setValue:[NSKeyedArchiver archivedDataWithRootObject:UIColor.greenColor requiringSecureCoding:true error:nil] forKey:completedColorKey];
+                    [event setValue:[NSKeyedArchiver archivedDataWithRootObject:UIColor.redColor requiringSecureCoding:true error:nil] forKey:remainingColorKey];
                     break;
                 case 1:
-                    [event setValue:[NSKeyedArchiver archivedDataWithRootObject:self.red requiringSecureCoding:true error:nil] forKey:completedColorKey];
-                    [event setValue:[NSKeyedArchiver archivedDataWithRootObject:self.blue requiringSecureCoding:true error:nil] forKey:remainingColorKey];
+                    [event setValue:[NSKeyedArchiver archivedDataWithRootObject:UIColor.redColor requiringSecureCoding:true error:nil] forKey:completedColorKey];
+                    [event setValue:[NSKeyedArchiver archivedDataWithRootObject:UIColor.blueColor requiringSecureCoding:true error:nil] forKey:remainingColorKey];
                     break;
                 case 2:
-                    [event setValue:[NSKeyedArchiver archivedDataWithRootObject:self.blue requiringSecureCoding:true error:nil] forKey:completedColorKey];
-                    [event setValue:[NSKeyedArchiver archivedDataWithRootObject:self.green requiringSecureCoding:true error:nil] forKey:remainingColorKey];
+                    [event setValue:[NSKeyedArchiver archivedDataWithRootObject:UIColor.blueColor requiringSecureCoding:true error:nil] forKey:completedColorKey];
+                    [event setValue:[NSKeyedArchiver archivedDataWithRootObject:UIColor.redColor requiringSecureCoding:true error:nil] forKey:remainingColorKey];
                     break;
             }
-            [event setValue:[NSKeyedArchiver archivedDataWithRootObject:self.white requiringSecureCoding:true error:nil] forKey:backgroundColorKey];
+            [event setValue:[NSKeyedArchiver archivedDataWithRootObject:UIColor.whiteColor requiringSecureCoding:true error:nil] forKey:backgroundColorKey];
         }
         [[NSUserDefaults standardUserDefaults] setInteger:4 forKey:versionKey];
         [[NSUserDefaults standardUserDefaults] synchronize];
