@@ -22,14 +22,14 @@ import SwiftUI
 import MessageUI
 
 struct AppSettingsView: View {
-    
-    @State var result: Result<MFMailComposeResult, Error>? = nil
+
+    @State var result: Result<MFMailComposeResult, Error>?
     @State var isShowingMailView = false
-    
-    let product = Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as! String
-    let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
-    let build = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
-    
+
+    let product = Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String ?? "UNK"
+    let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "UNK"
+    let build = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "UNK"
+
     var body: some View {
         List {
             Section(header: Text("About \(product)"), footer: Text("\(product) version \(version) (\(build))")) {
@@ -60,7 +60,7 @@ struct AppSettingsView: View {
             }
         }.listStyle(GroupedListStyle())
     }
-    
+
 }
 
 struct SettingsView_Previews: PreviewProvider {
