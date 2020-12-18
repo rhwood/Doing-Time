@@ -8,9 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		1D3623260D0F684500981E51 /* Doing_TimeAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* Doing_TimeAppDelegate.m */; };
-		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		289233AE0DB2D0DB0083E9F9 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233A90DB2D0DB0083E9F9 /* MainViewController.m */; };
 		48110EC212C9804C00948558 /* PieChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 48110EC112C9804C00948558 /* PieChartView.m */; };
+		48128981257D0DF100D094E9 /* EventControllerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48128980257D0DF100D094E9 /* EventControllerView.swift */; };
 		484F430A256A8702000C6B2C /* Doing_TimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484F4309256A8702000C6B2C /* Doing_TimeTests.swift */; };
 		484F4316256A873A000C6B2C /* EventTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484F4315256A873A000C6B2C /* EventTests.swift */; };
 		484F431B256A87D2000C6B2C /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4872133B25694BC600E91283 /* Event.swift */; };
@@ -20,13 +20,16 @@
 		4870279D12D80B3000E90108 /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4870279B12D80B3000E90108 /* NSDate+Additions.m */; };
 		487213262567D67600E91283 /* AppSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487213252567D67600E91283 /* AppSettingsView.swift */; };
 		487213292567D9A300E91283 /* SettingsViewHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487213282567D9A300E91283 /* SettingsViewHostingController.swift */; };
-		4872133325687E9E00E91283 /* MailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4872133225687E9E00E91283 /* MailView.swift */; };
 		4872133925694A9D00E91283 /* EventSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4872133825694A9D00E91283 /* EventSettingsView.swift */; };
 		4872133C25694BC600E91283 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4872133B25694BC600E91283 /* Event.swift */; };
+		48853AF22580F4D4009DA72C /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48853AF12580F4D4009DA72C /* PersistenceController.swift */; };
 		48924A1B131D67DA002AC7F5 /* EventSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48924A18131D67DA002AC7F5 /* EventSettingsViewController.m */; };
+		489D58B72572886D00E9F4C8 /* DoingTimeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489D58B62572886D00E9F4C8 /* DoingTimeApp.swift */; };
+		489D58C22572891200E9F4C8 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489D58C12572891200E9F4C8 /* MainView.swift */; };
 		48ADE0C41343B51E005E96EB /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 48ADE0C31343B51E005E96EB /* Constants.m */; };
 		48AF93B618520C4300A8EFAF /* EventsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48AF93B518520C4300A8EFAF /* EventsListViewController.m */; };
 		48AF93B9185229F300A8EFAF /* ListFooterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 48AF93B8185229F300A8EFAF /* ListFooterCell.m */; };
+		48C27E9825823FE000448D1F /* MailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4872133225687E9E00E91283 /* MailView.swift */; };
 		48C288C2184B54F000A648E2 /* Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 48C288C1184B54F000A648E2 /* Icons.xcassets */; };
 		48C41AD7256980CC00C72F04 /* PieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C41AD6256980CC00C72F04 /* PieChart.swift */; };
 		48CBAABB2569CF520014453C /* EventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CBAABA2569CF520014453C /* EventView.swift */; };
@@ -53,9 +56,9 @@
 		1D6058910D05DD3D006BFB54 /* Doing Time.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Doing Time.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		289233A80DB2D0DB0083E9F9 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainViewController.h; path = Classes/MainViewController.h; sourceTree = "<group>"; };
 		289233A90DB2D0DB0083E9F9 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainViewController.m; path = Classes/MainViewController.m; sourceTree = "<group>"; };
-		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* Doing_Time_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Doing_Time_Prefix.pch; sourceTree = "<group>"; };
 		48110EC112C9804C00948558 /* PieChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PieChartView.m; path = Classes/PieChartView.m; sourceTree = "<group>"; };
+		48128980257D0DF100D094E9 /* EventControllerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventControllerView.swift; sourceTree = "<group>"; };
 		4838E59812D0984B007AC0D8 /* PieChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = PieChartView.h; path = Classes/PieChartView.h; sourceTree = "<group>"; };
 		484F4307256A8702000C6B2C /* Doing TimeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Doing TimeTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		484F4309256A8702000C6B2C /* Doing_TimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doing_TimeTests.swift; sourceTree = "<group>"; };
@@ -72,8 +75,11 @@
 		4872133225687E9E00E91283 /* MailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MailView.swift; path = Classes/MailView.swift; sourceTree = "<group>"; };
 		4872133825694A9D00E91283 /* EventSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSettingsView.swift; sourceTree = "<group>"; };
 		4872133B25694BC600E91283 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		48853AF12580F4D4009DA72C /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PersistenceController.swift; path = Classes/PersistenceController.swift; sourceTree = "<group>"; };
 		48924A17131D67DA002AC7F5 /* EventSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = EventSettingsViewController.h; path = Classes/EventSettingsViewController.h; sourceTree = "<group>"; };
 		48924A18131D67DA002AC7F5 /* EventSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventSettingsViewController.m; path = Classes/EventSettingsViewController.m; sourceTree = "<group>"; };
+		489D58B62572886D00E9F4C8 /* DoingTimeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DoingTimeApp.swift; path = Classes/DoingTimeApp.swift; sourceTree = "<group>"; };
+		489D58C12572891200E9F4C8 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MainView.swift; path = Classes/MainView.swift; sourceTree = "<group>"; };
 		48ADE0C31343B51E005E96EB /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		48AF93B418520C4300A8EFAF /* EventsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventsListViewController.h; path = Classes/EventsListViewController.h; sourceTree = "<group>"; };
 		48AF93B518520C4300A8EFAF /* EventsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventsListViewController.m; path = Classes/EventsListViewController.m; sourceTree = "<group>"; };
@@ -151,6 +157,7 @@
 				289233A90DB2D0DB0083E9F9 /* MainViewController.m */,
 				4838E59812D0984B007AC0D8 /* PieChartView.h */,
 				48110EC112C9804C00948558 /* PieChartView.m */,
+				489D58C12572891200E9F4C8 /* MainView.swift */,
 			);
 			name = "Main View";
 			sourceTree = "<group>";
@@ -158,6 +165,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				489D58B52572882700E9F4C8 /* Application */,
 				48C41AD42569801E00C72F04 /* Event */,
 				4816E5D6184772EC0070E4AD /* Settings Views */,
 				289233A00DB2D0730083E9F9 /* Main View */,
@@ -180,7 +188,6 @@
 				4870279A12D80B3000E90108 /* NSDate+Additions.h */,
 				4870279B12D80B3000E90108 /* NSDate+Additions.m */,
 				32CA4F630368D1EE00C91783 /* Doing_Time_Prefix.pch */,
-				29B97316FDCFA39411CA2CEA /* main.m */,
 				48D477681322B647003256D5 /* Constants.h */,
 				48ADE0C31343B51E005E96EB /* Constants.m */,
 			);
@@ -241,6 +248,15 @@
 			name = "List View";
 			sourceTree = "<group>";
 		};
+		489D58B52572882700E9F4C8 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				489D58B62572886D00E9F4C8 /* DoingTimeApp.swift */,
+				48853AF12580F4D4009DA72C /* PersistenceController.swift */,
+			);
+			name = Application;
+			sourceTree = "<group>";
+		};
 		48C41AD42569801E00C72F04 /* Event */ = {
 			isa = PBXGroup;
 			children = (
@@ -248,6 +264,7 @@
 				4872133825694A9D00E91283 /* EventSettingsView.swift */,
 				48C41AD6256980CC00C72F04 /* PieChart.swift */,
 				48CBAABA2569CF520014453C /* EventView.swift */,
+				48128980257D0DF100D094E9 /* EventControllerView.swift */,
 			);
 			path = Event;
 			sourceTree = "<group>";
@@ -376,18 +393,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
+				48C27E9825823FE000448D1F /* MailView.swift in Sources */,
 				1D3623260D0F684500981E51 /* Doing_TimeAppDelegate.m in Sources */,
+				489D58B72572886D00E9F4C8 /* DoingTimeApp.swift in Sources */,
 				289233AE0DB2D0DB0083E9F9 /* MainViewController.m in Sources */,
 				48110EC212C9804C00948558 /* PieChartView.m in Sources */,
 				48ECD7712565ED35009CFD2C /* AboutView.swift in Sources */,
 				487213292567D9A300E91283 /* SettingsViewHostingController.swift in Sources */,
-				4872133325687E9E00E91283 /* MailView.swift in Sources */,
+				489D58C22572891200E9F4C8 /* MainView.swift in Sources */,
 				4870279D12D80B3000E90108 /* NSDate+Additions.m in Sources */,
 				48924A1B131D67DA002AC7F5 /* EventSettingsViewController.m in Sources */,
 				4872133925694A9D00E91283 /* EventSettingsView.swift in Sources */,
 				48C41AD7256980CC00C72F04 /* PieChart.swift in Sources */,
+				48128981257D0DF100D094E9 /* EventControllerView.swift in Sources */,
 				4872133C25694BC600E91283 /* Event.swift in Sources */,
+				48853AF22580F4D4009DA72C /* PersistenceController.swift in Sources */,
 				487213262567D67600E91283 /* AppSettingsView.swift in Sources */,
 				48E61CDF131E9E210077DA8E /* EventViewController.m in Sources */,
 				48ADE0C41343B51E005E96EB /* Constants.m in Sources */,

@@ -1,10 +1,10 @@
 //
-//  main.m
+//  DoingTimeApp.swift
 //  Doing Time
 //
-//  Created by Randall Wood on 27/12/2010.
+//  Created by Randall Wood on 2020-11-28.
 //
-//  Copyright 2010-2014, 2020 Randall Wood DBA Alexandria Software
+//  Copyright 2020 Randall Wood DBA Alexandria Software
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -18,12 +18,16 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import <UIKit/UIKit.h>
-#import "Doing_TimeAppDelegate.h"
+import SwiftUI
 
-int main(int argc, char *argv[]) {
-    
-    @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([Doing_TimeAppDelegate class]));
+@main
+struct DoingTimeApp: App {
+
+    var persistenceController = PersistenceController()
+
+    var body: some Scene {
+        WindowGroup {
+            MainView()
+        }
     }
 }
