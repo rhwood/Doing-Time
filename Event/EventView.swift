@@ -43,11 +43,13 @@ struct EventView: View {
             if event.showDates {
                 Text("\(startDate) to \(endDate)")
             }
+            Spacer()
             PieChart(slices: [
                 PieChartSlice(start: 0.0, end: event.completedPercentage, color: event.completedColor),
                 PieChartSlice(start: event.completedPercentage, end: event.todayPercentage, color: event.backgroundColor),
                 PieChartSlice(start: event.completedPercentage + event.todayPercentage, end: 1.0, color: event.remainingColor)
             ])
+            Spacer()
             if !event.showRemainingDaysOnly {
                 if event.showTotals && event.showPercentages {
                     Text(event.completedDuration > 1 ? "\(event.completedDuration) days (\(percentComplete)%) complete" : "\(event.completedDuration) day (\(percentComplete)%) complete")
