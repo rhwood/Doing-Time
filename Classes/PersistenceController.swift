@@ -20,6 +20,7 @@
 
 import Foundation
 import SwiftUI
+import CoreData
 
 class PersistenceController {
     
@@ -27,103 +28,62 @@ class PersistenceController {
     
     static var preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
-        // prepare preview
-        result.events.append(Event())
-        result.events.append(Event())
-        result.events.append(Event())
+        let viewContext = result.container.viewContext
+        for _ in 0..<5 {
+            let newItem = Event()
+        }
+        do {
+            try viewContext.save()
+        } catch {
+            // Replace this implementation with code to handle the error appropriately.
+            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        }
         return result
     }()
-    
+
+    let container: NSPersistentCloudKitContainer
+
     var events: [Event] = []
     var savable = false
     
     init(inMemory: Bool = false) {
-        if !inMemory {
-            if let raw = UserDefaults.standard.array(forKey: "events") {
-                for rawEvent in raw {
-                    if let dict = rawEvent as? [String: Any] {
-                        events.append(Event(title: dict["title"] as? String ?? "UNKNOWN",
-                                            start: dict["start"] as? Date ?? Date(),
-                                            end: dict["end"] as? Date ?? Date(),
-                                            todayIs: todayIsFromInt(dict["todayIs"] as? Int ?? 1),
-                                            includeEnd: dict["includeLastDayInCalc"] as? Bool ?? true,
-                                            showDates: dict["showEventDates"] as? Bool ?? true,
-                                            showPercentages: dict["showPercentages"] as? Bool ?? true,
-                                            showTotals: dict["showTotals"] as? Bool ?? true,
-                                            showRemainingDaysOnly: dict["showCompletedDays"] as? Bool ?? true,
-                                            completedColor: colorFromData(dict["completedColor"] as? Data),
-                                            remainingColor: colorFromData(dict["remainingColor"] as? Data),
-                                            backgroundColor: colorFromData(dict["backgroundColor"] as? Data)))
-                    }
-                }
+        container = NSPersistentCloudKitContainer(name: "com.alexandriasoftware.doingtime")
+        if inMemory {
+            container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
+        }
+        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+            if let error = error as NSError? {
+                fatalError("Unresolved error \(error), \(error.userInfo)")
             }
-            if events.count == 0 {
-                events.append(Event())
-            }
-        }
-        savable = true
+        })
+//        if !inMemory {
+//            if let raw = UserDefaults.standard.array(forKey: "events") {
+//                for rawEvent in raw {
+//                    if let dict = rawEvent as? [String: Any] {
+//                        events.append(Event(title: dict["title"] as? String ?? "UNKNOWN",
+//                                            start: dict["start"] as? Date ?? Date(),
+//                                            end: dict["end"] as? Date ?? Date(),
+//                                            todayIs: Event.TodayIs(rawValue: dict["todayIs"] as! Int32) ?? Event.TodayIs.remaining,
+//                                            includeEnd: dict["includeLastDayInCalc"] as? Bool ?? true,
+//                                            showDates: dict["showEventDates"] as? Bool ?? true,
+//                                            showPercentages: dict["showPercentages"] as? Bool ?? true,
+//                                            showTotals: dict["showTotals"] as? Bool ?? true,
+//                                            showRemainingDaysOnly: dict["showCompletedDays"] as? Bool ?? true,
+//                                            completedColor: PersistenceController.colorFromData(dict["completedColor"] as? Data),
+//                                            remainingColor: PersistenceController.colorFromData(dict["remainingColor"] as? Data),
+//                                            backgroundColor: PersistenceController.colorFromData(dict["backgroundColor"] as? Data)))
+//                    }
+//                }
+//            }
+//            if events.count == 0 {
+//                events.append(Event())
+//            }
+//        }
     }
     
-    public func save() {
-        if !savable {
-            return
-        }
-        UserDefaults.standard.set(4, forKey: "version")
-        var array: [[String: Any]] = []
-        for event in events {
-            array.append(["title": event.title,
-                          "start": event.start,
-                          "end": event.end,
-                          "todayIs": intFromTodayIs(event.todayIs),
-                          "includeLastDayInCalc": event.includeEnd,
-                          "showEventDates": event.showDates,
-                          "showPercentages": event.showPercentages,
-                          "showTotals": event.showTotals,
-                          "showCompletedDays": event.showRemainingDaysOnly,
-                          "completedColor": dataFromColor(event.completedColor),
-                          "remainingColor": dataFromColor(event.remainingColor),
-                          "backgroundColor": dataFromColor(event.backgroundColor)])
-        }
-        UserDefaults.standard.set(array, forKey: "events")
-    }
-    
-    public func insert(_ event: Event, at index: Int) {
-        if index < events.count {
-            events.insert(event, at: index)
-        } else {
-            events.append(event)
-        }
-        save()
-    }
-    
-    public func remove(at index: Int) {
-        events.remove(at: index)
-        save()
-    }
-    
-    private func todayIsFromInt(_ int: Int) -> Event.TodayIs {
-        switch int {
-        case 0:
-            return .complete
-        case 1:
-            return .uncounted
-        default:
-            return .remaining
-        }
-    }
-    
-    private func intFromTodayIs(_ todayIs: Event.TodayIs) -> Int {
-        switch todayIs {
-        case .complete:
-            return 0
-        case .uncounted:
-            return 1
-        default:
-            return 2
-        }
-    }
-    
-    private func colorFromData(_ data: Data?) -> Color {
+    private static func colorFromData(_ data: Data?) -> Color {
         guard let color = data else {
             return .black
         }
@@ -134,7 +94,7 @@ class PersistenceController {
         }
     }
     
-    private func dataFromColor(_ color: Color) -> Data {
+    private static func dataFromColor(_ color: Color) -> Data {
         do {
             return try NSKeyedArchiver.archivedData(withRootObject: UIColor(color), requiringSecureCoding: true)
         } catch {

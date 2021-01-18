@@ -23,10 +23,10 @@ import SwiftUI
 
 struct Event {
     
-    enum TodayIs {
-        case complete
-        case remaining
-        case uncounted
+    enum TodayIs: Int32 {
+        case complete = 0
+        case remaining = 1
+        case uncounted = 2
     }
     
     var title = ""

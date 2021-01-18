@@ -15,6 +15,8 @@
 		484F4316256A873A000C6B2C /* EventTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484F4315256A873A000C6B2C /* EventTests.swift */; };
 		484F431B256A87D2000C6B2C /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4872133B25694BC600E91283 /* Event.swift */; };
 		485BD59D16B14DC300424CC8 /* TodaySettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 485BD59C16B14DC300424CC8 /* TodaySettingsViewController.m */; };
+		4862EF042599E85F0028CB2A /* CDEvent+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4862EF022599E85F0028CB2A /* CDEvent+CoreDataClass.swift */; };
+		4862EF052599E85F0028CB2A /* CDEvent+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4862EF032599E85F0028CB2A /* CDEvent+CoreDataProperties.swift */; };
 		48676E521842322900194D54 /* EventViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 48676E511842322900194D54 /* EventViewCell.m */; };
 		48676E5F1845865800194D54 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48676E611845865800194D54 /* Main.storyboard */; };
 		4870279D12D80B3000E90108 /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4870279B12D80B3000E90108 /* NSDate+Additions.m */; };
@@ -38,6 +40,7 @@
 		48E0E6FA2564B68900DF7954 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48E0E6F82564B68900DF7954 /* Launch Screen.storyboard */; };
 		48E61CDF131E9E210077DA8E /* EventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48E61CDC131E9E210077DA8E /* EventViewController.m */; };
 		48ECD7712565ED35009CFD2C /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48ECD7702565ED35009CFD2C /* AboutView.swift */; };
+		48F807B32598CC3700E21668 /* Event.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 48F807B12598CC3700E21668 /* Event.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +69,8 @@
 		484F4315256A873A000C6B2C /* EventTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTests.swift; sourceTree = "<group>"; };
 		485BD59B16B14DC300424CC8 /* TodaySettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TodaySettingsViewController.h; path = Classes/TodaySettingsViewController.h; sourceTree = "<group>"; };
 		485BD59C16B14DC300424CC8 /* TodaySettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TodaySettingsViewController.m; path = Classes/TodaySettingsViewController.m; sourceTree = "<group>"; };
+		4862EF022599E85F0028CB2A /* CDEvent+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDEvent+CoreDataClass.swift"; sourceTree = "<group>"; };
+		4862EF032599E85F0028CB2A /* CDEvent+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDEvent+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		48676E501842322900194D54 /* EventViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventViewCell.h; path = Classes/EventViewCell.h; sourceTree = "<group>"; };
 		48676E511842322900194D54 /* EventViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventViewCell.m; path = Classes/EventViewCell.m; sourceTree = "<group>"; };
 		4870279A12D80B3000E90108 /* NSDate+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = "NSDate+Additions.h"; path = "Classes/NSDate+Additions.h"; sourceTree = "<group>"; };
@@ -97,6 +102,7 @@
 		48E61CDC131E9E210077DA8E /* EventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventViewController.m; path = Classes/EventViewController.m; sourceTree = "<group>"; };
 		48ECD7662565E87A009CFD2C /* Doing Time-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Doing Time-Bridging-Header.h"; sourceTree = "<group>"; };
 		48ECD7702565ED35009CFD2C /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AboutView.swift; path = Classes/AboutView.swift; sourceTree = "<group>"; };
+		48F807B22598CC3700E21668 /* Event.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Event.xcdatamodel; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Doing_Time-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Doing_Time-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -260,6 +266,9 @@
 		48C41AD42569801E00C72F04 /* Event */ = {
 			isa = PBXGroup;
 			children = (
+				4862EF022599E85F0028CB2A /* CDEvent+CoreDataClass.swift */,
+				4862EF032599E85F0028CB2A /* CDEvent+CoreDataProperties.swift */,
+				48F807B12598CC3700E21668 /* Event.xcdatamodeld */,
 				4872133B25694BC600E91283 /* Event.swift */,
 				4872133825694A9D00E91283 /* EventSettingsView.swift */,
 				48C41AD6256980CC00C72F04 /* PieChart.swift */,
@@ -393,14 +402,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4862EF042599E85F0028CB2A /* CDEvent+CoreDataClass.swift in Sources */,
 				48C27E9825823FE000448D1F /* MailView.swift in Sources */,
 				1D3623260D0F684500981E51 /* Doing_TimeAppDelegate.m in Sources */,
 				489D58B72572886D00E9F4C8 /* DoingTimeApp.swift in Sources */,
 				289233AE0DB2D0DB0083E9F9 /* MainViewController.m in Sources */,
+				48F807B32598CC3700E21668 /* Event.xcdatamodeld in Sources */,
 				48110EC212C9804C00948558 /* PieChartView.m in Sources */,
 				48ECD7712565ED35009CFD2C /* AboutView.swift in Sources */,
 				487213292567D9A300E91283 /* SettingsViewHostingController.swift in Sources */,
 				489D58C22572891200E9F4C8 /* MainView.swift in Sources */,
+				4862EF052599E85F0028CB2A /* CDEvent+CoreDataProperties.swift in Sources */,
 				4870279D12D80B3000E90108 /* NSDate+Additions.m in Sources */,
 				48924A1B131D67DA002AC7F5 /* EventSettingsViewController.m in Sources */,
 				4872133925694A9D00E91283 /* EventSettingsView.swift in Sources */,
@@ -968,6 +980,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		48F807B12598CC3700E21668 /* Event.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				48F807B22598CC3700E21668 /* Event.xcdatamodel */,
+			);
+			currentVersion = 48F807B22598CC3700E21668 /* Event.xcdatamodel */;
+			path = Event.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
 }

@@ -23,11 +23,11 @@ import SwiftUI
 @main
 struct DoingTimeApp: App {
 
-    var persistenceController = PersistenceController()
+    let persistenceController = PersistenceController.shared
 
     var body: some Scene {
         WindowGroup {
-            MainView()
+            MainView().environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }

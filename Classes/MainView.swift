@@ -22,6 +22,8 @@ import SwiftUI
 
 struct MainView: View {
 
+    @Environment(\.managedObjectContext) private var viewContext
+
     var body: some View {
         VStack {
             ScrollView(.horizontal, showsIndicators: false) {
