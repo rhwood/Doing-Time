@@ -49,7 +49,7 @@ class PersistenceController {
     var savable = false
     
     init(inMemory: Bool = false) {
-        container = NSPersistentCloudKitContainer(name: "com.alexandriasoftware.doingtime")
+        container = NSPersistentCloudKitContainer(name: "Event")
         if inMemory {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
         }
