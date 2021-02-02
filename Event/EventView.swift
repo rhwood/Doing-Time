@@ -45,24 +45,38 @@ struct EventView: View {
             }
             Spacer()
             PieChart(slices: [
-                PieChartSlice(start: 0.0, end: event.completedPercentage, color: event.completedColor),
-                PieChartSlice(start: event.completedPercentage, end: event.todayPercentage, color: event.backgroundColor),
-                PieChartSlice(start: event.completedPercentage + event.todayPercentage, end: 1.0, color: event.remainingColor)
+                PieChartSlice(start: 0.0,
+                              end: event.completedPercentage,
+                              color: event.completedColor),
+                PieChartSlice(start: event.completedPercentage,
+                              end: event.todayPercentage,
+                              color: event.backgroundColor),
+                PieChartSlice(start: event.completedPercentage + event.todayPercentage,
+                              end: 1.0,
+                              color: event.remainingColor)
             ])
             Spacer()
             if !event.showRemainingDaysOnly {
                 if event.showTotals && event.showPercentages {
-                    Text(event.completedDuration > 1 ? "\(event.completedDuration) days (\(percentComplete)%) complete" : "\(event.completedDuration) day (\(percentComplete)%) complete")
+                    Text(event.completedDuration > 1
+                            ? "\(event.completedDuration) days (\(percentComplete)%) complete"
+                            : "\(event.completedDuration) day (\(percentComplete)%) complete")
                 } else if event.showTotals {
-                    Text(event.completedDuration > 1 ? "\(event.completedDuration) days complete" : "\(event.completedDuration) day complete")
+                    Text(event.completedDuration > 1
+                            ? "\(event.completedDuration) days complete"
+                            : "\(event.completedDuration) day complete")
                 } else if event.showPercentages {
                     Text("\(percentComplete)% complete")
                 }
             }
             if event.showTotals && event.showPercentages {
-                Text(event.remainingDuration > 1 ? "\(event.remainingDuration) days (\(percentRemaining)%) left" : "\(event.remainingDuration) day (\(percentRemaining)%) left")
+                Text(event.remainingDuration > 1
+                        ? "\(event.remainingDuration) days (\(percentRemaining)%) left"
+                        : "\(event.remainingDuration) day (\(percentRemaining)%) left")
             } else if event.showTotals {
-                Text(event.remainingDuration > 1 ? "\(event.remainingDuration) days left" : "\(event.remainingDuration) day left")
+                Text(event.remainingDuration > 1
+                        ? "\(event.remainingDuration) days left"
+                        : "\(event.remainingDuration) day left")
             } else if event.showPercentages {
                 Text("\(percentRemaining)% left")
             }
@@ -86,18 +100,18 @@ struct EventView: View {
 
 struct EventView_Previews: PreviewProvider {
     static var uncounted = Event(title: "Preview",
-        start: Calendar.current.date(byAdding: .day, value: -1, to:Date())!,
-        end: Calendar.current.date(byAdding: .day, value: 1, to:Date())!,
+        start: Calendar.current.date(byAdding: .day, value: -1, to: Date())!,
+        end: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
         todayIs: .uncounted,
         includeEnd: true)
     static var complete = Event(title: "Preview",
-        start: Calendar.current.date(byAdding: .day, value: -1, to:Date())!,
-        end: Calendar.current.date(byAdding: .day, value: 1, to:Date())!,
+        start: Calendar.current.date(byAdding: .day, value: -1, to: Date())!,
+        end: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
         todayIs: .complete,
         includeEnd: true)
     static var remaining = Event(title: "Preview",
-        start: Calendar.current.date(byAdding: .day, value: -1, to:Date())!,
-        end: Calendar.current.date(byAdding: .day, value: 1, to:Date())!,
+        start: Calendar.current.date(byAdding: .day, value: -1, to: Date())!,
+        end: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
         todayIs: .remaining,
         includeEnd: true)
     static var previews: some View {

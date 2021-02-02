@@ -21,29 +21,29 @@
 import SwiftUI
 
 public struct PieChart: View {
-    
+
     var slices: [PieChartSlice]
-    
+
     public var body: some View {
         GeometryReader { geometry in
             self.makePieChart(geometry)
         }
     }
-    
+
     func path(geometry: GeometryProxy, start: Float, end: Float) -> Path {
         let radius = geometry.size.width / 2
         let centerX = radius
         let centerY = radius
         var path = Path()
         path.move(to: CGPoint(x: centerX, y: centerY))
-        path.addArc(center: CGPoint(x: centerX, y:centerY),
+        path.addArc(center: CGPoint(x: centerX, y: centerY),
                     radius: radius,
                     startAngle: Angle(degrees: Double(start * 360) + 270),
                     endAngle: Angle(degrees: Double(end * 360) + 270),
                     clockwise: false)
         return path
     }
-    
+
     func makePieChart(_ geometry: GeometryProxy) -> some View {
         return ZStack {
             ForEach(0..<slices.count, id: \.self) { index in
@@ -57,7 +57,7 @@ public struct PieChart: View {
 }
 
 public struct PieChartSlice {
-    
+
     var start: Float
     var end: Float
     var color: Color

@@ -21,7 +21,7 @@
 import SwiftUI
 
 struct EventSettingsView: View {
-    
+
     @Binding var event: Event
 
     var body: some View {

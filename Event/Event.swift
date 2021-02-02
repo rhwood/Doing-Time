@@ -22,13 +22,13 @@ import Foundation
 import SwiftUI
 
 struct Event {
-    
+
     enum TodayIs: Int32 {
         case complete = 0
         case remaining = 1
         case uncounted = 2
     }
-    
+
     var title = ""
     var start = Date()
     var firstDay: Date {
@@ -41,7 +41,12 @@ struct Event {
             date = Calendar.current.date(byAdding: .day, value: -1, to: date)!
         }
         // return 1 second before end of day
-        return Calendar.current.date(byAdding: .second, value: -1, to: Calendar.current.startOfDay(for: Calendar.current.date(byAdding: .day, value: 1, to: date)!))!
+        return Calendar.current.date(byAdding: .second,
+                                     value: -1,
+                                     to: Calendar.current.startOfDay(for: Calendar.current.date(byAdding:
+                                                                                                    .day,
+                                                                                                value: 1,
+                                                                                                to: date)!))!
     }
     var todayIs = TodayIs.complete
     var includeEnd = true
@@ -53,19 +58,19 @@ struct Event {
     var remainingColor = Color.red
     var backgroundColor = Color.white
     var totalDuration: Int {
-        set {
-            end = Calendar.current.date(byAdding: .day, value: includeEnd ? newValue - 1 : newValue, to: firstDay)!
-        }
         get {
             return Calendar.current.dateComponents([.day], from: firstDay, to: lastDay).day! + 1
         }
+        set {
+            end = Calendar.current.date(byAdding: .day, value: includeEnd ? newValue - 1 : newValue, to: firstDay)!
+        }
     }
     var totalDurationAsString: String {
-        set {
-            totalDuration = NumberFormatter().number(from: newValue) as! Int
-        }
         get {
             return String(totalDuration)
+        }
+        set {
+            totalDuration = NumberFormatter().number(from: newValue)?.intValue ?? totalDuration
         }
     }
     var completedDuration: Int {
@@ -105,5 +110,5 @@ struct Event {
             return 0
         }
     }
-    
+
 }
