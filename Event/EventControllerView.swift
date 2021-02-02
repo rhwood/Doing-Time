@@ -31,7 +31,7 @@ struct EventControllerView: View {
                 Button(action: {
                     // show event settings
                 }, label: {
-                    Image(systemName: "gear")
+                    Image(systemName: "info.circle")
                         .foregroundColor(Color(red: 0, green: 0.258, blue: 0.145, opacity: 1.0))
                 })
             }
