@@ -97,9 +97,9 @@
                                                                      showPercentageKey:@(YES),
                                                                      showCompletedDaysKey:@(NO),
                                                                      showTotalsKey:@(YES),
-                                                                     backgroundColorKey:[NSKeyedArchiver archivedDataWithRootObject:white]}];
-        [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:green] forKey:completedColorKey];
-        [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:red] forKey:remainingColorKey];
+                                                                     backgroundColorKey:[NSKeyedArchiver archivedDataWithRootObject:white requiringSecureCoding:YES error:nil]}];
+        [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:green requiringSecureCoding:YES error:nil] forKey:completedColorKey];
+        [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:red requiringSecureCoding:YES error:nil] forKey:remainingColorKey];
     } else {
         self.event = [NSMutableDictionary dictionaryWithDictionary:[[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] objectAtIndex:index]];
         self.newEvent = NO;
@@ -133,22 +133,22 @@
             save = YES;
         }
         if (![self.event.allKeys containsObject:backgroundColorKey]) {
-            [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:white] forKey:backgroundColorKey];
+            [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:white requiringSecureCoding:YES error:nil] forKey:backgroundColorKey];
             save = YES;
         }
         if (![self.event.allKeys containsObject:completedColorKey]) {
             switch (index % 3) {
                 case 0:
-                    [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:green] forKey:completedColorKey];
-                    [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:red] forKey:remainingColorKey];
+                    [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:green requiringSecureCoding:YES error:nil] forKey:completedColorKey];
+                    [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:red requiringSecureCoding:YES error:nil] forKey:remainingColorKey];
                     break;
                 case 1:
-                    [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:red] forKey:completedColorKey];
-                    [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:blue] forKey:remainingColorKey];
+                    [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:red requiringSecureCoding:YES error:nil] forKey:completedColorKey];
+                    [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:blue requiringSecureCoding:YES error:nil] forKey:remainingColorKey];
                     break;
                 case 2:
-                    [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:blue] forKey:completedColorKey];
-                    [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:green] forKey:remainingColorKey];
+                    [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:blue requiringSecureCoding:YES error:nil] forKey:completedColorKey];
+                    [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:green requiringSecureCoding:YES error:nil] forKey:remainingColorKey];
                     break;
             }
             save = YES;
@@ -233,11 +233,11 @@
                                                           [[NSNotificationCenter defaultCenter] removeObserver:self name:ColorDidChangeNotification object:note.object];
                                                           // not calling setValue:... forKey:key because observers do not always remove soon enough, and key can become wrong in that case
                                                           if ([note.userInfo[ColorKey] isEqualToString:completedColorKey]) {
-                                                              [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:((ColorPickerViewController *)note.object).selectedColor] forKey:completedColorKey];
+                                                              [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:((ColorPickerViewController *)note.object).selectedColor requiringSecureCoding:YES error:nil] forKey:completedColorKey];
                                                           } else if ([note.userInfo[ColorKey] isEqualToString:remainingColorKey]) {
-                                                              [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:((ColorPickerViewController *)note.object).selectedColor] forKey:remainingColorKey];
+                                                              [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:((ColorPickerViewController *)note.object).selectedColor requiringSecureCoding:YES error:nil] forKey:remainingColorKey];
                                                           } else if ([note.userInfo[ColorKey] isEqualToString:backgroundColorKey]) {
-                                                              [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:((ColorPickerViewController *)note.object).selectedColor] forKey:backgroundColorKey];
+                                                              [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:((ColorPickerViewController *)note.object).selectedColor requiringSecureCoding:YES error:nil] forKey:backgroundColorKey];
                                                           }
                                                           [self.tableView reloadData];
                                                       }];
@@ -557,15 +557,15 @@
                     break;
                 case COMPLETED_COLOR:
                     cell.accessoryView = [[ColorSelectionView alloc] initWithFrame:CGRectMake(0.0, 0.0, 55.0, cell.frame.size.height)];
-                    ((ColorSelectionView *)cell.accessoryView).selectedColor = [NSKeyedUnarchiver unarchiveObjectWithData:self.event[completedColorKey]];
+                    ((ColorSelectionView *)cell.accessoryView).selectedColor = [NSKeyedUnarchiver unarchivedObjectOfClass:UIColor.class fromData:self.event[completedColorKey] error:nil];
                     break;
                 case REMAINING_COLOR:
                     cell.accessoryView = [[ColorSelectionView alloc] initWithFrame:CGRectMake(0.0, 0.0, 55.0, cell.frame.size.height)];
-                    ((ColorSelectionView *)cell.accessoryView).selectedColor = [NSKeyedUnarchiver unarchiveObjectWithData:self.event[remainingColorKey]];
+                    ((ColorSelectionView *)cell.accessoryView).selectedColor = [NSKeyedUnarchiver unarchivedObjectOfClass:UIColor.class fromData:self.event[remainingColorKey] error:nil];
                     break;
                 case BACKGROUND_COLOR:
                     cell.accessoryView = [[ColorSelectionView alloc] initWithFrame:CGRectMake(0.0, 0.0, 55.0, cell.frame.size.height)];
-                    ((ColorSelectionView *)cell.accessoryView).selectedColor = [NSKeyedUnarchiver unarchiveObjectWithData:self.event[backgroundColorKey]];
+                    ((ColorSelectionView *)cell.accessoryView).selectedColor = [NSKeyedUnarchiver unarchivedObjectOfClass:UIColor.class fromData:self.event[backgroundColorKey] error:nil];
                     break;
                 default:
                     break;

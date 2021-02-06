@@ -67,9 +67,9 @@
                                                                    showPercentageKey:@(NO),
                                                                    showTotalsKey:@(NO),
                                                                    todayIsKey:@(todayIsNotCounted),
-                                                                   completedColorKey:[NSKeyedArchiver archivedDataWithRootObject:self.appDelegate.green],
-                                                                   remainingColorKey:[NSKeyedArchiver archivedDataWithRootObject:self.appDelegate.red],
-                                                                   backgroundColorKey:[NSKeyedArchiver archivedDataWithRootObject:self.appDelegate.white]}]
+                                                                   completedColorKey:[NSKeyedArchiver archivedDataWithRootObject:self.appDelegate.green requiringSecureCoding:YES error:nil],
+                                                                   remainingColorKey:[NSKeyedArchiver archivedDataWithRootObject:self.appDelegate.red requiringSecureCoding:YES error:nil],
+                                                                   backgroundColorKey:[NSKeyedArchiver archivedDataWithRootObject:self.appDelegate.white requiringSecureCoding:YES error:nil]}]
                                                       forKey:eventsKey];
             [[NSUserDefaults standardUserDefaults] synchronize];
         }
@@ -287,7 +287,7 @@
 }
 
 - (void)redrawBackground {
-    self.view.backgroundColor = [NSKeyedUnarchiver unarchiveObjectWithData:((EventViewController *)self.events[self.pager.currentPage]).event[backgroundColorKey]];
+    self.view.backgroundColor = [NSKeyedUnarchiver unarchivedObjectOfClass:UIColor.class fromData:((EventViewController *)self.events[self.pager.currentPage]).event[backgroundColorKey] error: nil];
     if (((EventViewController *)self.events[self.pager.currentPage]).backgroundBrightness < .51) {
         [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
         self.pager.pageIndicatorTintColor = [UIColor lightGrayColor];

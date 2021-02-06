@@ -135,9 +135,9 @@
     BOOL showCompleted = [event[showCompletedDaysKey] boolValue];
     BOOL showTotals = [event[showTotalsKey] boolValue];
     BOOL showDateRange = [event[showEventDatesKey] boolValue];
-    UIColor *completedColor = [NSKeyedUnarchiver unarchiveObjectWithData:event[completedColorKey]];
-    UIColor *remainingColor = [NSKeyedUnarchiver unarchiveObjectWithData:event[remainingColorKey]];
-    cell.backgroundColor = [NSKeyedUnarchiver unarchiveObjectWithData:event[backgroundColorKey]];
+    UIColor *completedColor = [NSKeyedUnarchiver unarchivedObjectOfClass:UIColor.class fromData:event[completedColorKey] error:nil];
+    UIColor *remainingColor = [NSKeyedUnarchiver unarchivedObjectOfClass:UIColor.class fromData:event[remainingColorKey] error:nil];
+    cell.backgroundColor = [NSKeyedUnarchiver unarchivedObjectOfClass:UIColor.class fromData:event[backgroundColorKey] error:nil];
     NSDate *startDate = event[startKey];
     NSDate *endDate = event[endKey];
     NSDate *calcEndDate = ([event[includeLastDayInCalcKey] boolValue]) ? [self.calendar dateByAddingComponents:oneDay toDate:endDate options:0] : endDate;

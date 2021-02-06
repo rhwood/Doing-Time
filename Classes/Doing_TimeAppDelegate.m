@@ -87,19 +87,19 @@
             NSMutableDictionary *event = [events objectAtIndex:i];
             switch (i % 3) {
                 case 0:
-                    [event setValue:[NSKeyedArchiver archivedDataWithRootObject:self.green] forKey:completedColorKey];
-                    [event setValue:[NSKeyedArchiver archivedDataWithRootObject:self.red] forKey:remainingColorKey];
+                    [event setValue:[NSKeyedArchiver archivedDataWithRootObject:self.green requiringSecureCoding:YES error:nil] forKey:completedColorKey];
+                    [event setValue:[NSKeyedArchiver archivedDataWithRootObject:self.red requiringSecureCoding:YES error:nil] forKey:remainingColorKey];
                     break;
                 case 1:
-                    [event setValue:[NSKeyedArchiver archivedDataWithRootObject:self.red] forKey:completedColorKey];
-                    [event setValue:[NSKeyedArchiver archivedDataWithRootObject:self.blue] forKey:remainingColorKey];
+                    [event setValue:[NSKeyedArchiver archivedDataWithRootObject:self.red requiringSecureCoding:YES error:nil] forKey:completedColorKey];
+                    [event setValue:[NSKeyedArchiver archivedDataWithRootObject:self.blue requiringSecureCoding:YES error:nil] forKey:remainingColorKey];
                     break;
                 case 2:
-                    [event setValue:[NSKeyedArchiver archivedDataWithRootObject:self.blue] forKey:completedColorKey];
-                    [event setValue:[NSKeyedArchiver archivedDataWithRootObject:self.green] forKey:remainingColorKey];
+                    [event setValue:[NSKeyedArchiver archivedDataWithRootObject:self.blue requiringSecureCoding:YES error:nil] forKey:completedColorKey];
+                    [event setValue:[NSKeyedArchiver archivedDataWithRootObject:self.green requiringSecureCoding:YES error:nil] forKey:remainingColorKey];
                     break;
             }
-            [event setValue:[NSKeyedArchiver archivedDataWithRootObject:self.white] forKey:backgroundColorKey];
+            [event setValue:[NSKeyedArchiver archivedDataWithRootObject:self.white requiringSecureCoding:YES error:nil] forKey:backgroundColorKey];
         }
         [[NSUserDefaults standardUserDefaults] setInteger:4 forKey:versionKey];
         [[NSUserDefaults standardUserDefaults] synchronize];
