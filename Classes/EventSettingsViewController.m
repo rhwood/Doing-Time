@@ -21,7 +21,6 @@
 #import "EventSettingsViewController.h"
 #import "TodaySettingsViewController.h"
 #import "MainViewController.h"
-#import "AppStoreDelegate.h"
 #import "AboutViewController.h"
 #import "ColorSelectionView.h"
 #import "ColorPickerViewController.h"

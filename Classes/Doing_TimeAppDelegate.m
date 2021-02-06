@@ -21,14 +21,11 @@
 #import "Doing_TimeAppDelegate.h"
 #import "MainViewController.h"
 #import "EventViewController.h"
-#import "AppStoreDelegate.h"
 
 @implementation Doing_TimeAppDelegate
 
 @synthesize window;
 @synthesize mainViewController;
-//@synthesize eventStore = _eventStore;
-@synthesize appStore = _appStore;
 
 #pragma mark - Application lifecycle
 
@@ -107,19 +104,6 @@
         [[NSUserDefaults standardUserDefaults] setInteger:4 forKey:versionKey];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
-
-	// Observe the store
-	self.appStore = [[AppStoreDelegate alloc] initWithDictionary:[[NSUserDefaults standardUserDefaults] dictionaryForKey:transactionsKey]];
-	[[NSNotificationCenter defaultCenter] addObserverForName:AXAppStoreTransactionShouldBeRecorded
-													  object:self.appStore
-													   queue:nil
-												  usingBlock:^(NSNotification *notif) {
-													  [[NSUserDefaults standardUserDefaults] setObject:self.appStore.transactionStore 
-																								forKey:transactionsKey];
-													  [[NSUserDefaults standardUserDefaults] synchronize];
-												  }];
-    //disable to able to reuse identifier for other reasons
-	//[self.appStore requestProductData:multipleEventsProductIdentifier ifHasTransaction:NO];
 
     // Add the main view controller's view to the window and display.
 

@@ -23,7 +23,6 @@
 #import "EventSettingsViewController.h"
 #import "SettingsViewController.h"
 #import "Doing_TimeAppDelegate.h"
-#import "AppStoreDelegate.h"
 #import "Constants.h"
 
 @interface MainViewController (Private)
