@@ -18,8 +18,6 @@
 		48676E521842322900194D54 /* EventViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 48676E511842322900194D54 /* EventViewCell.m */; };
 		48676E5F1845865800194D54 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48676E611845865800194D54 /* Main.storyboard */; };
 		4870279D12D80B3000E90108 /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4870279B12D80B3000E90108 /* NSDate+Additions.m */; };
-		489006F01859CCEA00B43E84 /* TutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 489006EF1859CCEA00B43E84 /* TutorialViewController.m */; };
-		489007BC1859DA5C00B43E84 /* Tutorial.html in Resources */ = {isa = PBXBuildFile; fileRef = 489007BA1859DA5C00B43E84 /* Tutorial.html */; };
 		48924A1B131D67DA002AC7F5 /* EventSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48924A18131D67DA002AC7F5 /* EventSettingsViewController.m */; };
 		48964F39181F36100019B5B0 /* ColorSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 48964F38181F36100019B5B0 /* ColorSelectionView.m */; };
 		48ADE0C41343B51E005E96EB /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 48ADE0C31343B51E005E96EB /* Constants.m */; };
@@ -74,9 +72,6 @@
 		48676E511842322900194D54 /* EventViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventViewCell.m; path = Classes/EventViewCell.m; sourceTree = "<group>"; };
 		4870279A12D80B3000E90108 /* NSDate+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = "NSDate+Additions.h"; path = "Classes/NSDate+Additions.h"; sourceTree = "<group>"; };
 		4870279B12D80B3000E90108 /* NSDate+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+Additions.m"; path = "Classes/NSDate+Additions.m"; sourceTree = "<group>"; };
-		489006EE1859CCEA00B43E84 /* TutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TutorialViewController.h; path = Classes/TutorialViewController.h; sourceTree = "<group>"; };
-		489006EF1859CCEA00B43E84 /* TutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TutorialViewController.m; path = Classes/TutorialViewController.m; sourceTree = "<group>"; };
-		489007BB1859DA5C00B43E84 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = en; path = en.lproj/Tutorial.html; sourceTree = "<group>"; };
 		48924A17131D67DA002AC7F5 /* EventSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.objj.h; name = EventSettingsViewController.h; path = Classes/EventSettingsViewController.h; sourceTree = "<group>"; };
 		48924A18131D67DA002AC7F5 /* EventSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventSettingsViewController.m; path = Classes/EventSettingsViewController.m; sourceTree = "<group>"; };
 		48964F37181F36100019B5B0 /* RSSelectionLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSelectionLayer.h; sourceTree = "<group>"; };
@@ -229,7 +224,6 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				489007B91859DA0500B43E84 /* Tutorials */,
 				48C288C1184B54F000A648E2 /* Icons.xcassets */,
 				48CE82B31350CAC600D94BA6 /* EventView.xib */,
 				48676E611845865800194D54 /* Main.storyboard */,
@@ -253,8 +247,6 @@
 				4828129C135CA5C3003704EC /* AboutViewController.m */,
 				4816E5D71847746A0070E4AD /* SettingsViewController.h */,
 				4816E5D81847746A0070E4AD /* SettingsViewController.m */,
-				489006EE1859CCEA00B43E84 /* TutorialViewController.h */,
-				489006EF1859CCEA00B43E84 /* TutorialViewController.m */,
 			);
 			name = "Settings Views";
 			sourceTree = "<group>";
@@ -279,14 +271,6 @@
 				48AF93B8185229F300A8EFAF /* ListFooterCell.m */,
 			);
 			name = "List View";
-			sourceTree = "<group>";
-		};
-		489007B91859DA0500B43E84 /* Tutorials */ = {
-			isa = PBXGroup;
-			children = (
-				489007BA1859DA5C00B43E84 /* Tutorial.html */,
-			);
-			name = Tutorials;
 			sourceTree = "<group>";
 		};
 		48E56436181C5D250064AE1C /* RSColorPicker */ = {
@@ -431,7 +415,6 @@
 				48C288C2184B54F000A648E2 /* Icons.xcassets in Resources */,
 				48CE82B41350CAC600D94BA6 /* EventView.xib in Resources */,
 				48CE82E81350D37B00D94BA6 /* Localizable.strings in Resources */,
-				489007BC1859DA5C00B43E84 /* Tutorial.html in Resources */,
 				48676E5F1845865800194D54 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -485,7 +468,6 @@
 				48676E521842322900194D54 /* EventViewCell.m in Sources */,
 				48E56461181C5D250064AE1C /* ANImageBitmapRep.m in Sources */,
 				485BD59D16B14DC300424CC8 /* TodaySettingsViewController.m in Sources */,
-				489006F01859CCEA00B43E84 /* TutorialViewController.m in Sources */,
 				48E56467181C5D250064AE1C /* CGImageContainer.m in Sources */,
 				48B3BFC718D4D37300C4E315 /* RSColorPickerState.m in Sources */,
 				48E5646F181C5D250064AE1C /* RSColorFunctions.m in Sources */,
@@ -509,14 +491,6 @@
 				48C6F272255FEE0C005D72AE /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		489007BA1859DA5C00B43E84 /* Tutorial.html */ = {
-			isa = PBXVariantGroup;
-			children = (
-				489007BB1859DA5C00B43E84 /* en */,
-			);
-			name = Tutorial.html;
 			sourceTree = "<group>";
 		};
 		48CE82B31350CAC600D94BA6 /* EventView.xib */ = {
