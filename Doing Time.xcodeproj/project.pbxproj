@@ -654,10 +654,7 @@
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "Doing_Time-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/TestFlightSDK\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MARKETING_VERSION = 3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.alexandriasoftware.doingtime;
 				PRODUCT_NAME = "Doing Time";
@@ -683,10 +680,7 @@
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "Doing_Time-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/TestFlightSDK\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MARKETING_VERSION = 3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.alexandriasoftware.doingtime;
 				PRODUCT_NAME = "Doing Time";
@@ -755,10 +749,7 @@
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "Doing_Time-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/TestFlightSDK\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MARKETING_VERSION = 3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.alexandriasoftware.doingtime;
 				PRODUCT_NAME = "Doing Time";
@@ -828,10 +819,7 @@
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "Doing_Time-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/TestFlightSDK\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MARKETING_VERSION = 3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.alexandriasoftware.doingtime;
 				PRODUCT_NAME = "Doing Time";
