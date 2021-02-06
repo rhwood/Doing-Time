@@ -42,7 +42,6 @@
 @synthesize events = _events;
 @synthesize pagerDidScroll = _pagerDidScroll;
 @synthesize appDelegate = _appDelegate;
-@synthesize adBanner = _adBanner;
 @synthesize dayOverTimer = _dayOverTimer;
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -81,19 +80,8 @@
     }
     
 	// Display Defaults
-    // temporaryly disabling ads, so also disable multiple events test
-//	if ([self.appDelegate.appStore hasTransactionForProduct:multipleEventsProductIdentifier]) {
     self.pager.numberOfPages = [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count];
     self.pager.currentPage = [[NSUserDefaults standardUserDefaults] integerForKey:currentEventKey];
-    self.adBanner.opaque = NO;
-    self.adBanner.alpha = 0.0;
-//	} else {
-//		self.pager.numberOfPages = 1;
-//		self.pager.currentPage = 0;
-//        self.controls.hidden = YES;
-//        self.bannerIsVisible = YES;
-//        [self hideAdBanner:YES animated:NO];
-//	}
     
 	// Recognize left/right swipes
 	UISwipeGestureRecognizer *recognizer;
@@ -115,17 +103,6 @@
 	
 	[self changePage:nil];
 	
-	// Register for Notifications
-//	[[NSNotificationCenter defaultCenter] addObserverForName:AXAppStoreNewContentShouldBeProvided
-//													  object:self.appDelegate.appStore
-//													   queue:nil
-//												  usingBlock:^(NSNotification *notification) {
-//													  if ([[[notification userInfo] objectForKey:AXAppStoreProductIdentifier] isEqualToString:multipleEventsProductIdentifier]) {
-//														  [self hideAdBanner:YES animated:NO];
-//														  [self.adBanner removeFromSuperview];
-//														  [self showPager];
-//													  }
-//												  }];
 	[[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
 													  object:[UIApplication sharedApplication]
 													   queue:nil
@@ -414,39 +391,6 @@
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:eventsKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
     [self showInfo:nil];
-}
-
-#pragma mark - iAd delegate
-
-- (void)hideAdBanner:(BOOL)hide animated:(BOOL)animated {
-	if (hide != self.bannerIsVisible) {
-		return;
-	}
-	if (animated) {
-		[UIView beginAnimations:@"animateAdBanner" context:NULL];
-	}
-    self.bannerIsVisible = !hide;
-    self.adBanner.hidden = hide;
-	if (animated) {
-		[UIView commitAnimations];
-	}
-}
-
-- (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave {
-	// there is nothing to stop for this
-	return YES;
-}
-
-- (void)bannerViewDidLoadAd:(ADBannerView *)banner {
-	if ([self.adBanner superview] && !self.bannerIsVisible) {
-		[self hideAdBanner:NO animated:YES];
-    }
-}
-
-- (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error	{
-	if ([self.adBanner superview] && self.bannerIsVisible) {
-		[self hideAdBanner:YES animated:YES];
-    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {

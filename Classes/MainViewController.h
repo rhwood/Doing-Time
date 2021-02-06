@@ -19,12 +19,10 @@
 //  limitations under the License.
 
 #import <UIKit/UIKit.h>
-//#import <EventKit/EventKit.h>
-#import <iAd/iAd.h>
 
 @class Doing_TimeAppDelegate;
 
-@interface MainViewController : UIViewController <ADBannerViewDelegate, UIScrollViewDelegate> {
+@interface MainViewController : UIViewController <UIScrollViewDelegate> {
 	
 	UIView *_controls;
 //	EKEventStore *_eventStore;
@@ -34,7 +32,6 @@
 	NSMutableArray *_events;
 	BOOL _pagerDidScroll;
 	Doing_TimeAppDelegate *_appDelegate;
-	ADBannerView *_adBanner;
 	NSTimer *_dayOverTimer;
 	
 }
@@ -60,10 +57,6 @@
 - (IBAction)showInfo:(id)sender;
 - (IBAction)showSettings:(id)sender;
 
-#pragma mark - iAd Delegate
-
-- (void)hideAdBanner:(BOOL)hide animated:(BOOL)animated;
-
 @property (nonatomic, strong) IBOutlet UIView *controls;
 //@property (nonatomic, strong) IBOutlet EKEventStore *eventStore;
 @property (nonatomic, strong) IBOutlet UIPageControl *pager;
@@ -74,7 +67,6 @@
 @property BOOL bannerIsVisible;
 @property BOOL pagerDidScroll;
 @property (nonatomic, strong) Doing_TimeAppDelegate *appDelegate;
-@property (nonatomic, strong) IBOutlet ADBannerView *adBanner;
 @property (nonatomic, strong) NSTimer *dayOverTimer;
 
 @property BOOL firstRun;
