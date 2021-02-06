@@ -1,6 +1,3 @@
-[submodule "CargoBay"]
-	path = CargoBay
-	url = git://github.com/mattt/CargoBay.git
 [submodule "RSColorPicker"]
 	path = RSColorPicker
 	url = https://github.com/RSully/RSColorPicker.git

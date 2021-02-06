@@ -19,7 +19,6 @@
 //  limitations under the License.
 
 #import "AppStoreDelegate.h"
-#import "CargoBay.h"
 
 #if TARGET_IPHONE_SIMULATOR
     #define BYPASS_STORE 0 // 0 to see as without purchases 1 to see as with purchases
@@ -52,35 +51,6 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 		self.products = [NSMutableDictionary dictionaryWithCapacity:0];
 		self.openRequests = [NSMutableSet setWithCapacity:0];
 		self.validProducts = [NSMutableArray arrayWithCapacity:0];
-        [[CargoBay sharedManager] setPaymentQueueUpdatedTransactionsBlock:^(SKPaymentQueue *queue, NSArray *transactions) {
-            for (SKPaymentTransaction *transaction in transactions) {
-                switch (transaction.transactionState) {
-                    case SKPaymentTransactionStatePurchased:
-                        [self completeTransaction:transaction];
-                        break;
-                    case SKPaymentTransactionStateFailed:
-                        [self failedTransaction:transaction];
-                        break;
-                    case SKPaymentTransactionStateRestored:
-                        [self restoreTransaction:transaction];
-                    default:
-                        break;
-                }
-            }
-        }];
-        [[CargoBay sharedManager] setPaymentQueueRestoreCompletedTransactionsWithSuccess:nil
-                                                                                 failure:^(SKPaymentQueue *queue, NSError *error) {
-                                                                                     if (error.code != SKErrorPaymentCancelled) {
-                                                                                         [[NSNotificationCenter defaultCenter] postNotificationName:AXAppStoreTransactionFailed
-                                                                                                                                             object:self
-                                                                                                                                           userInfo:@{AXAppStoreTransactionError: error}];
-                                                                                     } else {
-                                                                                         [[NSNotificationCenter defaultCenter] postNotificationName:AXAppStoreTransactionCancelled
-                                                                                                                                             object:self
-                                                                                                                                           userInfo:nil];
-                                                                                     }
-                                                                                 }];
- 		[[SKPaymentQueue defaultQueue] addTransactionObserver:[CargoBay sharedManager]];
 	}
 	return self;
 }
@@ -113,25 +83,6 @@ NSString *const AXAppStoreTransactionStore = @"AXAppStoreTransactionStore";
 }
 
 - (void)requestProductData:(NSString *)productIdentifier {
-    [[CargoBay sharedManager] productsWithIdentifiers:[NSSet setWithObject:productIdentifier]
-                                              success:^(NSArray *products, NSArray *invalidIdentifiers) {
-                                                  for (SKProduct *product in products) {
-                                                      [self.products setObject:product forKey:product.productIdentifier];
-                                                      if (![self.validProducts containsObject:product.productIdentifier]) {
-                                                          [self.validProducts addObject:product.productIdentifier];
-                                                      }
-                                                  }
-                                                  for (NSString *productIdentifier in invalidIdentifiers) {
-                                                      [self.validProducts removeObject:productIdentifier];
-                                                  }
-                                                  [[NSNotificationCenter defaultCenter] postNotificationName:AXAppStoreDidReceiveProductsList
-                                                                                                      object:self
-                                                                                                    userInfo:@{AXAppStoreProducts: self.validProducts}];
-                                                  
-                                              }
-                                              failure:^(NSError *error) {
-                                                  [self request:nil didFailWithError:error];
-                                              }];
 }
 
 - (void)requestProductData:(NSString *)productIdentifier ifHasTransaction:(BOOL)hasTransaction {
