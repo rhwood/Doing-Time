@@ -82,8 +82,8 @@
 	if (self.eventID >= [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] count]) {
 		return NO; // do not attempt to setup the piechart if the event ID is not in the array
 	}
-	NSInteger inFuture = 0;
-	NSInteger inPast = 0;
+	long inFuture = 0;
+	long inPast = 0;
 	self.event = [[[NSUserDefaults standardUserDefaults] arrayForKey:eventsKey] objectAtIndex:self.eventID];
     [self setBackgroundBrightness];
     BOOL showPercentage = [self.event[showPercentageKey] boolValue];
@@ -102,21 +102,21 @@
 //    NSLog(@"Calc end:    %@", calcEndDate);
 //	NSLog(@"Now:         %@", [NSDate date]);
 
-    NSInteger completed = [[self.calendar components:NSCalendarUnitDay
-                                            fromDate:startDate
-                                              toDate:today
-                                             options:0]
-						   day];
-	NSInteger left = [[self.calendar components:NSCalendarUnitDay
-                                       fromDate:today
-                                         toDate:calcEndDate
+    long completed = [[self.calendar components:NSCalendarUnitDay
+                                       fromDate:startDate
+                                         toDate:today
                                         options:0]
-					  day];
-	NSInteger duration = [[self.calendar components:NSCalendarUnitDay
-                                           fromDate:startDate
-                                             toDate:calcEndDate
-                                            options:0]
-						  day];
+                      day];
+    long left = [[self.calendar components:NSCalendarUnitDay
+                                  fromDate:today
+                                    toDate:calcEndDate
+                                   options:0]
+                 day];
+    long duration = [[self.calendar components:NSCalendarUnitDay
+                                      fromDate:startDate
+                                        toDate:calcEndDate
+                                       options:0]
+                     day];
 //	NSLog(@"%d days complete", completed);
 //	NSLog(@"%d days left", left);
 //	NSLog(@"%d total days", duration);
@@ -218,7 +218,7 @@
                 if (completed == 1 && !inPast) {
                     _daysComplete.text = [NSString localizedStringWithFormat:NSLocalizedString(@"Started yesterday", @"Started yesterday, but no percentages displayed")];
                 } else {
-                    _daysComplete.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%d %@ complete", @"The number (%d) of days (%@) complete"), completed, days];
+                    _daysComplete.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%ld %@ complete", @"The number (%d) of days (%@) complete"), (long)completed, days];
                 }
             } else if (!showTotals && showPercentage) {
                 _daysComplete.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%2.4g%% complete", @"The percentage of days complete"), interval * completed * 100];
@@ -226,7 +226,7 @@
                 if (completed == 1 && !inPast) {
                     _daysComplete.text = [NSString localizedStringWithFormat:NSLocalizedString(@"Started yesterday (%2.4g%% complete)", @"Started yesterday, with percentage complete"), interval * completed * 100];
                 } else {
-                    _daysComplete.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%d %@ (%2.4g%%) complete", @"The number (%d) of days (%@) complete with the percent of days past in parenthesis"), completed, days, interval * completed * 100];
+                    _daysComplete.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%ld %@ (%2.4g%%) complete", @"The number (%d) of days (%@) complete with the percent of days past in parenthesis"), (long)completed, days, interval * completed * 100];
                 }
             }
         } else if (showTotals) {
@@ -234,8 +234,8 @@
             if (inFuture == 1) {
                 _daysComplete.text = NSLocalizedString(@"Begins tomorrow", @"The message displayed when the event will start tomorrow");
             } else {
-                _daysComplete.text = [NSString localizedStringWithFormat:NSLocalizedString(@"Begins in %d days", @"The message displayed when the event will start %d days in the future"),
-                                      inFuture];
+                _daysComplete.text = [NSString localizedStringWithFormat:NSLocalizedString(@"Begins in %ld days", @"The message displayed when the event will start %d days in the future"),
+                                      (long)inFuture];
             }
         } else {
             // event is in future, but we are being vague
@@ -252,18 +252,18 @@
             if (left == 0) {
                 _daysLeft.text = NSLocalizedString(@"Ends today", @"The message displayed on the last day of an event");
             } else if (!showPercentage && showTotals) {
-                _daysLeft.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%d %@ left", @"The number (%d) of days (%@) remaining"), left, days];
+                _daysLeft.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%ld %@ left", @"The number (%d) of days (%@) remaining"), left, days];
             } else if (!showTotals && showPercentage) {
                 _daysLeft.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%2.4g%% left", @"The percentage of days complete"), interval * left * 100];
             } else {
-                _daysLeft.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%d %@ (%2.4g%%) left", @"The number (%d) of days (%@) remaining with the percentage remaining in parenthesis"), left, days, interval * left * 100];
+                _daysLeft.text = [NSString localizedStringWithFormat:NSLocalizedString(@"%ld %@ (%2.4g%%) left", @"The number (%d) of days (%@) remaining with the percentage remaining in parenthesis"), left, days, interval * left * 100];
             }
         } else if (showTotals) {
             // event is past, and we are showing stats
             if (inPast == 1) {
                 _daysLeft.text = NSLocalizedString(@"Ended yesterday", @"Message displayed to indicate the event ended the day prior.");
             } else {
-                _daysLeft.text = [NSString localizedStringWithFormat:NSLocalizedString(@"Ended %d days ago", @"Message indicating the event ended some days in the past"),
+                _daysLeft.text = [NSString localizedStringWithFormat:NSLocalizedString(@"Ended %ld days ago", @"Message indicating the event ended some days in the past"),
                                   inPast];
             }
         } else {
