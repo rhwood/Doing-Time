@@ -1118,7 +1118,7 @@
         <segue reference="c0i-0e-dFV"/>
         <segue reference="25Q-Rt-d9A"/>
     </inferredMetricsTieBreakers>
-    <color key="tintColor" red="0.088063299655914307" green="0.23954835534095764" blue="0.18539746105670929" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+    <color key="tintColor" red="0.086274509803921567" green="0.23921568627450979" blue="0.18431372549019609" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
     <resources>
         <image name="ASlogo1-64x192" width="192" height="64"/>
         <image name="gray-info" width="28" height="28"/>
