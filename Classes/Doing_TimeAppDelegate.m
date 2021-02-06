@@ -115,11 +115,6 @@
     return YES;
 }
 
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    // get event index by name and display it
-    return YES;
-}
-
 - (void)applicationWillResignActive:(UIApplication *)application {
     [self applicationDidEnterBackground:application];
 }

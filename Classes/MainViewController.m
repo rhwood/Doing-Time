@@ -392,8 +392,4 @@
     [self showInfo:nil];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-	return UIInterfaceOrientationIsPortrait(interfaceOrientation);
-}
-
 @end

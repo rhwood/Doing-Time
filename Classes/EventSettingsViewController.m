@@ -892,29 +892,4 @@
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark - Action sheet view delegate
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    //	if (actionSheet == self.linkUnlinkedEventActionSheet) {
-    //		if (buttonIndex == actionSheet.cancelButtonIndex) {
-    //			// do nothing
-    //		} else if (buttonIndex == actionSheet.firstOtherButtonIndex) {
-    //			[self selectCalendarEvent];
-    //		} else {
-    //			[self createCalendarEvent];
-    //		}
-    //	} else if (actionSheet == self.changeLinkedEventActionSheet) {
-    //		if (buttonIndex == actionSheet.cancelButtonIndex) {
-    //			// do nothing
-    //		} else if (buttonIndex == actionSheet.destructiveButtonIndex) {
-    //			[self.event setValue:nil forKey:linkKey];
-    //		} else if (buttonIndex == actionSheet.firstOtherButtonIndex) {
-    //			[self selectCalendarEvent];
-    //		} else {
-    //			[self createCalendarEvent];
-    //		}
-    //	}
-    //	[self.tableView reloadData];
-}
-
 @end
