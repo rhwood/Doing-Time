@@ -123,13 +123,17 @@
 //    NSLog(@"--adjusting--");
     if (!duration) {
         if (!self.showingAlert) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Cannot Display Event", @"Title for error displaying event")
-                                                            message:NSLocalizedString(@"Event must be 1 or more days long.\n\nInclude the end date in the event\nor change the end date.", @"Label indicating that event has zero days duration")
-                                                           delegate:self
-                                                  cancelButtonTitle:NSLocalizedString(@"OK", @"Label indicating the user acknowledges the issue")
-                                                  otherButtonTitles:nil];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Cannot Display Event", @"Title for error displaying event")
+                                                                           message:NSLocalizedString(@"Event must be 1 or more days long.\n\nInclude the end date in the event\nor change the end date.", @"Label indicating that event has zero days duration")
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"Label indicating the user acknowledges the issue")
+                                                      style:UIAlertActionStyleDefault
+                                                    handler:^(UIAlertAction * _Nonnull action) {
+                self.showingAlert = NO;
+                [self showInfo:self];
+            }]];
+            [self presentViewController:alert animated:YES completion:nil];
             self.showingAlert = YES;
-            [alert show];
         } else {
             return NO;
         }
@@ -384,13 +388,6 @@
 
 - (IBAction)showSettings:(id)sender {
     [self.mainView showSettings:sender];
-}
-
-#pragma mark - UIAlertView delegate
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    self.showingAlert = NO;
-    [self showInfo:self];
 }
 
 #pragma mark - Memory management

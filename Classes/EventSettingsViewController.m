@@ -38,7 +38,6 @@
 #define DATES 1
 #define INCLUDE_END 0
 #define TODAY_IS 1
-#define CALENDAR 2
 // Table Stats section
 #define DISPLAY 2
 #define SHOW_DATES 0
@@ -479,16 +478,6 @@
                             break;
                     }
                     break;
-                case CALENDAR: // link to calendar
-                    //                    cell.textLabel.text = NSLocalizedString(@"Link to Event", @"Label or button link event to the system calendar");
-                    //                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                    //                    if ([self.event valueForKey:linkKey]) {
-                    //                        EKEvent *event = [self.eventStore eventWithIdentifier:[self.event valueForKey:linkKey]];
-                    //                        cell.detailTextLabel.text = event.title; //event title
-                    //                    } else {
-                    //                        cell.detailTextLabel.text = NSLocalizedString(@"None", @"Label to indicate that event is not linked to the system calendar");
-                    //                    }
-                    break;
                 default:
                     break;
             }
@@ -634,7 +623,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:YES];
-    NSString *link;
     self.showErrorAlert = YES;
     [self verifyDateOrder];
     [self calculateDuration];
@@ -693,13 +681,6 @@
                 case TODAY_IS:
                     // nothing to do
                     break;
-                case CALENDAR:
-                    link = [self.event valueForKey:linkKey];
-                    if (link) {
-                        [self.changeLinkedEventActionSheet showInView:self.view];
-                    } else {
-                        [self.linkUnlinkedEventActionSheet showInView:self.view];
-                    }
                 default:
                     break;
             }
@@ -744,24 +725,30 @@
 
 - (void)showDateErrorAlert {
     if (self.showErrorAlert) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Cannot Save Event", @"Title for error saving event")
-                                                        message:NSLocalizedString(@"The start date must be before the end date.", @"Label indicating that the start day is not before the end day")
-                                                       delegate:nil
-                                              cancelButtonTitle:NSLocalizedString(@"OK", @"Label indicating the user acknowledges the issue")
-                                              otherButtonTitles:nil];
-        [alert show];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Cannot Save Event", @"Title for error saving event")
+                                                                       message:NSLocalizedString(@"The start date must be before the end date.", @"Label indicating that the start day is not before the end day")
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"Label indicating the user acknowledges the issue")
+                                                  style:UIAlertActionStyleDefault
+                                                handler:^(UIAlertAction * _Nonnull action) {
+            // nothing to do
+        }]];
+        [self presentViewController:alert animated:YES completion:nil];
         self.showErrorAlert = NO;
     }
 }
 
 - (void)showDurationErrorAlert {
     if (self.showErrorAlert) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Cannot Save Event", @"Title for error saving event")
-                                                        message:NSLocalizedString(@"Event must be 1 or more days long.\n\nInclude the end date in the event\nor change the end date.", @"Label indicating that event has zero days duration")
-                                                       delegate:nil
-                                              cancelButtonTitle:NSLocalizedString(@"OK", @"Label indicating the user acknowledges the issue")
-                                              otherButtonTitles:nil];
-        [alert show];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Cannot Save Event", @"Title for error saving event")
+                                                                       message:NSLocalizedString(@"Event must be 1 or more days long.\n\nInclude the end date in the event\nor change the end date.", @"Label indicating that event has zero days duration")
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"Label indicating the user acknowledges the issue")
+                                                  style:UIAlertActionStyleDefault
+                                                handler:^(UIAlertAction * _Nonnull action) {
+            // nothing to do
+        }]];
+        [self presentViewController:alert animated:YES completion:nil];
         self.showErrorAlert = NO;
     }
 }
@@ -836,12 +823,15 @@
         if ([self.titleView.text length]) {
             [self.event setValue:self.titleView.text forKey:titleKey];
         } else {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Cannot Save Title", @"Title for message indicating an error with the title of the event")
-                                                            message:NSLocalizedString(@"The title cannot be blank.", @"Message with the cause of the error saving the title")
-                                                           delegate:nil
-                                                  cancelButtonTitle:NSLocalizedString(@"OK", @"")
-                                                  otherButtonTitles:nil];
-            [alert show];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Cannot Save Title", @"Title for message indicating an error with the title of the event")
+                                                                           message:NSLocalizedString(@"The title cannot be blank.", @"Message with the cause of the error saving the title")
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"Label indicating the user acknowledges the issue")
+                                                      style:UIAlertActionStyleDefault
+                                                    handler:^(UIAlertAction * _Nonnull action) {
+                // nothing to do
+            }]];
+            [self presentViewController:alert animated:YES completion:nil];
             return NO;
         }
     }

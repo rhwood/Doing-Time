@@ -158,12 +158,17 @@
     [self redrawBackground];
     if (self.firstRun) {
         self.firstRun = NO;
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Welcome to Doing Time", @"Title for intro alert")
-                                                        message:NSLocalizedString(@"Doing Time shows the progress towards completing a multi-day event.\n\nLet's configure our first event now.", @"Label for intro alert.")
-                                                       delegate:self
-                                              cancelButtonTitle:NSLocalizedString(@"OK", @"Label indicating the user acknowledges the issue")
-                                              otherButtonTitles:nil];
-        [alert show];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Welcome to Doing Time", @"Title for intro alert")
+                                                                       message:NSLocalizedString(@"Doing Time shows the progress towards completing a multi-day event.\n\nLet's configure our first event now.", @"Label for intro alert.")
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"Label indicating the user acknowledges the issue")
+                                                  style:UIAlertActionStyleDefault
+                                                handler:^(UIAlertAction * _Nonnull action) {
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:eventsKey];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            [self showInfo:nil];
+        }]];
+        [self presentViewController:alert animated:YES completion:nil];
     }
 }
 
@@ -382,14 +387,6 @@
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
 	self.pagerDidScroll = NO;
-}
-
-#pragma mark - Alert view delegate
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:eventsKey];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    [self showInfo:nil];
 }
 
 @end
