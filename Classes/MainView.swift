@@ -23,34 +23,57 @@ import SwiftUI
 struct MainView: View {
 
     @Environment(\.managedObjectContext) private var viewContext
+    /// part of hack to work around bottomBar not reappearing when navigating back up the stack
+    @State private var isShown = true
+    /// part of hack to work around bottomBar not reappearing when navigating back up the stack
+    @State private var refresh = UUID()
 
     var body: some View {
-        VStack {
-            ScrollView(.horizontal, showsIndicators: false) {
-                LazyHStack {
-                    EventView(event: Event())
-                    EventView(event: Event())
-                    EventView(event: Event())
+        NavigationView {
+            List {
+                NavigationLink(destination: EventControllerView(event: Event(title: "Foo"))
+                                .onDisappear(perform: destinationOnDisappear)
+                                .onAppear(perform: destinationOnAppear)
+                ) {
+                    EventCellView(event: Event(title: "Event 1"))
                 }
             }
-            HStack {
-                Button(action: {
-                    // show event settings
-                    // ideally show menu of event ("edit") and app ("about / info") settings
-                }, label: {
-                    Image(systemName: "gear")
-                        .foregroundColor(Color(red: 0, green: 0.258, blue: 0.145, opacity: 1.0))
-                })
-                Spacer()
-                Button(action: {
-                    // add new event
-                }, label: {
-                    Image(systemName: "plus")
-                        .foregroundColor(Color(red: 0, green: 0.258, blue: 0.145, opacity: 1.0))
-                })
+            .onAppear {
+                isShown = true
             }
+            .toolbar {
+                ToolbarItem(placement: .bottomBar) {
+                    Button(action: {
+                        print("New Event requested!")
+                    }, label: {
+                        Image(systemName: "plus.circle.fill")
+                        Text("New Event")
+                    }).help("Create a new event.")
+                }
+                ToolbarItem(placement: .navigationBarLeading) {
+                    NavigationLink(destination: AppSettingsView()
+                                    .onDisappear(perform: destinationOnDisappear)
+                                    .onAppear(perform: destinationOnAppear)
+                    ) {
+                        Image(systemName: "info.circle")
+                    }
+                    .help("About Doing Time.")
+                }
+            }
+            .id(refresh)
         }
-        .padding()
+    }
+
+    /// part of hack to work around bottomBar not reappearing when navigating back up the stack
+    private func destinationOnDisappear() {
+        if isShown {
+            refresh = UUID()
+        }
+    }
+
+    /// part of hack to work around bottomBar not reappearing when navigating back up the stack
+    private func destinationOnAppear() {
+        isShown = false
     }
 }
 
