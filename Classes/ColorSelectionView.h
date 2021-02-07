@@ -18,8 +18,6 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#import "RSSelectionLayer.h"
-
 @interface ColorSelectionView : UIView
 
 @property (nonatomic) UIColor *selectedColor;
