@@ -23,7 +23,6 @@
 #import "MainViewController.h"
 #import "AboutViewController.h"
 #import "ColorSelectionView.h"
-#import "ColorPickerViewController.h"
 #import "Constants.h"
 
 // Table Event section
@@ -53,8 +52,6 @@
 
 @interface EventSettingsViewController ()
 
-- (void)colorSelectionDidChange:(NSNotification *)note forKey:(NSString *)key;
-
 - (void)clearDatePickerAndSelection;
 
 @end
@@ -70,6 +67,7 @@
 		self.index = 0;
         self.settingEndDate = NO;
         self.settingStartDate = NO;
+        colorKey = nil;
     }
     return self;
 }
@@ -161,10 +159,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.cancelling = NO;
-    self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    self.view.backgroundColor = [UIColor systemGroupedBackgroundColor];
     self.titleView.text = [self.event valueForKey:titleKey];
     self.titleView.borderStyle = UITextBorderStyleNone;
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
     self.showErrorAlert = YES;
     self.startDateViewCellIndexPath = [NSIndexPath indexPathForRow:START_DATE inSection:EVENT];
     self.startDatePickerViewCellIndexPath = [NSIndexPath indexPathForRow:START_DATE_PICKER inSection:EVENT];
@@ -173,20 +170,6 @@
     self.durationViewCellIndexPath = [NSIndexPath indexPathForRow:DURATION inSection:EVENT];
     // set the detailTextLabel.textColor to ~ Brunswick Green (per Wikipedia)
     self.detailTextLabelColor = [UIColor colorWithRed:0.105 green:0.301 blue:0.242 alpha:1.0];
-    //	self.linkUnlinkedEventActionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Link to Event in Calendar", @"Action sheet title to link event to system calendar")
-    //																	delegate:self
-    //														   cancelButtonTitle:NSLocalizedString(@"Cancel", @"Button to not link event to calendar")
-    //													  destructiveButtonTitle:nil
-    //														   otherButtonTitles:NSLocalizedString(@"Existing Event", @"Button to link to event already in calendar"),
-    //										 NSLocalizedString(@"Create New Event", @"Button to create event in calendar"),
-    //										 nil];
-    //	self.changeLinkedEventActionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Link to Event in Calendar", @"")
-    //																	delegate:self
-    //														   cancelButtonTitle:NSLocalizedString(@"Cancel", @"")
-    //													  destructiveButtonTitle:NSLocalizedString(@"Remove Link", @"Button to unlink an event from the system calendar")
-    //														   otherButtonTitles:NSLocalizedString(@"Change Linked Event", @""),
-    //										 NSLocalizedString(@"Create New Event", @""),
-    //										 nil];
     // Add duration cell, since it's accessory view is unique
     self.durationView.textColor = self.detailTextLabelColor;
 }
@@ -200,8 +183,6 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:self.tableView.indexPathForSelectedRow];
-    NSString *key = nil;
     if ([segue.identifier isEqualToString:@"EventToTodayIsSegue"]) {
         TodaySettingsViewController *destination = segue.destinationViewController;
         destination.setting = [[self.event valueForKey:todayIsKey] integerValue];
@@ -213,38 +194,7 @@
                                                           [[NSNotificationCenter defaultCenter] removeObserver:self name:todayIsKey object:note.object];
                                                           [self.tableView reloadData];
                                                       }];
-    } else if ([segue.identifier isEqualToString:@"CompletedDaysColorSegue"]) {
-        key = completedColorKey;
-    } else if ([segue.identifier isEqualToString:@"RemainingDaysColorSegue"]) {
-        key = remainingColorKey;
-    } else if ([segue.identifier isEqualToString:@"BackgroundColorSegue"]) {
-        key = backgroundColorKey;
     }
-    if (key) {
-        ColorPickerViewController *destination = segue.destinationViewController;
-        destination.selectedColor = ((ColorSelectionView *)cell.accessoryView).selectedColor;
-        destination.colorKey = key;
-        destination.navigationItem.title = cell.textLabel.text;
-        [[NSNotificationCenter defaultCenter] addObserverForName:ColorDidChangeNotification
-                                                          object:destination
-                                                           queue:[NSOperationQueue currentQueue]
-                                                      usingBlock:^(NSNotification *note) {
-                                                          [[NSNotificationCenter defaultCenter] removeObserver:self name:ColorDidChangeNotification object:note.object];
-                                                          // not calling setValue:... forKey:key because observers do not always remove soon enough, and key can become wrong in that case
-                                                          if ([note.userInfo[ColorKey] isEqualToString:completedColorKey]) {
-                                                              [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:((ColorPickerViewController *)note.object).selectedColor requiringSecureCoding:YES error:nil] forKey:completedColorKey];
-                                                          } else if ([note.userInfo[ColorKey] isEqualToString:remainingColorKey]) {
-                                                              [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:((ColorPickerViewController *)note.object).selectedColor requiringSecureCoding:YES error:nil] forKey:remainingColorKey];
-                                                          } else if ([note.userInfo[ColorKey] isEqualToString:backgroundColorKey]) {
-                                                              [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:((ColorPickerViewController *)note.object).selectedColor requiringSecureCoding:YES error:nil] forKey:backgroundColorKey];
-                                                          }
-                                                          [self.tableView reloadData];
-                                                      }];
-        
-    }
-}
-
-- (void)colorSelectionDidChange:(NSNotification *)note forKey:(NSString *)key {
 }
 
 - (void)cancel:(id)sender {
@@ -371,7 +321,7 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3; // set to 4 to enable the URL
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -380,14 +330,11 @@
             return 6;
             break;
         case DATES:
-            return 2; // no calendar linking yet
+            return 2;
             break;
         case DISPLAY:
             return 7;
             break;
-            //        case URL_SECT:
-            //            return 1;
-            //            break;
     }
     return 0;
 }
@@ -560,14 +507,6 @@
                     break;
             }
             break;
-            //        case URL_SECT:
-            //            switch (indexPath.row) {
-            //                case URL_CELL:
-            //                    return self.urlViewCell;
-            //                default:
-            //                    break;
-            //            }
-            //            break;
     }
     return cell;
 }
@@ -589,16 +528,6 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     return nil;
-    /*
-     switch (section) {
-     case EVENT:
-     return [NSString stringWithFormat:@"doing-time-app://?%@", [self.event[titleKey] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-     break;
-     default:
-     return nil;
-     break;
-     }
-     */
 }
 
 // Override to support conditional editing of the table view.
@@ -622,6 +551,7 @@
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UIColorPickerViewController *picker = nil;
     [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:YES];
     self.showErrorAlert = YES;
     [self verifyDateOrder];
@@ -686,8 +616,33 @@
             }
             break;
         case DISPLAY:
-            // every cell either performs a segue or has a switch
-            [tableView cellForRowAtIndexPath:indexPath].selectionStyle = UITableViewCellSelectionStyleNone;
+            switch (indexPath.row) {
+                case COMPLETED_COLOR:
+                    colorKey = completedColorKey;
+                    picker = [[UIColorPickerViewController alloc] init];
+                    picker.delegate = self;
+                    picker.selectedColor = ((ColorSelectionView *)[tableView cellForRowAtIndexPath:indexPath].accessoryView).selectedColor;
+                    [self presentViewController:picker animated:YES completion:nil];
+                    break;
+                case REMAINING_COLOR:
+                    colorKey = remainingColorKey;
+                    picker = [[UIColorPickerViewController alloc] init];
+                    picker.delegate = self;
+                    picker.selectedColor = ((ColorSelectionView *)[tableView cellForRowAtIndexPath:indexPath].accessoryView).selectedColor;
+                    [self presentViewController:picker animated:YES completion:nil];
+                    break;
+                case BACKGROUND_COLOR:
+                    colorKey = backgroundColorKey;
+                    picker = [[UIColorPickerViewController alloc] init];
+                    picker.delegate = self;
+                    picker.selectedColor = ((ColorSelectionView *)[tableView cellForRowAtIndexPath:indexPath].accessoryView).selectedColor;
+                    [self presentViewController:picker animated:YES completion:nil];
+                    break;
+                default:
+                    // every cell either performs a segue or has a switch
+                    [tableView cellForRowAtIndexPath:indexPath].selectionStyle = UITableViewCellSelectionStyleNone;
+                    break;
+            }
             break;
     }
 }
@@ -787,35 +742,6 @@
     return inOrder;
 }
 
-//#pragma mark - Calendar Events
-//
-//- (void)createCalendarEvent {
-//	EKEventEditViewController* controller = [[EKEventEditViewController alloc] init];
-//    controller.eventStore = self.eventStore;
-//    controller.editViewDelegate = self;
-//    [self presentModalViewController: controller animated:YES];
-//}
-//
-//- (void)editCalendarEvent:(NSString *)identifier {
-//
-//}
-//
-//- (void)eventEditViewController:(EKEventEditViewController *)controller didCompleteWithAction:(EKEventEditViewAction)action {
-//	if (action == EKEventEditViewActionSaved) {
-//		EKEvent* event = controller.event;
-//		[[NSUserDefaults standardUserDefaults] setObject:event.title forKey:titleKey];
-//		[[NSUserDefaults standardUserDefaults] setObject:event.startDate forKey:startKey];
-//		[[NSUserDefaults standardUserDefaults] setObject:event.endDate forKey:endKey];
-//		[[NSUserDefaults standardUserDefaults] setObject:event.eventIdentifier forKey:linkKey];
-//		[self.tableView reloadData];
-//	}
-//    [self dismissModalViewControllerAnimated:YES];
-//}
-//
-//- (void)selectCalendarEvent {
-//
-//}
-//
 #pragma mark - Text field delegate
 
 - (BOOL)verifyNonemptyTitle {
@@ -880,6 +806,15 @@
           didFinishWithResult:(MFMailComposeResult)result
                         error:(NSError*)error {
 	[self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - UIColorPickerViewController delegate
+
+- (void)colorPickerViewControllerDidSelectColor:(UIColorPickerViewController *)viewController {
+    if (colorKey) {
+        [self.event setValue:[NSKeyedArchiver archivedDataWithRootObject:viewController.selectedColor requiringSecureCoding:YES error:nil] forKey:colorKey];
+        [self.tableView reloadData];
+    }
 }
 
 @end

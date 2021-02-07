@@ -126,16 +126,6 @@
     }
 }
 
-#pragma mark - Crash reporter delegate
-
-- (void)connectionOpened {
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-}
-
-- (void)connectionClosed {
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-}
-
 #pragma mark - Memory management
 
 - (void)applicationDidReceiveMemoryWarning:(UIApplication *)application {

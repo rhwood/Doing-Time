@@ -20,20 +20,14 @@
 
 #import <MessageUI/MessageUI.h>
 #import "NSDate+Additions.h"
-//#import <EventKit/EventKit.h>
-//#import <EventKitUI/EventKitUI.h>
 
-@class ColorPickerViewController;
-
-@interface EventSettingsViewController : UITableViewController <UIGestureRecognizerDelegate, UITextFieldDelegate, UIAlertViewDelegate, UIActionSheetDelegate> {
+@interface EventSettingsViewController : UITableViewController <UIGestureRecognizerDelegate, UITextFieldDelegate, UIActionSheetDelegate, UIColorPickerViewControllerDelegate> {
 	NSMutableDictionary* _event;
-//	UIDatePicker* _datePicker;
-//	EKEventStore* _eventStore;
 	NSIndexPath* _startDateViewCellIndexPath;
 	NSIndexPath* _endDateViewCellIndexPath;
 	UIColor* _detailTextLabelColor;
 	__unsafe_unretained UITextField *_titleView;
-
+    NSString* colorKey;
 }
 
 - (void)cancel;
@@ -104,19 +98,9 @@
 @property (nonatomic, assign) IBOutlet UITextField* titleView;
 @property (nonatomic, strong) IBOutlet UITextField* durationView;
 @property (nonatomic, strong) IBOutlet UITableViewCell* durationViewCell;
-@property (nonatomic, strong) IBOutlet UITextView* urlView;
-@property (nonatomic, strong) IBOutlet UITableViewCell* urlViewCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* startDatePickerViewCell;
 @property (nonatomic, strong) IBOutlet UITableViewCell* endDatePickerViewCell;
 @property BOOL cancelling;
 @property NSUInteger duration;
-
-// purchase support
-@property (nonatomic, strong) IBOutlet UIActivityIndicatorView* activityIndicator;
-@property (nonatomic, strong) IBOutlet UILabel* activityLabel;
-@property (nonatomic, strong) IBOutlet UIView* activityView;
-
-// Color picking
-@property (nonatomic, strong) ColorPickerViewController* colorPicker;
 
 @end

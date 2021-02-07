@@ -321,14 +321,13 @@
 		[_eventTitle setHidden:NO];
 		[_eventTitle setNeedsDisplay];
 		// Animate the fade-in
-		[UIView beginAnimations:nil context:NULL];
-		[UIView setAnimationDuration:0.5];
-		_pieChart.alpha = 1.0;
-		_daysComplete.alpha = 1.0;
-		_daysLeft.alpha = 1.0;
-        _dateRange.alpha = 1.0;
-		_eventTitle.alpha = 1.0;
-		[UIView commitAnimations];
+        [UIView animateWithDuration:0.5 animations:^{
+            self->_pieChart.alpha = 1.0;
+            self->_daysComplete.alpha = 1.0;
+            self->_daysLeft.alpha = 1.0;
+            self->_dateRange.alpha = 1.0;
+            self->_eventTitle.alpha = 1.0;
+        }];
 	}
 	return forceRedraw;
 }

@@ -149,7 +149,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self redrawBackground];
-    [UIApplication sharedApplication].statusBarHidden = NO;
     [self.navigationController setNavigationBarHidden:YES animated:animated];
 }
 
@@ -175,7 +174,6 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if (![segue.identifier isEqualToString:@"EventsListSegue"]) {
         [self.navigationController setNavigationBarHidden:NO animated:NO];
-        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
     }
     if ([segue.identifier isEqualToString:@"MainToEventSettingsSegue"]) {
         ((EventSettingsViewController *)segue.destinationViewController).index = self.pager.currentPage;
@@ -278,9 +276,9 @@
 }
 
 - (void)showPager {
-    [UIView beginAnimations:@"animateDisplayPager" context:NULL];
-    self.pager.superview.hidden = NO;
-    [UIView commitAnimations];
+    [UIView animateWithDuration:0.5 animations:^{
+        self.pager.superview.hidden = NO;
+    }];
 }
 
 - (IBAction)showInfo:(id)sender {
@@ -294,7 +292,6 @@
 - (void)redrawBackground {
     self.view.backgroundColor = [NSKeyedUnarchiver unarchivedObjectOfClass:UIColor.class fromData:((EventViewController *)self.events[self.pager.currentPage]).event[backgroundColorKey] error: nil];
     if (((EventViewController *)self.events[self.pager.currentPage]).backgroundBrightness < .51) {
-        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
         self.pager.pageIndicatorTintColor = [UIColor lightGrayColor];
         self.pager.currentPageIndicatorTintColor = [UIColor whiteColor];
         self.settingsButton.imageView.image = [UIImage imageNamed:@"white-info"];
@@ -302,7 +299,6 @@
         [((EventViewController *)self.events[self.pager.currentPage]).settings.imageView setImage:[UIImage imageNamed:@"white-info"]];
         [((EventViewController *)self.events[self.pager.currentPage]).infoButton.imageView setImage:[UIImage imageNamed:@"white-gear"]]; // gear
     } else {
-        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
         self.pager.pageIndicatorTintColor = [UIColor darkGrayColor];
         self.pager.currentPageIndicatorTintColor = [UIColor blackColor];
         self.settingsButton.imageView.image = [UIImage imageNamed:@"gray-info"];
@@ -376,7 +372,6 @@
 		int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
 		self.pager.currentPage = page;
 	}
-	[self.pager updateCurrentPageDisplay];
     [self redrawBackground];
 	[[NSUserDefaults standardUserDefaults] setInteger:self.pager.currentPage forKey:currentEventKey];
 }
