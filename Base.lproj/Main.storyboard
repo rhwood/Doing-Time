@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="i9b-zX-J2A">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -106,7 +105,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VRs-Jy-zaO">
-                                            <rect key="frame" x="76" y="22" width="247" height="24"/>
+                                            <rect key="frame" x="76" y="26" width="247" height="16"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -133,17 +132,15 @@
                                         <constraint firstItem="lVu-Xl-XyR" firstAttribute="leading" secondItem="bEG-HO-kJD" secondAttribute="trailing" constant="8" symbolic="YES" id="0WD-kL-hat"/>
                                         <constraint firstItem="lyx-nR-mis" firstAttribute="leading" secondItem="JdQ-u0-gx9" secondAttribute="leading" id="5Cm-2M-1mq"/>
                                         <constraint firstItem="VRs-Jy-zaO" firstAttribute="centerY" secondItem="JdQ-u0-gx9" secondAttribute="centerY" id="9Z9-ZB-1ji"/>
-                                        <constraint firstItem="xks-bg-0no" firstAttribute="top" secondItem="bEG-HO-kJD" secondAttribute="bottom" constant="15" id="GaN-H0-JaB"/>
                                         <constraint firstItem="bEG-HO-kJD" firstAttribute="leading" secondItem="xks-bg-0no" secondAttribute="leading" id="IuO-9R-Vzb"/>
+                                        <constraint firstItem="xks-bg-0no" firstAttribute="bottom" secondItem="JdQ-u0-gx9" secondAttribute="bottomMargin" id="MTl-75-vBD"/>
                                         <constraint firstItem="bEG-HO-kJD" firstAttribute="leading" secondItem="JdQ-u0-gx9" secondAttribute="leading" constant="76" id="ObI-Pz-sdL"/>
                                         <constraint firstItem="lVu-Xl-XyR" firstAttribute="top" secondItem="JdQ-u0-gx9" secondAttribute="topMargin" constant="2" id="PRv-3m-7V5"/>
                                         <constraint firstItem="bEG-HO-kJD" firstAttribute="leading" secondItem="lyx-nR-mis" secondAttribute="trailing" constant="8" id="Plm-qb-dAb"/>
                                         <constraint firstItem="VRs-Jy-zaO" firstAttribute="leading" secondItem="lyx-nR-mis" secondAttribute="trailing" constant="8" symbolic="YES" id="TDI-az-6zf"/>
                                         <constraint firstItem="VRs-Jy-zaO" firstAttribute="centerY" secondItem="lyx-nR-mis" secondAttribute="centerY" id="Tkf-Cw-XJr"/>
-                                        <constraint firstItem="VRs-Jy-zaO" firstAttribute="top" secondItem="JdQ-u0-gx9" secondAttribute="topMargin" constant="11" id="a8e-Jv-uCe"/>
                                         <constraint firstItem="bEG-HO-kJD" firstAttribute="leading" secondItem="lyx-nR-mis" secondAttribute="trailing" constant="8" symbolic="YES" id="coN-Ja-VeD"/>
                                         <constraint firstItem="bEG-HO-kJD" firstAttribute="leading" secondItem="VRs-Jy-zaO" secondAttribute="leading" id="dsA-Ch-sLQ"/>
-                                        <constraint firstItem="bEG-HO-kJD" firstAttribute="top" secondItem="JdQ-u0-gx9" secondAttribute="topMargin" constant="-6" id="fqm-WV-xx6"/>
                                         <constraint firstItem="bEG-HO-kJD" firstAttribute="trailing" secondItem="VRs-Jy-zaO" secondAttribute="trailing" id="hV4-f7-1ms"/>
                                         <constraint firstItem="lyx-nR-mis" firstAttribute="top" secondItem="JdQ-u0-gx9" secondAttribute="top" id="iWF-Kl-3WV"/>
                                         <constraint firstItem="VRs-Jy-zaO" firstAttribute="leading" secondItem="lyx-nR-mis" secondAttribute="trailing" constant="8" id="nwf-f7-gVf"/>
@@ -724,11 +721,11 @@
                                         <rect key="frame" x="0.0" y="1022" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uOB-Bf-ZcG" id="tIv-Od-6w4">
-                                            <rect key="frame" x="0.0" y="0.0" width="348" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="356" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Remaining Days" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sGx-6j-lSG">
-                                                    <rect key="frame" x="16" y="0.0" width="324" height="44"/>
+                                                    <rect key="frame" x="15" y="0.0" width="333" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
