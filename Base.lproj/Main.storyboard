@@ -28,20 +28,20 @@
                                             <action selector="changePage:" destination="N6F-tF-ZyT" eventType="valueChanged" id="wLO-rA-hdb"/>
                                         </connections>
                                     </pageControl>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IPI-FD-G7E" userLabel="Button - List">
-                                        <rect key="frame" x="272" y="6" width="48" height="38"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" image="gray-list"/>
-                                        <connections>
-                                            <segue destination="h8M-1x-cYm" kind="show" identifier="EventsListSegue" id="3gP-LY-nh8"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aqC-dI-Odf" userLabel="Button - Settings">
-                                        <rect key="frame" x="0.0" y="6" width="48" height="38"/>
+                                        <rect key="frame" x="8" y="4" width="48" height="38"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="gray-info"/>
                                         <connections>
                                             <segue destination="Kf9-93-RgZ" kind="show" identifier="AppSettingsSegue" id="glm-IL-chg"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IPI-FD-G7E" userLabel="Button - List">
+                                        <rect key="frame" x="271" y="4" width="48" height="38"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="gray-list"/>
+                                        <connections>
+                                            <segue destination="h8M-1x-cYm" kind="show" identifier="EventsListSegue" id="3gP-LY-nh8"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1015,8 +1015,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="c0i-0e-dFV"/>
-        <segue reference="25Q-Rt-d9A"/>
+        <segue reference="ODB-dB-FxU"/>
+        <segue reference="glm-IL-chg"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.086274509803921567" green="0.23921568627450979" blue="0.18431372549019609" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
     <resources>
