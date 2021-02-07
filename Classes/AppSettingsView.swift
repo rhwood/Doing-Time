@@ -39,23 +39,8 @@ struct AppSettingsView: View {
                 .sheet(isPresented: $isShowingMailView, content: {
                     MailView(result: self.$result)
                 })
-                NavigationLink(destination: AboutView()) { Text("Alexandria Software")
-                }
-            }
-            Section(header: Text("Credits")) {
-                Link(destination: URL(string: "http://axsw.co/fuCJn9")!) {
-                    HStack {
-                        Text("Dain Kaplan").foregroundColor(.primary)
-                        Spacer()
-                        Text("Chartreuse")
-                    }
-                }
-                Link(destination: URL(string: "http://axsw.co/11IOfOC")!) {
-                    HStack {
-                        Text("Glyphish").foregroundColor(.primary)
-                        Spacer()
-                        Text("Icons")
-                    }
+                NavigationLink(destination: AboutView()) {
+                    Text("Alexandria Software")
                 }
             }
         }.listStyle(GroupedListStyle())
