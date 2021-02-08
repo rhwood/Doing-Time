@@ -50,6 +50,9 @@ struct MainView: View {
                         Text("New Event")
                     }).help("Create a new event.")
                 }
+                ToolbarItem(placement: .bottomBar) {
+                    Spacer()
+                }
                 ToolbarItem(placement: .navigationBarLeading) {
                     NavigationLink(destination: AppSettingsView()
                                     .onDisappear(perform: destinationOnDisappear)
