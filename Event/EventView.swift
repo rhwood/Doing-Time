@@ -40,10 +40,10 @@ struct EventView: View {
     var body: some View {
         VStack {
             Text(event.title)
+                .font(.largeTitle)
             if event.showDates {
                 Text("\(startDate) to \(endDate)")
             }
-            Spacer()
             PieChart(slices: [
                 PieChartSlice(start: 0.0,
                               end: event.completedPercentage,
@@ -55,7 +55,6 @@ struct EventView: View {
                               end: 1.0,
                               color: event.remainingColor)
             ])
-            Spacer()
             if !event.showRemainingDaysOnly {
                 if event.showTotals && event.showPercentages {
                     Text(event.completedDuration != 1

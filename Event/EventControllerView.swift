@@ -24,24 +24,33 @@ struct EventControllerView: View {
     var event: Event
 
     var body: some View {
-        VStack {
-            EventView(event: event)
-            HStack {
-                Spacer()
-                Button(action: {
-                    // show event settings
-                }, label: {
-                    Image(systemName: "info.circle")
-                        .foregroundColor(Color(red: 0, green: 0.258, blue: 0.145, opacity: 1.0))
-                })
+        EventView(event: event)
+            .padding()
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                    }, label: {
+                        Text("Edit")
+                    }).help("Edit event.")
+                }
+                ToolbarItem(placement: .bottomBar) {
+                    Spacer()
+                }
+                ToolbarItem(placement: .bottomBar) {
+                    Button(action: {
+                    }, label: {
+                        Text("Delete Event")
+                    }).help("Delete event.")
+                }
+                ToolbarItem(placement: .bottomBar) {
+                    Spacer()
+                }
             }
-        }
-        .padding()
     }
 }
 
 struct EventControllerView_Previews: PreviewProvider {
     static var previews: some View {
-        EventControllerView(event: Event())
+        EventControllerView(event: Event(title: "My Event"))
     }
 }
