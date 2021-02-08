@@ -62,6 +62,7 @@ struct MainView: View {
             }
             .id(refresh)
         }
+        .accentColor(Color("AccentColor"))
     }
 
     /// part of hack to work around bottomBar not reappearing when navigating back up the stack
