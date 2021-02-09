@@ -21,7 +21,7 @@
 import Foundation
 import SwiftUI
 
-struct Event {
+class Event: ObservableObject {
 
     enum TodayIs: Int32 {
         case complete = 0
@@ -29,34 +29,42 @@ struct Event {
         case uncounted = 2
     }
 
-    var title = ""
-    var start = Date()
+    @Published var title = ""
+    @Published var start = Date()
+    @Published var end = Date()
+    @Published var todayIs = TodayIs.complete
+    @Published var includeEnd = true
+    @Published var showDates = true
+    @Published var showPercentages = true
+    @Published var showTotals = true
+    @Published var showRemainingDaysOnly = true
+    @Published var completedColor = Color.green
+    @Published var remainingColor = Color.red
+    @Published var backgroundColor = Color.white
+
+    init(title: String = "", start: Date = Date(), end: Date = Date(), todayIs: TodayIs = TodayIs.complete, includeEnd: Bool = true, showDates: Bool = true, showPercentages: Bool = true, showTotals: Bool = true, showRemainingDaysOnly: Bool = true, completedColor: Color = .green, remainingColor: Color = .red, backgroundColor: Color = .white) {
+        self.title = title
+        self.start = start
+        self.end = end
+        self.todayIs = todayIs
+        self.includeEnd = includeEnd
+        self.showDates = showDates
+        self.showPercentages = showPercentages
+        self.showTotals = showTotals
+        self.showRemainingDaysOnly = showRemainingDaysOnly
+        self.completedColor = completedColor
+        self.remainingColor = remainingColor
+        self.backgroundColor = backgroundColor
+    }
+
     var firstDay: Date {
         return Calendar.current.startOfDay(for: start)
     }
-    var end = Date()
     var lastDay: Date {
-        var date = end
-        if !includeEnd {
-            date = Calendar.current.date(byAdding: .day, value: -1, to: date)!
-        }
+        let date = includeEnd ? Calendar.current.date(byAdding: .day, value: 1, to: end)! : end
         // return 1 second before end of day
-        return Calendar.current.date(byAdding: .second,
-                                     value: -1,
-                                     to: Calendar.current.startOfDay(for: Calendar.current.date(byAdding:
-                                                                                                    .day,
-                                                                                                value: 1,
-                                                                                                to: date)!))!
+        return Calendar.current.date(byAdding: .second, value: -1, to: Calendar.current.startOfDay(for: date))!
     }
-    var todayIs = TodayIs.complete
-    var includeEnd = true
-    var showDates = true
-    var showPercentages = true
-    var showTotals = true
-    var showRemainingDaysOnly = true
-    var completedColor = Color.green
-    var remainingColor = Color.red
-    var backgroundColor = Color.white
     var totalDuration: Int {
         get {
             return Calendar.current.dateComponents([.day], from: firstDay, to: lastDay).day! + 1

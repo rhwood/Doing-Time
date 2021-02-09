@@ -22,7 +22,7 @@ import SwiftUI
 
 struct EventSettingsView: View {
 
-    @Binding var event: Event
+    @StateObject var event: Event
 
     var body: some View {
         List {
@@ -30,10 +30,9 @@ struct EventSettingsView: View {
                 TextField("Title", text: $event.title)
                 DatePicker("Start Date",
                            selection: $event.start,
-                           in: ...event.end,
                            displayedComponents: .date)
                 DatePicker("End Date",
-                           selection: $event.start,
+                           selection: $event.end,
                            in: event.start...,
                            displayedComponents: .date)
                 HStack {
@@ -66,8 +65,7 @@ struct EventSettingsView: View {
 }
 
 struct EventSettings_Previews: PreviewProvider {
-    @State static var event = Event()
     static var previews: some View {
-        EventSettingsView(event: $event)
+        EventSettingsView(event: Event())
     }
 }
