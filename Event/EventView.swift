@@ -29,34 +29,10 @@ struct EventView: View {
         VStack {
             Text(event.title)
                 .font(.largeTitle)
-            if event.showDates {
-                showDates
-            }
+            showDates
             pieChart
-            if !event.showRemainingDaysOnly {
-                if event.showTotals && event.showPercentages {
-                    Text(event.completedDuration != 1
-                            ? "\(event.completedDuration) days (\(percentComplete)%) complete"
-                            : "\(event.completedDuration) day (\(percentComplete)%) complete")
-                } else if event.showTotals {
-                    Text(event.completedDuration != 1
-                            ? "\(event.completedDuration) days complete"
-                            : "\(event.completedDuration) day complete")
-                } else if event.showPercentages {
-                    Text("\(percentComplete)% complete")
-                }
-            }
-            if event.showTotals && event.showPercentages {
-                Text(event.remainingDuration != 1
-                        ? "\(event.remainingDuration) days (\(percentRemaining)%) left"
-                        : "\(event.remainingDuration) day (\(percentRemaining)%) left")
-            } else if event.showTotals {
-                Text(event.remainingDuration != 1
-                        ? "\(event.remainingDuration) days left"
-                        : "\(event.remainingDuration) day left")
-            } else if event.showPercentages {
-                Text("\(percentRemaining)% left")
-            }
+            showComplete
+            showTotals
         }
     }
 }
@@ -75,12 +51,14 @@ struct EventView_Previews: PreviewProvider {
         start: Calendar.current.date(byAdding: .day, value: -1, to: Date())!,
         end: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
         todayIs: .complete,
-        includeEnd: true)
+        includeEnd: true,
+        showRemainingDaysOnly: true)
     static var remaining = Event(title: "Preview",
         start: Calendar.current.date(byAdding: .day, value: -1, to: Date())!,
         end: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
         todayIs: .remaining,
-        includeEnd: true)
+        includeEnd: true,
+        showRemainingDaysOnly: false)
     static var previews: some View {
         EventView(event: uncounted)
         EventView(event: complete)
