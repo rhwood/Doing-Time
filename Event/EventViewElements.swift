@@ -10,9 +10,6 @@ import SwiftUI
 
 protocol EventViewElements {
     var event: Event { get set }
-    var percentComplete: String { get }
-    var percentRemaining: String { get }
-    func format(_ percent: Float) -> String
     var pieChart: AnyView { get }
     var showDates: AnyView? { get }
     var showComplete: AnyView? { get }
@@ -20,13 +17,6 @@ protocol EventViewElements {
 }
 
 extension EventViewElements {
-
-    var percentComplete: String {
-        return format(Float(100) * event.completedPercentage)
-    }
-    var percentRemaining: String {
-        return format(Float(100) * event.remainingPercentage)
-    }
 
     var pieChart: AnyView {
         AnyView(PieChart(slices: [
@@ -45,6 +35,7 @@ extension EventViewElements {
     var showComplete: AnyView? {
         var view: AnyView?
         if !event.showRemainingDaysOnly {
+            let percentComplete = format(100 * event.completedPercentage)
             if event.showTotals && event.showPercentages {
                 view = AnyView(Text(event.completedDuration != 1
                                         ? "\(event.completedDuration) days (\(percentComplete)%) complete"
@@ -62,6 +53,7 @@ extension EventViewElements {
 
     var showTotals: AnyView? {
         var view: AnyView?
+        let percentRemaining = format(100 * event.remainingPercentage)
         if event.showTotals && event.showPercentages {
             view = AnyView(Text(event.remainingDuration != 1
                     ? "\(event.remainingDuration) days (\(percentRemaining)%) left"
@@ -86,7 +78,7 @@ extension EventViewElements {
         return view
     }
 
-    func format(_ percent: Float) -> String {
+    private func format(_ percent: Float) -> String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
         formatter.maximumFractionDigits = 2
