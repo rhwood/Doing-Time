@@ -27,23 +27,19 @@ struct EventSettingsView: View {
     var body: some View {
         List {
             Section {
-                TextField("Title", text: self.$event.title)
-                HStack {
-                    DatePicker("Start Date",
-                               selection: self.$event.start,
-//                               in: ...self.$event.end,
-                               displayedComponents: .date)
-                }
-                HStack {
-                    DatePicker("End Date",
-                               selection: self.$event.start,
-//                               in: self.$event.start...
-                               displayedComponents: .date)
-                }
+                TextField("Title", text: $event.title)
+                DatePicker("Start Date",
+                           selection: $event.start,
+                           in: ...event.end,
+                           displayedComponents: .date)
+                DatePicker("End Date",
+                           selection: $event.start,
+                           in: event.start...,
+                           displayedComponents: .date)
                 HStack {
                     Text("Duration")
                     TextField("",
-                              text: self.$event.totalDurationAsString)
+                              text: $event.totalDurationAsString)
                         .keyboardType(.decimalPad)
                         .multilineTextAlignment(.trailing)
                 }
