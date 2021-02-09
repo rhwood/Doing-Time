@@ -23,18 +23,6 @@ import SwiftUI
 struct EventView: View {
 
     var event: Event
-    var startDate: String {
-        return format(event.start)
-    }
-    var endDate: String {
-        return format(event.end)
-    }
-    var percentComplete: String {
-        return format(Float(100) * event.completedPercentage)
-    }
-    var percentRemaining: String {
-        return format(Float(100) * event.remainingPercentage)
-    }
 
     @ViewBuilder
     var body: some View {
@@ -42,19 +30,9 @@ struct EventView: View {
             Text(event.title)
                 .font(.largeTitle)
             if event.showDates {
-                Text("\(startDate) to \(endDate)")
+                showDates
             }
-            PieChart(slices: [
-                PieChartSlice(start: 0.0,
-                              end: event.completedPercentage,
-                              color: event.completedColor),
-                PieChartSlice(start: event.completedPercentage,
-                              end: event.todayPercentage,
-                              color: event.backgroundColor),
-                PieChartSlice(start: event.completedPercentage + event.todayPercentage,
-                              end: 1.0,
-                              color: event.remainingColor)
-            ])
+            pieChart
             if !event.showRemainingDaysOnly {
                 if event.showTotals && event.showPercentages {
                     Text(event.completedDuration != 1
@@ -81,20 +59,10 @@ struct EventView: View {
             }
         }
     }
+}
 
-    func format(_ percent: Float) -> String {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.maximumFractionDigits = 2
-        return formatter.string(from: NSNumber(value: percent))!
-    }
+extension EventView: EventViewElements {
 
-    func format(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .none
-        return formatter.string(from: date)
-    }
 }
 
 struct EventView_Previews: PreviewProvider {

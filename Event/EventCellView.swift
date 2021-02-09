@@ -10,38 +10,16 @@ import SwiftUI
 struct EventCellView: View {
     
     var event: Event
-    var startDate: String {
-        return format(event.start)
-    }
-    var endDate: String {
-        return format(event.end)
-    }
-    var percentComplete: String {
-        return format(Float(100) * event.completedPercentage)
-    }
-    var percentRemaining: String {
-        return format(Float(100) * event.remainingPercentage)
-    }
 
     var body: some View {
         HStack(alignment: .center) {
-            PieChart(slices: [
-                PieChartSlice(start: 0.0,
-                              end: event.completedPercentage,
-                              color: event.completedColor),
-                PieChartSlice(start: event.completedPercentage,
-                              end: event.todayPercentage,
-                              color: event.backgroundColor),
-                PieChartSlice(start: event.completedPercentage + event.todayPercentage,
-                              end: 1.0,
-                              color: event.remainingColor)
-            ])
+            pieChart
             .frame(width: 44, height: 44, alignment: .center)
             VStack(alignment: .leading) {
                 Text(event.title)
                     .font(.headline)
                 if event.showDates {
-                    Text("\(startDate) to \(endDate)")
+                    showDates
                         .font(.caption)
                 }
                 if !event.showRemainingDaysOnly {
@@ -78,20 +56,10 @@ struct EventCellView: View {
             Spacer()
         }
     }
+}
 
-    func format(_ percent: Float) -> String {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.maximumFractionDigits = 2
-        return formatter.string(from: NSNumber(value: percent))!
-    }
+extension EventCellView: EventViewElements {
 
-    func format(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .none
-        return formatter.string(from: date)
-    }
 }
 
 struct EventCellView_Previews: PreviewProvider {
