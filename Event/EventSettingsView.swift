@@ -66,6 +66,8 @@ struct EventSettingsView: View {
 
 struct EventSettings_Previews: PreviewProvider {
     static var previews: some View {
-        EventSettingsView(event: Event())
+        NavigationView {
+            EventSettingsView(event: Event())
+        }
     }
 }
