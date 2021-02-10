@@ -31,7 +31,7 @@ struct MainView: View {
     var body: some View {
         NavigationView {
             List {
-                NavigationLink(destination: EventControllerView(event: Event(title: "Foo"))
+                NavigationLink(destination: EventPageView(event: Event(title: "Foo"))
                                 .onDisappear(perform: destinationOnDisappear)
                                 .onAppear(perform: destinationOnAppear)
                 ) {

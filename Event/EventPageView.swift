@@ -1,8 +1,8 @@
 //
-//  EventView.swift
+//  EventPageView.swift
 //  Doing Time
 //
-//  Created by Randall Wood on 2020-11-21.
+//  Created by Randall Wood on 2020-12-06.
 //
 //  Copyright 2020 Randall Wood DBA Alexandria Software
 //
@@ -20,11 +20,9 @@
 
 import SwiftUI
 
-struct EventView: View {
-
+struct EventPageView: View {
     var event: Event
 
-    @ViewBuilder
     var body: some View {
         VStack {
             Text(event.title)
@@ -34,14 +32,36 @@ struct EventView: View {
             showComplete
             showTotals
         }
+        .padding()
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                NavigationLink(
+                    destination: EventSettingsView(event: event),
+                    label: {
+                        Text("Edit")
+                    }).help("Edit event.")
+            }
+            ToolbarItem(placement: .bottomBar) {
+                Spacer()
+            }
+            ToolbarItem(placement: .bottomBar) {
+                Button(action: {
+                }, label: {
+                    Text("Delete Event")
+                }).help("Delete event.")
+            }
+            ToolbarItem(placement: .bottomBar) {
+                Spacer()
+            }
+        }
     }
 }
 
-extension EventView: EventViewElements {
+extension EventPageView: EventViewElements {
 
 }
 
-struct EventView_Previews: PreviewProvider {
+struct EventPageView_Previews: PreviewProvider {
     static var uncounted = Event(title: "Preview",
         start: Calendar.current.date(byAdding: .day, value: -1, to: Date())!,
         end: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
@@ -60,8 +80,14 @@ struct EventView_Previews: PreviewProvider {
         includeEnd: true,
         showRemainingDaysOnly: false)
     static var previews: some View {
-        EventView(event: uncounted)
-        EventView(event: complete)
-        EventView(event: remaining)
+        NavigationView {
+            EventPageView(event: uncounted)
+        }
+        NavigationView {
+            EventPageView(event: complete)
+        }
+        NavigationView {
+            EventPageView(event: remaining)
+        }
     }
 }
