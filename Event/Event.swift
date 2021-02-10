@@ -21,7 +21,7 @@
 import Foundation
 import SwiftUI
 
-class Event: ObservableObject {
+class Event: ObservableObject, Identifiable {
 
     enum TodayIs: Int32 {
         case complete = 0
@@ -29,20 +29,21 @@ class Event: ObservableObject {
         case uncounted = 2
     }
 
-    @Published var title = ""
-    @Published var start = Date()
-    @Published var end = Date()
-    @Published var todayIs = TodayIs.complete
-    @Published var includeEnd = true
-    @Published var showDates = true
-    @Published var showPercentages = true
-    @Published var showTotals = true
-    @Published var showRemainingDaysOnly = true
-    @Published var completedColor = Color.green
-    @Published var remainingColor = Color.red
-    @Published var backgroundColor = Color.white
+    @Published var title: String
+    @Published var start: Date
+    @Published var end: Date
+    @Published var todayIs: TodayIs
+    @Published var includeEnd: Bool
+    @Published var showDates: Bool
+    @Published var showPercentages: Bool
+    @Published var showTotals: Bool
+    @Published var showRemainingDaysOnly: Bool
+    @Published var completedColor: Color
+    @Published var remainingColor: Color
+    @Published var backgroundColor: Color
+    let id: UUID
 
-    init(title: String = "", start: Date = Date(), end: Date = Date(), todayIs: TodayIs = TodayIs.complete, includeEnd: Bool = true, showDates: Bool = true, showPercentages: Bool = true, showTotals: Bool = true, showRemainingDaysOnly: Bool = true, completedColor: Color = .green, remainingColor: Color = .red, backgroundColor: Color = .white) {
+    init(title: String = "", start: Date = Date(), end: Date = Date(), todayIs: TodayIs = TodayIs.complete, includeEnd: Bool = true, showDates: Bool = true, showPercentages: Bool = true, showTotals: Bool = true, showRemainingDaysOnly: Bool = true, completedColor: Color = .green, remainingColor: Color = .red, backgroundColor: Color = .white, id: UUID = UUID()) {
         self.title = title
         self.start = start
         self.end = end
@@ -55,10 +56,11 @@ class Event: ObservableObject {
         self.completedColor = completedColor
         self.remainingColor = remainingColor
         self.backgroundColor = backgroundColor
+        self.id = id
     }
 
     var firstDay: Date {
-        return Calendar.current.startOfDay(for: start)
+        Calendar.current.startOfDay(for: start)
     }
     var lastDay: Date {
         let date = includeEnd ? Calendar.current.date(byAdding: .day, value: 1, to: end)! : end
@@ -67,7 +69,7 @@ class Event: ObservableObject {
     }
     var totalDuration: Int {
         get {
-            return Calendar.current.dateComponents([.day], from: firstDay, to: lastDay).day! + 1
+            Calendar.current.dateComponents([.day], from: firstDay, to: lastDay).day! + 1
         }
         set {
             end = Calendar.current.date(byAdding: .day, value: includeEnd ? newValue - 1 : newValue, to: firstDay)!
@@ -75,7 +77,7 @@ class Event: ObservableObject {
     }
     var totalDurationAsString: String {
         get {
-            return String(totalDuration)
+            String(totalDuration)
         }
         set {
             totalDuration = NumberFormatter().number(from: newValue)?.intValue ?? totalDuration
@@ -92,7 +94,7 @@ class Event: ObservableObject {
         }
     }
     var completedPercentage: Float {
-        return Float(completedDuration) / Float(totalDuration)
+        Float(completedDuration) / Float(totalDuration)
     }
     var remainingDuration: Int {
         let today = Calendar.current.startOfDay(for: Date())
@@ -108,7 +110,7 @@ class Event: ObservableObject {
         }
     }
     var remainingPercentage: Float {
-        return Float(remainingDuration) / Float(totalDuration)
+        Float(remainingDuration) / Float(totalDuration)
     }
     var todayPercentage: Float {
         switch todayIs {
