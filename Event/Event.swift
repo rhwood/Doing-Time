@@ -43,7 +43,19 @@ class Event: ObservableObject, Identifiable {
     @Published var backgroundColor: Color
     let id: UUID
 
-    init(title: String = "", start: Date = Date(), end: Date = Date(), todayIs: TodayIs = TodayIs.complete, includeEnd: Bool = true, showDates: Bool = true, showPercentages: Bool = true, showTotals: Bool = true, showRemainingDaysOnly: Bool = true, completedColor: Color = .green, remainingColor: Color = .red, backgroundColor: Color = .white, id: UUID = UUID()) {
+    init(title: String = "",
+         start: Date = Date(),
+         end: Date = Date(),
+         todayIs: TodayIs = TodayIs.complete,
+         includeEnd: Bool = true,
+         showDates: Bool = true,
+         showPercentages: Bool = true,
+         showTotals: Bool = true,
+         showRemainingDaysOnly: Bool = true,
+         completedColor: Color = .green,
+         remainingColor: Color = .red,
+         backgroundColor: Color = .white,
+         id: UUID = UUID()) {
         self.title = title
         self.start = start
         self.end = end

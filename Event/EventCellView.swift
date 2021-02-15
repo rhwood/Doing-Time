@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EventCellView: View {
-    
+
     var event: Event
 
     var body: some View {
