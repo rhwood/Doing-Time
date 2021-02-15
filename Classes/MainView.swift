@@ -22,7 +22,7 @@ import SwiftUI
 
 struct MainView: View {
 
-    @Environment(\.managedObjectContext) private var viewContext
+    @EnvironmentObject private var persistanceController: PersistenceController
     /// part of hack to work around bottomBar not reappearing when navigating back up the stack
     @State private var isShown = true
     /// part of hack to work around bottomBar not reappearing when navigating back up the stack
@@ -31,11 +31,13 @@ struct MainView: View {
     var body: some View {
         NavigationView {
             List {
-                NavigationLink(destination: EventPageView(event: Event(title: "Foo"))
-                                .onDisappear(perform: destinationOnDisappear)
-                                .onAppear(perform: destinationOnAppear)
-                ) {
-                    EventCellView(event: Event(title: "Event 1"))
+                ForEach(persistanceController.events) { event in
+                    NavigationLink(destination: EventPageView(event: event)
+                                    .onDisappear(perform: destinationOnDisappear)
+                                    .onAppear(perform: destinationOnAppear)
+                    ) {
+                        EventCellView(event: event)
+                    }
                 }
             }
             .onAppear {

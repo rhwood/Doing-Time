@@ -27,7 +27,7 @@ struct DoingTimeApp: App {
 
     var body: some Scene {
         WindowGroup {
-            MainView().environment(\.managedObjectContext, persistenceController.container.viewContext)
+            MainView().environmentObject(persistenceController)
         }
     }
 }

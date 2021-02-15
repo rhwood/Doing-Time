@@ -22,43 +22,21 @@ import Foundation
 import SwiftUI
 import CoreData
 
-class PersistenceController {
+class PersistenceController: ObservableObject {
 
     static let shared = PersistenceController()
 
     static var preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
-        let viewContext = result.container.viewContext
         for _ in 0..<5 {
-            let newItem = Event()
-        }
-        do {
-            try viewContext.save()
-        } catch {
-            // Replace this implementation with code to handle the error appropriately.
-            // fatalError() causes the application to generate a crash log and terminate.
-            // You should not use this function in a shipping application, although it may be useful during development.
-            let nsError = error as NSError
-            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            result.events.append(Event())
         }
         return result
     }()
 
-    let container: NSPersistentCloudKitContainer
-
     var events: [Event] = []
-    var savable = false
 
     init(inMemory: Bool = false) {
-        container = NSPersistentCloudKitContainer(name: "Event")
-        if inMemory {
-            container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
-        }
-        container.loadPersistentStores(completionHandler: { (_, error) in
-            if let error = error as NSError? {
-                fatalError("Unresolved error \(error), \(error.userInfo)")
-            }
-        })
         if !inMemory {
             if let raw = UserDefaults.standard.array(forKey: "events") {
                 for rawEvent in raw {
@@ -82,9 +60,6 @@ class PersistenceController {
                                                 PersistenceController.colorFromData(dict["backgroundColor"] as? Data)))
                     }
                 }
-            }
-            if events.count == 0 {
-                events.append(Event())
             }
         }
     }
