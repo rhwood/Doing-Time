@@ -9,12 +9,11 @@
 /* Begin PBXBuildFile section */
 		48128981257D0DF100D094E9 /* EventPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48128980257D0DF100D094E9 /* EventPageView.swift */; };
 		481A76A325D07D01003861BE /* EventCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481A76A225D07D01003861BE /* EventCellView.swift */; };
+		484B782F25DAD4DE0024E95D /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484B782E25DAD4DD0024E95D /* Event.swift */; };
 		484F430A256A8702000C6B2C /* Doing_TimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484F4309256A8702000C6B2C /* Doing_TimeTests.swift */; };
 		484F4316256A873A000C6B2C /* EventTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484F4315256A873A000C6B2C /* EventTests.swift */; };
-		484F431B256A87D2000C6B2C /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4872133B25694BC600E91283 /* Event.swift */; };
 		487213262567D67600E91283 /* AppSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487213252567D67600E91283 /* AppSettingsView.swift */; };
 		4872133925694A9D00E91283 /* EventSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4872133825694A9D00E91283 /* EventSettingsView.swift */; };
-		4872133C25694BC600E91283 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4872133B25694BC600E91283 /* Event.swift */; };
 		48853AF22580F4D4009DA72C /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48853AF12580F4D4009DA72C /* PersistenceController.swift */; };
 		488A6A3625D2A91E00409702 /* EventViewElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488A6A3525D2A91E00409702 /* EventViewElements.swift */; };
 		489D58B72572886D00E9F4C8 /* DoingTimeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489D58B62572886D00E9F4C8 /* DoingTimeApp.swift */; };
@@ -24,7 +23,6 @@
 		48C41AD7256980CC00C72F04 /* PieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C41AD6256980CC00C72F04 /* PieChart.swift */; };
 		48CE82E81350D37B00D94BA6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 48CE82E71350D37B00D94BA6 /* Localizable.strings */; };
 		48ECD7712565ED35009CFD2C /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48ECD7702565ED35009CFD2C /* AboutView.swift */; };
-		48F807B32598CC3700E21668 /* Event.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 48F807B12598CC3700E21668 /* Event.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +39,7 @@
 		1D6058910D05DD3D006BFB54 /* Doing Time.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Doing Time.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		48128980257D0DF100D094E9 /* EventPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPageView.swift; sourceTree = "<group>"; };
 		481A76A225D07D01003861BE /* EventCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCellView.swift; sourceTree = "<group>"; };
+		484B782E25DAD4DD0024E95D /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		484F4307256A8702000C6B2C /* Doing TimeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Doing TimeTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		484F4309256A8702000C6B2C /* Doing_TimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doing_TimeTests.swift; sourceTree = "<group>"; };
 		484F430B256A8702000C6B2C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -48,7 +47,6 @@
 		487213252567D67600E91283 /* AppSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppSettingsView.swift; path = Classes/AppSettingsView.swift; sourceTree = "<group>"; };
 		4872133225687E9E00E91283 /* MailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MailView.swift; path = Classes/MailView.swift; sourceTree = "<group>"; };
 		4872133825694A9D00E91283 /* EventSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSettingsView.swift; sourceTree = "<group>"; };
-		4872133B25694BC600E91283 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		48853AF12580F4D4009DA72C /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PersistenceController.swift; path = Classes/PersistenceController.swift; sourceTree = "<group>"; };
 		488A6A3525D2A91E00409702 /* EventViewElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewElements.swift; sourceTree = "<group>"; };
 		489D58B62572886D00E9F4C8 /* DoingTimeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DoingTimeApp.swift; path = Classes/DoingTimeApp.swift; sourceTree = "<group>"; };
@@ -57,7 +55,6 @@
 		48C41AD6256980CC00C72F04 /* PieChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChart.swift; sourceTree = "<group>"; };
 		48CE82C11350CB7E00D94BA6 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		48ECD7702565ED35009CFD2C /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AboutView.swift; path = Classes/AboutView.swift; sourceTree = "<group>"; };
-		48F807B22598CC3700E21668 /* Event.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Event.xcdatamodel; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Doing_Time-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Doing_Time-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -160,8 +157,7 @@
 		48C41AD42569801E00C72F04 /* Event */ = {
 			isa = PBXGroup;
 			children = (
-				48F807B12598CC3700E21668 /* Event.xcdatamodeld */,
-				4872133B25694BC600E91283 /* Event.swift */,
+				484B782E25DAD4DD0024E95D /* Event.swift */,
 				4872133825694A9D00E91283 /* EventSettingsView.swift */,
 				48C41AD6256980CC00C72F04 /* PieChart.swift */,
 				481A76A225D07D01003861BE /* EventCellView.swift */,
@@ -294,14 +290,13 @@
 			files = (
 				48C27E9825823FE000448D1F /* MailView.swift in Sources */,
 				489D58B72572886D00E9F4C8 /* DoingTimeApp.swift in Sources */,
-				48F807B32598CC3700E21668 /* Event.xcdatamodeld in Sources */,
 				48ECD7712565ED35009CFD2C /* AboutView.swift in Sources */,
+				484B782F25DAD4DE0024E95D /* Event.swift in Sources */,
 				489D58C22572891200E9F4C8 /* MainView.swift in Sources */,
 				4872133925694A9D00E91283 /* EventSettingsView.swift in Sources */,
 				48C41AD7256980CC00C72F04 /* PieChart.swift in Sources */,
 				488A6A3625D2A91E00409702 /* EventViewElements.swift in Sources */,
 				48128981257D0DF100D094E9 /* EventPageView.swift in Sources */,
-				4872133C25694BC600E91283 /* Event.swift in Sources */,
 				48853AF22580F4D4009DA72C /* PersistenceController.swift in Sources */,
 				487213262567D67600E91283 /* AppSettingsView.swift in Sources */,
 				481A76A325D07D01003861BE /* EventCellView.swift in Sources */,
@@ -313,7 +308,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				484F4316256A873A000C6B2C /* EventTests.swift in Sources */,
-				484F431B256A87D2000C6B2C /* Event.swift in Sources */,
 				484F430A256A8702000C6B2C /* Doing_TimeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -860,19 +854,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		48F807B12598CC3700E21668 /* Event.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				48F807B22598CC3700E21668 /* Event.xcdatamodel */,
-			);
-			currentVersion = 48F807B22598CC3700E21668 /* Event.xcdatamodel */;
-			path = Event.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
 }
