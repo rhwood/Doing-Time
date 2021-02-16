@@ -1,5 +1,5 @@
 //
-//  PersistenceController.swift
+//  EventsModel.swift
 //  Doing Time
 //
 //  Created by Randall Wood on 2020-12-09.
@@ -20,21 +20,20 @@
 
 import Foundation
 import SwiftUI
-import CoreData
 
-class PersistenceController: ObservableObject {
+class EventsModel: ObservableObject {
 
-    static let shared = PersistenceController()
+    static let shared = EventsModel()
 
-    static var preview: PersistenceController = {
-        let result = PersistenceController(inMemory: true)
-        for _ in 0..<5 {
-            result.events.append(Event())
+    static var preview: EventsModel = {
+        let result = EventsModel(inMemory: true)
+        for idx in 1...5 {
+            result.events.append(Event(title: "Event \(idx)"))
         }
         return result
     }()
 
-    var events: [Event] = []
+    @Published var events: [Event] = []
 
     init(inMemory: Bool = false) {
         if !inMemory {
@@ -53,11 +52,11 @@ class PersistenceController: ObservableObject {
                                             showTotals: dict["showTotals"] as? Bool ?? true,
                                             showRemainingDaysOnly: dict["showCompletedDays"] as? Bool ?? true,
                                             completedColor:
-                                                PersistenceController.colorFromData(dict["completedColor"] as? Data),
+                                                EventsModel.colorFromData(dict["completedColor"] as? Data),
                                             remainingColor:
-                                                PersistenceController.colorFromData(dict["remainingColor"] as? Data),
+                                                EventsModel.colorFromData(dict["remainingColor"] as? Data),
                                             backgroundColor:
-                                                PersistenceController.colorFromData(dict["backgroundColor"] as? Data)))
+                                                EventsModel.colorFromData(dict["backgroundColor"] as? Data)))
                     }
                 }
             }

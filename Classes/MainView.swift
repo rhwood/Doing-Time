@@ -22,7 +22,7 @@ import SwiftUI
 
 struct MainView: View {
 
-    @EnvironmentObject private var persistanceController: PersistenceController
+    @EnvironmentObject private var model: EventsModel
     /// part of hack to work around bottomBar not reappearing when navigating back up the stack
     @State private var isShown = true
     /// part of hack to work around bottomBar not reappearing when navigating back up the stack
@@ -31,11 +31,10 @@ struct MainView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(persistanceController.events) { event in
+                ForEach(model.events) { event in
                     NavigationLink(destination: EventPageView(event: event)
                                     .onDisappear(perform: destinationOnDisappear)
-                                    .onAppear(perform: destinationOnAppear)
-                    ) {
+                                    .onAppear(perform: destinationOnAppear)) {
                         EventCellView(event: event)
                     }
                 }
@@ -58,8 +57,7 @@ struct MainView: View {
                 ToolbarItem(placement: .navigationBarLeading) {
                     NavigationLink(destination: AppSettingsView()
                                     .onDisappear(perform: destinationOnDisappear)
-                                    .onAppear(perform: destinationOnAppear)
-                    ) {
+                                    .onAppear(perform: destinationOnAppear)) {
                         Image(systemName: "info.circle")
                     }
                     .help("About Doing Time.")
@@ -85,6 +83,6 @@ struct MainView: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView()
+        MainView().environmentObject(EventsModel.preview)
     }
 }

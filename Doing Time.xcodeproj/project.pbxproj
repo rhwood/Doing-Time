@@ -14,7 +14,7 @@
 		484F4316256A873A000C6B2C /* EventTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484F4315256A873A000C6B2C /* EventTests.swift */; };
 		487213262567D67600E91283 /* AppSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487213252567D67600E91283 /* AppSettingsView.swift */; };
 		4872133925694A9D00E91283 /* EventSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4872133825694A9D00E91283 /* EventSettingsView.swift */; };
-		48853AF22580F4D4009DA72C /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48853AF12580F4D4009DA72C /* PersistenceController.swift */; };
+		48853AF22580F4D4009DA72C /* EventsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48853AF12580F4D4009DA72C /* EventsModel.swift */; };
 		488A6A3625D2A91E00409702 /* EventViewElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488A6A3525D2A91E00409702 /* EventViewElements.swift */; };
 		489D58B72572886D00E9F4C8 /* DoingTimeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489D58B62572886D00E9F4C8 /* DoingTimeApp.swift */; };
 		489D58C22572891200E9F4C8 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489D58C12572891200E9F4C8 /* MainView.swift */; };
@@ -47,7 +47,7 @@
 		487213252567D67600E91283 /* AppSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppSettingsView.swift; path = Classes/AppSettingsView.swift; sourceTree = "<group>"; };
 		4872133225687E9E00E91283 /* MailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MailView.swift; path = Classes/MailView.swift; sourceTree = "<group>"; };
 		4872133825694A9D00E91283 /* EventSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSettingsView.swift; sourceTree = "<group>"; };
-		48853AF12580F4D4009DA72C /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PersistenceController.swift; path = Classes/PersistenceController.swift; sourceTree = "<group>"; };
+		48853AF12580F4D4009DA72C /* EventsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventsModel.swift; path = Classes/EventsModel.swift; sourceTree = "<group>"; };
 		488A6A3525D2A91E00409702 /* EventViewElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewElements.swift; sourceTree = "<group>"; };
 		489D58B62572886D00E9F4C8 /* DoingTimeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DoingTimeApp.swift; path = Classes/DoingTimeApp.swift; sourceTree = "<group>"; };
 		489D58C12572891200E9F4C8 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MainView.swift; path = Classes/MainView.swift; sourceTree = "<group>"; };
@@ -149,7 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				489D58B62572886D00E9F4C8 /* DoingTimeApp.swift */,
-				48853AF12580F4D4009DA72C /* PersistenceController.swift */,
+				48853AF12580F4D4009DA72C /* EventsModel.swift */,
 			);
 			name = Application;
 			sourceTree = "<group>";
@@ -288,6 +288,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48853AF22580F4D4009DA72C /* EventsModel.swift in Sources */,
 				48C27E9825823FE000448D1F /* MailView.swift in Sources */,
 				489D58B72572886D00E9F4C8 /* DoingTimeApp.swift in Sources */,
 				48ECD7712565ED35009CFD2C /* AboutView.swift in Sources */,
@@ -297,7 +298,6 @@
 				48C41AD7256980CC00C72F04 /* PieChart.swift in Sources */,
 				488A6A3625D2A91E00409702 /* EventViewElements.swift in Sources */,
 				48128981257D0DF100D094E9 /* EventPageView.swift in Sources */,
-				48853AF22580F4D4009DA72C /* PersistenceController.swift in Sources */,
 				487213262567D67600E91283 /* AppSettingsView.swift in Sources */,
 				481A76A325D07D01003861BE /* EventCellView.swift in Sources */,
 			);
