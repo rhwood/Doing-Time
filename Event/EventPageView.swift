@@ -31,6 +31,7 @@ struct EventPageView: View {
             pieChart
             showComplete
             showTotals
+            Spacer()
         }
         .padding()
         .toolbar {
@@ -54,6 +55,7 @@ struct EventPageView: View {
                 Spacer()
             }
         }
+        Spacer()
     }
 }
 
@@ -80,14 +82,16 @@ struct EventPageView_Previews: PreviewProvider {
         includeEnd: true,
         showRemainingDaysOnly: false)
     static var previews: some View {
-        NavigationView {
-            EventPageView(event: uncounted)
-        }
-        NavigationView {
-            EventPageView(event: complete)
-        }
-        NavigationView {
-            EventPageView(event: remaining)
+        Group {
+            NavigationView {
+                EventPageView(event: uncounted)
+            }
+            NavigationView {
+                EventPageView(event: complete)
+            }
+            NavigationView {
+                EventPageView(event: remaining)
+            }
         }
     }
 }
