@@ -23,7 +23,7 @@ import SwiftUI
 struct MainView: View {
 
     @EnvironmentObject private var model: EventsModel
-    @State private var selection: UUID? = nil
+    @State private var selection: UUID?
     /// part of hack to work around bottomBar not reappearing when navigating back up the stack
     @State private var isShown = true
     /// part of hack to work around bottomBar not reappearing when navigating back up the stack
