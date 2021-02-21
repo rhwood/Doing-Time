@@ -52,7 +52,7 @@ struct EventSettingsView: View {
                 })
             }
             Section(header: Text("Display")) {
-                Toggle("Show Dates", isOn: $event.showDates)
+                Toggle("Dates", isOn: $event.showDates)
                 Toggle("Percentages", isOn: $event.showPercentages)
                 Toggle("Totals", isOn: $event.showTotals)
                 Toggle("Only Remaining Days", isOn: $event.showRemainingDaysOnly)
