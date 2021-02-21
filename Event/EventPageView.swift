@@ -64,20 +64,32 @@ extension EventPageView: EventViewElements {
 }
 
 struct EventPageView_Previews: PreviewProvider {
-    static var uncounted = Event(title: "Preview",
+    static var uncounted = Event(title: "Today is Uncounted",
         start: Calendar.current.date(byAdding: .day, value: -1, to: Date())!,
         end: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
         todayIs: .uncounted,
         includeEnd: true)
-    static var complete = Event(title: "Preview",
+    static var complete = Event(title: "Today is Complete",
         start: Calendar.current.date(byAdding: .day, value: -1, to: Date())!,
         end: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
         todayIs: .complete,
         includeEnd: true,
         showRemainingDaysOnly: true)
-    static var remaining = Event(title: "Preview",
+    static var remaining = Event(title: "Today is Remaining",
         start: Calendar.current.date(byAdding: .day, value: -1, to: Date())!,
         end: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
+        todayIs: .remaining,
+        includeEnd: true,
+        showRemainingDaysOnly: false)
+    static var past = Event(title: "Past",
+        start: Calendar.current.date(byAdding: .day, value: -10, to: Date())!,
+        end: Calendar.current.date(byAdding: .day, value: -9, to: Date())!,
+        todayIs: .remaining,
+        includeEnd: true,
+        showRemainingDaysOnly: false)
+    static var future = Event(title: "Future",
+        start: Calendar.current.date(byAdding: .day, value: 9, to: Date())!,
+        end: Calendar.current.date(byAdding: .day, value: 10, to: Date())!,
         todayIs: .remaining,
         includeEnd: true,
         showRemainingDaysOnly: false)
@@ -91,6 +103,12 @@ struct EventPageView_Previews: PreviewProvider {
             }
             NavigationView {
                 EventPageView(event: remaining)
+            }
+            NavigationView {
+                EventPageView(event: past)
+            }
+            NavigationView {
+                EventPageView(event: future)
             }
         }
     }

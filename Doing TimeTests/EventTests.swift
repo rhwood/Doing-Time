@@ -74,7 +74,7 @@ class EventTests: XCTestCase {
     }
 
     func testLastDayExcludeEnd() throws {
-        var subject = try XCTUnwrap(event)
+        let subject = try XCTUnwrap(event)
         subject.includeEnd = false
         XCTAssertFalse(subject.includeEnd)
         XCTAssertEqual(Calendar.current.component(.hour, from: subject.lastDay), 23)
@@ -87,7 +87,7 @@ class EventTests: XCTestCase {
     }
 
     func testDurationsIncludeEndTodayIsUncounted() throws {
-        var subject = try XCTUnwrap(event)
+        let subject = try XCTUnwrap(event)
         subject.todayIs = .uncounted
         XCTAssertEqual(subject.todayIs, .uncounted)
         XCTAssertTrue(subject.includeEnd)
@@ -100,7 +100,7 @@ class EventTests: XCTestCase {
     }
 
     func testDurationsIncludeEndTodayIsRemaining() throws {
-        var subject = try XCTUnwrap(event)
+        let subject = try XCTUnwrap(event)
         subject.todayIs = .remaining
         XCTAssertEqual(subject.todayIs, .remaining)
         XCTAssertTrue(subject.includeEnd)
@@ -113,7 +113,7 @@ class EventTests: XCTestCase {
     }
 
     func testDurationsIncludeEndTodayIsCompleted() throws {
-        var subject = try XCTUnwrap(event)
+        let subject = try XCTUnwrap(event)
         subject.todayIs = .complete
         XCTAssertEqual(subject.todayIs, .complete)
         XCTAssertTrue(subject.includeEnd)
@@ -126,7 +126,7 @@ class EventTests: XCTestCase {
     }
 
     func testSetDurationIncludeEnd() throws {
-        var subject = try XCTUnwrap(event)
+        let subject = try XCTUnwrap(event)
         subject.includeEnd = true
         XCTAssertTrue(subject.includeEnd)
         XCTAssertEqual(subject.totalDuration, 3)
@@ -138,7 +138,7 @@ class EventTests: XCTestCase {
     }
 
     func testSetDurationExcludeEnd() throws {
-        var subject = try XCTUnwrap(event)
+        let subject = try XCTUnwrap(event)
         subject.includeEnd = false
         XCTAssertFalse(subject.includeEnd)
         XCTAssertEqual(subject.totalDuration, 2)
@@ -147,6 +147,32 @@ class EventTests: XCTestCase {
         // when adding duration to firstDay to match expected value with out includeEnd,
         // use total duration
         XCTAssertEqual(subject.end, Calendar.current.date(byAdding: .day, value: 3, to: subject.firstDay))
+    }
+
+    func testInPast() throws {
+        let subject = try XCTUnwrap(event)
+        subject.start = Calendar.current.date(byAdding: .day, value: -10, to: Date())!
+        subject.end = Calendar.current.date(byAdding: .day, value: -9, to: Date())!
+        XCTAssertTrue(subject.includeEnd)
+        XCTAssertEqual(subject.totalDuration, 2)
+        XCTAssertEqual(subject.completedDuration, 2)
+        XCTAssertEqual(subject.remainingDuration, 0)
+        XCTAssertEqual(subject.completedPercentage, 1.0, accuracy: 0.01)
+        XCTAssertEqual(subject.remainingPercentage, 0.0, accuracy: 0.01)
+        XCTAssertEqual(subject.todayPercentage, 0.0, accuracy: 0.0)
+    }
+
+    func testInFuture() throws {
+        let subject = try XCTUnwrap(event)
+        subject.start = Calendar.current.date(byAdding: .day, value: 9, to: Date())!
+        subject.end = Calendar.current.date(byAdding: .day, value: 10, to: Date())!
+        XCTAssertTrue(subject.includeEnd)
+        XCTAssertEqual(subject.totalDuration, 2)
+        XCTAssertEqual(subject.completedDuration, 0)
+        XCTAssertEqual(subject.remainingDuration, 2)
+        XCTAssertEqual(subject.completedPercentage, 0.0, accuracy: 0.01)
+        XCTAssertEqual(subject.remainingPercentage, 1.0, accuracy: 0.01)
+        XCTAssertEqual(subject.todayPercentage, 0.0, accuracy: 0.0)
     }
 
     func testPerformanceExample() throws {

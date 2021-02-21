@@ -147,12 +147,18 @@ class Event: ObservableObject, Identifiable, Codable {
     }
     var completedDuration: Int {
         let today = Calendar.current.startOfDay(for: Date())
-        let duration = Calendar.current.dateComponents([.day], from: firstDay, to: today).day!
-        switch todayIs {
-        case .complete:
-            return duration + 1
-        default:
-            return duration
+        if lastDay >= today && firstDay <= today {
+            let duration = Calendar.current.dateComponents([.day], from: firstDay, to: today).day!
+            switch todayIs {
+            case .complete:
+                return duration + 1
+            default:
+                return duration
+            }
+        } else if firstDay > today {
+            return 0
+        } else {
+            return totalDuration
         }
     }
     var completedPercentage: Float {
@@ -161,14 +167,20 @@ class Event: ObservableObject, Identifiable, Codable {
     var remainingDuration: Int {
         let today = Calendar.current.startOfDay(for: Date())
         let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: today)!
-        let duration = Calendar.current.dateComponents([.day], from: lastDay, to: tomorrow).day! + 1
-        switch todayIs {
-        case .remaining:
-            return duration < totalDuration ? duration + 1 : totalDuration
-        case .complete:
-            return duration + completedDuration <= totalDuration ? duration : 0
-        default:
-            return duration
+        if firstDay <= tomorrow && lastDay >= today {
+            let duration = Calendar.current.dateComponents([.day], from: lastDay, to: tomorrow).day! + 1
+            switch todayIs {
+            case .remaining:
+                return duration < totalDuration ? duration + 1 : totalDuration
+            case .complete:
+                return duration + completedDuration <= totalDuration ? duration : 0
+            default:
+                return duration
+            }
+        } else if lastDay < today {
+            return 0
+        } else {
+            return totalDuration
         }
     }
     var remainingPercentage: Float {
