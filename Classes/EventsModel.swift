@@ -21,6 +21,10 @@
 import Foundation
 import SwiftUI
 
+struct Events: Codable {
+    var events: [Event]
+}
+
 class EventsModel: ObservableObject {
 
     static let shared = EventsModel()
@@ -33,37 +37,73 @@ class EventsModel: ObservableObject {
         return result
     }()
 
-    @Published var events: [Event] = []
-
-    init(inMemory: Bool = false) {
-        if !inMemory {
-            if let raw = UserDefaults.standard.array(forKey: "events") {
-                for rawEvent in raw {
-                    if let dict = rawEvent as? [String: Any] {
-                        events.append(Event(title: dict["title"] as? String ?? "UNKNOWN",
-                                            start: dict["start"] as? Date ?? Date(),
-                                            end: dict["end"] as? Date ?? Date(),
-                                            todayIs: Event.TodayIs(rawValue: dict["todayIs"] as? Int32
-                                                                    ?? Event.TodayIs.remaining.rawValue)
-                                                ?? Event.TodayIs.remaining,
-                                            includeEnd: dict["includeLastDayInCalc"] as? Bool ?? true,
-                                            showDates: dict["showEventDates"] as? Bool ?? true,
-                                            showPercentages: dict["showPercentages"] as? Bool ?? true,
-                                            showTotals: dict["showTotals"] as? Bool ?? true,
-                                            showRemainingDaysOnly: dict["showCompletedDays"] as? Bool ?? true,
-                                            completedColor:
-                                                EventsModel.colorFromData(dict["completedColor"] as? Data),
-                                            remainingColor:
-                                                EventsModel.colorFromData(dict["remainingColor"] as? Data),
-                                            backgroundColor:
-                                                EventsModel.colorFromData(dict["backgroundColor"] as? Data)))
-                    }
+    private var eventsLoaded = false
+    @Published var events: [Event] = [] {
+        didSet {
+            if eventsLoaded, let doc = eventsUrl {
+                do {
+                    let encoder = JSONEncoder()
+                    encoder.outputFormatting = .prettyPrinted
+                    try encoder.encode(events).write(to: doc)
+                } catch {
+                    print("\(error)")
                 }
             }
         }
     }
 
-    private static func colorFromData(_ data: Data?) -> Color {
+    init(inMemory: Bool = false) {
+        if !inMemory {
+            if let raw = UserDefaults.standard.array(forKey: "events") {
+                var imported: [Event] = []
+                for rawEvent in raw {
+                    if let dict = rawEvent as? [String: Any] {
+                        imported.append(Event(title: dict["title"] as? String ?? "UNKNOWN",
+                                              start: dict["start"] as? Date ?? Date(),
+                                              end: dict["end"] as? Date ?? Date(),
+                                              todayIs: Event.TodayIs(rawValue: dict["todayIs"] as? Int32
+                                                                        ?? Event.TodayIs.remaining.rawValue)
+                                                ?? Event.TodayIs.remaining,
+                                              includeEnd: dict["includeLastDayInCalc"] as? Bool ?? true,
+                                              showDates: dict["showEventDates"] as? Bool ?? true,
+                                              showPercentages: dict["showPercentages"] as? Bool ?? true,
+                                              showTotals: dict["showTotals"] as? Bool ?? true,
+                                              showRemainingDaysOnly: dict["showCompletedDays"] as? Bool ?? true,
+                                              completedColor:
+                                                EventsModel.colorFromData(dict["completedColor"] as? Data),
+                                              remainingColor:
+                                                EventsModel.colorFromData(dict["remainingColor"] as? Data),
+                                              backgroundColor:
+                                                EventsModel.colorFromData(dict["backgroundColor"] as? Data)))
+                    }
+                }
+                events.append(contentsOf: imported)
+                UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
+                UserDefaults.standard.synchronize()
+            } else {
+                if let doc = eventsUrl {
+                    do {
+                        if try doc.checkResourceIsReachable() {
+                            let data = try Data(contentsOf: doc, options: .mappedIfSafe)
+                            let json = try JSONDecoder().decode(Events.self, from: data)
+                            self.events.append(contentsOf: json.events)
+                        }
+                    } catch {
+                        print("\(error)")
+                    }
+                }
+            }
+        }
+        eventsLoaded = true
+    }
+
+    private var eventsUrl: URL? {
+        if let docs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            return docs.appendingPathComponent("Events.json")
+        }
+        return nil
+    }
+    static func colorFromData(_ data: Data?) -> Color {
         guard let color = data else {
             return .black
         }
@@ -74,7 +114,7 @@ class EventsModel: ObservableObject {
         }
     }
 
-    private static func dataFromColor(_ color: Color) -> Data {
+    static func dataFromColor(_ color: Color) -> Data {
         do {
             return try NSKeyedArchiver.archivedData(withRootObject: UIColor(color), requiringSecureCoding: true)
         } catch {

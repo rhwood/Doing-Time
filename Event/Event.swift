@@ -21,7 +21,7 @@
 import Foundation
 import SwiftUI
 
-class Event: ObservableObject, Identifiable {
+class Event: ObservableObject, Identifiable, Codable {
 
     enum TodayIs: Int32 {
         case complete = 0
@@ -43,10 +43,26 @@ class Event: ObservableObject, Identifiable {
     @Published var backgroundColor: Color
     let id: UUID
 
+    enum CodingKeys: String, CodingKey {
+        case title
+        case start
+        case end
+        case todayIs
+        case includeEnd
+        case showDates
+        case showPercentages
+        case showTotals
+        case showRemainingDaysOnly
+        case completedColor
+        case remainingColor
+        case backgroundColor
+        case id
+    }
+
     init(title: String = "",
          start: Date = Date(),
          end: Date = Date(),
-         todayIs: TodayIs = TodayIs.complete,
+         todayIs: TodayIs = .complete,
          includeEnd: Bool = true,
          showDates: Bool = true,
          showPercentages: Bool = true,
@@ -69,6 +85,40 @@ class Event: ObservableObject, Identifiable {
         self.remainingColor = remainingColor
         self.backgroundColor = backgroundColor
         self.id = id
+    }
+
+    required init(from: Decoder) throws {
+        let values = try from.container(keyedBy: CodingKeys.self)
+        title = try values.decode(String.self, forKey: .title)
+        start = try values.decode(Date.self, forKey: .start)
+        end = try values.decode(Date.self, forKey: .end)
+        todayIs = Event.TodayIs(rawValue: try values.decode(Int32.self, forKey: .todayIs)) ?? .complete
+        includeEnd = try values.decode(Bool.self, forKey: .includeEnd)
+        showDates = try values.decode(Bool.self, forKey: .showDates)
+        showPercentages = try values.decode(Bool.self, forKey: .showPercentages)
+        showTotals = try values.decode(Bool.self, forKey: .showTotals)
+        showRemainingDaysOnly = try values.decode(Bool.self, forKey: .showRemainingDaysOnly)
+        completedColor = EventsModel.colorFromData(try values.decode(Data.self, forKey: .completedColor))
+        remainingColor = EventsModel.colorFromData(try values.decode(Data.self, forKey: .remainingColor))
+        backgroundColor = EventsModel.colorFromData(try values.decode(Data.self, forKey: .backgroundColor))
+        id = try values.decode(UUID.self, forKey: .id)
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(title, forKey: .title)
+        try container.encode(start, forKey: .start)
+        try container.encode(end, forKey: .end)
+        try container.encode(todayIs.rawValue, forKey: .todayIs)
+        try container.encode(includeEnd, forKey: .includeEnd)
+        try container.encode(showDates, forKey: .showDates)
+        try container.encode(showPercentages, forKey: .showPercentages)
+        try container.encode(showTotals, forKey: .showTotals)
+        try container.encode(showRemainingDaysOnly, forKey: .showRemainingDaysOnly)
+        try container.encode(EventsModel.dataFromColor(completedColor), forKey: .completedColor)
+        try container.encode(EventsModel.dataFromColor(remainingColor), forKey: .remainingColor)
+        try container.encode(EventsModel.dataFromColor(backgroundColor), forKey: .backgroundColor)
+        try container.encode(id, forKey: .id)
     }
 
     var firstDay: Date {
