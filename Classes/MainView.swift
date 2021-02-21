@@ -23,6 +23,7 @@ import SwiftUI
 struct MainView: View {
 
     @EnvironmentObject private var model: EventsModel
+    @State private var selection: UUID? = nil
     /// part of hack to work around bottomBar not reappearing when navigating back up the stack
     @State private var isShown = true
     /// part of hack to work around bottomBar not reappearing when navigating back up the stack
@@ -30,13 +31,11 @@ struct MainView: View {
 
     var body: some View {
         NavigationView {
-            List {
-                ForEach(model.events) { event in
-                    NavigationLink(destination: EventPageView(event: event)
-                                    .onDisappear(perform: destinationOnDisappear)
-                                    .onAppear(perform: destinationOnAppear)) {
-                        EventCellView(event: event)
-                    }
+            List(model.events, selection: $selection) { event in
+                NavigationLink(destination: EventPageView(event: event)
+                                .onDisappear(perform: destinationOnDisappear)
+                                .onAppear(perform: destinationOnAppear)) {
+                    EventCellView(event: event)
                 }
             }
             .onAppear {
@@ -45,7 +44,9 @@ struct MainView: View {
             .toolbar {
                 ToolbarItem(placement: .bottomBar) {
                     Button(action: {
-                        print("New Event requested!")
+                        let event = Event()
+                        model.events.append(event)
+                        selection = event.id
                     }, label: {
                         Image(systemName: "plus.circle.fill")
                         Text("New Event")
