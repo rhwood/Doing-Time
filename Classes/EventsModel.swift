@@ -21,10 +21,6 @@
 import Foundation
 import SwiftUI
 
-struct Events: Codable {
-    var events: [Event]
-}
-
 class EventsModel: ObservableObject {
 
     static let shared = EventsModel()
@@ -45,6 +41,7 @@ class EventsModel: ObservableObject {
                     let encoder = JSONEncoder()
                     encoder.outputFormatting = .prettyPrinted
                     try encoder.encode(events).write(to: doc)
+                    print("Saving events to \(doc)")
                 } catch {
                     print("\(error)")
                 }
@@ -83,10 +80,11 @@ class EventsModel: ObservableObject {
             } else {
                 if let doc = eventsUrl {
                     do {
+                        print("Opening events from \(doc)")
                         if try doc.checkResourceIsReachable() {
                             let data = try Data(contentsOf: doc, options: .mappedIfSafe)
-                            let json = try JSONDecoder().decode(Events.self, from: data)
-                            self.events.append(contentsOf: json.events)
+                            let json = try JSONDecoder().decode([Event].self, from: data)
+                            self.events.append(contentsOf: json)
                         }
                     } catch {
                         print("\(error)")
