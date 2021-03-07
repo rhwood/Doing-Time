@@ -39,6 +39,7 @@
 		1D6058910D05DD3D006BFB54 /* Doing Time.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Doing Time.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		48128980257D0DF100D094E9 /* EventPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPageView.swift; sourceTree = "<group>"; };
 		481A76A225D07D01003861BE /* EventCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCellView.swift; sourceTree = "<group>"; };
+		483D035F25E32A3E00F7F0DB /* Doing TimeDistribution.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = "Doing TimeDistribution.entitlements"; path = "Doing Time/Doing TimeDistribution.entitlements"; sourceTree = "<group>"; };
 		484B782E25DAD4DD0024E95D /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		484F4307256A8702000C6B2C /* Doing TimeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Doing TimeTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		484F4309256A8702000C6B2C /* Doing_TimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doing_TimeTests.swift; sourceTree = "<group>"; };
@@ -96,6 +97,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				483D035F25E32A3E00F7F0DB /* Doing TimeDistribution.entitlements */,
 				489D58B52572882700E9F4C8 /* Application */,
 				48C41AD42569801E00C72F04 /* Event */,
 				4816E5D6184772EC0070E4AD /* Settings Views */,
@@ -706,6 +708,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = "Doing Time/Doing TimeDistribution.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CODE_SIGN_RESOURCE_RULES_PATH = "";

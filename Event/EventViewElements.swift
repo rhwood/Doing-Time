@@ -9,16 +9,15 @@ import Foundation
 import SwiftUI
 
 protocol EventViewElements {
-    var event: Event { get set }
-    var pieChart: AnyView { get }
-    var showDates: AnyView? { get }
-    var showComplete: AnyView? { get }
-    var showTotals: AnyView? { get }
+    func pieChart(_ event: Event) -> AnyView
+    func showDates(_ event: Event) -> AnyView?
+    func showComplete(_ event: Event) -> AnyView?
+    func showTotals(_ event: Event) -> AnyView?
 }
 
 extension EventViewElements {
 
-    var pieChart: AnyView {
+    func pieChart(_ event: Event) -> AnyView {
         AnyView(PieChart(slices: [
             PieChartSlice(start: 0.0,
                           end: event.completedPercentage,
@@ -32,7 +31,7 @@ extension EventViewElements {
         ]))
     }
 
-    var showComplete: AnyView? {
+    func showComplete(_ event: Event) -> AnyView? {
         var view: AnyView?
         if !event.showRemainingDaysOnly {
             let percentComplete = format(100 * event.completedPercentage)
@@ -51,7 +50,7 @@ extension EventViewElements {
         return view
     }
 
-    var showTotals: AnyView? {
+    func showTotals(_ event: Event) -> AnyView? {
         var view: AnyView?
         let percentRemaining = format(100 * event.remainingPercentage)
         if event.showTotals && event.showPercentages {
@@ -68,7 +67,7 @@ extension EventViewElements {
         return view
     }
 
-    var showDates: AnyView? {
+    func showDates(_ event: Event) -> AnyView? {
         let startDate = format(event.start)
         let endDate = format(event.end)
         var view: AnyView?

@@ -27,10 +27,10 @@ struct EventPageView: View {
         VStack {
             Text(event.title)
                 .font(.largeTitle)
-            showDates
-            pieChart
-            showComplete
-            showTotals
+            showDates(event)
+            pieChart(event)
+            showComplete(event)
+            showTotals(event)
             Spacer()
         }
         .padding()

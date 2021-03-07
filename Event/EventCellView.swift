@@ -13,14 +13,14 @@ struct EventCellView: View {
 
     var body: some View {
         HStack(alignment: .center) {
-            pieChart
+            pieChart(event)
             .frame(width: 44, height: 44, alignment: .center)
             VStack(alignment: .leading) {
                 Text(event.title)
                     .font(.headline)
-                showDates
-                showComplete
-                showTotals
+                showDates(event)
+                showComplete(event)
+                showTotals(event)
             }
             .font(.caption)
             Spacer()
