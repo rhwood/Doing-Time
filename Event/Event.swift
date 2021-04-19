@@ -149,10 +149,9 @@ class Event: ObservableObject, Identifiable, Codable {
         let today = Calendar.current.startOfDay(for: Date())
         if lastDay >= today && firstDay <= today {
             let duration = Calendar.current.dateComponents([.day], from: firstDay, to: today).day!
-            switch todayIs {
-            case .complete:
+            if todayIs == .complete {
                 return duration + 1
-            default:
+            } else {
                 return duration
             }
         } else if firstDay > today {
@@ -187,10 +186,9 @@ class Event: ObservableObject, Identifiable, Codable {
         Float(remainingDuration) / Float(totalDuration)
     }
     var todayPercentage: Float {
-        switch todayIs {
-        case .uncounted:
+        if todayIs == .uncounted {
             return Float(1) / Float(totalDuration)
-        default:
+        } else {
             return 0
         }
     }
