@@ -52,47 +52,53 @@ class EventsModel: ObservableObject {
     init(inMemory: Bool = false) {
         if !inMemory {
             if let raw = UserDefaults.standard.array(forKey: "events") {
-                var imported: [Event] = []
-                for rawEvent in raw {
-                    if let dict = rawEvent as? [String: Any] {
-                        imported.append(Event(title: dict["title"] as? String ?? "UNKNOWN",
-                                              start: dict["start"] as? Date ?? Date(),
-                                              end: dict["end"] as? Date ?? Date(),
-                                              todayIs: Event.TodayIs(rawValue: dict["todayIs"] as? Int32
-                                                                        ?? Event.TodayIs.remaining.rawValue)
-                                                ?? Event.TodayIs.remaining,
-                                              includeEnd: dict["includeLastDayInCalc"] as? Bool ?? true,
-                                              showDates: dict["showEventDates"] as? Bool ?? true,
-                                              showPercentages: dict["showPercentages"] as? Bool ?? true,
-                                              showTotals: dict["showTotals"] as? Bool ?? true,
-                                              showRemainingDaysOnly: dict["showCompletedDays"] as? Bool ?? true,
-                                              completedColor:
-                                                EventsModel.colorFromData(dict["completedColor"] as? Data),
-                                              remainingColor:
-                                                EventsModel.colorFromData(dict["remainingColor"] as? Data),
-                                              backgroundColor:
-                                                EventsModel.colorFromData(dict["backgroundColor"] as? Data)))
-                    }
-                }
-                events.append(contentsOf: imported)
-                UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
-                UserDefaults.standard.synchronize()
-            } else {
-                if let doc = eventsUrl {
-                    do {
-                        print("Opening events from \(doc)")
-                        if try doc.checkResourceIsReachable() {
-                            let data = try Data(contentsOf: doc, options: .mappedIfSafe)
-                            let json = try JSONDecoder().decode([Event].self, from: data)
-                            self.events.append(contentsOf: json)
-                        }
-                    } catch {
-                        print("\(error)")
-                    }
-                }
+                initFromUserDefaults(defaults: raw)
+            } else if let doc = eventsUrl {
+                initFromJsonUrl(url: doc)
             }
         }
         eventsLoaded = true
+    }
+
+    private func initFromUserDefaults(defaults raw: [Any]) {
+        var imported: [Event] = []
+        for rawEvent in raw {
+            if let dict = rawEvent as? [String: Any] {
+                imported.append(Event(title: dict["title"] as? String ?? "UNKNOWN",
+                                      start: dict["start"] as? Date ?? Date(),
+                                      end: dict["end"] as? Date ?? Date(),
+                                      todayIs: Event.TodayIs(rawValue: dict["todayIs"] as? Int32
+                                                                ?? Event.TodayIs.remaining.rawValue)
+                                        ?? Event.TodayIs.remaining,
+                                      includeEnd: dict["includeLastDayInCalc"] as? Bool ?? true,
+                                      showDates: dict["showEventDates"] as? Bool ?? true,
+                                      showPercentages: dict["showPercentages"] as? Bool ?? true,
+                                      showTotals: dict["showTotals"] as? Bool ?? true,
+                                      showRemainingDaysOnly: dict["showCompletedDays"] as? Bool ?? true,
+                                      completedColor:
+                                        EventsModel.colorFromData(dict["completedColor"] as? Data),
+                                      remainingColor:
+                                        EventsModel.colorFromData(dict["remainingColor"] as? Data),
+                                      backgroundColor:
+                                        EventsModel.colorFromData(dict["backgroundColor"] as? Data)))
+            }
+        }
+        events.append(contentsOf: imported)
+        UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
+        UserDefaults.standard.synchronize()
+    }
+
+    private func initFromJsonUrl(url doc: URL) {
+        do {
+            print("Opening events from \(doc)")
+            if try doc.checkResourceIsReachable() {
+                let data = try Data(contentsOf: doc, options: .mappedIfSafe)
+                let json = try JSONDecoder().decode([Event].self, from: data)
+                self.events.append(contentsOf: json)
+            }
+        } catch {
+            print("\(error)")
+        }
     }
 
     private var eventsUrl: URL? {
