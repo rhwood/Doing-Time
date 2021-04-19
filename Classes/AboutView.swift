@@ -22,6 +22,11 @@ import SwiftUI
 
 struct AboutView: View {
 
+    let logoUrl = "http://axsw.co/fufMuq"
+    let webUrl = "http://axsw.co/icgDcu"
+    let twitterUrl = "http://axsw.co/f4dzGc"
+    let facebookUrl = "http://axsw.co/eaDeKF"
+    let supportUrl = "http://axsw.co/fO5256"
     let product = Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String ?? "UNK"
     let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "UNK"
     let build = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "UNK"
@@ -29,7 +34,7 @@ struct AboutView: View {
     var body: some View {
         List {
             Section {
-                Link(destination: URL(string: "http://axsw.co/fufMuq")!) {
+                Link(destination: URL(string: logoUrl)!) {
                     HStack {
                         Spacer()
                         Image("ASlogo1-64x192")
@@ -38,28 +43,28 @@ struct AboutView: View {
                 }
             }
             Section(footer: Text("\(product) version \(version) (\(build))")) {
-                Link(destination: URL(string: "http://axsw.co/icgDcu")!) {
+                Link(destination: URL(string: webUrl)!) {
                     HStack {
                         Text("Web").foregroundColor(.primary)
                         Spacer()
                         Text("alexandriasoftware.com")
                     }
                 }
-                Link(destination: URL(string: "http://axsw.co/f4dzGc")!) {
+                Link(destination: URL(string: twitterUrl)!) {
                     HStack {
                         Text("Twitter").foregroundColor(.primary)
                         Spacer()
                         Text("@alexandriasw")
                     }
                 }
-                Link(destination: URL(string: "http://axsw.co/eaDeKF")!) {
+                Link(destination: URL(string: facebookUrl)!) {
                     HStack {
                         Text("Facebook").foregroundColor(.primary)
                         Spacer()
                         Text("Like Us!")
                     }
                 }
-                Link(destination: URL(string: "http://axsw.co/fO5256")!) {
+                Link(destination: URL(string: supportUrl)!) {
                     HStack {
                         Text("Support").foregroundColor(.primary)
                         Spacer()
