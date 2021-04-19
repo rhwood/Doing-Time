@@ -34,45 +34,35 @@ struct AboutView: View {
     var body: some View {
         List {
             Section {
-                Link(destination: URL(string: logoUrl)!) {
-                    HStack {
-                        Spacer()
-                        Image("ASlogo1-64x192")
-                        Spacer()
-                    }
-                }
+                imageLink(destination: URL(string: logoUrl)!, image: "ASlogo1-64x192")
             }
             Section(footer: Text("\(product) version \(version) (\(build))")) {
-                Link(destination: URL(string: webUrl)!) {
-                    HStack {
-                        Text("Web").foregroundColor(.primary)
-                        Spacer()
-                        Text("alexandriasoftware.com")
-                    }
-                }
-                Link(destination: URL(string: twitterUrl)!) {
-                    HStack {
-                        Text("Twitter").foregroundColor(.primary)
-                        Spacer()
-                        Text("@alexandriasw")
-                    }
-                }
-                Link(destination: URL(string: facebookUrl)!) {
-                    HStack {
-                        Text("Facebook").foregroundColor(.primary)
-                        Spacer()
-                        Text("Like Us!")
-                    }
-                }
-                Link(destination: URL(string: supportUrl)!) {
-                    HStack {
-                        Text("Support").foregroundColor(.primary)
-                        Spacer()
-                        Text("Contact Us")
-                    }
-                }
+                textLink(destination: URL(string: webUrl)!, primary: "Web", secondary: "alexandriasoftware.com")
+                textLink(destination: URL(string: twitterUrl)!, primary: "Twitter", secondary: "@alexandriasw")
+                textLink(destination: URL(string: facebookUrl)!, primary: "Facebook", secondary: "Like Us!")
+                textLink(destination: URL(string: supportUrl)!, primary: "Support", secondary: "Contact Us")
             }
         }.listStyle(GroupedListStyle())
+    }
+
+    private func imageLink(destination: URL, image: String) -> some View {
+        Link(destination: destination) {
+            HStack {
+                Spacer()
+                Image(image)
+                Spacer()
+            }
+        }
+    }
+
+    private func textLink(destination: URL, primary: String, secondary: String) -> some View {
+        Link(destination: destination) {
+            HStack {
+                Text(primary).foregroundColor(.primary)
+                Spacer()
+                Text(secondary)
+            }
+        }
     }
 }
 
