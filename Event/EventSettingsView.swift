@@ -26,41 +26,53 @@ struct EventSettingsView: View {
 
     var body: some View {
         List {
-            Section {
-                TextField("Title", text: $event.title)
-                DatePicker("Start Date",
-                           selection: $event.start,
-                           displayedComponents: .date)
-                DatePicker("End Date",
-                           selection: $event.end,
-                           in: event.start...,
-                           displayedComponents: .date)
-                HStack {
-                    Text("Duration")
-                    TextField("",
-                              text: $event.totalDurationAsString)
-                        .keyboardType(.decimalPad)
-                        .multilineTextAlignment(.trailing)
-                }
-            }
-            Section(header: Text("Dates")) {
-                Toggle("Through End Date", isOn: $event.includeEnd)
-                Picker(selection: $event.todayIs, label: Text("Treat Today As"), content: {
-                    Text("Completed").tag(Event.TodayIs.complete)
-                    Text("Uncounted").tag(Event.TodayIs.uncounted)
-                    Text("Remaining").tag(Event.TodayIs.remaining)
-                })
-            }
-            Section(header: Text("Display")) {
-                Toggle("Dates", isOn: $event.showDates)
-                Toggle("Percentages", isOn: $event.showPercentages)
-                Toggle("Totals", isOn: $event.showTotals)
-                Toggle("Only Remaining Days", isOn: $event.showRemainingDaysOnly)
-                ColorPicker("Completed Days", selection: $event.completedColor)
-                ColorPicker("Remaining Days", selection: $event.remainingColor)
-                ColorPicker("background", selection: $event.backgroundColor)
-            }
+            basicSettings
+            dateSettings
+            displaySettings
         }.listStyle(GroupedListStyle())
+    }
+
+    private var basicSettings: some View {
+        Section {
+            TextField("Title", text: $event.title)
+            DatePicker("Start Date",
+                       selection: $event.start,
+                       displayedComponents: .date)
+            DatePicker("End Date",
+                       selection: $event.end,
+                       in: event.start...,
+                       displayedComponents: .date)
+            HStack {
+                Text("Duration")
+                TextField("",
+                          text: $event.totalDurationAsString)
+                    .keyboardType(.decimalPad)
+                    .multilineTextAlignment(.trailing)
+            }
+        }
+    }
+
+    private var dateSettings: some View {
+        Section(header: Text("Dates")) {
+            Toggle("Through End Date", isOn: $event.includeEnd)
+            Picker(selection: $event.todayIs, label: Text("Treat Today As"), content: {
+                Text("Completed").tag(Event.TodayIs.complete)
+                Text("Uncounted").tag(Event.TodayIs.uncounted)
+                Text("Remaining").tag(Event.TodayIs.remaining)
+            })
+        }
+    }
+
+    private var displaySettings: some View {
+        Section(header: Text("Display")) {
+            Toggle("Dates", isOn: $event.showDates)
+            Toggle("Percentages", isOn: $event.showPercentages)
+            Toggle("Totals", isOn: $event.showTotals)
+            Toggle("Only Remaining Days", isOn: $event.showRemainingDaysOnly)
+            ColorPicker("Completed Days", selection: $event.completedColor)
+            ColorPicker("Remaining Days", selection: $event.remainingColor)
+            ColorPicker("background", selection: $event.backgroundColor)
+        }
     }
 }
 

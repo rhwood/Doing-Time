@@ -32,20 +32,23 @@ struct AppSettingsView: View {
 
     var body: some View {
         List {
-            Section(header: Text("About \(product)"), footer: Text("\(product) version \(version) (\(build))")) {
-                Button("Send Feedback", action: {
-                    self.isShowingMailView.toggle()
-                }).disabled(!MFMailComposeViewController.canSendMail())
-                .sheet(isPresented: $isShowingMailView, content: {
-                    MailView(result: self.$result)
-                })
-                NavigationLink(destination: AboutView()) {
-                    Text("Alexandria Software")
-                }
-            }
+            about
         }.listStyle(GroupedListStyle())
     }
 
+    private var about: some View {
+        Section(header: Text("About \(product)"), footer: Text("\(product) version \(version) (\(build))")) {
+            Button("Send Feedback", action: {
+                self.isShowingMailView.toggle()
+            }).disabled(!MFMailComposeViewController.canSendMail())
+            .sheet(isPresented: $isShowingMailView, content: {
+                MailView(result: self.$result)
+            })
+            NavigationLink(destination: AboutView()) {
+                Text("Alexandria Software")
+            }
+        }
+    }
 }
 
 struct SettingsView_Previews: PreviewProvider {
