@@ -1,0 +1,11 @@
+# use defaults other than those listed below
+
+# ignore URLs in line length rules:
+line_length:
+  ignores_urls: true
+
+# ignore id in identifier name length rules:
+identifier_name:
+  excluded: # excluded via string array
+    - id
+
