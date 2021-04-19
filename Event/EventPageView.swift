@@ -36,26 +36,35 @@ struct EventPageView: View {
         .padding()
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                NavigationLink(
-                    destination: EventSettingsView(event: event),
-                    label: {
-                        Text("Edit")
-                    }).help("Edit event.")
+                settingsLink
             }
             ToolbarItem(placement: .bottomBar) {
                 Spacer()
             }
             ToolbarItem(placement: .bottomBar) {
-                Button(action: {
-                }, label: {
-                    Text("Delete Event")
-                }).help("Delete event.")
+                deleteLink
             }
             ToolbarItem(placement: .bottomBar) {
                 Spacer()
             }
         }
         Spacer()
+    }
+
+    private var settingsLink: some View {
+        NavigationLink(
+            destination: EventSettingsView(event: event),
+            label: {
+                Text("Edit")
+            }).help("Edit event.")
+    }
+
+    private var deleteLink: some View {
+        Button(action: {
+            // TODO
+        }, label: {
+            Text("Delete Event")
+        }).help("Delete event.")
     }
 }
 

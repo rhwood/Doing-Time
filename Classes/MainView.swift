@@ -32,41 +32,53 @@ struct MainView: View {
     var body: some View {
         NavigationView {
             List(model.events, selection: $selection) { event in
-                NavigationLink(destination: EventPageView(event: event)
-                                .onDisappear(perform: destinationOnDisappear)
-                                .onAppear(perform: destinationOnAppear)) {
-                    EventCellView(event: event)
-                }
+                viewEventLink(event: event)
             }
             .onAppear {
                 isShown = true
             }
             .toolbar {
                 ToolbarItem(placement: .bottomBar) {
-                    Button(action: {
-                        let event = Event()
-                        model.events.append(event)
-                        selection = event.id
-                    }, label: {
-                        Image(systemName: "plus.circle.fill")
-                        Text("New Event")
-                    }).help("Create a new event.")
+                    newEventLink
                 }
                 ToolbarItem(placement: .bottomBar) {
                     Spacer()
                 }
                 ToolbarItem(placement: .navigationBarLeading) {
-                    NavigationLink(destination: AppSettingsView()
-                                    .onDisappear(perform: destinationOnDisappear)
-                                    .onAppear(perform: destinationOnAppear)) {
-                        Image(systemName: "info.circle")
-                    }
-                    .help("About Doing Time.")
+                    aboutLink
                 }
             }
             .id(refresh)
         }
         .accentColor(Color("AccentColor"))
+    }
+
+    private func viewEventLink(event: Event) -> some View {
+        NavigationLink(destination: EventPageView(event: event)
+                        .onDisappear(perform: destinationOnDisappear)
+                        .onAppear(perform: destinationOnAppear)) {
+            EventCellView(event: event)
+        }
+    }
+
+    private var newEventLink: some View {
+        Button(action: {
+            let event = Event()
+            model.events.append(event)
+            selection = event.id
+        }, label: {
+            Image(systemName: "plus.circle.fill")
+            Text("New Event")
+        }).help("Create a new event.")
+    }
+
+    private var aboutLink: some View {
+        NavigationLink(destination: AppSettingsView()
+                        .onDisappear(perform: destinationOnDisappear)
+                        .onAppear(perform: destinationOnAppear)) {
+            Image(systemName: "info.circle")
+        }
+        .help("About Doing Time.")
     }
 
     /// part of hack to work around bottomBar not reappearing when navigating back up the stack
